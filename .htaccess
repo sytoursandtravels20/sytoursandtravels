@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Redirect /index.html to / (clean root)
+RewriteCond %{THE_REQUEST} \s/index\.html [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# Optional: serve /home as the homepage (without changing URL)
+RewriteRule ^home/?$ index.html [L]
