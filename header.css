@@ -1,0 +1,8 @@
+/* header.css : styles for header.html only */
+.sy-nav { background: rgba(0,0,0,.95); border-bottom: 1px solid #2a2a2a; }
+.sy-brand { display: flex; align-items: baseline; gap: .5rem; }
+.sy-brand-main { font-weight: 800; letter-spacing: 1px; color: #FFC800; }
+.sy-brand-sub { font-size: .65rem; letter-spacing: 4px; color: #fff; font-weight: 500; }
+.sy-nav .nav-link { color: #ddd; font-weight: 500; }
+.sy-nav .nav-link:hover,
+.sy-nav .nav-link.active { color: #FFC800; }

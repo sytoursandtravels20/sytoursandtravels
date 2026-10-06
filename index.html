@@ -1,92 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SY Tours &amp; Travels | Car Rentals &amp; Water Sports in Goa</title>
+  <meta name="description" content="Self-drive car rentals and water sports in Panjim and across Goa. Customer happiness is our business.">
 
-    <title>SY Tours and Travels</title>
+  <!-- Bootstrap 5 + Icons + Font via CDN (no install needed) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-        }
-
-        .coming-soon {
-            text-align: center;
-            max-width: 700px;
-            padding: 50px 25px;
-        }
-
-        .logo-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: #d6e4ea;
-            margin-top: 15px;
-        }
-
-        .badge-custom {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 10px 25px;
-            border-radius: 50px;
-            background: white;
-            color: #203a43;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .footer {
-            margin-top: 50px;
-            color: #b8cbd2;
-            font-size: 14px;
-        }
-    </style>
+  <!-- Page CSS (header.css and footer.css are linked inside header.html / footer.html) -->
+  <link href="index.css" rel="stylesheet">
 </head>
-
 <body>
 
-    <div class="container">
-        <div class="coming-soon mx-auto">
+  <!-- Header loads here -->
+  <div id="header"></div>
 
-            <div class="logo-icon">
-                ✈️
-            </div>
-
-            <h1>SY Tours and Travels</h1>
-
-            <p class="subtitle">
-                Your journey begins here.
-            </p>
-
-            <div class="badge-custom">
-                COMING SOON
-            </div>
-
-            <p class="footer">
-                We are working on something exciting.<br>
-                Our website will be launching soon!
-            </p>
-
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container">
+        <h1>Explore Goa <span class="sy-yellow">your way.</span></h1>
+        <p class="mt-3">Self-drive cars and water sports in Panjim and across Goa. Simple booking, honest prices, and a team that puts your happiness first.</p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a href="#cars" class="btn btn-sy">View Cars</a>
+          <a href="#water-sports" class="btn btn-sy-outline">Water Sports</a>
         </div>
-    </div>
+      </div>
+    </section>
 
+    <!-- CAR RENTALS -->
+    <section id="cars">
+      <div class="container">
+        <h2 class="section-title mb-4">Car Rentals</h2>
+        <p class="text-secondary mb-4">Choose from our four-wheelers for city rides, beach hopping, or a full Goa road trip.</p>
+        <div class="row g-4">
+          <!-- Edit these cards with your real cars -->
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="sy-card"><i class="bi bi-car-front-fill big"></i><h5>Hatchback</h5>
+              <p class="text-secondary mb-2">Easy to drive and park. Great for Panjim and nearby beaches.</p>
+              <span class="tag">4 seats</span> <span class="tag">Petrol</span></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="sy-card"><i class="bi bi-car-front-fill big"></i><h5>Sedan</h5>
+              <p class="text-secondary mb-2">Comfortable ride with space for luggage on longer trips.</p>
+              <span class="tag">5 seats</span> <span class="tag">AC</span></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="sy-card"><i class="bi bi-truck-front-fill big"></i><h5>SUV</h5>
+              <p class="text-secondary mb-2">Room for the whole family and all your bags.</p>
+              <span class="tag">7 seats</span> <span class="tag">AC</span></div>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-sy mt-4">Ask for Rates</a>
+      </div>
+    </section>
+
+    <!-- WATER SPORTS -->
+    <section id="water-sports" class="alt-bg">
+      <div class="container">
+        <h2 class="section-title mb-4">Water Sports</h2>
+        <p class="text-secondary mb-4">Fun on the water at beaches across Goa, with trained staff and safety gear.</p>
+        <div class="row g-4">
+          <div class="col-6 col-lg-3"><div class="sy-card text-center"><i class="bi bi-wind big"></i><h5>Parasailing</h5></div></div>
+          <div class="col-6 col-lg-3"><div class="sy-card text-center"><i class="bi bi-lightning-charge-fill big"></i><h5>Jet Ski</h5></div></div>
+          <div class="col-6 col-lg-3"><div class="sy-card text-center"><i class="bi bi-water big"></i><h5>Banana Boat</h5></div></div>
+          <div class="col-6 col-lg-3"><div class="sy-card text-center"><i class="bi bi-tsunami big"></i><h5>Speed Boat</h5></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section id="why-us">
+      <div class="container">
+        <h2 class="section-title mb-4">Why Choose Us</h2>
+        <div class="row g-4">
+          <div class="col-md-4"><div class="sy-card"><i class="bi bi-emoji-smile-fill big"></i><h5>Happy customers first</h5><p class="text-secondary mb-0">Friendly help from booking to return.</p></div></div>
+          <div class="col-md-4"><div class="sy-card"><i class="bi bi-shield-check big"></i><h5>Safe and well kept</h5><p class="text-secondary mb-0">Serviced cars and safety-checked water sports.</p></div></div>
+          <div class="col-md-4"><div class="sy-card"><i class="bi bi-geo-alt-fill big"></i><h5>Across Goa</h5><p class="text-secondary mb-0">Based in Panjim, serving beaches and towns all over Goa.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="alt-bg">
+      <div class="container text-center">
+        <h2 class="fw-bold">Ready to book?</h2>
+        <p class="text-secondary">Call or message us on WhatsApp for rates and availability.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="tel:+910000000000" class="btn btn-sy"><i class="bi bi-telephone-fill"></i> Call Now</a>
+          <a href="https://wa.me/910000000000" class="btn btn-sy-outline"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer loads here -->
+  <div id="footer"></div>
+
+  <a class="wa-float" href="https://wa.me/910000000000" aria-label="Chat on WhatsApp"><i class="bi bi-whatsapp"></i></a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Load header.html and footer.html into this page
+    function loadPart(id, file) {
+      return fetch(file)
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var box = document.getElementById(id);
+          box.innerHTML = html;
+          // run any <script> inside the loaded file (e.g. footer year)
+          box.querySelectorAll('script').forEach(function (old) {
+            var s = document.createElement('script');
+            s.textContent = old.textContent;
+            old.replaceWith(s);
+          });
+        })
+        .catch(function () {
+          document.getElementById(id).innerHTML =
+            '<p class="text-center text-warning p-3">Could not load ' + file + '. Open the site through a web server (e.g. VS Code Live Server).</p>';
+        });
+    }
+    loadPart('header', 'header.html');
+    loadPart('footer', 'footer.html');
+  </script>
 </body>
 </html>
