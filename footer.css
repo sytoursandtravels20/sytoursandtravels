@@ -4,7 +4,9 @@
 .sy-footer a:hover { color: #FFC800; }
 .sy-footer li { margin-bottom: .4rem; color: #bbb; }
 .sy-footer .sy-yellow { color: #FFC800; }
-.sy-foot-brand { font-weight: 800; letter-spacing: 1px; color: #FFC800; font-size: 1.5rem; }
-.sy-foot-brand small { font-size: .65rem; letter-spacing: 4px; color: #fff; font-weight: 500; }
 
-.sy-foot-logo { height: 44px; width: auto; object-fit: contain; }
+.sy-foot-brand-text { display: flex; flex-direction: column; line-height: 1.05; }
+.sy-foot-brand-main { font-weight: 800; letter-spacing: 1.5px; color: #FFC800; font-size: 1.1rem; }
+.sy-foot-brand-sub { font-size: .6rem; letter-spacing: 4px; color: #fff; font-weight: 500; }
+
+.sy-foot-logo { height: 44px; width: auto; object-fit: contain; border-radius: 6px; }
