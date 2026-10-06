@@ -4,11 +4,11 @@
   background: rgba(8, 8, 8, .96);
   backdrop-filter: saturate(180%) blur(8px);
   border-bottom: 1px solid #1f1f1f;
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-top: .85rem;
+  padding-bottom: .85rem;
 }
 
-/* --- Brand / logo --- */
+/* --- Text-based brand (stacked) --- */
 .sy-brand {
   display: inline-flex;
   align-items: center;
@@ -18,12 +18,27 @@
 }
 .sy-brand:hover { transform: translateY(-1px); }
 
-.sy-logo {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  display: block;
+.sy-brand-stack {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.sy-brand-main {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+  color: #FFC800;
+}
+
+.sy-brand-sub {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: .68rem;
+  letter-spacing: 6px;
+  color: #ffffff;
+  margin-top: .22rem;
 }
 
 /* --- Nav links --- */
@@ -60,4 +75,10 @@
 }
 .sy-nav .navbar-toggler:focus {
   box-shadow: 0 0 0 .2rem rgba(255, 200, 0, .25);
+}
+
+/* Responsive tweak */
+@media (max-width: 400px) {
+  .sy-brand-main { font-size: 1.15rem; letter-spacing: 1.5px; }
+  .sy-brand-sub  { font-size: .6rem; letter-spacing: 5px; }
 }

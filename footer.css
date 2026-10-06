@@ -29,14 +29,28 @@
 
 .sy-footer .sy-yellow { color: #FFC800; }
 
-/* --- Brand block --- */
-.sy-foot-logo {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  display: block;
+/* --- Text-based brand block --- */
+.sy-foot-brand-stack {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
 }
+.sy-foot-brand-main {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+  color: #FFC800;
+}
+.sy-foot-brand-sub {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: .68rem;
+  letter-spacing: 6px;
+  color: #ffffff;
+  margin-top: .22rem;
+}
+
 .sy-foot-desc {
   max-width: 340px;
   font-size: .95rem;
