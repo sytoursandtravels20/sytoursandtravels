@@ -6,3 +6,5 @@
 .sy-nav .nav-link { color: #ddd; font-weight: 500; }
 .sy-nav .nav-link:hover,
 .sy-nav .nav-link.active { color: #FFC800; }
+
+.sy-logo { height: 44px; width: auto; object-fit: contain; }

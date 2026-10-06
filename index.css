@@ -28,3 +28,9 @@ section { padding: 4rem 0; }
 
 /* Floating WhatsApp button */
 .wa-float { position: fixed; right: 16px; bottom: 16px; width: 54px; height: 54px; border-radius: 50%; background: #25D366; color: #fff; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; z-index: 1050; box-shadow: 0 4px 12px rgba(0,0,0,.5); }
+
+/* Images */
+.sy-img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #1c1c1c; }
+.sy-card.has-img { padding: 0; overflow: hidden; }
+.sy-card.has-img .sy-body { padding: 1.25rem; }
+.hero-img { border-radius: 16px; border: 2px solid var(--sy-yellow); aspect-ratio: 16 / 11; }
