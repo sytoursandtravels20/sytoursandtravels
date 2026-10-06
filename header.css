@@ -1,13 +1,63 @@
 /* header.css : styles for header.html only */
-.sy-nav { background: rgba(0,0,0,.95); border-bottom: 1px solid #2a2a2a; }
 
-.sy-brand { display: flex; align-items: center; gap: .6rem; }
-.sy-brand-text { display: flex; flex-direction: column; line-height: 1.05; }
-.sy-brand-main { font-weight: 800; letter-spacing: 1.5px; color: #FFC800; font-size: 1.1rem; }
-.sy-brand-sub { font-size: .6rem; letter-spacing: 4px; color: #fff; font-weight: 500; }
+.sy-nav {
+  background: rgba(8, 8, 8, .96);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid #1f1f1f;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+}
 
-.sy-nav .nav-link { color: #ddd; font-weight: 500; }
+/* --- Brand / logo --- */
+.sy-brand {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  transition: transform .25s ease;
+}
+.sy-brand:hover { transform: translateY(-1px); }
+
+.sy-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+
+/* --- Nav links --- */
+.sy-nav .nav-link {
+  color: #d9d9d9;
+  font-weight: 500;
+  font-size: .95rem;
+  padding: .5rem 1rem;
+  letter-spacing: .2px;
+  position: relative;
+  transition: color .2s ease;
+}
+.sy-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: .25rem;
+  height: 2px;
+  background: #FFC800;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .25s ease;
+}
 .sy-nav .nav-link:hover,
 .sy-nav .nav-link.active { color: #FFC800; }
+.sy-nav .nav-link:hover::after { transform: scaleX(1); }
 
-.sy-logo { height: 44px; width: auto; object-fit: contain; border-radius: 6px; }
+/* Mobile toggler refinement */
+.sy-nav .navbar-toggler {
+  border-color: #333;
+  padding: .35rem .6rem;
+}
+.sy-nav .navbar-toggler:focus {
+  box-shadow: 0 0 0 .2rem rgba(255, 200, 0, .25);
+}
