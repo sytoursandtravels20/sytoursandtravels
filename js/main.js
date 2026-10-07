@@ -170,10 +170,21 @@ function renderReviews(reviews) {
 /* ---------- Interactions (unchanged) ---------- */
 function initSearchTabs() {
   const tabs = document.querySelectorAll(".search-tab");
+  const searchButton = document.getElementById("searchNowButton");
+
+  // Keep Search Now pointed at the selected service's page or section.
+  function updateSearchDestination(tab) {
+    if (searchButton) searchButton.href = tab.dataset.href || "rentals/";
+  }
+
+  const activeTab = document.querySelector(".search-tab.is-active");
+  if (activeTab) updateSearchDestination(activeTab);
+
   tabs.forEach(function (tab) {
     tab.addEventListener("click", function () {
       tabs.forEach(function (t) { t.classList.remove("is-active"); });
       tab.classList.add("is-active");
+      updateSearchDestination(tab);
     });
   });
 }
