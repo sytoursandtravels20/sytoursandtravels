@@ -46,40 +46,10 @@ function markActiveNav() {
   });
 }
 
-/* Connects the Bootstrap search modal to the cards currently shown. */
-function initHeaderSearch() {
-  const modal = document.getElementById("headerSearchModal");
-  const input = document.getElementById("headerSearchInput");
-  const empty = document.getElementById("headerSearchEmpty");
-  if (!modal || !input) return;
-
-  // Focus the input when Bootstrap finishes opening the responsive modal.
-  modal.addEventListener("shown.bs.modal", function () {
-    input.focus();
-  });
-
-  input.addEventListener("input", function () {
-    const rentalSearch = document.getElementById("filterSearch");
-
-    // Reuse the rentals page filters so its result count and empty state update too.
-    if (rentalSearch) {
-      rentalSearch.value = input.value;
-      rentalSearch.dispatchEvent(new Event("input", { bubbles: true }));
-      return;
-    }
-
-    // On other pages, show only rendered cards whose text matches the query.
-    const query = input.value.trim().toLowerCase();
-    const cards = document.querySelectorAll(".sy-card");
-    let matchCount = 0;
-    cards.forEach(function (card) {
-      const matches = !query || card.textContent.toLowerCase().includes(query);
-      card.hidden = !matches;
-      if (matches) matchCount += 1;
-    });
-    if (empty) empty.hidden = !query || matchCount > 0;
-  });
-
+/* Sets the header call button from the editable company phone number. */
+function setHeaderPhoneLink() {
+  const link = document.getElementById("headerPhone");
+  if (link) link.href = "tel:+" + CONFIG.company.phoneRaw;
 }
 
 /* ---------- CARD TEMPLATES (unchanged) ---------- */

@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   ]);
 
   applyConfig();
+  setHeaderPhoneLink();
   markActiveNav();                        // NEW
 
   const DATA = await loadData();
@@ -22,8 +23,6 @@ renderFeatured(visibleVehicles(DATA.vehicles).filter(function (v) { return v.fea
   renderHowItWorks(DATA.howItWorks);
   renderReviews(DATA.reviews);
 
-  // Connect header search after the homepage cards have rendered.
-  initHeaderSearch();
   initSearchTabs();
   initScrollSpy();
   initHeaderShadow();

@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   ]);
 
   applyConfig();
+  setHeaderPhoneLink();
   markActiveNav();
 
   const DATA = await loadData();
@@ -30,8 +31,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderWhyBook(DATA.whyBook);
   initFilters();
   renderListings();
-  // Connect header search after rentals and filters are ready.
-  initHeaderSearch();
   initHeaderShadow();
 });
 
