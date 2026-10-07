@@ -46,6 +46,52 @@ function markActiveNav() {
   });
 }
 
+/* Opens the shared search field and filters the cards currently shown. */
+function initHeaderSearch() {
+  const toggle = document.getElementById("headerSearchToggle");
+  const panel = document.getElementById("headerSearchPanel");
+  const input = document.getElementById("headerSearchInput");
+  const empty = document.getElementById("headerSearchEmpty");
+  if (!toggle || !panel || !input) return;
+
+  // Open the field on demand and move keyboard focus into it.
+  toggle.addEventListener("click", function () {
+    panel.hidden = !panel.hidden;
+    toggle.setAttribute("aria-expanded", String(!panel.hidden));
+    if (!panel.hidden) input.focus();
+  });
+
+  input.addEventListener("input", function () {
+    const rentalSearch = document.getElementById("filterSearch");
+
+    // Reuse the rentals page filters so its result count and empty state update too.
+    if (rentalSearch) {
+      rentalSearch.value = input.value;
+      rentalSearch.dispatchEvent(new Event("input", { bubbles: true }));
+      return;
+    }
+
+    // On other pages, show only rendered cards whose text matches the query.
+    const query = input.value.trim().toLowerCase();
+    const cards = document.querySelectorAll(".sy-card");
+    let matchCount = 0;
+    cards.forEach(function (card) {
+      const matches = !query || card.textContent.toLowerCase().includes(query);
+      card.hidden = !matches;
+      if (matches) matchCount += 1;
+    });
+    if (empty) empty.hidden = !query || matchCount > 0;
+  });
+
+  // Close the field when the user clicks somewhere else on the page.
+  document.addEventListener("click", function (event) {
+    if (!panel.contains(event.target) && !toggle.contains(event.target)) {
+      panel.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
 /* ---------- CARD TEMPLATES (unchanged) ---------- */
 function categoryCard(c) {
   return `

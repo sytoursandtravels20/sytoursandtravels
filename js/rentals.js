@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderWhyBook(DATA.whyBook);
   initFilters();
   renderListings();
+  initHeaderSearch();
   initHeaderShadow();
 });
 

@@ -29,9 +29,20 @@
       </ul>
 
       <div class="sy-nav-actions">
-        <button class="sy-icon-btn" type="button" aria-label="Search">
-          <i class="bi bi-search"></i>
-        </button>
+        <div class="sy-header-search">
+          <button class="sy-icon-btn" id="headerSearchToggle" type="button" aria-label="Search this page"
+                  aria-controls="headerSearchPanel" aria-expanded="false">
+            <i class="bi bi-search"></i>
+          </button>
+          <div class="sy-search-panel" id="headerSearchPanel" hidden>
+            <label class="visually-hidden" for="headerSearchInput">Search listings on this page</label>
+            <input class="form-control" id="headerSearchInput" type="search"
+                   placeholder="Search listings..." autocomplete="off" />
+            <p class="sy-search-empty" id="headerSearchEmpty" role="status" hidden>
+              No matching listings on this page.
+            </p>
+          </div>
+        </div>
         <a href="./#contact" class="btn-sy">Book Now</a>
       </div>
     </div>

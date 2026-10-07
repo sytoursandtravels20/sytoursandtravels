@@ -22,6 +22,7 @@ renderFeatured(visibleVehicles(DATA.vehicles).filter(function (v) { return v.fea
   renderHowItWorks(DATA.howItWorks);
   renderReviews(DATA.reviews);
 
+  initHeaderSearch();
   initSearchTabs();
   initScrollSpy();
   initHeaderShadow();
