@@ -174,10 +174,16 @@ function renderReviews(reviews) {
 function initSearchTabs() {
   const tabs = document.querySelectorAll(".search-tab");
   const searchButton = document.getElementById("searchNowButton");
+  const dateInput = document.getElementById("searchDate");
+  const guestsInput = document.getElementById("searchGuests");
 
-  // Keep Search Now pointed at the selected service's page or section.
+  // Keep Search Now aligned with the selected service and entered trip details.
   function updateSearchDestination(tab) {
-    if (searchButton) searchButton.href = tab.dataset.href || "/rentals/index.html";
+    if (!searchButton) return;
+    const destination = new URL(tab.dataset.href || "/rentals/", window.location.origin);
+    if (dateInput && dateInput.value) destination.searchParams.set("date", dateInput.value);
+    if (guestsInput && guestsInput.value) destination.searchParams.set("guests", guestsInput.value);
+    searchButton.href = destination.pathname + destination.search + destination.hash;
   }
 
   const activeTab = document.querySelector(".search-tab.is-active");

@@ -5,8 +5,9 @@
    ============================================================ */
 
 let allVehicles = [];
+const requestedCategory = new URLSearchParams(window.location.search).get("category");
 let currentFilters = {
-  category: "all",
+  category: requestedCategory === "car" || requestedCategory === "bike" ? requestedCategory : "all",
   search: "",
   sort: "recommended",
   availableOnly: false
@@ -60,6 +61,8 @@ async function loadData() {
 function initFilters() {
   const chips = document.querySelectorAll(".filter-chip");
   chips.forEach(function (chip) {
+    // Reflect a category sent from the homepage search in the filter bar.
+    chip.classList.toggle("is-active", (chip.dataset.cat || "all") === currentFilters.category);
     chip.addEventListener("click", function () {
       chips.forEach(function (c) { c.classList.remove("is-active"); });
       chip.classList.add("is-active");

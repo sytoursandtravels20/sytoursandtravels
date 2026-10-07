@@ -44,9 +44,9 @@
     <div class="search-panel">
       <div class="search-tabs" role="tablist">
         <!-- Root paths make destinations predictable on Vercel and other hosts. -->
-        <button class="search-tab is-active" data-tab="cars" data-href="/rentals/index.html"><i class="bi bi-car-front-fill"></i> Cars</button>
-        <button class="search-tab" data-tab="bikes" data-href="/rentals/index.html"><i class="bi bi-bicycle"></i> Bikes</button>
-        <button class="search-tab" data-tab="activities" data-href="/activities/index.html"><i class="bi bi-water"></i> Water Activities</button>
+        <button class="search-tab is-active" data-tab="cars" data-href="/rentals/?category=car"><i class="bi bi-car-front-fill"></i> Cars</button>
+        <button class="search-tab" data-tab="bikes" data-href="/rentals/?category=bike"><i class="bi bi-bicycle"></i> Bikes</button>
+        <button class="search-tab" data-tab="activities" data-href="/activities/"><i class="bi bi-water"></i> Water Activities</button>
         <button class="search-tab" data-tab="yachts" data-href="/#yachts"><i class="bi bi-life-preserver"></i> Yachts</button>
         <button class="search-tab" data-tab="boats" data-href="/#yachts"><i class="bi bi-send"></i> Boats</button>
         <button class="search-tab" data-tab="cruises" data-href="/#yachts"><i class="bi bi-ship"></i> Cruises</button>
@@ -66,7 +66,7 @@
           <div class="field-control"><i class="bi bi-person"></i><input id="searchGuests" type="number" min="1" step="1" inputmode="numeric" placeholder="Guests (optional)" aria-label="Number of guests" /></div>
         </div>
         <!-- The selected service tab controls where this link takes visitors. -->
-        <a class="btn-search" id="searchNowButton" href="rentals/"><i class="bi bi-search"></i> Search Now</a>
+        <a class="btn-search" id="searchNowButton" href="/rentals/?category=car"><i class="bi bi-search"></i> Search Now</a>
       </div>
     </div>
   </div>
