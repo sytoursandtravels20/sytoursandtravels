@@ -64,7 +64,7 @@ const CONFIG = {
     backgroundImage:
       "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=2000&q=80",
     ctaPrimary:   { label: "Explore Rentals", href: "#featured" },
-    ctaSecondary: { label: "View Activities", href: "#experiences" }
+    ctaSecondary: { label: "View Activities", href: "activities/" }
   },
 
   /* ---------- FINAL CTA BANNER ---------- */

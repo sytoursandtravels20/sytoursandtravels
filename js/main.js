@@ -75,7 +75,10 @@ function applyConfig() {
   if (ctaEl && c.backgroundImage) ctaEl.style.setProperty("--cta-img", `url("${c.backgroundImage}")`);
 
   const ctaBtn = document.getElementById("ctaBtn");
-  if (ctaBtn) { ctaBtn.textContent = c.button.label; ctaBtn.href = c.button.href; }
+  if (ctaBtn) {
+    ctaBtn.textContent = c.button.label;
+    ctaBtn.href = document.body.dataset.page === "activities" ? "#activities" : c.button.href;
+  }
 
   const ctaWa = document.getElementById("ctaWa");
   if (ctaWa) ctaWa.href = waLink("Hi " + C.name + ", I'd like to enquire about your rentals and activities. Please share details.");
@@ -108,7 +111,9 @@ function applyConfig() {
       }).join("");
   }
 
-  document.title = C.name + " | Car Rentals, Water Sports & Yachts in Goa";
+  document.title = document.body.dataset.page === "activities"
+    ? "Water Activities in Goa | " + C.name
+    : C.name + " | Car Rentals, Water Sports & Yachts in Goa";
 }
 
 function setText(id, value) {
