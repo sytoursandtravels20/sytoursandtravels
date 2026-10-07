@@ -43,12 +43,13 @@
   <div class="container search-wrapper">
     <div class="search-panel">
       <div class="search-tabs" role="tablist">
-        <button class="search-tab is-active" data-tab="cars" data-href="rentals/"><i class="bi bi-car-front-fill"></i> Cars</button>
-        <button class="search-tab" data-tab="bikes" data-href="rentals/"><i class="bi bi-bicycle"></i> Bikes</button>
-        <button class="search-tab" data-tab="activities" data-href="activities/"><i class="bi bi-water"></i> Water Activities</button>
-        <button class="search-tab" data-tab="yachts" data-href="#yachts"><i class="bi bi-life-preserver"></i> Yachts</button>
-        <button class="search-tab" data-tab="boats" data-href="#yachts"><i class="bi bi-send"></i> Boats</button>
-        <button class="search-tab" data-tab="cruises" data-href="#yachts"><i class="bi bi-ship"></i> Cruises</button>
+        <!-- Root paths make destinations predictable on Vercel and other hosts. -->
+        <button class="search-tab is-active" data-tab="cars" data-href="/rentals/index.html"><i class="bi bi-car-front-fill"></i> Cars</button>
+        <button class="search-tab" data-tab="bikes" data-href="/rentals/index.html"><i class="bi bi-bicycle"></i> Bikes</button>
+        <button class="search-tab" data-tab="activities" data-href="/activities/index.html"><i class="bi bi-water"></i> Water Activities</button>
+        <button class="search-tab" data-tab="yachts" data-href="/#yachts"><i class="bi bi-life-preserver"></i> Yachts</button>
+        <button class="search-tab" data-tab="boats" data-href="/#yachts"><i class="bi bi-send"></i> Boats</button>
+        <button class="search-tab" data-tab="cruises" data-href="/#yachts"><i class="bi bi-ship"></i> Cruises</button>
       </div>
       <div class="search-fields">
         <div class="search-field">
@@ -181,7 +182,7 @@
   <a href="#featured" class="mobile-nav-item" data-page="rentals"><i class="bi bi-car-front-fill"></i><span>Rentals</span></a>
   <a href="activities/" class="mobile-nav-item" data-page="activities"><i class="bi bi-water"></i><span>Activities</span></a>
   <a href="#yachts" class="mobile-nav-item" data-page="yachts"><i class="bi bi-life-preserver"></i><span>Yachts</span></a>
-  <a href="#contact" class="mobile-nav-item" data-page="contact"><i class="bi bi-three-dots"></i><span>More</span></a>
+  <a href="contact/" class="mobile-nav-item" data-page="contact"><i class="bi bi-telephone-fill"></i><span>Contact</span></a>
 </nav>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

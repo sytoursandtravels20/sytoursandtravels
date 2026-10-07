@@ -112,9 +112,12 @@ function applyConfig() {
       }).join("");
   }
 
-  document.title = document.body.dataset.page === "activities"
+  const page = document.body.dataset.page;
+  document.title = page === "activities"
     ? "Water Activities in Goa | " + C.name
-    : C.name + " | Car Rentals, Water Sports & Yachts in Goa";
+    : page === "contact"
+      ? "Contact " + C.name + " | Goa"
+      : C.name + " | Car Rentals, Water Sports & Yachts in Goa";
 }
 
 function setText(id, value) {
@@ -174,7 +177,7 @@ function initSearchTabs() {
 
   // Keep Search Now pointed at the selected service's page or section.
   function updateSearchDestination(tab) {
-    if (searchButton) searchButton.href = tab.dataset.href || "rentals/";
+    if (searchButton) searchButton.href = tab.dataset.href || "/rentals/index.html";
   }
 
   const activeTab = document.querySelector(".search-tab.is-active");
