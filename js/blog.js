@@ -1,6 +1,6 @@
 // Load Blogger's public feed as JSONP and render posts in the site's own layout.
 (function () {
-  const feedUrl = "https://sytoursandtravels.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=8&callback=syRenderBlogFeed";
+  const feedUrl = "https://sytoursandtravels.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=6&callback=syRenderBlogFeed";
   const grid = document.getElementById("blogGrid");
   const status = document.getElementById("blogStatus");
   const reader = document.getElementById("blogReader");
@@ -53,6 +53,7 @@
         image.src = post.image;
         image.alt = post.title || "Goa travel story";
         image.loading = "lazy";
+        image.decoding = "async";
         card.appendChild(image);
       }
 
@@ -138,6 +139,7 @@
       image.className = "blog-reader-image";
       image.src = post.image;
       image.alt = post.title || "Goa travel story";
+      image.decoding = "async";
       reader.appendChild(image);
     }
 

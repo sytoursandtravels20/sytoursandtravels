@@ -33,7 +33,6 @@ Both pages share the same header, footer, and CSS tokens. Both are fully static 
 | Categories tiles | `js/data.js` → `LOCAL_DATA.categories` |
 | Why Book With Us | `js/data.js` → `LOCAL_DATA.whyBook` |
 | How It Works | `js/data.js` → `LOCAL_DATA.howItWorks` |
-| Reviews | `js/data.js` → `LOCAL_DATA.reviews` |
 | Colors / spacing | `css/home.css` → `:root { ... }` (both pages) |
 | Navbar links | `components/header.html` |
 | Footer links | `components/footer.html` |

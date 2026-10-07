@@ -252,12 +252,4 @@ const LOCAL_DATA = {
     { icon: "bi-emoji-smile",    title: "Enjoy",   text: "Make memories." }
   ],
 
-  /* ==========================================================
-     9. CUSTOMER REVIEWS
-     ========================================================== */
-  reviews: [
-    { name: "Rohit S.", source: "Google Review", rating: 5, text: "Booked a car and it was in great condition. Super easy process and friendly support." },
-    { name: "Priya M.", source: "Google Review", rating: 5, text: "The yacht experience was absolutely amazing! Will definitely book again." },
-    { name: "Amit K.",  source: "Google Review", rating: 5, text: "Loved the scuba diving activity. Everything was well organised and safe." }
-  ]
 };

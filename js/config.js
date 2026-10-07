@@ -43,7 +43,7 @@ const CONFIG = {
 
   /* ---------- LOGO ---------- */
   logo: {
-    logoUrl:  "",              // set a full URL to use an image
+    logoUrl:  "/sy-logo.svg",  // Shared SY mark used in the header and footer.
     logoIcon: "bi-compass"     // Bootstrap icon class used if logoUrl is empty
   },
 

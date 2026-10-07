@@ -21,10 +21,8 @@ renderFeatured(visibleVehicles(DATA.vehicles).filter(function (v) { return v.fea
   renderYachtsBoatsCruises(DATA);
   renderWhyBook(DATA.whyBook);
   renderHowItWorks(DATA.howItWorks);
-  renderReviews(DATA.reviews);
 
   initSearchTabs();
-  initScrollSpy();
   initHeaderShadow();
 });
 
@@ -78,7 +76,7 @@ function applyConfig() {
   const ctaBtn = document.getElementById("ctaBtn");
   if (ctaBtn) {
     ctaBtn.textContent = c.button.label;
-    ctaBtn.href = document.body.dataset.page === "activities" ? "#activities" : c.button.href;
+    ctaBtn.href = document.body.dataset.page === "activities" ? "/activities/#activities" : c.button.href;
   }
 
   const ctaWa = document.getElementById("ctaWa");
@@ -119,7 +117,9 @@ function applyConfig() {
     activities: "Water Activities in Goa | " + C.name,
     yachts: "Yacht, Boat & Cruise Trips in Goa | " + C.name,
     blog: "Goa Travel Stories | " + C.name,
-    contact: "Contact " + C.name + " | Goa"
+    contact: "Contact " + C.name + " | Goa",
+    privacy: "Privacy Policy | " + C.name,
+    terms: "Terms of Use | " + C.name
   };
   document.title = titles[page] || C.name;
 }
@@ -169,11 +169,6 @@ function renderHowItWorks(steps) {
   const el = document.getElementById("howGrid");
   if (el) el.innerHTML = (steps || []).map(howItem).join("");
 }
-function renderReviews(reviews) {
-  const el = document.getElementById("reviewsGrid");
-  if (el) el.innerHTML = (reviews || []).map(reviewCard).join("");
-}
-
 /* ---------- Interactions (unchanged) ---------- */
 function initSearchTabs() {
   const tabs = document.querySelectorAll(".search-tab");
@@ -200,21 +195,6 @@ function initSearchTabs() {
       updateSearchDestination(tab);
     });
   });
-}
-function initScrollSpy() {
-  const links = document.querySelectorAll('.sy-nav-links .nav-link');
-  const sections = Array.prototype.map.call(links, function (l) {
-    const id = l.getAttribute("href");
-    return id && id.startsWith("#") ? document.querySelector(id) : null;
-  });
-  function update() {
-    const y = window.scrollY + 140;
-    let activeIndex = 0;
-    sections.forEach(function (sec, i) { if (sec && sec.offsetTop <= y) activeIndex = i; });
-    links.forEach(function (l, i) { l.classList.toggle("active", i === activeIndex); });
-  }
-  window.addEventListener("scroll", update, { passive: true });
-  update();
 }
 function initHeaderShadow() {
   const nav = document.getElementById("syNav");

@@ -26,6 +26,8 @@
 /* ---------- 2. BASE ---------- */
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 
+#site-header { min-height: 64px; }
+
 body {
   font-family: 'Poppins', system-ui, sans-serif;
   background: var(--sy-bg);
@@ -509,44 +511,6 @@ img { max-width: 100%; display: block; }
 .how-title { font-size: .95rem; font-weight: 700; margin: 0 0 .25rem; color: var(--sy-navy); }
 .how-text  { font-size: .82rem; color: var(--sy-muted); margin: 0; }
 
-/* ---------- 12. REVIEWS ---------- */
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-}
-.review-card {
-  background: #fff;
-  border: 1px solid var(--sy-border);
-  border-radius: var(--sy-radius);
-  padding: 1.4rem;
-  display: flex;
-  flex-direction: column;
-  transition: all .25s;
-}
-.review-card:hover { box-shadow: var(--sy-shadow); transform: translateY(-3px); }
-
-.review-stars { color: var(--sy-yellow); font-size: .9rem; margin-bottom: .6rem; }
-.review-text {
-  font-size: .9rem;
-  color: #384860;
-  margin: 0 0 1rem;
-  flex-grow: 1;
-}
-.review-author { display: flex; align-items: center; gap: .75rem; }
-.review-avatar {
-  width: 42px; height: 42px;
-  border-radius: 50%;
-  background: var(--sy-navy);
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: .95rem;
-}
-.review-name { font-size: .88rem; font-weight: 700; color: var(--sy-navy); margin: 0; }
-.review-src  { font-size: .72rem; color: var(--sy-muted); margin: 0; }
-
 /* ---------- 13. CTA BANNER ---------- */
 .cta {
   position: relative;
@@ -616,7 +580,6 @@ img { max-width: 100%; display: block; }
   .category-row { grid-template-columns: repeat(3, 1fr); }
   .why-grid     { grid-template-columns: repeat(2, 1fr); }
   .how-grid     { grid-template-columns: repeat(2, 1fr); }
-  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 767.98px) {
@@ -627,7 +590,7 @@ img { max-width: 100%; display: block; }
   .search-panel { padding: 1rem; }
   .search-fields { grid-template-columns: 1fr; }
 
-  .why-grid, .how-grid, .reviews-grid { grid-template-columns: 1fr; }
+  .why-grid, .how-grid { grid-template-columns: 1fr; }
 
   .mobile-nav { display: flex; }
   body { padding-bottom: 70px; }

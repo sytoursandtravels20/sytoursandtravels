@@ -56,7 +56,7 @@ function setHeaderPhoneLink() {
 function categoryCard(c) {
   return `
     <a class="category-card" href="${esc(c.href || "#")}">
-      <span class="category-img"><img src="${esc(c.image)}" alt="${esc(c.name)}" loading="lazy"></span>
+      <span class="category-img"><img src="${esc(c.image)}" alt="${esc(c.name)}" loading="lazy" decoding="async"></span>
       <p class="category-name">${esc(c.name)}</p>
       <p class="category-desc">${esc(c.desc)}</p>
     </a>`;
@@ -94,7 +94,7 @@ function vehicleCard(v) {
   return `
     <article class="sy-card${isBooked ? " is-booked" : ""}">
       <div class="sy-card-media">
-        <img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy">
+        <img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">
         ${badge}
       </div>
       <div class="sy-card-body">
@@ -123,7 +123,7 @@ function activityCard(a) {
     ". Kindly share availability. Thank you.";
   return `
     <article class="sy-card">
-      <div class="sy-card-media"><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy"></div>
+      <div class="sy-card-media"><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async"></div>
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(a.name)}</h3>
         <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
@@ -148,7 +148,7 @@ function waterCard(item, kind) {
   return `
     <article class="sy-card">
       <div class="sy-card-media">
-        <img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy">
+        <img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" decoding="async">
         ${item.badge ? `<span class="sy-badge">${esc(item.badge)}</span>` : ""}
       </div>
       <div class="sy-card-body">
@@ -185,23 +185,6 @@ function howItem(step, index) {
       <h4 class="how-title">${index + 1}. ${esc(step.title)}</h4>
       <p class="how-text">${esc(step.text)}</p>
     </div>`;
-}
-
-function reviewCard(r) {
-  const initials = r.name.trim().split(/\s+/).map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase();
-  const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
-  return `
-    <article class="review-card">
-      <div class="review-stars">${stars}</div>
-      <p class="review-text">“${esc(r.text)}”</p>
-      <div class="review-author">
-        <div class="review-avatar">${esc(initials)}</div>
-        <div>
-          <p class="review-name">${esc(r.name)}</p>
-          <p class="review-src">${esc(r.source)}</p>
-        </div>
-      </div>
-    </article>`;
 }
 
 /* ============================================================
