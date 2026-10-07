@@ -193,12 +193,34 @@
 }
 
 @media (max-width: 767.98px) {
-  .page-hero { padding: 3rem 0 2.5rem; }
-  .filter-bar { padding: .7rem 0; }
-  .filter-bar-inner { gap: .7rem; }
-  .filter-controls { width: 100%; }
-  .filter-search { min-width: 0; }
+  .page-hero { padding: 2.5rem 0 2rem; }
+  .page-hero-eyebrow { font-size: .7rem; letter-spacing: 2px; }
+  .page-hero-title { font-size: 1.75rem; }
+  .page-hero-sub { font-size: .9rem; margin-top: .75rem; }
+
+  .filter-bar { position: relative; padding: .65rem 0; }
+  .filter-bar-inner { gap: .65rem; }
+  .filter-chips { width: 100%; }
+  .filter-chip { padding: .45rem .85rem; }
+  .filter-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: 100%;
+    min-width: 0;
+    gap: .5rem;
+  }
+  .filter-search { grid-column: 1 / -1; min-width: 0; }
+  .filter-select { min-width: 0; width: 100%; font-size: .8rem; }
+  .filter-toggle { width: auto; justify-content: center; padding: .5rem .65rem; font-size: .78rem; }
+
   .rental-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .section { padding: 2.5rem 0; }
+  .sy-card-body { padding: .9rem; }
+  .sy-specs { gap: .5rem .7rem; }
+  .cta-inner { gap: 1.25rem; }
+  .cta-actions { gap: .5rem; }
+  .cta-actions .btn-sy,
+  .cta-actions .btn-ghost { padding: .7rem .9rem; font-size: .85rem; }
 }
 /* ---------- "Available only" toggle ---------- */
 .filter-toggle {
@@ -228,5 +250,12 @@
 }
 
 @media (max-width: 767.98px) {
-  .filter-toggle { width: 100%; justify-content: center; }
+  .filter-toggle { width: auto; justify-content: center; }
+}
+
+@media (max-width: 359.98px) {
+  .filter-controls { grid-template-columns: 1fr; }
+  .filter-search { grid-column: auto; }
+  .filter-select,
+  .filter-toggle { width: 100%; }
 }
