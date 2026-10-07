@@ -20,9 +20,9 @@ const LOCAL_DATA = {
     { name: "Car Rentals",     desc: "Comfortable · Reliable",    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80", href: "rentals/" },
     { name: "Bike Rentals",    desc: "Explore Freely",            image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80",    href: "rentals/" },
     { name: "Water Activities",desc: "Adventure Awaits",          image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&q=80", href: "activities/" },
-    { name: "Yacht Rentals",   desc: "Luxury on Water",           image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=600&q=80", href: "./#yachts" },
-    { name: "Boat Trips",      desc: "Island · Sightseeing",      image: "https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=600&q=80", href: "./#yachts" },
-    { name: "Cruises",         desc: "Sunset · Party · More",     image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=600&q=80", href: "./#yachts" }
+    { name: "Yacht Rentals",   desc: "Luxury on Water",           image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=600&q=75", href: "yachts/" },
+    { name: "Boat Trips",      desc: "Island · Sightseeing",      image: "https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=600&q=75", href: "yachts/" },
+    { name: "Cruises",         desc: "Sunset · Party · More",     image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=600&q=75", href: "yachts/" }
   ],
 
   /* ==========================================================

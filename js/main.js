@@ -113,11 +113,15 @@ function applyConfig() {
   }
 
   const page = document.body.dataset.page;
-  document.title = page === "activities"
-    ? "Water Activities in Goa | " + C.name
-    : page === "contact"
-      ? "Contact " + C.name + " | Goa"
-      : C.name + " | Car Rentals, Water Sports & Yachts in Goa";
+  const titles = {
+    home: "Car & Bike Rentals in Goa | " + C.name,
+    about: "About " + C.name + " | Goa",
+    activities: "Water Activities in Goa | " + C.name,
+    yachts: "Yacht, Boat & Cruise Trips in Goa | " + C.name,
+    blog: "Goa Travel Stories | " + C.name,
+    contact: "Contact " + C.name + " | Goa"
+  };
+  document.title = titles[page] || C.name;
 }
 
 function setText(id, value) {

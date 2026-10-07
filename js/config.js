@@ -62,7 +62,7 @@ const CONFIG = {
     titleLine2:   "Your Way",
     subtitle:     "Rent cars, bikes, discover water activities, book yachts, boats, cruises and more — all in one place.",
     backgroundImage:
-      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1600&q=72",
     ctaPrimary:   { label: "Explore Rentals", href: "#featured" },
     ctaSecondary: { label: "View Activities", href: "activities/" }
   },
@@ -74,6 +74,6 @@ const CONFIG = {
     button:   { label: "Explore Now", href: "#featured" },
     whatsappLabel: "Chat on WhatsApp",
     backgroundImage:
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=2000&q=80"
+      "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1400&q=68"
   }
 };

@@ -97,7 +97,7 @@
 .sy-toggler:focus { box-shadow: 0 0 0 .2rem rgba(30, 111, 217, .18); }
 
 /* --- Responsive --- */
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
   .sy-nav-links { padding: 1rem 0 .5rem; }
   .sy-nav-actions { padding-bottom: 1rem; }
   .sy-nav-links .nav-link.active::after,
