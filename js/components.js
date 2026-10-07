@@ -46,19 +46,16 @@ function markActiveNav() {
   });
 }
 
-/* Opens the shared search field and filters the cards currently shown. */
+/* Connects the Bootstrap search modal to the cards currently shown. */
 function initHeaderSearch() {
-  const toggle = document.getElementById("headerSearchToggle");
-  const panel = document.getElementById("headerSearchPanel");
+  const modal = document.getElementById("headerSearchModal");
   const input = document.getElementById("headerSearchInput");
   const empty = document.getElementById("headerSearchEmpty");
-  if (!toggle || !panel || !input) return;
+  if (!modal || !input) return;
 
-  // Open the field on demand and move keyboard focus into it.
-  toggle.addEventListener("click", function () {
-    panel.hidden = !panel.hidden;
-    toggle.setAttribute("aria-expanded", String(!panel.hidden));
-    if (!panel.hidden) input.focus();
+  // Focus the input when Bootstrap finishes opening the responsive modal.
+  modal.addEventListener("shown.bs.modal", function () {
+    input.focus();
   });
 
   input.addEventListener("input", function () {
@@ -83,13 +80,6 @@ function initHeaderSearch() {
     if (empty) empty.hidden = !query || matchCount > 0;
   });
 
-  // Close the field when the user clicks somewhere else on the page.
-  document.addEventListener("click", function (event) {
-    if (!panel.contains(event.target) && !toggle.contains(event.target)) {
-      panel.hidden = true;
-      toggle.setAttribute("aria-expanded", "false");
-    }
-  });
 }
 
 /* ---------- CARD TEMPLATES (unchanged) ---------- */

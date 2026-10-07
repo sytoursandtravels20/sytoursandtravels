@@ -29,23 +29,33 @@
       </ul>
 
       <div class="sy-nav-actions">
-        <div class="sy-header-search">
-          <button class="sy-icon-btn" id="headerSearchToggle" type="button" aria-label="Search this page"
-                  aria-controls="headerSearchPanel" aria-expanded="false">
-            <i class="bi bi-search"></i>
-          </button>
-          <div class="sy-search-panel" id="headerSearchPanel" hidden>
-            <label class="visually-hidden" for="headerSearchInput">Search listings on this page</label>
-            <input class="form-control" id="headerSearchInput" type="search"
-                   placeholder="Search listings..." autocomplete="off" />
-            <p class="sy-search-empty" id="headerSearchEmpty" role="status" hidden>
-              No matching listings on this page.
-            </p>
-          </div>
-        </div>
+        <button class="sy-icon-btn" type="button" aria-label="Search this page"
+                data-bs-toggle="modal" data-bs-target="#headerSearchModal">
+          <i class="bi bi-search"></i>
+        </button>
         <a href="./#contact" class="btn-sy">Book Now</a>
       </div>
     </div>
 
   </div>
 </nav>
+
+<!-- Bootstrap modal gives the search field a responsive layout on every screen size. -->
+<div class="modal fade" id="headerSearchModal" tabindex="-1" aria-labelledby="headerSearchTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="headerSearchTitle">Search this page</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label class="visually-hidden" for="headerSearchInput">Search listings on this page</label>
+        <input class="form-control" id="headerSearchInput" type="search"
+               placeholder="Search listings..." autocomplete="off" />
+        <p class="sy-search-empty" id="headerSearchEmpty" role="status" hidden>
+          No matching listings on this page.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
