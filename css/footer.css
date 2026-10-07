@@ -1,0 +1,109 @@
+/* ============================================================
+   footer.css — styles for components/footer.html ONLY.
+   ============================================================ */
+
+.sy-footer {
+  background: var(--sy-navy);
+  color: #cfdbe8;
+  padding: 4rem 0 1.5rem;
+  font-size: .9rem;
+}
+
+/* --- Brand --- */
+.sy-brand--footer .sy-brand-logo {
+  background: rgba(255, 200, 0, .12);
+}
+.sy-brand--footer .sy-brand-name { color: #fff; }
+.sy-brand--footer .sy-brand-tag  { color: #8fa5bd; }
+
+.sy-footer-desc {
+  color: #9fb2c6;
+  font-size: .88rem;
+  margin: 1rem 0 1.1rem;
+  max-width: 340px;
+  line-height: 1.65;
+}
+
+/* --- Social --- */
+.sy-social { display: flex; gap: .5rem; }
+.sy-social a {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .08);
+  color: #cfdbe8;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  transition: all .2s;
+}
+.sy-social a:hover {
+  background: var(--sy-yellow);
+  color: var(--sy-navy);
+  transform: translateY(-2px);
+}
+
+/* --- Column titles --- */
+.sy-footer-title {
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+}
+
+/* --- Links --- */
+.sy-footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sy-footer-list li { margin-bottom: .55rem; }
+.sy-footer-list a {
+  color: #9fb2c6;
+  transition: color .2s, padding-left .2s;
+}
+.sy-footer-list a:hover { color: var(--sy-yellow); padding-left: 3px; }
+
+/* --- Contact rows --- */
+.sy-footer-contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  color: #9fb2c6;
+}
+.sy-footer-contact i { color: var(--sy-yellow); margin-top: .2rem; }
+.sy-footer-contact a { color: #cfdbe8; }
+.sy-footer-contact a:hover { color: var(--sy-yellow); padding-left: 0; }
+
+/* --- Bottom bar --- */
+.sy-footer-hr {
+  border-color: rgba(255, 255, 255, .1);
+  margin: 2.5rem 0 1.25rem;
+  opacity: 1;
+}
+.sy-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: #8fa5bd;
+  font-size: .82rem;
+}
+.sy-footer-legal {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.25rem;
+}
+.sy-footer-legal a { color: #8fa5bd; }
+.sy-footer-legal a:hover { color: var(--sy-yellow); }
+
+/* --- Responsive --- */
+@media (max-width: 767.98px) {
+  .sy-footer { padding: 3rem 0 5rem; text-align: left; }
+  .sy-footer-bottom { justify-content: center; text-align: center; }
+  .sy-footer-legal  { justify-content: center; }
+}

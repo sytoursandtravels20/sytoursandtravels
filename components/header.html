@@ -1,0 +1,46 @@
+<!-- ============================================================
+     HEADER COMPONENT
+     Loaded into <header id="site-header"> by js/components.js
+     ============================================================ -->
+<link rel="stylesheet" href="css/header.css" />
+
+<nav class="sy-nav navbar navbar-expand-lg" id="syNav">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="sy-brand" href="index.html">
+      <span class="sy-brand-logo" id="brandLogo"></span>
+      <span class="sy-brand-text">
+        <span class="sy-brand-name" id="brandName"></span>
+        <span class="sy-brand-tag" id="brandTag"></span>
+      </span>
+    </a>
+
+    <!-- Mobile hamburger -->
+    <button class="navbar-toggler sy-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#syMainNav"
+            aria-controls="syMainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="syMainNav">
+      <ul class="navbar-nav mx-auto sy-nav-links">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#featured">Rentals</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experiences">Activities</a></li>
+        <li class="nav-item"><a class="nav-link" href="#yachts">Yachts &amp; Boats</a></li>
+        <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="sy-nav-actions">
+        <button class="sy-icon-btn" type="button" aria-label="Search">
+          <i class="bi bi-search"></i>
+        </button>
+        <a href="#contact" class="btn-sy">Book Now</a>
+      </div>
+    </div>
+
+  </div>
+</nav>

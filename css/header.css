@@ -1,0 +1,110 @@
+/* ============================================================
+   header.css — styles for components/header.html ONLY.
+   ============================================================ */
+
+.sy-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--sy-border);
+  padding: .65rem 0;
+  transition: box-shadow .25s;
+}
+.sy-nav.is-scrolled { box-shadow: 0 4px 20px rgba(10, 37, 64, .06); }
+
+/* --- Brand --- */
+.sy-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  padding: 0;
+  margin: 0;
+}
+.sy-brand-logo {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  background: var(--sy-navy);
+  color: var(--sy-yellow);
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  overflow: hidden;
+  flex: 0 0 42px;
+}
+.sy-brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+.sy-brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+.sy-brand-name {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--sy-navy);
+  letter-spacing: -.2px;
+}
+.sy-brand-tag {
+  font-size: .68rem;
+  color: var(--sy-muted);
+  letter-spacing: .3px;
+}
+
+/* --- Nav links --- */
+.sy-nav-links .nav-link {
+  color: #384860;
+  font-weight: 500;
+  font-size: .92rem;
+  padding: .6rem .9rem;
+  position: relative;
+}
+.sy-nav-links .nav-link:hover,
+.sy-nav-links .nav-link.active { color: var(--sy-navy); }
+
+.sy-nav-links .nav-link.active::after,
+.sy-nav-links .nav-link:hover::after {
+  content: "";
+  position: absolute;
+  left: .9rem; right: .9rem;
+  bottom: .3rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--sy-yellow);
+}
+
+/* --- Actions --- */
+.sy-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+.sy-icon-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--sy-border);
+  background: #fff;
+  color: var(--sy-navy);
+  display: grid;
+  place-items: center;
+  font-size: 1.05rem;
+  transition: all .2s;
+}
+.sy-icon-btn:hover { background: var(--sy-sky); border-color: var(--sy-sky); }
+
+/* --- Toggler --- */
+.sy-toggler {
+  border: 1px solid var(--sy-border);
+  border-radius: 10px;
+  padding: .3rem .6rem;
+  font-size: 1.3rem;
+  color: var(--sy-navy);
+  background: transparent;
+}
+.sy-toggler:focus { box-shadow: 0 0 0 .2rem rgba(30, 111, 217, .18); }
+
+/* --- Responsive --- */
+@media (max-width: 991.98px) {
+  .sy-nav-links { padding: 1rem 0 .5rem; }
+  .sy-nav-actions { padding-bottom: 1rem; }
+  .sy-nav-links .nav-link.active::after,
+  .sy-nav-links .nav-link:hover::after { display: none; }
+}
+@media (max-width: 400px) {
+  .sy-brand-name { font-size: .92rem; }
+  .sy-brand-tag  { font-size: .62rem; }
+  .sy-brand-logo { width: 38px; height: 38px; flex-basis: 38px; font-size: 1.15rem; }
+}

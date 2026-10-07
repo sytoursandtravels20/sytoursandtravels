@@ -1,284 +1,220 @@
+
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SY Tours &amp; Travels | Car Rental &amp; Water Sports in Panjim, Goa</title>
-  <meta name="description" content="Rent self-drive cars and enjoy parasailing, jet ski, banana boat and speed boat rides in Panjim and across Goa. SY Tours &amp; Travels: customer happiness is our business.">
-  <meta name="keywords" content="car rental Goa, self drive car Panjim, water sports Goa, parasailing Goa, jet ski Goa, SY Tours and Travels">
-  <meta name="author" content="SY Tours &amp; Travels">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#FFC800">
-  <meta name="geo.region" content="IN-GA">
-  <meta name="geo.placename" content="Panjim, Goa">
-  <link rel="canonical" href="https://www.sytoursandtravels.com/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SY Tours &amp; Travels | Car Rentals, Water Sports &amp; Yachts in Goa</title>
+  <meta name="description" content="Rent cars, bikes, book water activities, yachts, boats and cruises across Goa. SY Tours &amp; Travels — customer happiness is our business." />
+  <meta name="theme-color" content="#0A2540" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>" />
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/sytoursandtravels20/sytoursandtravels-stockphotos/main/logosy.jpeg">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- Social sharing -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="SY Tours &amp; Travels">
-  <meta property="og:title" content="SY Tours &amp; Travels | Car Rental &amp; Water Sports in Goa">
-  <meta property="og:description" content="Self-drive cars and water sports in Panjim and across Goa.">
-  <meta property="og:url" content="https://www.sytoursandtravels.com/">
-  <meta property="og:image" content="https://raw.githubusercontent.com/sytoursandtravels20/sytoursandtravels-stockphotos/main/logosy.jpeg">
-  <meta name="twitter:card" content="summary_large_image">
+  <!-- Bootstrap 5 + Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
 
-  <!-- Preconnects -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://images.unsplash.com">
-
-  <!-- Bootstrap 5 + Icons + Font -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Page CSS -->
-  <link href="index.css" rel="stylesheet">
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TravelAgency",
-    "name": "SY Tours & Travels",
-    "slogan": "Customer happiness is our business",
-    "url": "https://www.sytoursandtravels.com/",
-    "logo": "https://raw.githubusercontent.com/sytoursandtravels20/sytoursandtravels-stockphotos/main/logosy.jpeg",
-    "image": "https://raw.githubusercontent.com/sytoursandtravels20/sytoursandtravels-stockphotos/main/logosy.jpeg",
-    "telephone": "+919021954978",
-    "email": "info@sytoursandtravels.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Panjim", "addressRegion": "Goa", "addressCountry": "IN" },
-    "areaServed": "Goa, India",
-    "makesOffer": [
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Self-drive car rental in Goa" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Water sports in Goa" } }
-    ]
-  }
-  </script>
+  <!-- Homepage styles only -->
+  <link href="css/home.css" rel="stylesheet" />
 </head>
 <body>
 
-  <div id="header"></div>
+<!-- HEADER (loaded by components.js) -->
+<header id="site-header"></header>
 
-  <main>
-    <!-- HERO -->
-<section class="hero" id="home">
-  <div class="container">
-    <span class="hero-badge">
-      <i class="bi bi-star-fill"></i> Trusted in Goa
-    </span>
-    <h1>Car rentals and water sports in <span class="sy-yellow">Goa.</span></h1>
-    <p>Self-drive cars and water sports in Panjim and across Goa. Simple booking, honest prices, and a team that puts your happiness first.</p>
-    <div class="hero-actions">
-      <a href="#cars" class="btn btn-sy">View Cars</a>
-      <a href="#water-sports" class="btn btn-sy-outline">Water Sports</a>
+<main>
+
+  <!-- 1. HERO -->
+  <section class="hero" id="home">
+    <div class="container hero-inner">
+      <p class="hero-eyebrow" id="heroEyebrow"></p>
+      <h1 class="hero-title">
+        <span id="heroTitle1"></span><br />
+        <span class="hero-title-accent" id="heroTitle2"></span>
+      </h1>
+      <p class="hero-sub" id="heroSub"></p>
+      <div class="hero-cta">
+        <a class="btn-sy btn-lg" id="heroCta1" href="#featured"></a>
+        <a class="btn-ghost btn-lg" id="heroCta2" href="#experiences"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. SEARCH PANEL -->
+  <div class="container search-wrapper">
+    <div class="search-panel">
+      <div class="search-tabs" role="tablist">
+        <button class="search-tab is-active" data-tab="cars"><i class="bi bi-car-front-fill"></i> Cars</button>
+        <button class="search-tab" data-tab="bikes"><i class="bi bi-bicycle"></i> Bikes</button>
+        <button class="search-tab" data-tab="activities"><i class="bi bi-water"></i> Water Activities</button>
+        <button class="search-tab" data-tab="yachts"><i class="bi bi-life-preserver"></i> Yachts</button>
+        <button class="search-tab" data-tab="boats"><i class="bi bi-send"></i> Boats</button>
+        <button class="search-tab" data-tab="cruises"><i class="bi bi-ship"></i> Cruises</button>
+      </div>
+      <div class="search-fields">
+        <div class="search-field">
+          <label>Location</label>
+          <div class="field-control">
+            <i class="bi bi-geo-alt"></i>
+            <input type="text" value="Goa" readonly />
+          </div>
+        </div>
+        <div class="search-field">
+          <label>Select Date</label>
+          <div class="field-control">
+            <i class="bi bi-calendar-event"></i>
+            <input type="text" placeholder="Select Date" readonly />
+          </div>
+        </div>
+        <div class="search-field">
+          <label>Guests</label>
+          <div class="field-control">
+            <i class="bi bi-person"></i>
+            <input type="text" placeholder="Guests (optional)" readonly />
+          </div>
+        </div>
+        <button class="btn-search" type="button">
+          <i class="bi bi-search"></i> Search Now
+        </button>
+      </div>
     </div>
   </div>
-</section>
 
-    <!-- CAR RENTALS -->
-    <section id="cars">
-      <div class="container">
-        <h2 class="section-title mb-4">Car Rentals in Panjim, Goa</h2>
-        <p class="text-secondary mb-4">Choose from our well-maintained four-wheelers for city rides, beach hopping, or a full Goa road trip.</p>
-        <div class="row g-4">
-
-          <!-- Hatchback -->
-          <div class="col-12 col-sm-6 col-lg-4">
-            <div class="sy-card has-img d-flex flex-column">
-              <img class="sy-img"
-                   src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
-                   alt="Hatchback car for rent in Panjim Goa" width="600" height="450" loading="lazy">
-              <div class="sy-body d-flex flex-column flex-grow-1">
-                <h3 class="h5">Hatchback</h3>
-                <p class="text-secondary mb-2">Easy to drive and park — perfect for Panjim and nearby beaches.</p>
-                <div class="mb-3">
-                  <span class="tag">4 seats</span>
-                  <span class="tag">Petrol</span>
-                </div>
-                <div class="price-row mt-auto">
-                  <div class="price">₹1,500 <small>per day</small></div>
-                  <a class="btn-wa"
-                     target="_blank" rel="noopener"
-                     href="https://wa.me/919021954978?text=Hello%20SY%20Tours%20%26%20Travels%2C%20I%27m%20interested%20in%20renting%20the%20Hatchback%20%284-seater%2C%20Petrol%29.%20Kindly%20share%20your%20best%20rate%20and%20availability%20for%20my%20dates.%20Thank%20you.">
-                    <i class="bi bi-whatsapp"></i> Book Now
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sedan -->
-          <div class="col-12 col-sm-6 col-lg-4">
-            <div class="sy-card has-img d-flex flex-column">
-              <img class="sy-img"
-                   src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80"
-                   alt="Sedan car on rent in Goa" width="600" height="450" loading="lazy">
-              <div class="sy-body d-flex flex-column flex-grow-1">
-                <h3 class="h5">Sedan</h3>
-                <p class="text-secondary mb-2">A comfortable ride with ample luggage space for longer trips.</p>
-                <div class="mb-3">
-                  <span class="tag">5 seats</span>
-                  <span class="tag">AC</span>
-                </div>
-                <div class="price-row mt-auto">
-                  <div class="price">₹2,000 <small>per day</small></div>
-                  <a class="btn-wa"
-                     target="_blank" rel="noopener"
-                     href="https://wa.me/919021954978?text=Hello%20SY%20Tours%20%26%20Travels%2C%20I%27m%20interested%20in%20renting%20the%20Sedan%20%285-seater%2C%20AC%29.%20Kindly%20share%20your%20best%20rate%20and%20availability%20for%20my%20dates.%20Thank%20you.">
-                    <i class="bi bi-whatsapp"></i> Book Now
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SUV -->
-          <div class="col-12 col-sm-6 col-lg-4">
-            <div class="sy-card has-img d-flex flex-column">
-              <img class="sy-img"
-                   src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"
-                   alt="SUV for family trips in Goa" width="600" height="450" loading="lazy">
-              <div class="sy-body d-flex flex-column flex-grow-1">
-                <h3 class="h5">SUV</h3>
-                <p class="text-secondary mb-2">Roomy and powerful — perfect for family trips across Goa.</p>
-                <div class="mb-3">
-                  <span class="tag">7 seats</span>
-                  <span class="tag">AC</span>
-                </div>
-                <div class="price-row mt-auto">
-                  <div class="price">₹2,800 <small>per day</small></div>
-                  <a class="btn-wa"
-                     target="_blank" rel="noopener"
-                     href="https://wa.me/919021954978?text=Hello%20SY%20Tours%20%26%20Travels%2C%20I%27m%20interested%20in%20renting%20the%20SUV%20%287-seater%2C%20AC%29.%20Kindly%20share%20your%20best%20rate%20and%20availability%20for%20my%20dates.%20Thank%20you.">
-                    <i class="bi bi-whatsapp"></i> Book Now
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
+  <!-- 3. POPULAR CATEGORIES -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Popular Categories</h2>
+          <p class="section-sub">Choose your ride, your activity, your adventure.</p>
         </div>
-        <a href="#contact" class="btn btn-sy mt-4">Ask for Rates</a>
+        <a class="section-link" href="#featured">View All <i class="bi bi-arrow-right"></i></a>
       </div>
-    </section>
+      <div class="category-row" id="categoryGrid"></div>
+    </div>
+  </section>
 
-    <!-- WATER SPORTS -->
-    <section id="water-sports" class="alt-bg">
-      <div class="container">
-        <h2 class="section-title mb-4">Water Sports in Goa</h2>
-        <p class="text-secondary mb-4">Fun on the water at beaches across Goa, with trained staff and certified safety gear.</p>
-        <div class="row g-4">
-          <div class="col-6 col-lg-3">
-            <div class="sy-card has-img">
-              <img class="sy-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Parasailing in Goa" width="600" height="450" loading="lazy">
-              <div class="sy-body"><h3 class="h5 mb-0">Parasailing</h3></div>
-            </div>
-          </div>
-          <div class="col-6 col-lg-3">
-            <div class="sy-card has-img">
-              <img class="sy-img" src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80" alt="Jet ski ride in Goa" width="600" height="450" loading="lazy">
-              <div class="sy-body"><h3 class="h5 mb-0">Jet Ski</h3></div>
-            </div>
-          </div>
-          <div class="col-6 col-lg-3">
-            <div class="sy-card has-img">
-              <img class="sy-img" src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80" alt="Banana boat ride in Goa" width="600" height="450" loading="lazy">
-              <div class="sy-body"><h3 class="h5 mb-0">Banana Boat</h3></div>
-            </div>
-          </div>
-          <div class="col-6 col-lg-3">
-            <div class="sy-card has-img">
-              <img class="sy-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80" alt="Speed boat ride in Goa" width="600" height="450" loading="lazy">
-              <div class="sy-body"><h3 class="h5 mb-0">Speed Boat</h3></div>
-            </div>
-          </div>
+  <!-- 4. FEATURED RENTALS -->
+  <section class="section section-alt" id="featured">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Featured Rentals</h2>
+          <p class="section-sub">Top picks for your Goa journey.</p>
+        </div>
+        <a class="section-link" href="#featured">View All Rentals <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="scroll-row" id="featuredGrid"></div>
+    </div>
+  </section>
+
+  <!-- 5. EXCITING EXPERIENCES -->
+  <section class="section" id="experiences">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Exciting Experiences</h2>
+          <p class="section-sub">Feel the thrill. Create unforgettable memories.</p>
+        </div>
+        <a class="section-link" href="#experiences">View All Activities <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="scroll-row" id="experiencesGrid"></div>
+    </div>
+  </section>
+
+  <!-- 6. YACHTS, BOATS & CRUISES -->
+  <section class="section section-alt" id="yachts">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Yachts, Boats &amp; Cruises</h2>
+          <p class="section-sub">Luxury on the water, whatever the occasion.</p>
+        </div>
+        <a class="section-link" href="#yachts">View All <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="scroll-row" id="yachtsGrid"></div>
+    </div>
+  </section>
+
+  <!-- 7. WHY BOOK WITH US -->
+  <section class="section" id="why">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Why Book With Us?</h2>
+          <p class="section-sub">Because your time in Goa deserves the best.</p>
         </div>
       </div>
-    </section>
+      <div class="why-grid" id="whyGrid"></div>
+    </div>
+  </section>
 
-    <!-- WHY US -->
-    <section id="why-us">
-      <div class="container">
-        <h2 class="section-title mb-4">Why Choose Us</h2>
-        <div class="row g-4">
-          <div class="col-md-4">
-            <div class="sy-card">
-              <i class="bi bi-emoji-smile-fill big"></i>
-              <h3 class="h5">Happy customers first</h3>
-              <p class="text-secondary mb-0">Friendly help from booking to return — every single time.</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="sy-card">
-              <i class="bi bi-shield-check big"></i>
-              <h3 class="h5">Safe and well kept</h3>
-              <p class="text-secondary mb-0">Serviced cars and safety-checked water sports equipment.</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="sy-card">
-              <i class="bi bi-geo-alt-fill big"></i>
-              <h3 class="h5">Across Goa</h3>
-              <p class="text-secondary mb-0">Based in Panjim, serving beaches and towns all over Goa.</p>
-            </div>
-          </div>
+  <!-- 8. HOW IT WORKS -->
+  <section class="section section-alt" id="how">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-sub">Simple steps to your next adventure.</p>
         </div>
       </div>
-    </section>
+      <div class="how-grid" id="howGrid"></div>
+    </div>
+  </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="alt-bg">
-      <div class="container text-center">
-        <h2 class="fw-bold mb-2">Ready to book?</h2>
-        <p class="text-secondary mb-4">Call or message us on WhatsApp for rates and availability.</p>
-        <div class="d-flex flex-wrap justify-content-center gap-3">
-          <a href="tel:+919021954978" class="btn btn-sy"><i class="bi bi-telephone-fill"></i> Call Now</a>
-          <a href="https://wa.me/919021954978?text=Hello%20SY%20Tours%20%26%20Travels%2C%20I%27d%20like%20to%20enquire%20about%20your%20car%20rental%20and%20water%20sports%20services.%20Please%20share%20the%20details.%20Thank%20you."
-             class="btn btn-sy-outline" target="_blank" rel="noopener">
-            <i class="bi bi-whatsapp"></i> WhatsApp
-          </a>
+  <!-- 9. CUSTOMER REVIEWS -->
+  <section class="section" id="reviews">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">What Our Customers Say</h2>
+          <p class="section-sub">Real people. Real experiences.</p>
         </div>
+        <a class="section-link" href="#reviews">View All Reviews <i class="bi bi-arrow-right"></i></a>
       </div>
-    </section>
-  </main>
+      <div class="reviews-grid" id="reviewsGrid"></div>
+    </div>
+  </section>
 
-  <div id="footer"></div>
+  <!-- 10. FINAL CTA -->
+  <section class="cta" id="contact">
+    <div class="container cta-inner">
+      <div>
+        <h2 class="cta-title" id="ctaTitle"></h2>
+        <p class="cta-sub" id="ctaSub"></p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn-sy btn-lg" id="ctaBtn" href="#"></a>
+        <a class="btn-ghost btn-lg" id="ctaWa" target="_blank" rel="noopener">
+          <i class="bi bi-whatsapp"></i> WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <a class="wa-float"
-     href="https://wa.me/919021954978?text=Hello%20SY%20Tours%20%26%20Travels%2C%20I%27d%20like%20to%20enquire%20about%20your%20services.%20Please%20share%20the%20details.%20Thank%20you."
-     aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
-    <i class="bi bi-whatsapp"></i>
-  </a>
+</main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Load header.html and footer.html into this page
-    function loadPart(id, file) {
-      return fetch(file)
-        .then(function (r) { return r.text(); })
-        .then(function (html) {
-          var box = document.getElementById(id);
-          box.innerHTML = html;
-          box.querySelectorAll('script').forEach(function (old) {
-            var s = document.createElement('script');
-            s.textContent = old.textContent;
-            old.replaceWith(s);
-          });
-        })
-        .catch(function () {
-          document.getElementById(id).innerHTML =
-            '<p class="text-center text-warning p-3">Could not load ' + file + '. Open the site through a web server (e.g. VS Code Live Server).</p>';
-        });
-    }
-    loadPart('header', 'header.html');
-    loadPart('footer', 'footer.html');
-  </script>
+<!-- FOOTER (loaded by components.js) -->
+<footer id="site-footer"></footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" aria-label="Mobile navigation">
+  <a href="#home" class="mobile-nav-item is-active"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+  <a href="#featured" class="mobile-nav-item"><i class="bi bi-car-front-fill"></i><span>Rentals</span></a>
+  <a href="#experiences" class="mobile-nav-item"><i class="bi bi-water"></i><span>Activities</span></a>
+  <a href="#yachts" class="mobile-nav-item"><i class="bi bi-life-preserver"></i><span>Yachts</span></a>
+  <a href="#contact" class="mobile-nav-item"><i class="bi bi-three-dots"></i><span>More</span></a>
+</nav>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
