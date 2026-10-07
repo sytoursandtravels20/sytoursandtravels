@@ -1,45 +1,45 @@
-# SY Tours & Travels — Homepage
+# SY Tours & Travels
+
+## Pages
+
+| URL | File |
+|---|---|
+| `/` | `index.html` |
+| `/rentals/` | `rentals/index.html` |
+
+Both pages share the same header, footer, and CSS tokens. Both are fully static — no server config required.
 
 ## Where to edit what
 
-| What you want to change | File to edit |
+| What you want to change | File |
 |---|---|
-| Company name, phone, email, address, socials | `js/config.js` → `CONFIG.company`, `CONFIG.social` |
-| Hero title, subtitle, background image | `js/config.js` → `CONFIG.hero` |
-| Final CTA block | `js/config.js` → `CONFIG.cta` |
-| Cars / Bikes (name, price, seats, image) | `js/data.js` → `LOCAL_DATA.vehicles` |
+| Company name, phone, email, socials | `js/config.js` → `CONFIG.company`, `CONFIG.social` |
+| Homepage hero text + background | `js/config.js` → `CONFIG.hero` |
+| Homepage CTA block | `js/config.js` → `CONFIG.cta` |
+| Vehicles (name, price, image, category) | `js/data.js` → `LOCAL_DATA.vehicles` |
 | Water activities | `js/data.js` → `LOCAL_DATA.activities` |
 | Yachts / Boats / Cruises | `js/data.js` → `LOCAL_DATA.yachts`, `.boats`, `.cruises` |
 | Categories tiles | `js/data.js` → `LOCAL_DATA.categories` |
 | Why Book With Us | `js/data.js` → `LOCAL_DATA.whyBook` |
 | How It Works | `js/data.js` → `LOCAL_DATA.howItWorks` |
 | Reviews | `js/data.js` → `LOCAL_DATA.reviews` |
-| Colors / fonts / spacing | `css/home.css` → `:root { ... }` |
+| Colors / spacing | `css/home.css` → `:root { ... }` (both pages) |
 | Navbar links | `components/header.html` |
 | Footer links | `components/footer.html` |
 
----
+## Vehicles data shape
 
-## How the data layer works
+Each vehicle in `LOCAL_DATA.vehicles`:
 
-Everything reads from a single object returned by `loadData()` in `js/main.js`.
-Right now, that returns `LOCAL_DATA` from `js/data.js`.
-
-### Switching to Google Sheets later — 4 steps
-
-You will **not** need to touch `index.html` or any CSS. The design stays the same.
-
-**1. Create sheets** — one per list, headers in row 1:
-
-- `categories` : name | desc | image | href
-- `vehicles`   : name | seats | transmission | fuel | price | badge | image
-- `activities` : name | meta | price | unit | image
-- `yachts`     : name | meta | price | unit | badge | image
-- `boats`      : name | meta | price | unit | image
-- `cruises`    : name | meta | price | unit | image
-- `whyBook`    : icon | title | text
-- `howItWorks` : icon | title | text
-- `reviews`    : name | source | rating | text
-
-**2. Apps Script Web App** — Extensions → Apps Script. Read each sheet into
-an array of objects and return JSON with the same shape as `LOCAL_DATA`:
+```js
+{
+  category:     "car" | "bike",   // used for filters on /rentals/
+  name:         "Toyota Innova Crysta",
+  seats:        7,
+  transmission: "Manual",
+  fuel:         "Diesel",
+  price:        2500,
+  badge:        "Most Popular",   // optional
+  featured:     true,             // shows on homepage Featured Rentals
+  image:        "https://..."
+}

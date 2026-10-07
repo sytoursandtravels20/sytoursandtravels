@@ -1,18 +1,6 @@
 /* ============================================================
-   data.js — LOCAL fallback data for the homepage.
-
-   ------------------------------------------------------------
-   FUTURE: Google Sheets integration
-   ------------------------------------------------------------
-   When you're ready, you don't touch this file.
-   In js/config.js set:
-       dataSource: { mode: "remote", remoteUrl: "<Apps Script /exec URL>" }
-
-   Your Apps Script must return JSON with the SAME keys you see
-   below: categories, vehicles, activities, yachts, boats,
-   cruises, whyBook, howItWorks, reviews.
-
-   If the remote call fails, the site falls back to this file.
+   data.js — LOCAL fallback data for the whole site.
+   Used by both the homepage and the rentals page.
    ============================================================ */
 
 const LOCAL_DATA = {
@@ -25,88 +13,180 @@ const LOCAL_DATA = {
       name: "Car Rentals",
       desc: "Comfortable · Reliable",
       image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80",
-      href: "#featured"
+      href: "rentals/"
     },
     {
       name: "Bike Rentals",
       desc: "Explore Freely",
       image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80",
-      href: "#featured"
+      href: "rentals/"
     },
     {
       name: "Water Activities",
       desc: "Adventure Awaits",
       image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&q=80",
-      href: "#experiences"
+      href: "./#experiences"
     },
     {
       name: "Yacht Rentals",
       desc: "Luxury on Water",
       image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=600&q=80",
-      href: "#yachts"
+      href: "./#yachts"
     },
     {
       name: "Boat Trips",
       desc: "Island · Sightseeing",
       image: "https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=600&q=80",
-      href: "#yachts"
+      href: "./#yachts"
     },
     {
       name: "Cruises",
       desc: "Sunset · Party · More",
       image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=600&q=80",
-      href: "#yachts"
+      href: "./#yachts"
     }
   ],
 
   /* ==========================================================
-     2. FEATURED RENTALS
+     2. VEHICLES (cars + bikes)
+     category: "car" | "bike"
+     featured: true → shown on homepage Featured Rentals
      ========================================================== */
   vehicles: [
+    /* ---------------- CARS ---------------- */
     {
+      category: "car",
       name: "Toyota Innova Crysta",
       seats: 7,
       transmission: "Manual",
       fuel: "Diesel",
       price: 2500,
       badge: "Most Popular",
+      featured: true,
       image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"
     },
     {
+      category: "car",
       name: "Maruti Suzuki Dzire",
       seats: 5,
       transmission: "Manual",
       fuel: "Petrol",
       price: 1200,
       badge: "",
+      featured: true,
       image: "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80"
     },
     {
-      name: "Honda CB350",
-      seats: 2,
-      transmission: "Manual",
-      fuel: "Petrol",
-      price: 1000,
-      badge: "",
-      image: "https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Honda Activa",
-      seats: 2,
-      transmission: "Automatic",
-      fuel: "Petrol",
-      price: 400,
-      badge: "",
-      image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80"
-    },
-    {
+      category: "car",
       name: "Hyundai Creta",
       seats: 5,
       transmission: "Automatic",
       fuel: "Petrol",
       price: 2000,
       badge: "",
+      featured: true,
       image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "car",
+      name: "Maruti Suzuki Swift",
+      seats: 5,
+      transmission: "Manual",
+      fuel: "Petrol",
+      price: 1100,
+      badge: "",
+      featured: false,
+      image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "car",
+      name: "Maruti Suzuki Ertiga",
+      seats: 7,
+      transmission: "Manual",
+      fuel: "CNG",
+      price: 1800,
+      badge: "",
+      featured: false,
+      image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "car",
+      name: "Toyota Fortuner",
+      seats: 7,
+      transmission: "Automatic",
+      fuel: "Diesel",
+      price: 4500,
+      badge: "Premium",
+      featured: false,
+      image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=800&q=80"
+    },
+
+    /* ---------------- BIKES ---------------- */
+    {
+      category: "bike",
+      name: "Honda CB350",
+      seats: 2,
+      transmission: "Manual",
+      fuel: "Petrol",
+      price: 1000,
+      badge: "",
+      featured: true,
+      image: "https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "bike",
+      name: "Honda Activa",
+      seats: 2,
+      transmission: "Automatic",
+      fuel: "Petrol",
+      price: 400,
+      badge: "Best Value",
+      featured: true,
+      image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "bike",
+      name: "Royal Enfield Classic 350",
+      seats: 2,
+      transmission: "Manual",
+      fuel: "Petrol",
+      price: 1200,
+      badge: "",
+      featured: false,
+      image: "https://images.unsplash.com/photo-1558980664-10e7170b5df9?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "bike",
+      name: "TVS Jupiter",
+      seats: 2,
+      transmission: "Automatic",
+      fuel: "Petrol",
+      price: 450,
+      badge: "",
+      featured: false,
+      image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "bike",
+      name: "Bajaj Pulsar 150",
+      seats: 2,
+      transmission: "Manual",
+      fuel: "Petrol",
+      price: 700,
+      badge: "",
+      featured: false,
+      image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "bike",
+      name: "KTM Duke 200",
+      seats: 2,
+      transmission: "Manual",
+      fuel: "Petrol",
+      price: 900,
+      badge: "",
+      featured: false,
+      image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=800&q=80"
     }
   ],
 
@@ -114,110 +194,36 @@ const LOCAL_DATA = {
      3. EXCITING EXPERIENCES
      ========================================================== */
   activities: [
-    {
-      name: "Scuba Diving",
-      meta: "2 hrs · North Goa",
-      price: 2500,
-      unit: "per person",
-      image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Parasailing",
-      meta: "15 min · Baga Beach",
-      price: 1800,
-      unit: "per person",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Jet Ski",
-      meta: "30 min · Calangute",
-      price: 1500,
-      unit: "per person",
-      image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Dolphin Trips",
-      meta: "1 hr · Sinquerim",
-      price: 900,
-      unit: "per person",
-      image: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Sunset Cruise",
-      meta: "2 hrs · Mandovi River",
-      price: 1200,
-      unit: "per person",
-      image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Island Tours",
-      meta: "Full day · Grand Island",
-      price: 2000,
-      unit: "per person",
-      image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80"
-    }
+    { name: "Scuba Diving",  meta: "2 hrs · North Goa",       price: 2500, unit: "per person", image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=800&q=80" },
+    { name: "Parasailing",   meta: "15 min · Baga Beach",     price: 1800, unit: "per person", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" },
+    { name: "Jet Ski",       meta: "30 min · Calangute",      price: 1500, unit: "per person", image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80" },
+    { name: "Dolphin Trips", meta: "1 hr · Sinquerim",        price: 900,  unit: "per person", image: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=800&q=80" },
+    { name: "Sunset Cruise", meta: "2 hrs · Mandovi River",   price: 1200, unit: "per person", image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800&q=80" },
+    { name: "Island Tours",  meta: "Full day · Grand Island", price: 2000, unit: "per person", image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80" }
   ],
 
   /* ==========================================================
      4. YACHTS
      ========================================================== */
   yachts: [
-    {
-      name: "Sunseeker 55",
-      meta: "54 ft · 20 Guests · Crew",
-      price: 75000,
-      unit: "per day",
-      badge: "Premium",
-      image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Princess 48",
-      meta: "48 ft · 16 Guests · Crew",
-      price: 60000,
-      unit: "per day",
-      badge: "",
-      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80"
-    }
+    { name: "Sunseeker 55", meta: "54 ft · 20 Guests · Crew", price: 75000, unit: "per day", badge: "Premium", image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=800&q=80" },
+    { name: "Princess 48",  meta: "48 ft · 16 Guests · Crew", price: 60000, unit: "per day", badge: "",        image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80" }
   ],
 
   /* ==========================================================
      5. BOATS
      ========================================================== */
   boats: [
-    {
-      name: "Private Boat",
-      meta: "8 Guests · Sightseeing",
-      price: 5000,
-      unit: "per trip",
-      image: "https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Speed Boat",
-      meta: "6 Guests · Thrill Ride",
-      price: 3500,
-      unit: "per trip",
-      image: "https://images.unsplash.com/photo-1502933691298-84fc14542831?auto=format&fit=crop&w=800&q=80"
-    }
+    { name: "Private Boat", meta: "8 Guests · Sightseeing", price: 5000, unit: "per trip", image: "https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=800&q=80" },
+    { name: "Speed Boat",   meta: "6 Guests · Thrill Ride", price: 3500, unit: "per trip", image: "https://images.unsplash.com/photo-1502933691298-84fc14542831?auto=format&fit=crop&w=800&q=80" }
   ],
 
   /* ==========================================================
      6. CRUISES
      ========================================================== */
   cruises: [
-    {
-      name: "Party Cruise",
-      meta: "3 hrs · Music & Dance",
-      price: 2500,
-      unit: "per person",
-      image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      name: "Sunset Cruise",
-      meta: "2 hrs · Mandovi River",
-      price: 1500,
-      unit: "per person",
-      image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80"
-    }
+    { name: "Party Cruise",  meta: "3 hrs · Music & Dance",  price: 2500, unit: "per person", image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800&q=80" },
+    { name: "Sunset Cruise", meta: "2 hrs · Mandovi River",  price: 1500, unit: "per person", image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80" }
   ],
 
   /* ==========================================================
@@ -246,23 +252,8 @@ const LOCAL_DATA = {
      9. CUSTOMER REVIEWS
      ========================================================== */
   reviews: [
-    {
-      name: "Rohit S.",
-      source: "Google Review",
-      rating: 5,
-      text: "Booked a car and it was in great condition. Super easy process and friendly support."
-    },
-    {
-      name: "Priya M.",
-      source: "Google Review",
-      rating: 5,
-      text: "The yacht experience was absolutely amazing! Will definitely book again."
-    },
-    {
-      name: "Amit K.",
-      source: "Google Review",
-      rating: 5,
-      text: "Loved the scuba diving activity. Everything was well organised and safe."
-    }
+    { name: "Rohit S.", source: "Google Review", rating: 5, text: "Booked a car and it was in great condition. Super easy process and friendly support." },
+    { name: "Priya M.", source: "Google Review", rating: 5, text: "The yacht experience was absolutely amazing! Will definitely book again." },
+    { name: "Amit K.",  source: "Google Review", rating: 5, text: "Loved the scuba diving activity. Everything was well organised and safe." }
   ]
 };

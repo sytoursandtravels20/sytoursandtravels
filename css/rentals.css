@@ -1,0 +1,202 @@
+/* ============================================================
+   rentals.css — page-specific styles for rentals/index.html.
+   Shared tokens, buttons, .sy-card, section headings and .cta
+   come from home.css (loaded first).
+   ============================================================ */
+
+/* ---------- COMPACT PAGE HERO ---------- */
+.page-hero {
+  position: relative;
+  padding: 5rem 0 4rem;
+  color: #fff;
+  background-color: var(--sy-navy);
+  background-image:
+    linear-gradient(180deg, rgba(10,37,64,.86) 0%, rgba(10,37,64,.6) 50%, rgba(10,37,64,.92) 100%),
+    var(--page-hero-img, none);
+  background-image:
+    linear-gradient(180deg, rgba(10,37,64,.86) 0%, rgba(10,37,64,.6) 50%, rgba(10,37,64,.92) 100%),
+    url("https://images.unsplash.com/photo-1520443240718-fce21901db79?auto=format&fit=crop&w=2000&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page-hero-inner { position: relative; z-index: 2; max-width: 720px; }
+
+.page-hero-eyebrow {
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sy-yellow);
+  margin-bottom: .8rem;
+}
+
+.page-hero-title {
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.8px;
+  margin: 0;
+}
+
+.page-hero-sub {
+  color: #dfe9f3;
+  font-size: 1rem;
+  margin-top: 1rem;
+  max-width: 560px;
+}
+
+/* ---------- STICKY FILTER BAR ---------- */
+.filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid var(--sy-border);
+  box-shadow: 0 4px 14px rgba(10, 37, 64, .04);
+  padding: .85rem 0;
+}
+
+.filter-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Category chips */
+.filter-chips {
+  display: flex;
+  gap: .4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filter-chips::-webkit-scrollbar { display: none; }
+
+.filter-chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: #fff;
+  border: 1px solid var(--sy-border);
+  border-radius: 50px;
+  padding: .5rem 1.1rem;
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--sy-navy);
+  cursor: pointer;
+  transition: all .2s ease;
+  white-space: nowrap;
+}
+.filter-chip i { font-size: .95rem; }
+.filter-chip:hover { border-color: var(--sy-navy); }
+.filter-chip.is-active {
+  background: var(--sy-navy);
+  color: #fff;
+  border-color: var(--sy-navy);
+}
+
+/* Search + Sort */
+.filter-controls {
+  display: flex;
+  gap: .6rem;
+  flex: 1 1 auto;
+  min-width: 260px;
+}
+
+.filter-search {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background: var(--sy-bg);
+  border: 1px solid var(--sy-border);
+  border-radius: 50px;
+  padding: .5rem 1rem;
+  flex: 1 1 auto;
+  min-width: 180px;
+  transition: border-color .2s;
+}
+.filter-search:focus-within { border-color: var(--sy-blue); }
+.filter-search i { color: var(--sy-muted); }
+.filter-search input {
+  border: 0;
+  background: transparent;
+  outline: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: .9rem;
+  color: var(--sy-text);
+}
+
+.filter-select {
+  background: #fff;
+  border: 1px solid var(--sy-border);
+  border-radius: 50px;
+  padding: .55rem 2rem .55rem 1rem;
+  font-family: inherit;
+  font-size: .88rem;
+  color: var(--sy-navy);
+  font-weight: 500;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='%236B7A90'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .7rem center;
+  transition: border-color .2s;
+}
+.filter-select:focus { outline: 0; border-color: var(--sy-blue); }
+
+/* ---------- RESULTS + GRID ---------- */
+.results-count {
+  color: var(--sy-muted);
+  font-size: .9rem;
+  margin: 0 0 1.25rem;
+}
+
+.rental-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ---------- EMPTY STATE ---------- */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--sy-muted);
+}
+.empty-state i {
+  font-size: 3rem;
+  color: var(--sy-border);
+  display: block;
+  margin-bottom: 1rem;
+}
+.empty-state h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--sy-navy);
+  margin: 0 0 .5rem;
+}
+.empty-state p {
+  font-size: .9rem;
+  margin: 0 0 1.5rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 991.98px) {
+  .page-hero { padding: 4rem 0 3rem; }
+}
+
+@media (max-width: 767.98px) {
+  .page-hero { padding: 3rem 0 2.5rem; }
+  .filter-bar { padding: .7rem 0; }
+  .filter-bar-inner { gap: .7rem; }
+  .filter-controls { width: 100%; }
+  .filter-search { min-width: 0; }
+  .rental-grid { grid-template-columns: 1fr; gap: 1rem; }
+}

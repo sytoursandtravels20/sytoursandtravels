@@ -1,21 +1,15 @@
 /* ============================================================
-   components.js — helpers and card templates.
-   - loadComponent()  : injects header.html / footer.html
-   - esc(), fmtPrice(), waLink()
-   - card template functions (pure — accept an object, return HTML)
+   components.js — shared helpers + card templates.
+   (Only markActiveNav is new — everything else unchanged.)
    ============================================================ */
 
-/* ---------- Load an HTML component into a container ---------- */
 async function loadComponent(targetId, path) {
   const el = document.getElementById(targetId);
   if (!el) return;
-
   try {
     const res = await fetch(path);
     if (!res.ok) throw new Error("HTTP " + res.status);
     el.innerHTML = await res.text();
-
-    // Re-run any inline <script> tags inside the loaded HTML
     el.querySelectorAll("script").forEach(function (old) {
       const s = document.createElement("script");
       s.textContent = old.textContent;
@@ -26,40 +20,33 @@ async function loadComponent(targetId, path) {
     el.innerHTML =
       '<p style="padding:1rem;text-align:center;color:#b00;background:#fff">' +
       "Could not load " + path +
-      ". Please open the site with a local web server (VS Code Live Server)." +
-      "</p>";
+      ". Please open the site with a local web server.</p>";
   }
 }
 
-/* ---------- Escape text safely for HTML ---------- */
 function esc(str) {
   return String(str == null ? "" : str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-/* ---------- Format a price with Indian commas ---------- */
 function fmtPrice(n) {
   return Number(n || 0).toLocaleString("en-IN");
 }
 
-/* ---------- Build a WhatsApp link with a pre-filled message ---------- */
 function waLink(message) {
-  return (
-    "https://wa.me/" +
-    CONFIG.company.phoneRaw +
-    "?text=" +
-    encodeURIComponent(message)
-  );
+  return "https://wa.me/" + CONFIG.company.phoneRaw + "?text=" + encodeURIComponent(message);
 }
 
-/* ============================================================
-   CARD TEMPLATES
-   Each returns an HTML string.
-   ============================================================ */
+/* ---------- NEW: mark the nav link matching the current page ---------- */
+function markActiveNav() {
+  const page = (document.body.dataset.page || "home").trim();
+  document.querySelectorAll("[data-page]").forEach(function (el) {
+    el.classList.toggle("active", el.dataset.page === page);
+  });
+}
 
+/* ---------- CARD TEMPLATES (unchanged) ---------- */
 function categoryCard(c) {
   return `
     <a class="category-card" href="${esc(c.href || "#")}">
@@ -104,12 +91,9 @@ function activityCard(a) {
     "Hi " + CONFIG.company.name + ", I'm interested in the " + a.name +
     " experience (" + a.meta + ") at \u20B9" + fmtPrice(a.price) + " " + a.unit +
     ". Kindly share availability. Thank you.";
-
   return `
     <article class="sy-card">
-      <div class="sy-card-media">
-        <img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy">
-      </div>
+      <div class="sy-card-media"><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy"></div>
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(a.name)}</h3>
         <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
@@ -131,7 +115,6 @@ function waterCard(item, kind) {
     "Hi " + CONFIG.company.name + ", I'm interested in the " + item.name +
     " (" + kind + ", " + item.meta + ") at \u20B9" + fmtPrice(item.price) +
     " " + item.unit + ". Kindly share availability. Thank you.";
-
   return `
     <article class="sy-card">
       <div class="sy-card-media">
@@ -175,10 +158,8 @@ function howItem(step, index) {
 }
 
 function reviewCard(r) {
-  const initials = r.name.trim().split(/\s+/)
-    .map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase();
+  const initials = r.name.trim().split(/\s+/).map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase();
   const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
-
   return `
     <article class="review-card">
       <div class="review-stars">${stars}</div>
