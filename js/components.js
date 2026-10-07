@@ -57,16 +57,39 @@ function categoryCard(c) {
 }
 
 function vehicleCard(v) {
+  /* Availability state */
+  const isBooked = v.status === "booked";
+  const until = v.bookedUntil ? " · Available from " + esc(v.bookedUntil) : "";
+
+  /* WhatsApp message — same as before, only sent if available */
   const waMsg =
     "Hi " + CONFIG.company.name + ", I'm interested in renting the " +
     v.name + " (" + v.seats + " seats, " + v.transmission + ", " + v.fuel +
     ") at \u20B9" + fmtPrice(v.price) + "/day. Kindly share availability. Thank you.";
 
+  /* Badge: prefer existing badge when available, else show Booked */
+  let badge = "";
+  if (isBooked) {
+    badge = `<span class="sy-badge sy-badge--booked">Booked</span>`;
+  } else if (v.badge) {
+    badge = `<span class="sy-badge">${esc(v.badge)}</span>`;
+  }
+
+  /* Footer action: WhatsApp button if available, disabled pill if booked */
+  const action = isBooked
+    ? `<span class="btn-book is-disabled" aria-disabled="true">Unavailable</span>`
+    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>`;
+
+  /* Optional "available from" hint under the price */
+  const hint = isBooked && v.bookedUntil
+    ? `<span class="sy-price-hint">${esc(until).replace(/^ · /, "")}</span>`
+    : "";
+
   return `
-    <article class="sy-card">
+    <article class="sy-card${isBooked ? " is-booked" : ""}">
       <div class="sy-card-media">
         <img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy">
-        ${v.badge ? `<span class="sy-badge">${esc(v.badge)}</span>` : ""}
+        ${badge}
       </div>
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(v.name)}</h3>
@@ -79,8 +102,9 @@ function vehicleCard(v) {
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(v.price)}</span>
             <span class="sy-price-unit">/ day</span>
+            ${hint}
           </div>
-          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>
+          ${action}
         </div>
       </div>
     </article>`;
@@ -172,4 +196,15 @@ function reviewCard(r) {
         </div>
       </div>
     </article>`;
+}
+
+/* ============================================================
+   AVAILABILITY HELPER
+   Filters out "hidden" vehicles everywhere.
+   Booked vehicles stay visible (they get a Booked badge).
+   ============================================================ */
+function visibleVehicles(list) {
+  return (list || []).filter(function (v) {
+    return v.status !== "hidden";
+  });
 }

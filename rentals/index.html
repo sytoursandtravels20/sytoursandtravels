@@ -1,136 +1,153 @@
 <!DOCTYPE html>
 <html lang="en-IN">
+
 <head>
-  <meta charset="UTF-8" />
-  <base href="/" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rentals in Goa | Cars &amp; Bikes — SY Tours &amp; Travels</title>
-  <meta name="description" content="Browse and rent cars and bikes across Goa. All vehicles maintained, transparent pricing, easy booking with SY Tours & Travels." />
-  <meta name="theme-color" content="#0A2540" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>" />
+    <meta charset="UTF-8" />
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rentals in Goa | Cars &amp; Bikes — SY Tours &amp; Travels</title>
+    <meta name="description"
+        content="Browse and rent cars and bikes across Goa. All vehicles maintained, transparent pricing, easy booking with SY Tours & Travels." />
+    <meta name="theme-color" content="#0A2540" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
 
-  <!-- home.css provides shared tokens, buttons, cards, section headings, CTA, mobile-nav -->
-  <link href="css/home.css" rel="stylesheet" />
-  <!-- rentals.css adds page-specific styles: compact hero, filter bar -->
-  <link href="css/rentals.css" rel="stylesheet" />
+    <!-- home.css provides shared tokens, buttons, cards, section headings, CTA, mobile-nav -->
+    <link href="css/home.css" rel="stylesheet" />
+    <!-- rentals.css adds page-specific styles: compact hero, filter bar -->
+    <link href="css/rentals.css" rel="stylesheet" />
 </head>
+
 <body data-page="rentals">
 
-<header id="site-header"></header>
+    <header id="site-header"></header>
 
-<main>
+    <main>
 
-  <!-- COMPACT HERO -->
-  <section class="page-hero">
-    <div class="container page-hero-inner">
-      <span class="page-hero-eyebrow">RENTALS IN GOA</span>
-      <h1 class="page-hero-title">Cars &amp; Bikes, Ready For Your Trip</h1>
-      <p class="page-hero-sub">
-        Every vehicle is serviced, insured, and delivered with a full tank. Pick what you need, book in a minute.
-      </p>
-    </div>
-  </section>
+        <!-- COMPACT HERO -->
+        <section class="page-hero">
+            <div class="container page-hero-inner">
+                <span class="page-hero-eyebrow">RENTALS IN GOA</span>
+                <h1 class="page-hero-title">Cars &amp; Bikes, Ready For Your Trip</h1>
+                <p class="page-hero-sub">
+                    Every vehicle is serviced, insured, and delivered with a full tank. Pick what you need, book in a
+                    minute.
+                </p>
+            </div>
+        </section>
 
-  <!-- STICKY FILTER BAR -->
-  <div class="filter-bar" id="filterBar">
-    <div class="container filter-bar-inner">
+        <!-- STICKY FILTER BAR -->
+        <div class="filter-bar" id="filterBar">
+            <div class="container filter-bar-inner">
 
-      <div class="filter-chips" role="tablist" aria-label="Category filter">
-        <button class="filter-chip is-active" data-cat="all">
-          <i class="bi bi-grid-fill"></i> All
-        </button>
-        <button class="filter-chip" data-cat="car">
-          <i class="bi bi-car-front-fill"></i> Cars
-        </button>
-        <button class="filter-chip" data-cat="bike">
-          <i class="bi bi-bicycle"></i> Bikes
-        </button>
-      </div>
+                <div class="filter-chips" role="tablist" aria-label="Category filter">
+                    <button class="filter-chip is-active" data-cat="all">
+                        <i class="bi bi-grid-fill"></i> All
+                    </button>
+                    <button class="filter-chip" data-cat="car">
+                        <i class="bi bi-car-front-fill"></i> Cars
+                    </button>
+                    <button class="filter-chip" data-cat="bike">
+                        <i class="bi bi-bicycle"></i> Bikes
+                    </button>
+                </div>
 
-      <div class="filter-controls">
-        <div class="filter-search">
-          <i class="bi bi-search"></i>
-          <input type="text" id="filterSearch" placeholder="Search vehicles..." aria-label="Search vehicles" />
+                <div class="filter-controls">
+                    <div class="filter-search">
+                        <i class="bi bi-search"></i>
+                        <input type="text" id="filterSearch" placeholder="Search vehicles..."
+                            aria-label="Search vehicles" />
+                    </div>
+                    <select class="filter-select" id="filterSort" aria-label="Sort by">
+                        <option value="recommended">Recommended</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="name">Name (A–Z)</option>
+                    </select>
+                    <label class="filter-toggle" for="availableOnly">
+                        <input type="checkbox" id="availableOnly" />
+                        <span>Available only</span>
+                    </label>
+                </div>
+
+            </div>
         </div>
-        <select class="filter-select" id="filterSort" aria-label="Sort by">
-          <option value="recommended">Recommended</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
-          <option value="name">Name (A–Z)</option>
-        </select>
-      </div>
 
-    </div>
-  </div>
+        <!-- LISTINGS -->
+        <section class="section" id="listings">
+            <div class="container">
 
-  <!-- LISTINGS -->
-  <section class="section" id="listings">
-    <div class="container">
+                <p class="results-count" id="resultsCount"></p>
 
-      <p class="results-count" id="resultsCount"></p>
+                <div class="rental-grid" id="rentalGrid"></div>
 
-      <div class="rental-grid" id="rentalGrid"></div>
+                <div class="empty-state" id="emptyState" hidden>
+                    <i class="bi bi-search"></i>
+                    <h3>No vehicles match your filters</h3>
+                    <p>Try clearing the filters or searching for a different word.</p>
+                    <button class="btn-sy" type="button" id="clearFilters">Clear Filters</button>
+                </div>
 
-      <div class="empty-state" id="emptyState" hidden>
-        <i class="bi bi-search"></i>
-        <h3>No vehicles match your filters</h3>
-        <p>Try clearing the filters or searching for a different word.</p>
-        <button class="btn-sy" type="button" id="clearFilters">Clear Filters</button>
-      </div>
+            </div>
+        </section>
 
-    </div>
-  </section>
+        <!-- WHY RENT WITH US -->
+        <section class="section section-alt" id="why">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <h2 class="section-title">Why Rent With Us?</h2>
+                        <p class="section-sub">Because your trip should start smoothly.</p>
+                    </div>
+                </div>
+                <div class="why-grid" id="whyGrid"></div>
+            </div>
+        </section>
 
-  <!-- WHY RENT WITH US -->
-  <section class="section section-alt" id="why">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title">Why Rent With Us?</h2>
-          <p class="section-sub">Because your trip should start smoothly.</p>
-        </div>
-      </div>
-      <div class="why-grid" id="whyGrid"></div>
-    </div>
-  </section>
+        <!-- FINAL CTA -->
+        <section class="cta" id="contact">
+            <div class="container cta-inner">
+                <div>
+                    <h2 class="cta-title" id="ctaTitle"></h2>
+                    <p class="cta-sub" id="ctaSub"></p>
+                </div>
+                <div class="cta-actions">
+                    <a class="btn-sy btn-lg" id="ctaBtn" href="#"></a>
+                    <a class="btn-ghost btn-lg" id="ctaWa" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>
+                        WhatsApp</a>
+                </div>
+            </div>
+        </section>
 
-  <!-- FINAL CTA -->
-  <section class="cta" id="contact">
-    <div class="container cta-inner">
-      <div>
-        <h2 class="cta-title" id="ctaTitle"></h2>
-        <p class="cta-sub" id="ctaSub"></p>
-      </div>
-      <div class="cta-actions">
-        <a class="btn-sy btn-lg" id="ctaBtn" href="#"></a>
-        <a class="btn-ghost btn-lg" id="ctaWa" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> WhatsApp</a>
-      </div>
-    </div>
-  </section>
+    </main>
 
-</main>
+    <footer id="site-footer"></footer>
 
-<footer id="site-footer"></footer>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="./" class="mobile-nav-item" data-page="home"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+        <a href="rentals/" class="mobile-nav-item is-active" data-page="rentals"><i
+                class="bi bi-car-front-fill"></i><span>Rentals</span></a>
+        <a href="./#experiences" class="mobile-nav-item" data-page="activities"><i
+                class="bi bi-water"></i><span>Activities</span></a>
+        <a href="./#yachts" class="mobile-nav-item" data-page="yachts"><i
+                class="bi bi-life-preserver"></i><span>Yachts</span></a>
+        <a href="./#contact" class="mobile-nav-item" data-page="contact"><i
+                class="bi bi-three-dots"></i><span>More</span></a>
+    </nav>
 
-<nav class="mobile-nav" aria-label="Mobile navigation">
-  <a href="./" class="mobile-nav-item" data-page="home"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
-  <a href="rentals/" class="mobile-nav-item is-active" data-page="rentals"><i class="bi bi-car-front-fill"></i><span>Rentals</span></a>
-  <a href="./#experiences" class="mobile-nav-item" data-page="activities"><i class="bi bi-water"></i><span>Activities</span></a>
-  <a href="./#yachts" class="mobile-nav-item" data-page="yachts"><i class="bi bi-life-preserver"></i><span>Yachts</span></a>
-  <a href="./#contact" class="mobile-nav-item" data-page="contact"><i class="bi bi-three-dots"></i><span>More</span></a>
-</nav>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/data.js"></script>
-<script src="js/components.js"></script>
-<script src="js/rentals.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/rentals.js"></script>
 </body>
+
 </html>

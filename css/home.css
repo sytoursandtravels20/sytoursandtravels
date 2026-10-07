@@ -635,3 +635,47 @@ img { max-width: 100%; display: block; }
   .cta-actions { width: 100%; }
   .cta-actions .btn-sy, .cta-actions .btn-ghost { flex: 1; justify-content: center; }
 }
+/* ============================================================
+   AVAILABILITY STYLES
+   Booked vehicles still render but are visually marked.
+   ============================================================ */
+
+/* Booked badge (overrides the yellow badge on the same element) */
+.sy-badge--booked {
+  background: #B23A48;
+  color: #fff;
+  letter-spacing: .5px;
+}
+
+/* Booked card: dim the whole card slightly + dim the image more */
+.sy-card.is-booked {
+  opacity: .88;
+}
+.sy-card.is-booked .sy-card-media img {
+  filter: grayscale(.35) brightness(.85);
+}
+.sy-card.is-booked:hover {
+  transform: none;            /* no lift on hover for booked */
+  box-shadow: none;
+}
+.sy-card.is-booked:hover .sy-card-media img {
+  transform: none;            /* no zoom */
+}
+
+/* Disabled "Unavailable" pill (replaces Book Now) */
+.btn-book.is-disabled {
+  background: #E4EAF1;
+  color: #8695A8;
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Small "Available from …" hint under the price */
+.sy-price-hint {
+  display: block;
+  font-size: .7rem;
+  color: #B23A48;
+  margin-top: .2rem;
+  font-weight: 500;
+}

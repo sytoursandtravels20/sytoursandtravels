@@ -1,6 +1,14 @@
 /* ============================================================
    data.js — LOCAL fallback data for the whole site.
-   Used by both the homepage and the rentals page.
+
+   AVAILABILITY (admin control):
+   Every vehicle has two fields you can edit:
+     • status       → "available" | "booked" | "hidden"
+     • bookedUntil  → optional text shown to visitors when booked
+
+   • status "available" → normal card, Book Now works
+   • status "booked"    → "Booked" badge, button disabled, image dimmed
+   • status "hidden"    → card never appears on the site
    ============================================================ */
 
 const LOCAL_DATA = {
@@ -9,48 +17,20 @@ const LOCAL_DATA = {
      1. POPULAR CATEGORIES
      ========================================================== */
   categories: [
-    {
-      name: "Car Rentals",
-      desc: "Comfortable · Reliable",
-      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80",
-      href: "rentals/"
-    },
-    {
-      name: "Bike Rentals",
-      desc: "Explore Freely",
-      image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80",
-      href: "rentals/"
-    },
-    {
-      name: "Water Activities",
-      desc: "Adventure Awaits",
-      image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&q=80",
-      href: "./#experiences"
-    },
-    {
-      name: "Yacht Rentals",
-      desc: "Luxury on Water",
-      image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=600&q=80",
-      href: "./#yachts"
-    },
-    {
-      name: "Boat Trips",
-      desc: "Island · Sightseeing",
-      image: "https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=600&q=80",
-      href: "./#yachts"
-    },
-    {
-      name: "Cruises",
-      desc: "Sunset · Party · More",
-      image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=600&q=80",
-      href: "./#yachts"
-    }
+    { name: "Car Rentals",     desc: "Comfortable · Reliable",    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80", href: "rentals/" },
+    { name: "Bike Rentals",    desc: "Explore Freely",            image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80",    href: "rentals/" },
+    { name: "Water Activities",desc: "Adventure Awaits",          image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&q=80", href: "./#experiences" },
+    { name: "Yacht Rentals",   desc: "Luxury on Water",           image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=600&q=80", href: "./#yachts" },
+    { name: "Boat Trips",      desc: "Island · Sightseeing",      image: "https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=600&q=80", href: "./#yachts" },
+    { name: "Cruises",         desc: "Sunset · Party · More",     image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=600&q=80", href: "./#yachts" }
   ],
 
   /* ==========================================================
      2. VEHICLES (cars + bikes)
-     category: "car" | "bike"
-     featured: true → shown on homepage Featured Rentals
+     - category : "car" | "bike"
+     - featured : true → shows on homepage Featured Rentals
+     - status   : "available" | "booked" | "hidden"   ← EDIT THIS
+     - bookedUntil : free text (optional)             ← EDIT THIS
      ========================================================== */
   vehicles: [
     /* ---------------- CARS ---------------- */
@@ -63,6 +43,8 @@ const LOCAL_DATA = {
       price: 2500,
       badge: "Most Popular",
       featured: true,
+      status: "available",        // ← change to "booked" or "hidden" as needed
+      bookedUntil: "",            // ← e.g. "15 Oct 2026"
       image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -74,6 +56,8 @@ const LOCAL_DATA = {
       price: 1200,
       badge: "",
       featured: true,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -85,6 +69,8 @@ const LOCAL_DATA = {
       price: 2000,
       badge: "",
       featured: true,
+      status: "booked",           // ← example: this one is currently rented
+      bookedUntil: "15 Oct 2026",
       image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -96,6 +82,8 @@ const LOCAL_DATA = {
       price: 1100,
       badge: "",
       featured: false,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -107,6 +95,8 @@ const LOCAL_DATA = {
       price: 1800,
       badge: "",
       featured: false,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -118,6 +108,8 @@ const LOCAL_DATA = {
       price: 4500,
       badge: "Premium",
       featured: false,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=800&q=80"
     },
 
@@ -131,6 +123,8 @@ const LOCAL_DATA = {
       price: 1000,
       badge: "",
       featured: true,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -142,6 +136,8 @@ const LOCAL_DATA = {
       price: 400,
       badge: "Best Value",
       featured: true,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -153,6 +149,8 @@ const LOCAL_DATA = {
       price: 1200,
       badge: "",
       featured: false,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1558980664-10e7170b5df9?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -164,6 +162,8 @@ const LOCAL_DATA = {
       price: 450,
       badge: "",
       featured: false,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -175,6 +175,8 @@ const LOCAL_DATA = {
       price: 700,
       badge: "",
       featured: false,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=800&q=80"
     },
     {
@@ -186,6 +188,8 @@ const LOCAL_DATA = {
       price: 900,
       badge: "",
       featured: false,
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=800&q=80"
     }
   ],
@@ -222,8 +226,8 @@ const LOCAL_DATA = {
      6. CRUISES
      ========================================================== */
   cruises: [
-    { name: "Party Cruise",  meta: "3 hrs · Music & Dance",  price: 2500, unit: "per person", image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800&q=80" },
-    { name: "Sunset Cruise", meta: "2 hrs · Mandovi River",  price: 1500, unit: "per person", image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80" }
+    { name: "Party Cruise",  meta: "3 hrs · Music & Dance", price: 2500, unit: "per person", image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800&q=80" },
+    { name: "Sunset Cruise", meta: "2 hrs · Mandovi River", price: 1500, unit: "per person", image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80" }
   ],
 
   /* ==========================================================

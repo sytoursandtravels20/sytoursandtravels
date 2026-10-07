@@ -1,3 +1,14 @@
+## Admin: marking a vehicle as booked / hidden
+
+You never edit HTML or CSS for this. You only edit the data.
+
+### In `js/data.js` (now)
+
+Find the vehicle in `LOCAL_DATA.vehicles` and change two fields:
+
+```js
+status: "booked",              // was "available"
+bookedUntil: "15 Oct 2026",    // optional — shows to visitors
 # SY Tours & Travels
 
 ## Pages

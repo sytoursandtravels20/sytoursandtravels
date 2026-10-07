@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const DATA = await loadData();
 
   renderCategories(DATA.categories);
-  renderFeatured((DATA.vehicles || []).filter(function (v) { return v.featured; }));  // NEW: only featured
+renderFeatured(visibleVehicles(DATA.vehicles).filter(function (v) { return v.featured; })); // NEW: only featured
   renderExperiences(DATA.activities);
   renderYachtsBoatsCruises(DATA);
   renderWhyBook(DATA.whyBook);
