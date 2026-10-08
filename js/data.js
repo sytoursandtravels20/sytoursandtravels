@@ -39,7 +39,7 @@ const LOCAL_DATA = {
       featured: true,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Suzuki_Swift_%282024%29_hybrid_DSC_6076.jpg/960px-Suzuki_Swift_%282024%29_hybrid_DSC_6076.jpg"
     },
     {
       category: "economy",
@@ -48,7 +48,7 @@ const LOCAL_DATA = {
       featured: true,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/2022_Maruti_Suzuki_Baleno_Alpha_%28India%29_front_view.jpg/960px-2022_Maruti_Suzuki_Baleno_Alpha_%28India%29_front_view.jpg"
     },
     {
       category: "economy",
@@ -57,7 +57,7 @@ const LOCAL_DATA = {
       featured: true,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Hyundai_i20_%28III%2C_Facelift%29_%E2%80%93_f_11102025.jpg/960px-Hyundai_i20_%28III%2C_Facelift%29_%E2%80%93_f_11102025.jpg"
     },
     {
       category: "suv",
@@ -65,7 +65,7 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/2024_Suzuki_Fronx.jpg/960px-2024_Suzuki_Fronx.jpg"
     },
     {
       category: "suv",
@@ -73,7 +73,7 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/2022_Hyundai_Venue_Preferred_in_Polar_White%2C_Front_Right%2C_09-12-2023.jpg/960px-2022_Hyundai_Venue_Preferred_in_Polar_White%2C_Front_Right%2C_09-12-2023.jpg"
     },
     {
       category: "suv",
@@ -81,7 +81,7 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/2021_Kia_Sonet_1.5_Premiere_%28Indonesia%29_front_view_03.jpg/960px-2021_Kia_Sonet_1.5_Premiere_%28Indonesia%29_front_view_03.jpg"
     },
     {
       category: "suv",
@@ -89,15 +89,16 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/2022_Maruti_Suzuki_Brezza_ZXi%2B_%28India%29_front_view_03.png/960px-2022_Maruti_Suzuki_Brezza_ZXi%2B_%28India%29_front_view_03.png"
     },
     {
       category: "suv",
       name: "Hyundai Creta",
+      rates: [{ transmission: "Automatic", price: 2000 }],
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/2024_Hyundai_Creta_1.5_MPi_SX%28O%29_%28India%29_front_view.png/960px-2024_Hyundai_Creta_1.5_MPi_SX%28O%29_%28India%29_front_view.png"
     },
     {
       category: "suv",
@@ -105,7 +106,7 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Kia_Seltos_SP2_PE_Snow_White_Pearl_%2817%29_%28cropped%29.jpg/960px-Kia_Seltos_SP2_PE_Snow_White_Pearl_%2817%29_%28cropped%29.jpg"
     },
     {
       category: "suv",
@@ -113,7 +114,7 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Mahindra_Thar_SUV_in_%22Red_Rage%22_color_at_Ashiana_Brahmanda%2C_East_Singbhum_India_%28Ank_Kumar%2C_Infosys_limited%29_02_%28cropped%29.jpg/960px-Mahindra_Thar_SUV_in_%22Red_Rage%22_color_at_Ashiana_Brahmanda%2C_East_Singbhum_India_%28Ank_Kumar%2C_Infosys_limited%29_02_%28cropped%29.jpg"
     },
     {
       category: "suv",
@@ -121,7 +122,7 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/2019_Suzuki_Jimny_SZ5_4X4_Automatic_1.5.jpg/960px-2019_Suzuki_Jimny_SZ5_4X4_Automatic_1.5.jpg"
     },
     {
       category: "suv",
@@ -129,15 +130,16 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Mahindra_Thar_ROXX_on_dirt.jpg/960px-Mahindra_Thar_ROXX_on_dirt.jpg"
     },
     {
       category: "premium-suv",
       name: "Hyundai Creta",
+      rates: [{ transmission: "Automatic", price: 2000 }],
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/2024_Hyundai_Creta_1.5_MPi_SX%28O%29_%28India%29_front_view.png/960px-2024_Hyundai_Creta_1.5_MPi_SX%28O%29_%28India%29_front_view.png"
     },
     {
       category: "premium-suv",
@@ -145,7 +147,7 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Kia_Seltos_SP2_PE_Snow_White_Pearl_%2817%29_%28cropped%29.jpg/960px-Kia_Seltos_SP2_PE_Snow_White_Pearl_%2817%29_%28cropped%29.jpg"
     },
     {
       category: "premium-suv",
@@ -153,15 +155,16 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Mahindra_Thar_ROXX_on_dirt.jpg/960px-Mahindra_Thar_ROXX_on_dirt.jpg"
     },
     {
       category: "7-seater",
       name: "Maruti Ertiga",
+      rates: [{ transmission: "Manual", price: 1800 }],
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/2022_Maruti_Suzuki_Ertiga_LXi.jpg/960px-2022_Maruti_Suzuki_Ertiga_LXi.jpg"
     },
     {
       category: "7-seater",
@@ -169,7 +172,7 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/2022_Kia_Carens_1.4_%28India%29_front_view_01.jpg/960px-2022_Kia_Carens_1.4_%28India%29_front_view_01.jpg"
     },
     {
       category: "7-seater",
@@ -177,15 +180,16 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/2021_Hyundai_Alcazar_2.0_Signature_%28India%29_front_view.png/960px-2021_Hyundai_Alcazar_2.0_Signature_%28India%29_front_view.png"
     },
     {
       category: "7-seater",
       name: "Toyota Innova Crysta",
+      rates: [{ transmission: "Manual", price: 2500 }],
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Toyota_Innova_Crysta_2.4_Z_front_right.jpg/960px-Toyota_Innova_Crysta_2.4_Z_front_right.jpg"
     },
     {
       category: "7-seater",
@@ -193,15 +197,16 @@ const LOCAL_DATA = {
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Toyota_Innova_Zenix_2.0_V_%28III%29_%E2%80%93_f_22032025.jpg/960px-Toyota_Innova_Zenix_2.0_V_%28III%29_%E2%80%93_f_22032025.jpg"
     },
     {
       category: "luxury",
       name: "Toyota Fortuner",
+      rates: [{ transmission: "Automatic", price: 4500 }],
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=800&q=80"
+      image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/2015_Toyota_Fortuner_%28New_Zealand%29.jpg/960px-2015_Toyota_Fortuner_%28New_Zealand%29.jpg"
     }
   ],
 

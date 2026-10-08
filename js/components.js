@@ -98,7 +98,7 @@ function vehicleCard(v) {
   /* Footer action: WhatsApp button if available, disabled pill if booked */
   const action = isBooked
     ? `<span class="btn-book is-disabled" aria-disabled="true">Unavailable</span>`
-    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${rates.length ? "Book Now" : "Ask for price"}</a>`;
+    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>`;
 
   /* Optional "available from" hint under the price */
   const hint = isBooked && v.bookedUntil
