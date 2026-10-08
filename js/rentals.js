@@ -18,28 +18,33 @@ let currentFilters = {
 
 document.addEventListener("DOMContentLoaded", async function () {
 
-  await Promise.all([
+  const componentsReady = Promise.all([
     loadComponent("site-header", "components/header.html"),
     loadComponent("site-footer", "components/footer.html")
   ]);
 
-  applyConfig();
-  setHeaderPhoneLink();
-  markActiveNav();
-
   /* Hide "hidden" vehicles everywhere. Booked still appear (with badge). */
-  allVehicles = visibleVehicles(LOCAL_DATA.vehicles);
+  allVehicles = visibleVehicles(getCachedCatalog(
+    CONFIG.rentalInventoryCsvUrl,
+    parseRentalInventoryCsv,
+    LOCAL_DATA.vehicles,
+    "rental inventory"
+  ));
 
   renderWhyBook(LOCAL_DATA.whyBook);
   renderVehicleFilters();
   initFilters();
   renderListings();
-  initHeaderShadow();
   loadRentalInventory().then(function (vehicles) {
     allVehicles = visibleVehicles(vehicles);
     renderVehicleFilters();
     renderListings();
   });
+  await componentsReady;
+  applyConfig();
+  setHeaderPhoneLink();
+  markActiveNav();
+  initHeaderShadow();
 });
 
 /* ============================================================

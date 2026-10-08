@@ -227,24 +227,64 @@ function visibleVehicles(list) {
 }
 
 async function loadRentalInventory() {
-  const url = CONFIG.rentalInventoryCsvUrl;
-  if (!url) return LOCAL_DATA.vehicles;
+  const label = "rental inventory";
+  const fallback = getCachedCatalog(CONFIG.rentalInventoryCsvUrl, parseRentalInventoryCsv, LOCAL_DATA.vehicles, label);
+  return loadCatalogCsv(CONFIG.rentalInventoryCsvUrl, parseRentalInventoryCsv, fallback, label);
+}
 
+async function loadActivities() {
+  const label = "activities";
+  const fallback = getCachedCatalog(CONFIG.activitiesCsvUrl, parseActivitiesCsv, LOCAL_DATA.activities, label);
+  return loadCatalogCsv(CONFIG.activitiesCsvUrl, parseActivitiesCsv, fallback, label);
+}
+
+async function loadWaterTrips() {
+  const label = "water trips";
+  const fallback = getCachedCatalog(CONFIG.waterTripsCsvUrl, parseWaterTripsCsv, getLocalWaterTrips(), label);
+  return loadCatalogCsv(CONFIG.waterTripsCsvUrl, parseWaterTripsCsv, fallback, label);
+}
+
+async function loadCatalogCsv(url, parse, fallback, label) {
+  if (!url) return fallback;
   const controller = new AbortController();
   const timeout = setTimeout(function () { controller.abort(); }, 8000);
   try {
     const response = await fetch(url, { signal: controller.signal });
     if (!response.ok) throw new Error("HTTP " + response.status);
     const csv = await response.text();
-    const vehicles = parseRentalInventoryCsv(csv);
-    console.info("[SY] Loaded rental inventory from Google Sheets.");
-    return vehicles;
+    const data = parse(csv);
+    cacheCatalogCsv(url, csv, label);
+    console.info("[SY] Loaded " + label + " from Google Sheets.");
+    return data;
   } catch (error) {
-    console.warn("[SY] Google Sheets inventory unavailable; keeping local inventory.", error);
-    return LOCAL_DATA.vehicles;
+    console.warn("[SY] Google Sheets " + label + " unavailable; keeping local data.", error);
+    return fallback;
   } finally {
     clearTimeout(timeout);
   }
+}
+
+function getCachedCatalog(url, parse, fallback, label) {
+  if (!url) return fallback;
+  try {
+    const csv = localStorage.getItem(catalogCacheKey(url));
+    return csv ? parse(csv) : fallback;
+  } catch (error) {
+    console.warn("[SY] Could not read cached " + label + ".", error);
+    return fallback;
+  }
+}
+
+function cacheCatalogCsv(url, csv, label) {
+  try {
+    localStorage.setItem(catalogCacheKey(url), csv);
+  } catch (error) {
+    console.warn("[SY] Could not cache " + label + ".", error);
+  }
+}
+
+function catalogCacheKey(url) {
+  return "sy-catalog-csv-v1:" + url;
 }
 
 function parseRentalInventoryCsv(csv) {
@@ -313,6 +353,93 @@ function parseRentalInventoryCsv(csv) {
 
   if (!vehicles.length) throw new Error("Inventory CSV has no usable vehicle rows.");
   return vehicles;
+}
+
+function parseActivitiesCsv(csv) {
+  const rows = parseCsvRows(csv);
+  const columns = csvColumnIndexes(rows, ["name", "meta", "price", "unit", "image"], "activities");
+  const localByName = new Map(LOCAL_DATA.activities.map(function (activity) {
+    return [activity.name.trim().toLowerCase(), activity];
+  }));
+  return csvDataRows(rows, "activities").map(function (row, index) {
+    const get = function (header) { return (row[columns[header]] || "").trim(); };
+    const name = get("name");
+    const local = localByName.get(name.toLowerCase());
+    const activity = {
+      name: name,
+      meta: get("meta"),
+      price: parseCatalogPrice(get("price"), index + 2),
+      unit: get("unit"),
+      image: get("image") || (local && local.image)
+    };
+    if (!activity.name || !activity.meta || !activity.unit || !activity.image) {
+      throw new Error("Activities row " + (index + 2) + " is missing required information.");
+    }
+    return activity;
+  });
+}
+
+function parseWaterTripsCsv(csv) {
+  const rows = parseCsvRows(csv);
+  const columns = csvColumnIndexes(rows, ["name", "type", "meta", "price", "unit", "badge", "image"], "water trips");
+  const localByName = new Map(getLocalWaterTrips().map(function (trip) {
+    return [trip.name.trim().toLowerCase(), trip];
+  }));
+  return csvDataRows(rows, "water trips").map(function (row, index) {
+    const get = function (header) { return (row[columns[header]] || "").trim(); };
+    const name = get("name");
+    const rawType = get("type").toLowerCase();
+    const kind = { yacht: "Yacht", boat: "Boat", cruise: "Cruise" }[rawType];
+    const local = localByName.get(name.toLowerCase());
+    const trip = {
+      name: name,
+      type: kind,
+      meta: get("meta"),
+      price: parseCatalogPrice(get("price"), index + 2),
+      unit: get("unit"),
+      badge: get("badge"),
+      image: get("image") || (local && local.image)
+    };
+    if (!trip.name || !trip.type || !trip.meta || !trip.unit || !trip.image) {
+      throw new Error("WaterTrips row " + (index + 2) + " is missing required information.");
+    }
+    return trip;
+  });
+}
+
+function csvColumnIndexes(rows, requiredHeaders, label) {
+  if (rows.length < 2) throw new Error("Google Sheets " + label + " CSV has no data rows.");
+  const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
+  const columns = {};
+  requiredHeaders.forEach(function (header) {
+    const index = headers.indexOf(header);
+    if (index === -1) throw new Error("Google Sheets " + label + " CSV is missing the " + header + " column.");
+    columns[header] = index;
+  });
+  return columns;
+}
+
+function csvDataRows(rows, label) {
+  const dataRows = rows.slice(1).filter(function (row) {
+    return row.some(function (cell) { return cell.trim(); });
+  });
+  if (!dataRows.length) throw new Error("Google Sheets " + label + " CSV has no usable rows.");
+  return dataRows;
+}
+
+function parseCatalogPrice(value, rowNumber) {
+  const price = Number(value.replace(/[₹,\s]/g, ""));
+  if (!Number.isFinite(price) || price <= 0) {
+    throw new Error("Catalog row " + rowNumber + " has an invalid price.");
+  }
+  return price;
+}
+
+function getLocalWaterTrips() {
+  return []
+    .concat(LOCAL_DATA.yachts.map(function (item) { return Object.assign({ type: "Yacht" }, item); }))
+    .concat(LOCAL_DATA.boats.map(function (item) { return Object.assign({ type: "Boat" }, item); }))
+    .concat(LOCAL_DATA.cruises.map(function (item) { return Object.assign({ type: "Cruise" }, item); }));
 }
 
 function parseInventoryPrice(value, transmission, rowNumber) {

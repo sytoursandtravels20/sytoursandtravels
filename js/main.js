@@ -4,29 +4,49 @@
 
 document.addEventListener("DOMContentLoaded", async function () {
 
-  await Promise.all([
+  const componentsReady = Promise.all([
     loadComponent("site-header", "components/header.html"),
     loadComponent("site-footer", "components/footer.html")
   ]);
 
-  applyConfig();
-  setHeaderPhoneLink();
-  markActiveNav();                        // NEW
-
   renderCategories(LOCAL_DATA.categories);
-  renderFeatured(visibleVehicles(LOCAL_DATA.vehicles).filter(function (v) { return v.featured; }));
-  renderExperiences(LOCAL_DATA.activities);
-  renderYachtsBoatsCruises(LOCAL_DATA);
+  renderFeatured(visibleVehicles(getCachedCatalog(
+    CONFIG.rentalInventoryCsvUrl,
+    parseRentalInventoryCsv,
+    LOCAL_DATA.vehicles,
+    "rental inventory"
+  )).filter(function (vehicle) { return vehicle.featured; }));
+  renderExperiences(getCachedCatalog(
+    CONFIG.activitiesCsvUrl,
+    parseActivitiesCsv,
+    LOCAL_DATA.activities,
+    "activities"
+  ));
+  renderYachtsBoatsCruises({ waterTrips: getCachedCatalog(
+    CONFIG.waterTripsCsvUrl,
+    parseWaterTripsCsv,
+    getLocalWaterTrips(),
+    "water trips"
+  ) });
   renderWhyBook(LOCAL_DATA.whyBook);
   renderHowItWorks(LOCAL_DATA.howItWorks);
 
   initSearchTabs();
-  initHeaderShadow();
   loadRentalInventory().then(function (vehicles) {
     renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
       return vehicle.featured;
     }));
   });
+  loadActivities().then(renderExperiences);
+  loadWaterTrips().then(function (waterTrips) {
+    renderYachtsBoatsCruises({ waterTrips: waterTrips });
+  });
+
+  await componentsReady;
+  applyConfig();
+  setHeaderPhoneLink();
+  markActiveNav();
+  initHeaderShadow();
 });
 
 /* ---------- applyConfig (unchanged) ---------- */
@@ -141,11 +161,10 @@ function renderExperiences(activities) {
 function renderYachtsBoatsCruises(DATA) {
   const el = document.getElementById("yachtsGrid");
   if (!el) return;
-  const cards = []
-    .concat((DATA.yachts  || []).map(function (x) { return waterCard(x, "Yacht");  }))
-    .concat((DATA.boats   || []).map(function (x) { return waterCard(x, "Boat");   }))
-    .concat((DATA.cruises || []).map(function (x) { return waterCard(x, "Cruise"); }));
-  el.innerHTML = cards.join("");
+  const trips = DATA.waterTrips || [];
+  el.innerHTML = trips.map(function (trip) {
+    return waterCard(trip, trip.type);
+  }).join("");
 }
 function renderWhyBook(whyBook) {
   const el = document.getElementById("whyGrid");
