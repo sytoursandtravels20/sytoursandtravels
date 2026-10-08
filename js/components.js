@@ -66,12 +66,26 @@ function vehicleCard(v) {
   /* Availability state */
   const isBooked = v.status === "booked";
   const until = v.bookedUntil ? " · Available from " + esc(v.bookedUntil) : "";
+  const rates = v.rates && v.rates.length
+    ? v.rates
+    : (typeof v.price === "number" ? [{ transmission: v.transmission, price: v.price }] : []);
+  const rateLabels = rates.length
+    ? rates.map(function (rate) {
+      return `<span class="sy-price-value">\u20B9${fmtPrice(rate.price)}${rate.transmission ? " " + esc(rate.transmission) : ""}</span>`;
+    }).join("")
+    : '<span class="sy-price-value">Price on request</span>';
+  const transmissionLabel = rates.length
+    ? rates.map(function (rate) { return rate.transmission; }).filter(Boolean).join(" / ")
+    : "";
 
   /* WhatsApp message — same as before, only sent if available */
   const waMsg =
     "Hi " + CONFIG.company.name + ", I'm interested in renting the " +
-    v.name + " (" + v.seats + " seats, " + v.transmission + ", " + v.fuel +
-    ") at \u20B9" + fmtPrice(v.price) + "/day. Kindly share availability. Thank you.";
+    v.name + (transmissionLabel ? " (" + transmissionLabel + ")" : "") +
+    (rates.length ? " at " + rates.map(function (rate) {
+      return "\u20B9" + fmtPrice(rate.price) + (rate.transmission ? " " + rate.transmission : "");
+    }).join(" / ") + " per day" : " and would like to know the rate") +
+    ". Kindly share availability. Thank you.";
 
   /* Badge: prefer existing badge when available, else show Booked */
   let badge = "";
@@ -84,7 +98,7 @@ function vehicleCard(v) {
   /* Footer action: WhatsApp button if available, disabled pill if booked */
   const action = isBooked
     ? `<span class="btn-book is-disabled" aria-disabled="true">Unavailable</span>`
-    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>`;
+    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${rates.length ? "Book Now" : "Ask for price"}</a>`;
 
   /* Optional "available from" hint under the price */
   const hint = isBooked && v.bookedUntil
@@ -100,20 +114,29 @@ function vehicleCard(v) {
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(v.name)}</h3>
         <ul class="sy-specs">
-          <li><i class="bi bi-people"></i> ${esc(v.seats)} Seats</li>
-          <li><i class="bi bi-gear"></i> ${esc(v.transmission)}</li>
-          <li><i class="bi bi-fuel-pump"></i> ${esc(v.fuel)}</li>
+          <li><i class="bi bi-grid"></i> ${esc(vehicleCategoryLabel(v.category))}</li>
         </ul>
         <div class="sy-card-foot">
           <div class="sy-price">
-            <span class="sy-price-value">\u20B9${fmtPrice(v.price)}</span>
-            <span class="sy-price-unit">/ day</span>
+            ${rateLabels}
+            ${rates.length ? '<span class="sy-price-unit">per day</span>' : ""}
             ${hint}
           </div>
           ${action}
         </div>
       </div>
     </article>`;
+}
+
+function vehicleCategoryLabel(category) {
+  const labels = {
+    economy: "Economy Cars",
+    suv: "SUV Cars",
+    "premium-suv": "Premium SUV",
+    "7-seater": "7-Seater Cars",
+    luxury: "Luxury / Premium"
+  };
+  return labels[category] || category || "Car";
 }
 
 function activityCard(a) {

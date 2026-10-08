@@ -43,13 +43,16 @@ Each vehicle in `LOCAL_DATA.vehicles`:
 
 ```js
 {
-  category:     "car" | "bike",   // used for filters on /rentals/
-  name:         "Toyota Innova Crysta",
-  seats:        7,
-  transmission: "Manual",
-  fuel:         "Diesel",
-  price:        2500,
-  badge:        "Most Popular",   // optional
-  featured:     true,             // shows on homepage Featured Rentals
+  category: "economy" | "suv" | "premium-suv" | "7-seater" | "luxury",
+  name: "Maruti Swift",
+  rates: [
+    { transmission: "Manual", price: 1150 },
+    { transmission: "Automatic", price: 1400 }
+  ],                              // optional; omit until a rate is confirmed
+  featured: true,                 // shows on homepage Featured Rentals
+  status: "available",            // "available" | "booked" | "hidden"
   image:        "https://..."
 }
+```
+
+Cars without a `rates` list show “Price on request”. Fuel type is not displayed on rental cards.

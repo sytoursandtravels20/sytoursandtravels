@@ -18,7 +18,6 @@ const LOCAL_DATA = {
      ========================================================== */
   categories: [
     { name: "Car Rentals",     desc: "Comfortable · Reliable",    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80", href: "rentals/" },
-    { name: "Bike Rentals",    desc: "Explore Freely",            image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80",    href: "rentals/" },
     { name: "Water Activities",desc: "Adventure Awaits",          image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&q=80", href: "activities/" },
     { name: "Yacht Rentals",   desc: "Luxury on Water",           image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=600&q=75", href: "yachts/" },
     { name: "Boat Trips",      desc: "Island · Sightseeing",      image: "https://images.unsplash.com/photo-1500930287596-c1ecaa373bb2?auto=format&fit=crop&w=600&q=75", href: "yachts/" },
@@ -26,171 +25,183 @@ const LOCAL_DATA = {
   ],
 
   /* ==========================================================
-     2. VEHICLES (cars + bikes)
-     - category : "car" | "bike"
+     2. RENTAL CARS
+     - category : rental category shown in the rentals filters
+     - rates    : optional daily rates by transmission
      - featured : true → shows on homepage Featured Rentals
      - status   : "available" | "booked" | "hidden"   ← EDIT THIS
-     - bookedUntil : free text (optional)             ← EDIT THIS
      ========================================================== */
   vehicles: [
-    /* ---------------- CARS ---------------- */
     {
-      category: "car",
-      name: "Toyota Innova Crysta",
-      seats: 7,
-      transmission: "Manual",
-      fuel: "Diesel",
-      price: 2500,
-      badge: "Most Popular",
+      category: "economy",
+      name: "Maruti Swift",
+      rates: [{ transmission: "Manual", price: 1150 }, { transmission: "Automatic", price: 1400 }],
       featured: true,
-      status: "available",        // ← change to "booked" or "hidden" as needed
-      bookedUntil: "",            // ← e.g. "15 Oct 2026"
-      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80"
     },
     {
-      category: "car",
-      name: "Maruti Suzuki Dzire",
-      seats: 5,
-      transmission: "Manual",
-      fuel: "Petrol",
-      price: 1200,
-      badge: "",
+      category: "economy",
+      name: "Maruti Baleno",
+      rates: [{ transmission: "Manual", price: 1200 }, { transmission: "Automatic", price: 1500 }],
       featured: true,
       status: "available",
       bookedUntil: "",
       image: "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80"
     },
     {
-      category: "car",
-      name: "Hyundai Creta",
-      seats: 5,
-      transmission: "Automatic",
-      fuel: "Petrol",
-      price: 2000,
-      badge: "",
+      category: "economy",
+      name: "Hyundai i20",
+      rates: [{ transmission: "Automatic", price: 1800 }],
       featured: true,
-      status: "booked",           // ← example: this one is currently rented
-      bookedUntil: "15 Oct 2026",
+      status: "available",
+      bookedUntil: "",
       image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
     },
     {
-      category: "car",
-      name: "Maruti Suzuki Swift",
-      seats: 5,
-      transmission: "Manual",
-      fuel: "Petrol",
-      price: 1100,
-      badge: "",
+      category: "suv",
+      name: "Maruti Fronx",
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"
     },
     {
-      category: "car",
-      name: "Maruti Suzuki Ertiga",
-      seats: 7,
-      transmission: "Manual",
-      fuel: "CNG",
-      price: 1800,
-      badge: "",
+      category: "suv",
+      name: "Hyundai Venue",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "suv",
+      name: "Kia Sonet",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "suv",
+      name: "Maruti Brezza",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "suv",
+      name: "Hyundai Creta",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "suv",
+      name: "Kia Seltos",
       featured: false,
       status: "available",
       bookedUntil: "",
       image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80"
     },
     {
-      category: "car",
-      name: "Toyota Fortuner",
-      seats: 7,
-      transmission: "Automatic",
-      fuel: "Diesel",
-      price: 4500,
-      badge: "Premium",
+      category: "suv",
+      name: "Mahindra Thar",
       featured: false,
       status: "available",
       bookedUntil: "",
       image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=800&q=80"
     },
-
-    /* ---------------- BIKES ---------------- */
     {
-      category: "bike",
-      name: "Honda CB350",
-      seats: 2,
-      transmission: "Manual",
-      fuel: "Petrol",
-      price: 1000,
-      badge: "",
-      featured: true,
-      status: "available",
-      bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      category: "bike",
-      name: "Honda Activa",
-      seats: 2,
-      transmission: "Automatic",
-      fuel: "Petrol",
-      price: 400,
-      badge: "Best Value",
-      featured: true,
-      status: "available",
-      bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      category: "bike",
-      name: "Royal Enfield Classic 350",
-      seats: 2,
-      transmission: "Manual",
-      fuel: "Petrol",
-      price: 1200,
-      badge: "",
+      category: "suv",
+      name: "Maruti Jimny",
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1558980664-10e7170b5df9?auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80"
     },
     {
-      category: "bike",
-      name: "TVS Jupiter",
-      seats: 2,
-      transmission: "Automatic",
-      fuel: "Petrol",
-      price: 450,
-      badge: "",
+      category: "suv",
+      name: "Mahindra Thar Roxx",
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80"
     },
     {
-      category: "bike",
-      name: "Bajaj Pulsar 150",
-      seats: 2,
-      transmission: "Manual",
-      fuel: "Petrol",
-      price: 700,
-      badge: "",
+      category: "premium-suv",
+      name: "Hyundai Creta",
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80"
     },
     {
-      category: "bike",
-      name: "KTM Duke 200",
-      seats: 2,
-      transmission: "Manual",
-      fuel: "Petrol",
-      price: 900,
-      badge: "",
+      category: "premium-suv",
+      name: "Kia Seltos",
       featured: false,
       status: "available",
       bookedUntil: "",
-      image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "premium-suv",
+      name: "Mahindra Thar Roxx",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "7-seater",
+      name: "Maruti Ertiga",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "7-seater",
+      name: "Kia Carens",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "7-seater",
+      name: "Hyundai Alcazar",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "7-seater",
+      name: "Toyota Innova Crysta",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "7-seater",
+      name: "Toyota Innova Hycross",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      category: "luxury",
+      name: "Toyota Fortuner",
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=800&q=80"
     }
   ],
 

@@ -112,7 +112,7 @@ function applyConfig() {
 
   const page = document.body.dataset.page;
   const titles = {
-    home: "Car & Bike Rentals in Goa | " + C.name,
+    home: "Car Rentals in Goa | " + C.name,
     about: "About " + C.name + " | Goa",
     activities: "Water Activities in Goa | " + C.name,
     yachts: "Yacht, Boat & Cruise Trips in Goa | " + C.name,

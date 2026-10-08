@@ -6,8 +6,9 @@
 
 let allVehicles = [];
 const requestedCategory = new URLSearchParams(window.location.search).get("category");
+const rentalCategories = ["economy", "suv", "premium-suv", "7-seater", "luxury"];
 let currentFilters = {
-  category: requestedCategory === "car" || requestedCategory === "bike" ? requestedCategory : "all",
+  category: rentalCategories.indexOf(requestedCategory) !== -1 ? requestedCategory : "all",
   search: "",
   sort: "recommended",
   availableOnly: false
@@ -154,26 +155,45 @@ function applyFilters(items, filters) {
     list = list.filter(function (v) { return v.status !== "booked"; });
   }
 
-  /* Search — matches name, transmission or fuel */
+  /* Search — matches vehicle name or listed transmission */
   if (filters.search) {
     const q = filters.search;
     list = list.filter(function (v) {
       return (
         (v.name || "").toLowerCase().indexOf(q) !== -1 ||
         (v.transmission || "").toLowerCase().indexOf(q) !== -1 ||
-        (v.fuel || "").toLowerCase().indexOf(q) !== -1
+        (v.rates || []).some(function (rate) {
+          return (rate.transmission || "").toLowerCase().indexOf(q) !== -1;
+        })
       );
     });
   }
 
   /* Sort */
   switch (filters.sort) {
-    case "price-asc":  list.sort(function (a, b) { return a.price - b.price; }); break;
-    case "price-desc": list.sort(function (a, b) { return b.price - a.price; }); break;
+    case "price-asc":  list.sort(function (a, b) { return compareVehiclePrice(a, b, false); }); break;
+    case "price-desc": list.sort(function (a, b) { return compareVehiclePrice(a, b, true); }); break;
     case "name":       list.sort(function (a, b) { return a.name.localeCompare(b.name); }); break;
   }
 
   return list;
+}
+
+function compareVehiclePrice(a, b, descending) {
+  const aPrice = vehicleSortPrice(a);
+  const bPrice = vehicleSortPrice(b);
+  const aHasPrice = Number.isFinite(aPrice);
+  const bHasPrice = Number.isFinite(bPrice);
+  if (aHasPrice !== bHasPrice) return aHasPrice ? -1 : 1;
+  return descending ? bPrice - aPrice : aPrice - bPrice;
+}
+
+function vehicleSortPrice(vehicle) {
+  const rates = vehicle.rates || [];
+  if (rates.length) {
+    return Math.min.apply(null, rates.map(function (rate) { return rate.price; }));
+  }
+  return typeof vehicle.price === "number" ? vehicle.price : Number.POSITIVE_INFINITY;
 }
 
 /* ============================================================
@@ -235,7 +255,7 @@ function applyConfig() {
       }).join("");
   }
 
-  document.title = "Rentals in Goa | Cars & Bikes — " + C.name;
+  document.title = "Car Rentals in Goa — " + C.name;
 }
 
 function setText(id, value) {
