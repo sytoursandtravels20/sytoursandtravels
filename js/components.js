@@ -105,6 +105,9 @@ function vehicleCard(v) {
   const hint = isBooked && v.bookedUntil
     ? `<span class="sy-price-hint">${esc(until).replace(/^ · /, "")}</span>`
     : "";
+  const passengerSpec = Number.isInteger(v.passengers) && v.passengers > 0
+    ? `<li><i class="bi bi-people-fill"></i> ${v.passengers} passengers</li>`
+    : "";
 
   return `
     <article class="sy-card${isBooked ? " is-booked" : ""}">
@@ -116,6 +119,7 @@ function vehicleCard(v) {
         <h3 class="sy-card-title">${esc(v.name)}</h3>
         <ul class="sy-specs">
           <li><i class="bi bi-grid"></i> ${esc(vehicleCategoryLabel(v.category))}</li>
+          ${passengerSpec}
         </ul>
         <div class="sy-card-foot">
           <div class="sy-price">

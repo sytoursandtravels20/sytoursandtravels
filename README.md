@@ -28,7 +28,7 @@ Both pages share the same header, footer, and CSS tokens. Both are fully static 
 | Company name, phone, email, socials | `js/config.js` → `CONFIG.company`, `CONFIG.social` |
 | Homepage hero text + background | `js/config.js` → `CONFIG.hero` |
 | Homepage CTA block | `js/config.js` → `CONFIG.cta` |
-| Vehicles (name, price, image, category) | `js/data.js` → `LOCAL_DATA.vehicles` |
+| Vehicles (name, rates, passenger capacity, image, category) | `js/data.js` → `LOCAL_DATA.vehicles` |
 | Water activities | `js/data.js` → `LOCAL_DATA.activities` |
 | Taxi WhatsApp number | `js/config.js` → `CONFIG.company.phoneRaw` |
 | Yachts / Boats / Cruises | `js/data.js` → `LOCAL_DATA.yachts`, `.boats`, `.cruises` |
@@ -48,10 +48,10 @@ Each vehicle in `LOCAL_DATA.vehicles`:
   type: "car" | "bike" | "scooty",
   category: "economy" | "suv" | "premium-suv" | "7-seater" | "luxury",
   name: "Maruti Swift",
+  passengers: 5,
   rates: [
     { transmission: "Manual", price: 1150 },
-    { transmission: "Automatic", price: 1400 },
-    { price: 2000, sample: true } // sample rates are labelled on the card
+    { transmission: "Automatic", price: 1399 }
   ],
   featured: true,                 // shows on homepage Featured Rentals
   status: "available",            // "available" | "booked" | "hidden"
@@ -59,7 +59,7 @@ Each vehicle in `LOCAL_DATA.vehicles`:
 }
 ```
 
-Vehicle type filters are generated from the types in the data, so adding a bike or scooty later automatically adds its filter. Sample rates are placeholders, marked on each rental card; confirm them before publishing as actual prices. Fuel type is not displayed on rental cards.
+Vehicle type filters are generated from the types in the data, so adding a bike or scooty later automatically adds its filter. `passengers` is the seating capacity shown on each rental card. Sample rates, if used, are marked on the card; confirm them before publishing as actual prices. Fuel type is not displayed on rental cards.
 
 ## Taxi requests
 
