@@ -5,26 +5,7 @@
 
 const CONFIG = {
 
-  /* ============================================================
-     DATA SOURCE
-     ------------------------------------------------------------
-     mode: "local"  → uses the data inside js/data.js  (default)
-     mode: "remote" → fetches JSON from remoteUrl
-
-     When you're ready to move to Google Sheets:
-       1. Publish your Google Apps Script as a Web App
-          (Execute as: Me, Who has access: Anyone)
-       2. Copy the /exec URL
-       3. Paste it below as remoteUrl
-       4. Set mode: "remote"
-
-     If the remote fetch fails, the site automatically falls back
-     to js/data.js, so visitors never see a broken page.
-     ============================================================ */
-  dataSource: {
-    mode:      "local",   // "local" | "remote"
-    remoteUrl: ""         // e.g. "https://script.google.com/macros/s/AKfy.../exec"
-  },
+  rentalInventoryCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=0&single=true&output=csv",
 
   /* ---------- COMPANY ---------- */
   company: {

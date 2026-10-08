@@ -13,36 +13,21 @@ document.addEventListener("DOMContentLoaded", async function () {
   setHeaderPhoneLink();
   markActiveNav();                        // NEW
 
-  const DATA = await loadData();
-
-  renderCategories(DATA.categories);
-renderFeatured(visibleVehicles(DATA.vehicles).filter(function (v) { return v.featured; })); // NEW: only featured
-  renderExperiences(DATA.activities);
-  renderYachtsBoatsCruises(DATA);
-  renderWhyBook(DATA.whyBook);
-  renderHowItWorks(DATA.howItWorks);
+  renderCategories(LOCAL_DATA.categories);
+  renderFeatured(visibleVehicles(LOCAL_DATA.vehicles).filter(function (v) { return v.featured; }));
+  renderExperiences(LOCAL_DATA.activities);
+  renderYachtsBoatsCruises(LOCAL_DATA);
+  renderWhyBook(LOCAL_DATA.whyBook);
+  renderHowItWorks(LOCAL_DATA.howItWorks);
 
   initSearchTabs();
   initHeaderShadow();
+  loadRentalInventory().then(function (vehicles) {
+    renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
+      return vehicle.featured;
+    }));
+  });
 });
-
-/* ---------- DATA LOADER (unchanged) ---------- */
-async function loadData() {
-  const src = CONFIG.dataSource || {};
-  if (src.mode === "remote" && src.remoteUrl) {
-    try {
-      const res = await fetch(src.remoteUrl);
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const json = await res.json();
-      console.info("[SY] Loaded data from remote source.");
-      return json;
-    } catch (err) {
-      console.warn("[SY] Remote data failed — using LOCAL_DATA.", err);
-      return LOCAL_DATA;
-    }
-  }
-  return LOCAL_DATA;
-}
 
 /* ---------- applyConfig (unchanged) ---------- */
 function applyConfig() {

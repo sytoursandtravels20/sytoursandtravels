@@ -28,7 +28,7 @@ Both pages share the same header, footer, and CSS tokens. Both are fully static 
 | Company name, phone, email, socials | `js/config.js` → `CONFIG.company`, `CONFIG.social` |
 | Homepage hero text + background | `js/config.js` → `CONFIG.hero` |
 | Homepage CTA block | `js/config.js` → `CONFIG.cta` |
-| Vehicles (name, rates, passenger capacity, image, category) | `js/data.js` → `LOCAL_DATA.vehicles` |
+| Rental inventory (name, rates, passenger capacity, image, category, availability) | Published Google Sheet configured in `js/config.js` |
 | Water activities | `js/data.js` → `LOCAL_DATA.activities` |
 | Taxi WhatsApp number | `js/config.js` → `CONFIG.company.phoneRaw` |
 | Yachts / Boats / Cruises | `js/data.js` → `LOCAL_DATA.yachts`, `.boats`, `.cruises` |
@@ -41,25 +41,11 @@ Both pages share the same header, footer, and CSS tokens. Both are fully static 
 
 ## Vehicles data shape
 
-Each vehicle in `LOCAL_DATA.vehicles`:
+Each rental row in the published Google Sheet uses these columns:
 
-```js
-{
-  type: "car" | "bike" | "scooty",
-  category: "economy" | "suv" | "premium-suv" | "7-seater" | "luxury",
-  name: "Maruti Swift",
-  passengers: 5,
-  rates: [
-    { transmission: "Manual", price: 1150 },
-    { transmission: "Automatic", price: 1399 }
-  ],
-  featured: true,                 // shows on homepage Featured Rentals
-  status: "available",            // "available" | "booked" | "hidden"
-  image:        "https://..."
-}
-```
+`name`, `category`, `manualPrice`, `automaticPrice`, `passengers`, `image`, and `status`.
 
-Vehicle type filters are generated from the types in the data, so adding a bike or scooty later automatically adds its filter. `passengers` is the seating capacity shown on each rental card. Sample rates, if used, are marked on the card; confirm them before publishing as actual prices. Fuel type is not displayed on rental cards.
+Leave a transmission price blank if it is not offered. Use `available`, `booked`, or `hidden` for status. Keep the `image` cell blank to reuse the existing local image for that exact vehicle name; new vehicles need an image URL. The sheet is fetched asynchronously with an eight-second timeout; local rental data renders immediately and remains in use if the sheet cannot be loaded or has invalid data. The published sheet is public/read-only to site visitors, so only put public inventory information in it. The current sheet integration is for cars; type and featured-card choices for existing models continue to come from `js/data.js`.
 
 ## Taxi requests
 

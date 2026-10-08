@@ -225,3 +225,142 @@ function visibleVehicles(list) {
     return v.status !== "hidden";
   });
 }
+
+async function loadRentalInventory() {
+  const url = CONFIG.rentalInventoryCsvUrl;
+  if (!url) return LOCAL_DATA.vehicles;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(function () { controller.abort(); }, 8000);
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const csv = await response.text();
+    const vehicles = parseRentalInventoryCsv(csv);
+    console.info("[SY] Loaded rental inventory from Google Sheets.");
+    return vehicles;
+  } catch (error) {
+    console.warn("[SY] Google Sheets inventory unavailable; keeping local inventory.", error);
+    return LOCAL_DATA.vehicles;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function parseRentalInventoryCsv(csv) {
+  const rows = parseCsvRows(csv);
+  if (rows.length < 2) throw new Error("Inventory CSV has no vehicle rows.");
+
+  const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
+  const requiredHeaders = ["name", "category", "manualprice", "automaticprice", "passengers", "image", "status"];
+  const columnIndexes = {};
+  requiredHeaders.forEach(function (header) {
+    const index = headers.indexOf(header);
+    if (index === -1) throw new Error("Inventory CSV is missing the " + header + " column.");
+    columnIndexes[header] = index;
+  });
+
+  const localByName = new Map(LOCAL_DATA.vehicles.map(function (vehicle) {
+    return [vehicle.name.trim().toLowerCase(), vehicle];
+  }));
+  const vehicles = rows.slice(1).filter(function (row) {
+    return row.some(function (cell) { return cell.trim(); });
+  }).map(function (row, index) {
+    const get = function (header) {
+      return (row[columnIndexes[header]] || "").trim();
+    };
+    const name = get("name");
+    const category = get("category");
+    const status = get("status").toLowerCase() || "available";
+    const passengers = Number(get("passengers"));
+    const manualPrice = parseInventoryPrice(get("manualprice"), "Manual", index + 2);
+    const automaticPrice = parseInventoryPrice(get("automaticprice"), "Automatic", index + 2);
+    const local = localByName.get(name.toLowerCase());
+    const image = get("image") || (local && local.image);
+
+    if (!name) throw new Error("Inventory row " + (index + 2) + " has no vehicle name.");
+    if (!["economy", "suv", "premium-suv", "7-seater", "luxury"].includes(category)) {
+      throw new Error("Inventory row " + (index + 2) + " has an invalid category.");
+    }
+    if (!Number.isInteger(passengers) || passengers < 1) {
+      throw new Error("Inventory row " + (index + 2) + " has an invalid passenger count.");
+    }
+    if (!manualPrice && !automaticPrice) {
+      throw new Error("Inventory row " + (index + 2) + " has no valid price.");
+    }
+    if (!["available", "booked", "hidden"].includes(status)) {
+      throw new Error("Inventory row " + (index + 2) + " has an invalid status.");
+    }
+    if (!image) {
+      throw new Error("Inventory row " + (index + 2) + " needs an image URL.");
+    }
+
+    const rates = [];
+    if (manualPrice) rates.push({ transmission: "Manual", price: manualPrice });
+    if (automaticPrice) rates.push({ transmission: "Automatic", price: automaticPrice });
+    return {
+      type: "car",
+      category: category,
+      name: name,
+      passengers: passengers,
+      rates: rates,
+      featured: Boolean(local && local.featured),
+      status: status,
+      bookedUntil: local ? local.bookedUntil : "",
+      image: image
+    };
+  });
+
+  if (!vehicles.length) throw new Error("Inventory CSV has no usable vehicle rows.");
+  return vehicles;
+}
+
+function parseInventoryPrice(value, transmission, rowNumber) {
+  if (!value) return null;
+  const price = Number(value.replace(/[₹,\s]/g, ""));
+  if (!Number.isFinite(price) || price <= 0) {
+    throw new Error("Inventory row " + rowNumber + " has an invalid " + transmission + " price.");
+  }
+  return price;
+}
+
+function parseCsvRows(csv) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
+  const text = csv.replace(/^\uFEFF/, "");
+
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index];
+    if (quoted) {
+      if (character === '"' && text[index + 1] === '"') {
+        cell += '"';
+        index += 1;
+      } else if (character === '"') {
+        quoted = false;
+      } else {
+        cell += character;
+      }
+    } else if (character === '"' && cell === "") {
+      quoted = true;
+    } else if (character === ",") {
+      row.push(cell);
+      cell = "";
+    } else if (character === "\n" || character === "\r") {
+      if (character === "\r" && text[index + 1] === "\n") index += 1;
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += character;
+    }
+  }
+  if (quoted) throw new Error("Inventory CSV contains an unterminated quoted field.");
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+  return rows;
+}

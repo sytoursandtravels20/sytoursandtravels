@@ -27,37 +27,20 @@ document.addEventListener("DOMContentLoaded", async function () {
   setHeaderPhoneLink();
   markActiveNav();
 
-  const DATA = await loadData();
-
   /* Hide "hidden" vehicles everywhere. Booked still appear (with badge). */
-  allVehicles = visibleVehicles(DATA.vehicles);
+  allVehicles = visibleVehicles(LOCAL_DATA.vehicles);
 
-  renderWhyBook(DATA.whyBook);
+  renderWhyBook(LOCAL_DATA.whyBook);
   renderVehicleFilters();
   initFilters();
   renderListings();
   initHeaderShadow();
+  loadRentalInventory().then(function (vehicles) {
+    allVehicles = visibleVehicles(vehicles);
+    renderVehicleFilters();
+    renderListings();
+  });
 });
-
-/* ============================================================
-   DATA LOADER
-   ============================================================ */
-async function loadData() {
-  const src = CONFIG.dataSource || {};
-  if (src.mode === "remote" && src.remoteUrl) {
-    try {
-      const res = await fetch(src.remoteUrl);
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const json = await res.json();
-      console.info("[SY] Loaded data from remote source.");
-      return json;
-    } catch (err) {
-      console.warn("[SY] Remote data failed — using LOCAL_DATA.", err);
-      return LOCAL_DATA;
-    }
-  }
-  return LOCAL_DATA;
-}
 
 /* ============================================================
    FILTER WIRING
