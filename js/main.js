@@ -9,38 +9,49 @@ document.addEventListener("DOMContentLoaded", async function () {
     loadComponent("site-footer", "components/footer.html")
   ]);
 
+  const page = document.body.dataset.page;
+  if (page === "privacy") {
+    loadLegalPolicy(CONFIG.privacyPolicyCsvUrl, document.getElementById("privacyPolicyContent"));
+  } else if (page === "terms") {
+    loadLegalPolicy(CONFIG.termsCsvUrl, document.getElementById("termsContent"));
+  }
+
   renderCategories(LOCAL_DATA.categories);
-  renderFeatured(visibleVehicles(getCachedCatalog(
-    CONFIG.rentalInventoryCsvUrl,
-    parseRentalInventoryCsv,
-    LOCAL_DATA.vehicles,
-    "rental inventory"
-  )).filter(function (vehicle) { return vehicle.featured; }));
-  renderExperiences(getCachedCatalog(
-    CONFIG.activitiesCsvUrl,
-    parseActivitiesCsv,
-    LOCAL_DATA.activities,
-    "activities"
-  ));
-  renderYachtsBoatsCruises({ waterTrips: getCachedCatalog(
-    CONFIG.waterTripsCsvUrl,
-    parseWaterTripsCsv,
-    getLocalWaterTrips(),
-    "water trips"
-  ) });
+  if (page === "home") {
+    renderFeatured(visibleVehicles(getCachedCatalog(
+      CONFIG.rentalInventoryCsvUrl,
+      parseRentalInventoryCsv,
+      LOCAL_DATA.vehicles,
+      "rental inventory"
+    )).filter(function (vehicle) { return vehicle.featured; }));
+    renderExperiences(getCachedCatalog(
+      CONFIG.activitiesCsvUrl,
+      parseActivitiesCsv,
+      LOCAL_DATA.activities,
+      "activities"
+    ));
+    renderYachtsBoatsCruises({ waterTrips: getCachedCatalog(
+      CONFIG.waterTripsCsvUrl,
+      parseWaterTripsCsv,
+      getLocalWaterTrips(),
+      "water trips"
+    ) });
+  }
   renderWhyBook(LOCAL_DATA.whyBook);
   renderHowItWorks(LOCAL_DATA.howItWorks);
 
-  initSearchTabs();
-  loadRentalInventory().then(function (vehicles) {
-    renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
-      return vehicle.featured;
-    }));
-  });
-  loadActivities().then(renderExperiences);
-  loadWaterTrips().then(function (waterTrips) {
-    renderYachtsBoatsCruises({ waterTrips: waterTrips });
-  });
+  if (page === "home") {
+    initSearchTabs();
+    loadRentalInventory().then(function (vehicles) {
+      renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
+        return vehicle.featured;
+      }));
+    });
+    loadActivities().then(renderExperiences);
+    loadWaterTrips().then(function (waterTrips) {
+      renderYachtsBoatsCruises({ waterTrips: waterTrips });
+    });
+  }
 
   await componentsReady;
   applyConfig();
