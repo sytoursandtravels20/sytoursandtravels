@@ -8,6 +8,8 @@ const CONFIG = {
   rentalInventoryCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=0&single=true&output=csv",
   activitiesCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=262811681&single=true&output=csv",
   waterTripsCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=1371955855&single=true&output=csv",
+  privacyPolicyCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=1099760026&single=true&output=csv",
+  termsCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=122504111&single=true&output=csv",
 
   /* ---------- COMPANY ---------- */
   company: {

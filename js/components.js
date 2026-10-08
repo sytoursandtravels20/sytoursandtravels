@@ -275,6 +275,76 @@ function getCachedCatalog(url, parse, fallback, label) {
   }
 }
 
+function loadLegalPolicy(url, contentElement) {
+  if (!contentElement) return;
+  const originalContent = contentElement.innerHTML;
+  const fallback = parseLegalPolicyHtml(originalContent);
+  const cached = getCachedCatalog(url, parseLegalPolicyCsv, fallback, "legal policy");
+  if (cached !== fallback) renderLegalPolicy(contentElement, cached);
+  loadCatalogCsv(url, parseLegalPolicyCsv, fallback, "legal policy").then(function (sections) {
+    renderLegalPolicy(contentElement, sections);
+  });
+}
+
+function parseLegalPolicyHtml(html) {
+  const temporary = document.createElement("div");
+  temporary.innerHTML = html;
+  const sections = [];
+  let heading = "";
+  Array.from(temporary.children).forEach(function (element) {
+    if (element.tagName === "H2") {
+      heading = element.textContent.trim();
+    } else if (element.tagName === "P" && element.textContent.trim()) {
+      sections.push({ heading: heading, content: element.textContent.trim() });
+      heading = "";
+    }
+  });
+  return sections;
+}
+
+function parseLegalPolicyCsv(csv) {
+  const rows = parseCsvRows(csv);
+  const columns = csvColumnIndexes(rows, ["heading", "content"], "legal policy");
+  return csvDataRows(rows, "legal policy").map(function (row, index) {
+    const heading = (row[columns.heading] || "").trim();
+    const content = (row[columns.content] || "").trim();
+    if (!heading || !content) {
+      throw new Error("Legal policy row " + (index + 2) + " needs both a heading and content.");
+    }
+    return { heading: heading, content: content };
+  });
+}
+
+function renderLegalPolicy(container, sections) {
+  const fragment = document.createDocumentFragment();
+  sections.forEach(function (section) {
+    if (section.heading) {
+      const heading = document.createElement("h2");
+      heading.textContent = section.heading;
+      fragment.appendChild(heading);
+    }
+    const paragraph = document.createElement("p");
+    appendPolicyText(paragraph, section.content);
+    fragment.appendChild(paragraph);
+  });
+  container.replaceChildren(fragment);
+}
+
+function appendPolicyText(paragraph, content) {
+  const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/ig;
+  let lastIndex = 0;
+  let match;
+  while ((match = emailPattern.exec(content))) {
+    paragraph.appendChild(document.createTextNode(content.slice(lastIndex, match.index)));
+    const link = document.createElement("a");
+    link.href = "mailto:" + match[0];
+    link.textContent = match[0];
+    paragraph.appendChild(link);
+    lastIndex = match.index + match[0].length;
+  }
+  paragraph.appendChild(document.createTextNode(content.slice(lastIndex)));
+}
+
 function cacheCatalogCsv(url, csv, label) {
   try {
     localStorage.setItem(catalogCacheKey(url), csv);
