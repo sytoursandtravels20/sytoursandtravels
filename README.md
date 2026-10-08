@@ -17,6 +17,7 @@ bookedUntil: "15 Oct 2026",    // optional — shows to visitors
 |---|---|
 | `/` | `index.html` |
 | `/rentals/` | `rentals/index.html` |
+| `/taxi/` | `taxi/index.html` |
 
 Both pages share the same header, footer, and CSS tokens. Both are fully static — no server config required.
 
@@ -29,6 +30,7 @@ Both pages share the same header, footer, and CSS tokens. Both are fully static 
 | Homepage CTA block | `js/config.js` → `CONFIG.cta` |
 | Vehicles (name, price, image, category) | `js/data.js` → `LOCAL_DATA.vehicles` |
 | Water activities | `js/data.js` → `LOCAL_DATA.activities` |
+| Taxi WhatsApp number | `js/config.js` → `CONFIG.company.phoneRaw` |
 | Yachts / Boats / Cruises | `js/data.js` → `LOCAL_DATA.yachts`, `.boats`, `.cruises` |
 | Categories tiles | `js/data.js` → `LOCAL_DATA.categories` |
 | Why Book With Us | `js/data.js` → `LOCAL_DATA.whyBook` |
@@ -58,3 +60,7 @@ Each vehicle in `LOCAL_DATA.vehicles`:
 ```
 
 Vehicle type filters are generated from the types in the data, so adding a bike or scooty later automatically adds its filter. Sample rates are placeholders, marked on each rental card; confirm them before publishing as actual prices. Fuel type is not displayed on rental cards.
+
+## Taxi requests
+
+The `/taxi/` form validates pickup, destination, date, time, and passenger count in the browser, then opens a pre-filled WhatsApp message using `CONFIG.company.phoneRaw`. It does not create or store bookings.

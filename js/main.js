@@ -114,6 +114,7 @@ function applyConfig() {
   const titles = {
     home: "Car Rentals in Goa | " + C.name,
     about: "About " + C.name + " | Goa",
+    taxi: "Taxi Service in Goa | " + C.name,
     activities: "Water Activities in Goa | " + C.name,
     yachts: "Yacht, Boat & Cruise Trips in Goa | " + C.name,
     blog: "Goa Travel Stories | " + C.name,
