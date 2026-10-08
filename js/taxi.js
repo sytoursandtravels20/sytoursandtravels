@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   dateInput.min = localDateString(new Date());
   if (!window.L) {
-    mapHint.textContent = "Map is unavailable right now. Enter your pickup and destination in the fields above.";
+    mapHint.textContent = "Map is unavailable right now. Enter your pickup and destination in the fields below.";
   } else {
     initTaxiMap(mapElement, mapHint);
   }
@@ -93,7 +93,7 @@ function initTaxiMap(mapElement, mapHint) {
   const markers = { pickup: null, destination: null };
   const lookupIds = { pickup: 0, destination: 0 };
   let routeLine = null;
-  let selectionMode = null;
+  let selectionMode = "pickup";
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
@@ -102,9 +102,13 @@ function initTaxiMap(mapElement, mapHint) {
 
   pickupInput.addEventListener("input", function () {
     clearMapLocation("pickup");
+    setSelectionMode(null);
+    mapHint.textContent = "Pickup entered manually. Choose a stop above if you want to place it on the map.";
   });
   destinationInput.addEventListener("input", function () {
     clearMapLocation("destination");
+    setSelectionMode(null);
+    mapHint.textContent = "Destination entered manually. Choose a stop above if you want to place it on the map.";
   });
 
   pickupButton.addEventListener("click", function () {
@@ -120,17 +124,20 @@ function initTaxiMap(mapElement, mapHint) {
     const pickupLocation = markers.pickup;
     markers.pickup = markers.destination;
     markers.destination = pickupLocation;
+    setSelectionMode(null);
     updateRoute();
+    updateRouteButtons();
     mapHint.textContent = "Pickup and destination swapped.";
   });
 
   map.on("click", function (event) {
     if (!selectionMode) {
-      mapHint.textContent = "Choose “Pick pickup” or “Pick destination”, then tap the map.";
+      mapHint.textContent = "Choose Pickup or Destination above, then tap the map.";
       return;
     }
-    selectMapLocation(selectionMode, event.latlng);
-    setSelectionMode(null);
+    const selectedKind = selectionMode;
+    selectMapLocation(selectedKind, event.latlng);
+    setSelectionMode(selectedKind === "pickup" ? "destination" : null);
   });
 
   function setSelectionMode(mode) {
@@ -141,9 +148,11 @@ function initTaxiMap(mapElement, mapHint) {
     destinationButton.setAttribute("aria-pressed", String(mode === "destination"));
     mapElement.classList.toggle("is-picking", Boolean(mode));
     mapHint.textContent = mode
-      ? "Tap the map to set your " + (mode === "pickup" ? "pickup" : "destination") + "."
-      : "Select “Pick pickup” or “Pick destination” to place a pin.";
+      ? (mode === "pickup" ? "Step 1: tap the map to choose your pickup." : "Step 2: tap the map to choose your destination.")
+      : "Choose Pickup or Destination above, then tap the map.";
   }
+
+  setSelectionMode("pickup");
 
   function selectMapLocation(kind, latlng) {
     const thisLookup = ++lookupIds[kind];
@@ -162,6 +171,7 @@ function initTaxiMap(mapElement, mapHint) {
       iconAnchor: [17, 36]
     });
     markers[kind] = L.marker(latlng, { icon: icon }).addTo(map);
+    updateRouteButtons();
     updateRoute();
     lookupAddress(latlng).then(function (address) {
       if (thisLookup !== lookupIds[kind] || !markers[kind] || !markers[kind].getLatLng().equals(latlng)) return;
@@ -170,14 +180,26 @@ function initTaxiMap(mapElement, mapHint) {
         markers[kind].bindPopup(
           `<strong>${kind === "pickup" ? "Pickup" : "Destination"}</strong><br>${escapeMapText(address)}`
         );
-        mapHint.textContent = (kind === "pickup" ? "Pickup" : "Destination") + " set to " + address + ".";
+        mapHint.textContent = markers.pickup && markers.destination
+          ? "Both locations are set. Continue with your trip details below."
+          : kind === "pickup"
+            ? "Pickup set. Now tap the map to choose your destination."
+            : "Destination set. Choose Pickup above if you still need to set it.";
       } else {
-        mapHint.textContent = "Address lookup unavailable. Coordinates are set; you can also edit the location above.";
+        mapHint.textContent = markers.pickup && markers.destination
+          ? "Both locations are set. Address lookup is unavailable, but you can edit them below."
+          : kind === "pickup"
+            ? "Address lookup unavailable. Pickup is set; tap the map to choose your destination."
+            : "Address lookup unavailable. Destination is set; choose Pickup above if needed.";
       }
     }).catch(function (error) {
       if (thisLookup !== lookupIds[kind]) return;
       console.error("[SY] Map address lookup failed.", error);
-      mapHint.textContent = "Could not look up this address. Coordinates are set; you can edit the location above.";
+      mapHint.textContent = markers.pickup && markers.destination
+        ? "Both locations are set. You can edit them below."
+        : kind === "pickup"
+          ? "Could not look up the pickup address. Tap the map to choose your destination."
+          : "Could not look up the destination address. Choose Pickup above if needed.";
     });
   }
 
@@ -185,8 +207,15 @@ function initTaxiMap(mapElement, mapHint) {
     if (markers[kind]) {
       map.removeLayer(markers[kind]);
       markers[kind] = null;
+      lookupIds[kind] += 1;
+      updateRouteButtons();
       updateRoute();
     }
+  }
+
+  function updateRouteButtons() {
+    pickupButton.classList.toggle("is-set", Boolean(markers.pickup));
+    destinationButton.classList.toggle("is-set", Boolean(markers.destination));
   }
 
   function updateRoute() {

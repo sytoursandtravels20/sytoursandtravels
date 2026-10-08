@@ -47,7 +47,45 @@
         <section class="section taxi-section">
             <div class="container">
                 <form class="taxi-form" id="taxiForm" novalidate>
-                    <div class="taxi-form-fields">
+                    <section class="route-picker" aria-labelledby="routePickerTitle">
+                        <div class="route-picker-heading">
+                            <div>
+                                <span class="route-picker-kicker">YOUR ROUTE</span>
+                                <h2 id="routePickerTitle">Choose your pickup and destination</h2>
+                                <p>Optional: pick both on the map, or skip it and type your locations below.</p>
+                            </div>
+                            <button class="route-swap" id="swapRoute" type="button" aria-label="Swap pickup and destination">
+                                <i class="bi bi-arrow-down-up" aria-hidden="true"></i>
+                                <span>Swap</span>
+                            </button>
+                        </div>
+                        <div class="route-map-actions" role="group" aria-label="Choose a location to set on the map">
+                            <button class="map-pick-button is-pickup is-active" id="pickPickup" type="button" aria-pressed="true">
+                                <span class="map-pin-dot" aria-hidden="true"></span>
+                                <span><b>1</b> Pickup</span>
+                            </button>
+                            <button class="map-pick-button is-destination" id="pickDestination" type="button" aria-pressed="false">
+                                <span class="map-pin-dot" aria-hidden="true"></span>
+                                <span><b>2</b> Destination</span>
+                            </button>
+                        </div>
+                        <div class="route-map-wrap">
+                            <div id="taxiMap" role="application" aria-label="Interactive map to choose pickup and destination"></div>
+                            <div class="map-hint" id="mapHint" role="status" aria-live="polite">
+                                Step 1: tap the map to choose your pickup.
+                            </div>
+                        </div>
+                        <p class="map-attribution-note">Map data © OpenStreetMap contributors. The dashed line is a visual guide, not a road route.</p>
+                    </section>
+
+                    <div class="taxi-location-heading">
+                        <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+                        <div>
+                            <strong>Pickup and destination</strong>
+                            <span>Map selections fill these editable fields, or type your locations yourself.</span>
+                        </div>
+                    </div>
+                    <div class="taxi-form-fields taxi-location-fields">
                         <div class="taxi-field">
                             <label for="taxiFrom">From</label>
                             <input class="form-control" id="taxiFrom" name="from" type="text"
@@ -58,6 +96,10 @@
                             <input class="form-control" id="taxiTo" name="to" type="text"
                                 placeholder="Enter destination" required />
                         </div>
+                    </div>
+
+                    <div class="taxi-details-heading">Trip details</div>
+                    <div class="taxi-form-fields">
                         <div class="taxi-field">
                             <label for="taxiDate">Travel Date</label>
                             <input class="form-control" id="taxiDate" name="date" type="date" required />
@@ -72,37 +114,6 @@
                                 min="1" step="1" inputmode="numeric" placeholder="e.g. 2" required />
                         </div>
                     </div>
-
-                    <section class="route-picker" aria-labelledby="routePickerTitle">
-                        <div class="route-picker-heading">
-                            <div>
-                                <span class="route-picker-kicker">MAKE IT YOURS</span>
-                                <h2 id="routePickerTitle">Pick your route on the map</h2>
-                                <p>Choose a pin, then tap the map — or keep typing your locations above.</p>
-                            </div>
-                            <button class="route-swap" id="swapRoute" type="button" aria-label="Swap pickup and destination">
-                                <i class="bi bi-arrow-down-up" aria-hidden="true"></i>
-                                <span>Swap</span>
-                            </button>
-                        </div>
-                        <div class="route-map-actions" role="group" aria-label="Choose which location to set on the map">
-                            <button class="map-pick-button is-pickup" id="pickPickup" type="button" aria-pressed="false">
-                                <span class="map-pin-dot" aria-hidden="true"></span>
-                                Pick pickup
-                            </button>
-                            <button class="map-pick-button is-destination" id="pickDestination" type="button" aria-pressed="false">
-                                <span class="map-pin-dot" aria-hidden="true"></span>
-                                Pick destination
-                            </button>
-                        </div>
-                        <div class="route-map-wrap">
-                            <div id="taxiMap" role="application" aria-label="Interactive map to choose pickup and destination"></div>
-                            <div class="map-hint" id="mapHint" role="status" aria-live="polite">
-                                Select “Pick pickup” or “Pick destination” to place a pin.
-                            </div>
-                        </div>
-                        <p class="map-attribution-note">Map data © OpenStreetMap contributors. The dashed line is a visual guide, not a road route. Map-picked locations are looked up to show an address; you can edit either location manually.</p>
-                    </section>
 
                     <p class="taxi-message" id="taxiMessage" role="status" aria-live="polite"></p>
                     <button class="btn-sy taxi-submit" type="submit">

@@ -74,7 +74,7 @@
 }
 
 .route-picker {
-  margin-top: 1.75rem;
+  margin-top: 0;
   padding: clamp(1rem, 3vw, 1.5rem);
   border: 1px solid var(--sy-border);
   border-radius: 12px;
@@ -109,6 +109,53 @@
   color: var(--sy-muted);
   font-size: .83rem;
 }
+
+.taxi-location-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: .65rem;
+  margin: 1.35rem 0 .8rem;
+  color: var(--sy-navy);
+  font-size: .88rem;
+}
+
+.taxi-location-heading > i { margin-top: .15rem; color: var(--sy-blue); }
+
+.taxi-location-heading strong,
+.taxi-location-heading span { display: block; }
+
+.taxi-location-heading strong,
+.taxi-details-heading { font-weight: 700; }
+
+.taxi-location-heading span {
+  margin-top: .15rem;
+  color: var(--sy-muted);
+  font-size: .78rem;
+  font-weight: 400;
+}
+
+.taxi-details-heading {
+  margin: 1.35rem 0 .8rem;
+  color: var(--sy-navy);
+  font-size: .88rem;
+}
+
+.map-pick-button > span:last-child { display: inline-flex; align-items: center; gap: .4rem; }
+
+.map-pick-button b {
+  display: inline-grid;
+  width: 19px;
+  height: 19px;
+  place-items: center;
+  border-radius: 50%;
+  background: #edf1f5;
+  color: var(--sy-muted);
+  font-size: .68rem;
+}
+
+.map-pick-button.is-active b { background: var(--sy-blue); color: #fff; }
+.map-pick-button.is-set { border-color: rgba(18, 163, 109, .5); }
+.map-pick-button.is-set b { background: #12a36d; color: #fff; }
 
 .route-swap {
   display: inline-flex;
@@ -262,7 +309,6 @@
 @media (max-width: 767.98px) {
   .taxi-hero { padding: 3rem 0; }
   .taxi-form-fields { grid-template-columns: 1fr; gap: .9rem; }
-  .route-picker { margin-top: 1.35rem; }
   .route-picker-heading { align-items: flex-start; }
   .route-picker-heading h2 { font-size: 1.05rem; }
   .route-swap { padding: .5rem .65rem; }
