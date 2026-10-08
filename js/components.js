@@ -1,7 +1,4 @@
-/* ============================================================
-   components.js — shared helpers + card templates.
-   (Only markActiveNav is new — everything else unchanged.)
-   ============================================================ */
+/* Shared layout, card rendering, catalog loading, and formatting helpers. */
 
 async function loadComponent(targetId, path) {
   const el = document.getElementById(targetId);
@@ -38,7 +35,7 @@ function waLink(message) {
   return "https://wa.me/" + CONFIG.company.phoneRaw + "?text=" + encodeURIComponent(message);
 }
 
-/* ---------- NEW: mark the nav link matching the current page ---------- */
+/* Keep desktop and mobile navigation states in sync with the current page. */
 function markActiveNav() {
   const page = (document.body.dataset.page || "home").trim();
   document.querySelectorAll("[data-page]").forEach(function (el) {
@@ -52,7 +49,27 @@ function setHeaderPhoneLink() {
   if (link) link.href = "tel:+" + CONFIG.company.phoneRaw;
 }
 
-/* ---------- CARD TEMPLATES (unchanged) ---------- */
+function setText(id, value) {
+  const element = document.getElementById(id);
+  if (element) element.textContent = value || "";
+}
+
+function setBrandLogo(id) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  element.innerHTML = CONFIG.logo.logoUrl
+    ? `<img src="${esc(CONFIG.logo.logoUrl)}" alt="${esc(CONFIG.company.name)}">`
+    : `<i class="bi ${esc(CONFIG.logo.logoIcon)}"></i>`;
+}
+
+function initHeaderShadow() {
+  const nav = document.getElementById("syNav");
+  if (!nav) return;
+  function update() { nav.classList.toggle("is-scrolled", window.scrollY > 10); }
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+}
+
 function categoryCard(c) {
   return `
     <a class="category-card" href="${esc(c.href || "#")}">
@@ -79,7 +96,7 @@ function vehicleCard(v) {
     ? rates.map(function (rate) { return rate.transmission; }).filter(Boolean).join(" / ")
     : "";
 
-  /* WhatsApp message — same as before, only sent if available */
+  /* Build the enquiry text from the same rates shown on the card. */
   const waMsg =
     "Hi " + CONFIG.company.name + ", I'm interested in renting the " +
     v.name + (transmissionLabel ? " (" + transmissionLabel + ")" : "") +
@@ -247,6 +264,7 @@ async function loadWaterTrips() {
 async function loadCatalogCsv(url, parse, fallback, label) {
   if (!url) return fallback;
   const controller = new AbortController();
+  // Keep background refreshes bounded so a stalled sheet never blocks page interaction.
   const timeout = setTimeout(function () { controller.abort(); }, 8000);
   try {
     const response = await fetch(url, { signal: controller.signal });
@@ -264,6 +282,7 @@ async function loadCatalogCsv(url, parse, fallback, label) {
   }
 }
 
+// Render cached CSV data immediately; the network request refreshes it separately.
 function getCachedCatalog(url, parse, fallback, label) {
   if (!url) return fallback;
   try {
@@ -275,17 +294,21 @@ function getCachedCatalog(url, parse, fallback, label) {
   }
 }
 
-function loadLegalPolicy(url, contentElement) {
-  if (!contentElement) return;
+function loadLegalPolicy(url, contentElement, updatedElement) {
+  if (!contentElement || !updatedElement) return;
   const originalContent = contentElement.innerHTML;
-  const fallback = parseLegalPolicyHtml(originalContent);
+  const fallback = {
+    sections: parseLegalPolicyHtml(originalContent),
+    lastUpdated: updatedElement.textContent.replace(/^Last updated:\s*/i, "").trim()
+  };
   const cached = getCachedCatalog(url, parseLegalPolicyCsv, fallback, "legal policy");
-  if (cached !== fallback) renderLegalPolicy(contentElement, cached);
-  loadCatalogCsv(url, parseLegalPolicyCsv, fallback, "legal policy").then(function (sections) {
-    renderLegalPolicy(contentElement, sections);
+  renderLegalPolicy(contentElement, updatedElement, cached);
+  loadCatalogCsv(url, parseLegalPolicyCsv, fallback, "legal policy").then(function (policy) {
+    renderLegalPolicy(contentElement, updatedElement, policy);
   });
 }
 
+// Preserve the static policy as the offline fallback without keeping duplicate markup.
 function parseLegalPolicyHtml(html) {
   const temporary = document.createElement("div");
   temporary.innerHTML = html;
@@ -305,19 +328,27 @@ function parseLegalPolicyHtml(html) {
 function parseLegalPolicyCsv(csv) {
   const rows = parseCsvRows(csv);
   const columns = csvColumnIndexes(rows, ["heading", "content"], "legal policy");
-  return csvDataRows(rows, "legal policy").map(function (row, index) {
+  let lastUpdated = "";
+  const sections = csvDataRows(rows, "legal policy").reduce(function (result, row, index) {
     const heading = (row[columns.heading] || "").trim();
     const content = (row[columns.content] || "").trim();
     if (!heading || !content) {
       throw new Error("Legal policy row " + (index + 2) + " needs both a heading and content.");
     }
-    return { heading: heading, content: content };
-  });
+    if (heading.toLowerCase() === "last updated") {
+      lastUpdated = content;
+      return result;
+    }
+    result.push({ heading: heading, content: content });
+    return result;
+  }, []);
+  if (!sections.length) throw new Error("Legal policy CSV has no policy sections.");
+  return { sections: sections, lastUpdated: lastUpdated };
 }
 
-function renderLegalPolicy(container, sections) {
+function renderLegalPolicy(container, updatedElement, policy) {
   const fragment = document.createDocumentFragment();
-  sections.forEach(function (section) {
+  policy.sections.forEach(function (section) {
     if (section.heading) {
       const heading = document.createElement("h2");
       heading.textContent = section.heading;
@@ -328,8 +359,10 @@ function renderLegalPolicy(container, sections) {
     fragment.appendChild(paragraph);
   });
   container.replaceChildren(fragment);
+  if (policy.lastUpdated) updatedElement.textContent = "Last updated: " + policy.lastUpdated;
 }
 
+// Policy text is plain text; link only email addresses rather than interpreting HTML.
 function appendPolicyText(paragraph, content) {
   const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/ig;
   let lastIndex = 0;
@@ -359,23 +392,16 @@ function catalogCacheKey(url) {
 
 function parseRentalInventoryCsv(csv) {
   const rows = parseCsvRows(csv);
-  if (rows.length < 2) throw new Error("Inventory CSV has no vehicle rows.");
-
-  const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
-  const requiredHeaders = ["name", "category", "manualprice", "automaticprice", "passengers", "image", "status"];
-  const columnIndexes = {};
-  requiredHeaders.forEach(function (header) {
-    const index = headers.indexOf(header);
-    if (index === -1) throw new Error("Inventory CSV is missing the " + header + " column.");
-    columnIndexes[header] = index;
-  });
+  const columnIndexes = csvColumnIndexes(
+    rows,
+    ["name", "category", "manualprice", "automaticprice", "passengers", "image", "status"],
+    "rental inventory"
+  );
 
   const localByName = new Map(LOCAL_DATA.vehicles.map(function (vehicle) {
     return [vehicle.name.trim().toLowerCase(), vehicle];
   }));
-  const vehicles = rows.slice(1).filter(function (row) {
-    return row.some(function (cell) { return cell.trim(); });
-  }).map(function (row, index) {
+  const vehicles = csvDataRows(rows, "rental inventory").map(function (row, index) {
     const get = function (header) {
       return (row[columnIndexes[header]] || "").trim();
     };
@@ -383,8 +409,12 @@ function parseRentalInventoryCsv(csv) {
     const category = get("category");
     const status = get("status").toLowerCase() || "available";
     const passengers = Number(get("passengers"));
-    const manualPrice = parseInventoryPrice(get("manualprice"), "Manual", index + 2);
-    const automaticPrice = parseInventoryPrice(get("automaticprice"), "Automatic", index + 2);
+    const manualPrice = get("manualprice")
+      ? parseCatalogPrice(get("manualprice"), index + 2, "Manual")
+      : null;
+    const automaticPrice = get("automaticprice")
+      ? parseCatalogPrice(get("automaticprice"), index + 2, "Automatic")
+      : null;
     const local = localByName.get(name.toLowerCase());
     const image = get("image") || (local && local.image);
 
@@ -421,7 +451,6 @@ function parseRentalInventoryCsv(csv) {
     };
   });
 
-  if (!vehicles.length) throw new Error("Inventory CSV has no usable vehicle rows.");
   return vehicles;
 }
 
@@ -497,31 +526,24 @@ function csvDataRows(rows, label) {
   return dataRows;
 }
 
-function parseCatalogPrice(value, rowNumber) {
+function parseCatalogPrice(value, rowNumber, label) {
   const price = Number(value.replace(/[₹,\s]/g, ""));
   if (!Number.isFinite(price) || price <= 0) {
-    throw new Error("Catalog row " + rowNumber + " has an invalid price.");
+    throw new Error("Catalog row " + rowNumber + " has an invalid " + (label || "catalog") + " price.");
   }
   return price;
 }
 
 function getLocalWaterTrips() {
+  // Normalize the legacy per-type arrays to the combined sheet's { type, ...item } shape.
   return []
     .concat(LOCAL_DATA.yachts.map(function (item) { return Object.assign({ type: "Yacht" }, item); }))
     .concat(LOCAL_DATA.boats.map(function (item) { return Object.assign({ type: "Boat" }, item); }))
     .concat(LOCAL_DATA.cruises.map(function (item) { return Object.assign({ type: "Cruise" }, item); }));
 }
 
-function parseInventoryPrice(value, transmission, rowNumber) {
-  if (!value) return null;
-  const price = Number(value.replace(/[₹,\s]/g, ""));
-  if (!Number.isFinite(price) || price <= 0) {
-    throw new Error("Inventory row " + rowNumber + " has an invalid " + transmission + " price.");
-  }
-  return price;
-}
-
 function parseCsvRows(csv) {
+  // Handle quoted commas, escaped quotes, and line breaks in published sheet cells.
   const rows = [];
   let row = [];
   let cell = "";

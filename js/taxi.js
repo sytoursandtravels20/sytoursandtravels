@@ -1,3 +1,4 @@
+/* Taxi booking validation, WhatsApp handoff, and optional map route selection. */
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("taxiForm");
   const dateInput = document.getElementById("taxiDate");
@@ -155,6 +156,7 @@ function initTaxiMap(mapElement, mapHint) {
   setSelectionMode("pickup");
 
   function selectMapLocation(kind, latlng) {
+    // Ignore stale reverse-geocoding responses if the visitor moves this pin again.
     const thisLookup = ++lookupIds[kind];
     const coordinates = latlng.lat.toFixed(5) + ", " + latlng.lng.toFixed(5);
     const input = kind === "pickup" ? pickupInput : destinationInput;

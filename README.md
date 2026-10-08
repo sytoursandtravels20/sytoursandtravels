@@ -1,25 +1,23 @@
-## Admin: marking a vehicle as booked / hidden
-
-You never edit HTML or CSS for this. You only edit the data.
-
-### In `js/data.js` (now)
-
-Find the vehicle in `LOCAL_DATA.vehicles` and change two fields:
-
-```js
-status: "booked",              // was "available"
-bookedUntil: "15 Oct 2026",    // optional — shows to visitors
 # SY Tours & Travels
+
+Static marketing and booking-enquiry website for SY Tours & Travels.
 
 ## Pages
 
 | URL | File |
 |---|---|
 | `/` | `index.html` |
+| `/about/` | `about/index.html` |
 | `/rentals/` | `rentals/index.html` |
 | `/taxi/` | `taxi/index.html` |
+| `/activities/` | `activities/index.html` |
+| `/yachts/` | `yachts/index.html` |
+| `/blog/` | `blog/index.html` |
+| `/contact/` | `contact/index.html` |
+| `/privacy/` | `privacy/index.html` |
+| `/terms/` | `terms/index.html` |
 
-Both pages share the same header, footer, and CSS tokens. Both are fully static — no server config required.
+The pages share header/footer components and CSS tokens. The site is static and can be hosted without an application server.
 
 ## Where to edit what
 
@@ -39,7 +37,7 @@ Both pages share the same header, footer, and CSS tokens. Both are fully static 
 | Navbar links | `components/header.html` |
 | Footer links | `components/footer.html` |
 
-## Vehicles data shape
+## Editable catalogs
 
 Each rental row in the published Google Sheet uses these columns:
 
@@ -48,6 +46,8 @@ Each rental row in the published Google Sheet uses these columns:
 Leave a transmission price blank if it is not offered. Use `available`, `booked`, or `hidden` for status. Keep the `image` cell blank to reuse the existing local image for that exact vehicle name; new vehicles need an image URL. The sheet is fetched asynchronously with an eight-second timeout; local rental data renders immediately and remains in use if the sheet cannot be loaded or has invalid data. The published sheet is public/read-only to site visitors, so only put public inventory information in it. The current rental-sheet integration is for cars; type and featured-card choices for existing models continue to come from `js/data.js`.
 
 Activities load from the published `Activities` tab with the columns `name`, `meta`, `price`, `unit`, and `image`. Yachts, boats, and cruises load together from `WaterTrips` with `name`, `type`, `meta`, `price`, `unit`, `badge`, and `image`; `type` must be `Yacht`, `Boat`, or `Cruise`. All catalogs load in parallel with an eight-second timeout. Local cards render immediately on first visit; after a successful load, each published CSV is cached in the visitor’s browser so its data renders immediately on later visits while refreshing in the background. If a CSV cannot load or is invalid, the last valid cached data is kept, otherwise local data is used. Leave an existing item’s image blank to reuse its local image; new items need an image URL.
+
+Privacy and Terms content loads from their published tabs. Add a row with `Last updated` under `heading` and the date under `content` to display the policy’s revision date. Update that row whenever you edit the policy; the website cannot infer the document edit date from a published CSV.
 
 ## Taxi requests
 

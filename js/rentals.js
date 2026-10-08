@@ -83,7 +83,6 @@ function initFilters() {
     });
   }
 
-  /* NEW: available-only checkbox */
   const availOnly = document.getElementById("availableOnly");
   if (availOnly) {
     availOnly.addEventListener("change", function (e) {
@@ -303,27 +302,4 @@ function applyConfig() {
   }
 
   document.title = "Car Rentals in Goa — " + C.name;
-}
-
-function setText(id, value) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = value || "";
-}
-
-function setBrandLogo(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  if (CONFIG.logo.logoUrl) {
-    el.innerHTML = `<img src="${CONFIG.logo.logoUrl}" alt="${CONFIG.company.name}">`;
-  } else {
-    el.innerHTML = `<i class="bi ${CONFIG.logo.logoIcon}"></i>`;
-  }
-}
-
-function initHeaderShadow() {
-  const nav = document.getElementById("syNav");
-  if (!nav) return;
-  function update() { nav.classList.toggle("is-scrolled", window.scrollY > 10); }
-  window.addEventListener("scroll", update, { passive: true });
-  update();
 }

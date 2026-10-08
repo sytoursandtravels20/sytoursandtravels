@@ -1,5 +1,5 @@
 /* ============================================================
-   main.js — homepage orchestration.
+   main.js — shared page setup and homepage orchestration.
    ============================================================ */
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -11,9 +11,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const page = document.body.dataset.page;
   if (page === "privacy") {
-    loadLegalPolicy(CONFIG.privacyPolicyCsvUrl, document.getElementById("privacyPolicyContent"));
+    loadLegalPolicy(
+      CONFIG.privacyPolicyCsvUrl,
+      document.getElementById("privacyPolicyContent"),
+      document.getElementById("privacyPolicyUpdated")
+    );
   } else if (page === "terms") {
-    loadLegalPolicy(CONFIG.termsCsvUrl, document.getElementById("termsContent"));
+    loadLegalPolicy(
+      CONFIG.termsCsvUrl,
+      document.getElementById("termsContent"),
+      document.getElementById("termsUpdated")
+    );
   }
 
   renderCategories(LOCAL_DATA.categories);
@@ -60,7 +68,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   initHeaderShadow();
 });
 
-/* ---------- applyConfig (unchanged) ---------- */
 function applyConfig() {
   const C = CONFIG.company;
 
@@ -141,22 +148,7 @@ function applyConfig() {
   document.title = titles[page] || C.name;
 }
 
-function setText(id, value) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = value || "";
-}
-
-function setBrandLogo(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  if (CONFIG.logo.logoUrl) {
-    el.innerHTML = `<img src="${CONFIG.logo.logoUrl}" alt="${CONFIG.company.name}">`;
-  } else {
-    el.innerHTML = `<i class="bi ${CONFIG.logo.logoIcon}"></i>`;
-  }
-}
-
-/* ---------- Render functions (unchanged) ---------- */
+/* ---------- Homepage card rendering ---------- */
 function renderCategories(categories) {
   const el = document.getElementById("categoryGrid");
   if (el) el.innerHTML = (categories || []).map(categoryCard).join("");
@@ -185,7 +177,6 @@ function renderHowItWorks(steps) {
   const el = document.getElementById("howGrid");
   if (el) el.innerHTML = (steps || []).map(howItem).join("");
 }
-/* ---------- Interactions (unchanged) ---------- */
 function initSearchTabs() {
   const tabs = document.querySelectorAll(".search-tab");
   const searchButton = document.getElementById("searchNowButton");
@@ -211,11 +202,4 @@ function initSearchTabs() {
       updateSearchDestination(tab);
     });
   });
-}
-function initHeaderShadow() {
-  const nav = document.getElementById("syNav");
-  if (!nav) return;
-  function update() { nav.classList.toggle("is-scrolled", window.scrollY > 10); }
-  window.addEventListener("scroll", update, { passive: true });
-  update();
 }
