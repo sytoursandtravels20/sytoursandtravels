@@ -74,6 +74,7 @@ function vehicleCard(v) {
       return `<span class="sy-price-value">\u20B9${fmtPrice(rate.price)}${rate.transmission ? " " + esc(rate.transmission) : ""}</span>`;
     }).join("")
     : '<span class="sy-price-value">Price on request</span>';
+  const hasSampleRate = rates.some(function (rate) { return rate.sample; });
   const transmissionLabel = rates.length
     ? rates.map(function (rate) { return rate.transmission; }).filter(Boolean).join(" / ")
     : "";
@@ -82,7 +83,7 @@ function vehicleCard(v) {
   const waMsg =
     "Hi " + CONFIG.company.name + ", I'm interested in renting the " +
     v.name + (transmissionLabel ? " (" + transmissionLabel + ")" : "") +
-    (rates.length ? " at " + rates.map(function (rate) {
+    (rates.length ? " at " + (hasSampleRate ? "the sample rate of " : "") + rates.map(function (rate) {
       return "\u20B9" + fmtPrice(rate.price) + (rate.transmission ? " " + rate.transmission : "");
     }).join(" / ") + " per day" : " and would like to know the rate") +
     ". Kindly share availability. Thank you.";
@@ -119,7 +120,7 @@ function vehicleCard(v) {
         <div class="sy-card-foot">
           <div class="sy-price">
             ${rateLabels}
-            ${rates.length ? '<span class="sy-price-unit">per day</span>' : ""}
+            ${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? "sample rate · " : ""}per day</span>` : ""}
             ${hint}
           </div>
           ${action}

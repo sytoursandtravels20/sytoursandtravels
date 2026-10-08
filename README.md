@@ -43,16 +43,18 @@ Each vehicle in `LOCAL_DATA.vehicles`:
 
 ```js
 {
+  type: "car" | "bike" | "scooty",
   category: "economy" | "suv" | "premium-suv" | "7-seater" | "luxury",
   name: "Maruti Swift",
   rates: [
     { transmission: "Manual", price: 1150 },
-    { transmission: "Automatic", price: 1400 }
-  ],                              // optional; omit until a rate is confirmed
+    { transmission: "Automatic", price: 1400 },
+    { price: 2000, sample: true } // sample rates are labelled on the card
+  ],
   featured: true,                 // shows on homepage Featured Rentals
   status: "available",            // "available" | "booked" | "hidden"
   image:        "https://..."
 }
 ```
 
-Cars without a `rates` list show “Price on request”. Fuel type is not displayed on rental cards.
+Vehicle type filters are generated from the types in the data, so adding a bike or scooty later automatically adds its filter. Sample rates are placeholders, marked on each rental card; confirm them before publishing as actual prices. Fuel type is not displayed on rental cards.

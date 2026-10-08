@@ -6,9 +6,11 @@
 
 let allVehicles = [];
 const requestedCategory = new URLSearchParams(window.location.search).get("category");
-const rentalCategories = ["economy", "suv", "premium-suv", "7-seater", "luxury"];
+const requestedType = new URLSearchParams(window.location.search).get("type");
+const vehicleTypeLabels = { car: "Cars", bike: "Bikes", scooty: "Scooters" };
 let currentFilters = {
-  category: rentalCategories.indexOf(requestedCategory) !== -1 ? requestedCategory : "all",
+  type: requestedType && vehicleTypeLabels[requestedType] ? requestedType : "all",
+  category: requestedCategory || "all",
   search: "",
   sort: "recommended",
   availableOnly: false
@@ -31,6 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   allVehicles = visibleVehicles(DATA.vehicles);
 
   renderWhyBook(DATA.whyBook);
+  renderVehicleFilters();
   initFilters();
   renderListings();
   initHeaderShadow();
@@ -60,16 +63,16 @@ async function loadData() {
    FILTER WIRING
    ============================================================ */
 function initFilters() {
-  const chips = document.querySelectorAll(".filter-chip");
-  chips.forEach(function (chip) {
-    // Reflect a category sent from the homepage search in the filter bar.
-    chip.classList.toggle("is-active", (chip.dataset.cat || "all") === currentFilters.category);
-    chip.addEventListener("click", function () {
-      chips.forEach(function (c) { c.classList.remove("is-active"); });
-      chip.classList.add("is-active");
-      currentFilters.category = chip.dataset.cat || "all";
-      renderListings();
-    });
+  initFilterGroup("vehicleTypeFilters", "type", function (type) {
+    currentFilters.type = type;
+    currentFilters.category = "all";
+    renderVehicleFilters();
+    renderListings();
+  });
+  initFilterGroup("vehicleCategoryFilters", "category", function (category) {
+    currentFilters.category = category;
+    renderVehicleFilters();
+    renderListings();
   });
 
   const searchInput = document.getElementById("filterSearch");
@@ -106,15 +109,66 @@ function initFilters() {
   if (clearBtn) {
     clearBtn.addEventListener("click", function () {
       currentFilters = { category: "all", search: "", sort: "recommended", availableOnly: false };
-      document.querySelectorAll(".filter-chip").forEach(function (c) {
-        c.classList.toggle("is-active", c.dataset.cat === "all");
-      });
+      currentFilters.type = "all";
+      renderVehicleFilters();
       if (searchInput) searchInput.value = "";
       if (sortSel) sortSel.value = "recommended";
       if (availOnly) availOnly.checked = false;
       renderListings();
     });
   }
+}
+
+function initFilterGroup(id, filterName, onSelect) {
+  const group = document.getElementById(id);
+  if (!group) return;
+  group.addEventListener("click", function (event) {
+    const chip = event.target.closest(".filter-chip");
+    if (!chip || !group.contains(chip)) return;
+    currentFilters[filterName] = chip.dataset.filterValue || "all";
+    onSelect(currentFilters[filterName]);
+  });
+}
+
+function renderVehicleFilters() {
+  const typeFilters = document.getElementById("vehicleTypeFilters");
+  const categoryFilters = document.getElementById("vehicleCategoryFilters");
+  const types = Array.from(new Set(allVehicles.map(vehicleType)));
+  const availableTypes = currentFilters.type === "all" ? types : types.filter(function (type) {
+    return type === currentFilters.type;
+  });
+  const categories = Array.from(new Set(allVehicles
+    .filter(function (vehicle) {
+      return currentFilters.type === "all" || vehicleType(vehicle) === currentFilters.type;
+    })
+    .map(function (vehicle) { return vehicle.category || "other"; })));
+
+  if (typeFilters) {
+    typeFilters.hidden = types.length < 2;
+    typeFilters.innerHTML = types.length < 2 ? "" : [
+      filterChip("all", "All vehicle types", currentFilters.type === "all")
+    ].concat(types.map(function (type) {
+      return filterChip(type, vehicleTypeLabels[type] || type, currentFilters.type === type);
+    })).join("");
+  }
+
+  if (categoryFilters) {
+    const selectedCategory = categories.indexOf(currentFilters.category) !== -1 ? currentFilters.category : "all";
+    if (selectedCategory !== currentFilters.category) currentFilters.category = selectedCategory;
+    categoryFilters.innerHTML = [
+      filterChip("all", availableTypes.length > 1 ? "All categories" : "All", selectedCategory === "all")
+    ].concat(categories.map(function (category) {
+      return filterChip(category, vehicleCategoryLabel(category), selectedCategory === category);
+    })).join("");
+  }
+}
+
+function filterChip(value, label, isActive) {
+  return `<button class="filter-chip${isActive ? " is-active" : ""}" type="button" data-filter-value="${esc(value)}">${esc(label)}</button>`;
+}
+
+function vehicleType(vehicle) {
+  return vehicle.type || "car";
 }
 
 /* ============================================================
@@ -144,6 +198,11 @@ function renderListings() {
 
 function applyFilters(items, filters) {
   let list = items.slice();
+
+  /* Vehicle type */
+  if (filters.type && filters.type !== "all") {
+    list = list.filter(function (v) { return vehicleType(v) === filters.type; });
+  }
 
   /* Category */
   if (filters.category && filters.category !== "all") {

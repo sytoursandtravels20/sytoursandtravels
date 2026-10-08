@@ -67,6 +67,12 @@
   flex-wrap: wrap;
 }
 
+.filter-groups {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
 /* Category chips */
 .filter-chips {
   display: flex;
@@ -74,6 +80,7 @@
   overflow-x: auto;
   scrollbar-width: none;
 }
+.filter-chips[hidden] { display: none; }
 .filter-chips::-webkit-scrollbar { display: none; }
 
 .filter-chip {

@@ -56,25 +56,9 @@
         <div class="filter-bar" id="filterBar">
             <div class="container filter-bar-inner">
 
-                <div class="filter-chips" role="tablist" aria-label="Category filter">
-                    <button class="filter-chip is-active" data-cat="all">
-                        <i class="bi bi-grid-fill"></i> All
-                    </button>
-                    <button class="filter-chip" data-cat="economy">
-                        Economy Cars
-                    </button>
-                    <button class="filter-chip" data-cat="suv">
-                        SUV Cars
-                    </button>
-                    <button class="filter-chip" data-cat="premium-suv">
-                        Premium SUV
-                    </button>
-                    <button class="filter-chip" data-cat="7-seater">
-                        7-Seater Cars
-                    </button>
-                    <button class="filter-chip" data-cat="luxury">
-                        Luxury / Premium
-                    </button>
+                <div class="filter-groups">
+                    <div class="filter-chips" id="vehicleTypeFilters" role="tablist" aria-label="Vehicle type filter" hidden></div>
+                    <div class="filter-chips" id="vehicleCategoryFilters" role="tablist" aria-label="Vehicle category filter"></div>
                 </div>
 
                 <div class="filter-controls">
