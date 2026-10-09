@@ -61,23 +61,28 @@
 
 .filter-bar-inner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  align-items: stretch;
+  flex-direction: column;
+  gap: .75rem;
 }
 
 .filter-groups {
   display: flex;
   flex-direction: column;
   gap: .5rem;
+  min-width: 0;
+  width: 100%;
 }
 
 /* Category chips */
 .filter-chips {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: .4rem;
-  overflow-x: auto;
+  min-width: 0;
+  width: 100%;
+  overflow: visible;
   scrollbar-width: none;
 }
 .filter-chips[hidden] { display: none; }
@@ -111,9 +116,9 @@
 /* Search + Sort */
 .filter-controls {
   display: flex;
+  width: 100%;
   gap: .6rem;
-  flex: 1 1 auto;
-  min-width: 260px;
+  min-width: 0;
 }
 
 .filter-search {
@@ -207,7 +212,6 @@
 
   .filter-bar { position: relative; padding: .65rem 0; }
   .filter-bar-inner { gap: .65rem; }
-  .filter-chips { width: 100%; }
   .filter-chip { padding: .45rem .85rem; }
   .filter-controls {
     display: grid;
