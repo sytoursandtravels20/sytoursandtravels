@@ -65,6 +65,19 @@
 .taxi-field .form-control { min-height: 50px; border-color: var(--sy-border); border-radius: 8px; font: inherit; }
 .taxi-field .form-control:focus { border-color: var(--sy-blue); box-shadow: 0 0 0 .2rem rgba(35, 109, 168, .16); }
 
+.map-pick-button {
+  margin-top: .45rem;
+  padding: .2rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--sy-blue);
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.map-pick-button:hover { color: var(--sy-navy); text-decoration: underline; }
+
 .location-search { position: relative; }
 .location-suggestions {
   position: absolute;
@@ -94,6 +107,23 @@
 .location-suggestion:last-child { border-bottom: 0; }
 .location-suggestion:hover, .location-suggestion:focus-visible { background: #edf6fc; }
 .location-suggestion-empty { margin: 0; padding: .75rem .9rem; color: var(--sy-muted); font-size: .85rem; }
+
+.taxi-map-dialog {
+  width: min(720px, calc(100% - 1.5rem));
+  max-width: none;
+  padding: 1rem;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, .28);
+}
+.taxi-map-dialog::backdrop { background: rgba(10, 37, 64, .65); }
+.taxi-map-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; }
+.taxi-map-heading h2 { margin: 0; color: var(--sy-navy); font-size: 1.1rem; }
+.taxi-map-heading p { margin: .25rem 0 0; color: var(--sy-muted); font-size: .85rem; }
+.taxi-map-close { width: 40px; height: 40px; border: 0; border-radius: 50%; background: #f0f4f7; color: var(--sy-navy); font-size: 1.6rem; line-height: 1; cursor: pointer; }
+#taxiMap { height: min(60vh, 440px); min-height: 280px; border-radius: 8px; background: #e8eef2; }
+.taxi-map-status { min-height: 1.25rem; margin: .6rem 0 0; color: var(--sy-muted); font-size: .85rem; }
+.taxi-map-status:empty { display: none; }
 
 .taxi-details-heading { margin: 1.35rem 0 .8rem; color: var(--sy-navy); font-size: .88rem; font-weight: 700; }
 .taxi-message { min-height: 1.5rem; margin: 1rem 0 .65rem; color: #a12622; font-size: .9rem; }

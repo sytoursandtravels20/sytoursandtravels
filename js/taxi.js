@@ -9,10 +9,49 @@ document.addEventListener("DOMContentLoaded", function () {
   const time = document.getElementById("taxiTime");
   const passengers = document.getElementById("taxiPassengers");
   const message = document.getElementById("taxiMessage");
+  const mapDialog = document.getElementById("taxiMapDialog");
+  const mapStatus = document.getElementById("taxiMapStatus");
+  let map;
+  let mapMarker;
+  let mapTarget;
+  let lookupController;
 
   date.min = localDateString(new Date());
   const closePickupSuggestions = addLocationSearch(from, document.getElementById("pickupSuggestions"));
   const closeDestinationSuggestions = addLocationSearch(to, document.getElementById("destinationSuggestions"));
+
+  document.querySelectorAll("[data-map-target]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      mapTarget = document.getElementById(button.dataset.mapTarget);
+      closePickupSuggestions();
+      closeDestinationSuggestions();
+      mapStatus.textContent = "";
+      document.getElementById("taxiMapTitle").textContent =
+        mapTarget === from ? "Choose pickup location" : "Choose destination";
+      mapDialog.showModal();
+
+      if (!window.L) {
+        mapStatus.textContent = "The map could not load. You can still enter the location above.";
+        return;
+      }
+      if (!map) {
+        map = window.L.map("taxiMap").setView([15.49, 73.83], 11);
+        window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "&copy; OpenStreetMap contributors",
+          maxZoom: 19
+        }).addTo(map);
+        map.on("click", selectMapLocation);
+      }
+      requestAnimationFrame(function () { map.invalidateSize(); });
+    });
+  });
+
+  document.getElementById("closeTaxiMap").addEventListener("click", function () {
+    mapDialog.close();
+  });
+  mapDialog.addEventListener("close", function () {
+    if (lookupController) lookupController.abort();
+  });
 
   document.getElementById("swapRoute").addEventListener("click", function () {
     const location = from.value;
@@ -50,6 +89,36 @@ document.addEventListener("DOMContentLoaded", function () {
     ].join("\n");
     window.open("https://wa.me/" + CONFIG.company.phoneRaw + "?text=" + encodeURIComponent(request), "_blank", "noopener");
   });
+
+  async function selectMapLocation(event) {
+    if (lookupController) lookupController.abort();
+    lookupController = new AbortController();
+    const { lat, lng } = event.latlng;
+    if (mapMarker) mapMarker.setLatLng(event.latlng);
+    else mapMarker = window.L.marker(event.latlng).addTo(map);
+    mapStatus.textContent = "Finding this place…";
+
+    const url = new URL("https://photon.komoot.io/reverse");
+    url.search = new URLSearchParams({ lat: String(lat), lon: String(lng) });
+
+    try {
+      const response = await fetch(url, { signal: lookupController.signal });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const result = await response.json();
+      const feature = result.features && result.features[0];
+      const place = feature && formatPlace(feature.properties);
+      if (!place) throw new Error("No place name was found for the selected point.");
+
+      mapTarget.value = place;
+      mapDialog.close();
+      mapTarget.focus();
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.warn("[SY] Could not identify the selected map location.", error);
+        mapStatus.textContent = "Could not identify that place. Try tapping nearby or enter it above.";
+      }
+    }
+  }
 });
 
 // Show nearby place suggestions; visitors can still type any address manually.
@@ -78,15 +147,7 @@ function addLocationSearch(input, suggestions) {
         if (!response.ok) throw new Error("HTTP " + response.status);
         const result = await response.json();
         const places = (result.features || []).map(function (feature) {
-          const place = feature.properties;
-          return [
-            place.name,
-            place.street,
-            place.city || place.town || place.village,
-            place.state
-          ].filter(function (part, index, all) {
-            return part && all.indexOf(part) === index;
-          }).join(", ");
+          return formatPlace(feature.properties);
         }).filter(Boolean);
 
         suggestions.replaceChildren();
@@ -140,6 +201,17 @@ function addLocationSearch(input, suggestions) {
     suggestions.hidden = true;
     input.setAttribute("aria-expanded", "false");
   };
+}
+
+function formatPlace(place) {
+  return [
+    place.name,
+    [place.housenumber, place.street].filter(Boolean).join(" "),
+    place.city || place.town || place.village,
+    place.state
+  ].filter(function (part, index, all) {
+    return part && all.indexOf(part) === index;
+  }).join(", ");
 }
 
 function localDateString(date) {

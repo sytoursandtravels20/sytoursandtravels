@@ -69,4 +69,4 @@ Privacy and Terms content loads from their published tabs. Add a row with `Last 
 
 ## Taxi requests
 
-The `/taxi/` form suggests nearby places as visitors type, while still allowing any address to be entered manually. It validates the trip details and opens a pre-filled WhatsApp message using `CONFIG.company.phoneRaw`. It does not create or store bookings.
+The `/taxi/` form suggests nearby places as visitors type and also lets visitors choose pickup and destination points on a map. It validates the trip details and opens a pre-filled WhatsApp message using `CONFIG.company.phoneRaw`. It does not create or store bookings.
