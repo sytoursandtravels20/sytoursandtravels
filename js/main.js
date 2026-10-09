@@ -2,6 +2,9 @@
    main.js — shared page setup and homepage orchestration.
    ============================================================ */
 
+const activityCatalogFilters = { type: "all", category: "all" };
+const waterTripCatalogFilters = { type: "all", category: "all" };
+
 document.addEventListener("DOMContentLoaded", async function () {
 
   const componentsReady = Promise.all([
@@ -177,15 +180,84 @@ function renderFeatured(vehicles) {
 }
 function renderExperiences(activities) {
   const el = document.getElementById("experiencesGrid");
-  if (el) el.innerHTML = (activities || []).map(activityCard).join("");
+  const items = activities || [];
+  renderSheetCatalogFilters("activityCatalogFilters", items, activityCatalogFilters, function () {
+    renderExperiences(items);
+  });
+  if (el) {
+    el.innerHTML = filterSheetCatalog(items, activityCatalogFilters).map(activityCard).join("");
+  }
 }
 function renderYachtsBoatsCruises(DATA) {
   const el = document.getElementById("yachtsGrid");
   if (!el) return;
   const trips = DATA.waterTrips || [];
-  el.innerHTML = trips.map(function (trip) {
-    return waterCard(trip, trip.type);
+  renderSheetCatalogFilters("waterTripCatalogFilters", trips, waterTripCatalogFilters, function () {
+    renderYachtsBoatsCruises(DATA);
+  });
+  el.innerHTML = filterSheetCatalog(trips, waterTripCatalogFilters).map(function (trip) {
+    return waterCard(trip, trip.typeLabel || trip.type);
   }).join("");
+}
+
+function renderSheetCatalogFilters(containerId, items, filters, onChange) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const types = sheetCatalogOptions(items, "type", "typeLabel");
+  if (filters.type !== "all" && !types.some(function (option) { return option.value === filters.type; })) {
+    filters.type = "all";
+  }
+  const visibleItems = filters.type === "all" ? items : items.filter(function (item) {
+    return item.type === filters.type;
+  });
+  const categories = sheetCatalogOptions(visibleItems, "category", "categoryLabel");
+
+  if (filters.category !== "all" && !categories.some(function (option) { return option.value === filters.category; })) {
+    filters.category = "all";
+  }
+
+  container.innerHTML = [
+    renderSheetFilterGroup("type", types, filters.type, "All types"),
+    renderSheetFilterGroup("category", categories, filters.category, "All categories")
+  ].join("");
+  container.onclick = function (event) {
+    const button = event.target.closest("[data-catalog-filter]");
+    if (!button || !container.contains(button)) return;
+    const filter = button.dataset.catalogFilter;
+    filters[filter] = button.dataset.filterValue || "all";
+    if (filter === "type") filters.category = "all";
+    onChange();
+  };
+}
+
+function renderSheetFilterGroup(filter, options, selected, allLabel) {
+  if (options.length < 2) return "";
+  return `<div class="catalog-filter-group" aria-label="${esc(allLabel)}"><button class="catalog-filter-chip${selected === "all" ? " is-active" : ""}" type="button" data-catalog-filter="${filter}" data-filter-value="all">${allLabel}</button>${options.map(function (option) {
+    return `<button class="catalog-filter-chip${selected === option.value ? " is-active" : ""}" type="button" data-catalog-filter="${filter}" data-filter-value="${esc(option.value)}">${esc(option.label)}</button>`;
+  }).join("")}</div>`;
+}
+
+function sheetCatalogOptions(items, valueKey, labelKey) {
+  const options = new Map();
+  items.forEach(function (item) {
+    const value = (item[valueKey] || "").trim();
+    if (!value) return;
+    const label = (item[labelKey] || "").trim() || catalogLabel(value);
+    if (!options.has(value) || (!options.get(value).customLabel && item[labelKey])) {
+      options.set(value, { value: value, label: label, customLabel: Boolean(item[labelKey]) });
+    }
+  });
+  return Array.from(options.values()).sort(function (a, b) {
+    return a.label.localeCompare(b.label);
+  });
+}
+
+function filterSheetCatalog(items, filters) {
+  return items.filter(function (item) {
+    return (filters.type === "all" || item.type === filters.type) &&
+      (filters.category === "all" || item.category === filters.category);
+  });
 }
 function renderWhyBook(whyBook) {
   const el = document.getElementById("whyGrid");

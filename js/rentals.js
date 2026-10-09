@@ -7,9 +7,8 @@
 let allVehicles = [];
 const requestedCategory = new URLSearchParams(window.location.search).get("category");
 const requestedType = new URLSearchParams(window.location.search).get("type");
-const vehicleTypeLabels = { car: "Cars", bike: "Bikes", scooty: "Scooters", scooter: "Scooters" };
 let currentFilters = {
-  type: requestedType && vehicleTypeLabels[requestedType] ? requestedType : "all",
+  type: requestedType || "all",
   category: requestedCategory || "all",
   search: "",
   sort: "recommended",
@@ -121,6 +120,9 @@ function renderVehicleFilters() {
   const typeFilters = document.getElementById("vehicleTypeFilters");
   const categoryFilters = document.getElementById("vehicleCategoryFilters");
   const types = Array.from(new Set(allVehicles.map(vehicleType)));
+  if (currentFilters.type !== "all" && !types.includes(currentFilters.type)) {
+    currentFilters.type = "all";
+  }
   const availableTypes = currentFilters.type === "all" ? types : types.filter(function (type) {
     return type === currentFilters.type;
   });
@@ -135,7 +137,8 @@ function renderVehicleFilters() {
     typeFilters.innerHTML = types.length < 2 ? "" : [
       filterChip("all", "All vehicle types", currentFilters.type === "all")
     ].concat(types.map(function (type) {
-      return filterChip(type, vehicleTypeLabels[type] || type, currentFilters.type === type);
+      const sample = allVehicles.find(function (vehicle) { return vehicleType(vehicle) === type; });
+      return filterChip(type, vehicleTypeLabel(type, sample && sample.typeLabel), currentFilters.type === type);
     })).join("");
   }
 
@@ -145,9 +148,21 @@ function renderVehicleFilters() {
     categoryFilters.innerHTML = [
       filterChip("all", availableTypes.length > 1 ? "All categories" : "All", selectedCategory === "all")
     ].concat(categories.map(function (category) {
-      return filterChip(category, vehicleCategoryLabel(category), selectedCategory === category);
+      const sample = allVehicles.find(function (vehicle) {
+        return vehicle.category === category && (currentFilters.type === "all" || vehicleType(vehicle) === currentFilters.type);
+      });
+      return filterChip(category, vehicleCategoryLabel(category, sample && sample.categoryLabel), selectedCategory === category);
     })).join("");
   }
+}
+
+function vehicleTypeLabel(type, label) {
+  if (label) return label;
+  const words = type.split(/[-_\s]+/).map(function (part) {
+    return part.charAt(0).toUpperCase() + part.slice(1);
+  }).join(" ");
+  if (/[^aeiou]y$/i.test(words)) return words.slice(0, -1) + "ies";
+  return words + "s";
 }
 
 function filterChip(value, label, isActive) {

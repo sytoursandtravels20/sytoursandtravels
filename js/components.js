@@ -126,6 +126,9 @@ function vehicleCard(v) {
     (typeof v.passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(v.passengers))
     ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} passengers</li>`
     : "";
+  const quantitySpec = Number.isInteger(v.quantity) && v.quantity > 1
+    ? `<li><i class="bi bi-car-front"></i> ${v.quantity} units</li>`
+    : "";
   const vehicleImage = v.image
     ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`
     : "";
@@ -139,7 +142,8 @@ function vehicleCard(v) {
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(v.name)}</h3>
         <ul class="sy-specs">
-          <li><i class="bi bi-grid"></i> ${esc(vehicleCategoryLabel(v.category))}</li>
+          <li><i class="bi bi-grid"></i> ${esc(vehicleCategoryLabel(v.category, v.categoryLabel))}</li>
+          ${quantitySpec}
           ${passengerSpec}
         </ul>
         <div class="sy-card-foot">
@@ -154,15 +158,10 @@ function vehicleCard(v) {
     </article>`;
 }
 
-function vehicleCategoryLabel(category) {
-  const labels = {
-    economy: "Economy Cars",
-    suv: "SUV Cars",
-    "premium-suv": "Premium SUV",
-    "7-seater": "7-Seater Cars",
-    luxury: "Luxury / Premium"
-  };
-  return labels[category] || category || "Car";
+function vehicleCategoryLabel(category, label) {
+  return label || (category || "car").split(/[-_\s]+/).map(function (part) {
+    return part.charAt(0).toUpperCase() + part.slice(1);
+  }).join(" ");
 }
 
 function activityCard(a) {
@@ -170,11 +169,13 @@ function activityCard(a) {
     "Hi " + CONFIG.company.name + ", I'm interested in the " + a.name +
     " experience (" + a.meta + ") at \u20B9" + fmtPrice(a.price) + " " + a.unit +
     ". Kindly share availability. Thank you.";
+  const category = a.categoryLabel || catalogLabel(a.category);
   return `
     <article class="sy-card">
       <div class="sy-card-media"><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async"></div>
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(a.name)}</h3>
+        ${category ? `<span class="catalog-category">${esc(category)}</span>` : ""}
         <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(a.meta)}
         </p>
@@ -190,9 +191,11 @@ function activityCard(a) {
 }
 
 function waterCard(item, kind) {
+  const typeLabel = item.typeLabel || catalogLabel(kind);
+  const category = item.categoryLabel || catalogLabel(item.category);
   const waMsg =
     "Hi " + CONFIG.company.name + ", I'm interested in the " + item.name +
-    " (" + kind + ", " + item.meta + ") at \u20B9" + fmtPrice(item.price) +
+    " (" + typeLabel + (category ? ", " + category : "") + ", " + item.meta + ") at \u20B9" + fmtPrice(item.price) +
     " " + item.unit + ". Kindly share availability. Thank you.";
   return `
     <article class="sy-card">
@@ -202,6 +205,7 @@ function waterCard(item, kind) {
       </div>
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(item.name)}</h3>
+        <span class="catalog-category">${esc(typeLabel)}${category ? " · " + esc(category) : ""}</span>
         <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(item.meta)}
         </p>
@@ -214,6 +218,12 @@ function waterCard(item, kind) {
         </div>
       </div>
     </article>`;
+}
+
+function catalogLabel(value) {
+  return (value || "").split(/[-_\s]+/).filter(Boolean).map(function (part) {
+    return part.charAt(0).toUpperCase() + part.slice(1);
+  }).join(" ");
 }
 
 function whyItem(w) {
@@ -408,7 +418,10 @@ function parseRentalInventoryCsv(csv) {
   );
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
   columnIndexes.type = headers.indexOf("type");
+  columnIndexes.typelabel = headers.indexOf("typelabel");
+  columnIndexes.categorylabel = headers.indexOf("categorylabel");
   columnIndexes.image = headers.indexOf("image");
+  columnIndexes.quantity = headers.indexOf("quantity");
 
   const localByName = new Map(LOCAL_DATA.vehicles.map(function (vehicle) {
     return [vehicle.name.trim().toLowerCase(), vehicle];
@@ -422,6 +435,8 @@ function parseRentalInventoryCsv(csv) {
     const status = get("status").toLowerCase() || "available";
     const passengerValue = get("passengers");
     const passengers = /^\d+$/.test(passengerValue) ? Number(passengerValue) : passengerValue;
+    const quantityValue = get("quantity");
+    const quantity = quantityValue ? Number(quantityValue) : 1;
     const manualPrice = get("manualprice")
       ? parseCatalogPrice(get("manualprice"), index + 2, "Manual")
       : null;
@@ -435,12 +450,17 @@ function parseRentalInventoryCsv(csv) {
     const category = categoryIsVehicleType
       ? (local && local.category) || "other"
       : sheetCategory || (local && local.category) || "other";
+    const typeLabel = get("typelabel") || (local && local.typeLabel) || "";
+    const categoryLabel = get("categorylabel") || (local && local.categoryLabel) || "";
     const image = get("image") || (local && local.image) || "";
 
     if (!name) throw new Error("Inventory row " + (index + 2) + " has no vehicle name.");
     if (!(Number.isInteger(passengers) && passengers > 0) &&
       !(typeof passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(passengers))) {
       throw new Error("Inventory row " + (index + 2) + " has an invalid passenger count.");
+    }
+    if (!Number.isInteger(quantity) || quantity < 1) {
+      throw new Error("Inventory row " + (index + 2) + " has an invalid quantity.");
     }
     if (!manualPrice && !automaticPrice) {
       throw new Error("Inventory row " + (index + 2) + " has no valid price.");
@@ -454,9 +474,12 @@ function parseRentalInventoryCsv(csv) {
     if (automaticPrice) rates.push({ transmission: "Automatic", price: automaticPrice });
     return {
       type: type,
+      typeLabel: typeLabel,
       category: category,
+      categoryLabel: categoryLabel,
       name: name,
       passengers: passengers,
+      quantity: quantity,
       rates: rates,
       featured: Boolean(local && local.featured),
       status: status,
@@ -471,6 +494,11 @@ function parseRentalInventoryCsv(csv) {
 function parseActivitiesCsv(csv) {
   const rows = parseCsvRows(csv);
   const columns = csvColumnIndexes(rows, ["name", "meta", "price", "unit", "image"], "activities");
+  const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
+  columns.type = headers.indexOf("type");
+  columns.typelabel = headers.indexOf("typelabel");
+  columns.category = headers.indexOf("category");
+  columns.categorylabel = headers.indexOf("categorylabel");
   const localByName = new Map(LOCAL_DATA.activities.map(function (activity) {
     return [activity.name.trim().toLowerCase(), activity];
   }));
@@ -480,6 +508,10 @@ function parseActivitiesCsv(csv) {
     const local = localByName.get(name.toLowerCase());
     const activity = {
       name: name,
+      type: get("type") || (local && local.type) || "activity",
+      typeLabel: get("typelabel") || (local && local.typeLabel) || "",
+      category: get("category") || (local && local.category) || "activity",
+      categoryLabel: get("categorylabel") || (local && local.categoryLabel) || "",
       meta: get("meta"),
       price: parseCatalogPrice(get("price"), index + 2),
       unit: get("unit"),
@@ -495,18 +527,24 @@ function parseActivitiesCsv(csv) {
 function parseWaterTripsCsv(csv) {
   const rows = parseCsvRows(csv);
   const columns = csvColumnIndexes(rows, ["name", "type", "meta", "price", "unit", "badge", "image"], "water trips");
+  const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
+  columns.typelabel = headers.indexOf("typelabel");
+  columns.category = headers.indexOf("category");
+  columns.categorylabel = headers.indexOf("categorylabel");
   const localByName = new Map(getLocalWaterTrips().map(function (trip) {
     return [trip.name.trim().toLowerCase(), trip];
   }));
   return csvDataRows(rows, "water trips").map(function (row, index) {
     const get = function (header) { return (row[columns[header]] || "").trim(); };
     const name = get("name");
-    const rawType = get("type").toLowerCase();
-    const kind = { yacht: "Yacht", boat: "Boat", cruise: "Cruise" }[rawType];
+    const kind = get("type");
     const local = localByName.get(name.toLowerCase());
     const trip = {
       name: name,
       type: kind,
+      typeLabel: get("typelabel") || (local && local.typeLabel) || "",
+      category: get("category") || (local && local.category) || "",
+      categoryLabel: get("categorylabel") || (local && local.categoryLabel) || "",
       meta: get("meta"),
       price: parseCatalogPrice(get("price"), index + 2),
       unit: get("unit"),

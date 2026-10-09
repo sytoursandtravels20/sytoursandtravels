@@ -243,6 +243,30 @@ const LOCAL_DATA = {
       status: "available",
       bookedUntil: "",
       image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/2024_Hyundai_Creta_1.5_MPi_SX%28O%29_%28India%29_front_view.png/960px-2024_Hyundai_Creta_1.5_MPi_SX%28O%29_%28India%29_front_view.png"
+    },
+    {
+      type: "scooty",
+      category: "economy",
+      name: "Honda Activa 6G",
+      passengers: 2,
+      quantity: 2,
+      rates: [{ transmission: "Automatic", price: 410 }],
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://raw.githubusercontent.com/sytoursandtravels20/sytoursandtravels-stockphotosnew/main/Honda%20Activa%206G%20in%20Metallic%20Blue.jpg"
+    },
+    {
+      type: "scooty",
+      category: "economy",
+      name: "Yamaha Fascino 125",
+      passengers: 2,
+      quantity: 2,
+      rates: [{ transmission: "Automatic", price: 450 }],
+      featured: false,
+      status: "available",
+      bookedUntil: "",
+      image: "https://raw.githubusercontent.com/sytoursandtravels20/sytoursandtravels-stockphotosnew/main/Red%20Yamaha%20Fascino%20125%20Studio%20Scooter.jpg"
     }
   ],
 
