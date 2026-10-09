@@ -104,12 +104,12 @@ function initTaxiMap(mapElement, mapHint) {
   pickupInput.addEventListener("input", function () {
     clearMapLocation("pickup");
     setSelectionMode(null);
-    mapHint.textContent = "Pickup entered manually. Choose a stop above if you want to place it on the map.";
+    mapHint.textContent = "Pickup entered manually. Choose Pickup below if you want to place it on the map.";
   });
   destinationInput.addEventListener("input", function () {
     clearMapLocation("destination");
     setSelectionMode(null);
-    mapHint.textContent = "Destination entered manually. Choose a stop above if you want to place it on the map.";
+    mapHint.textContent = "Destination entered manually. Choose Destination below if you want to place it on the map.";
   });
 
   pickupButton.addEventListener("click", function () {
@@ -133,7 +133,7 @@ function initTaxiMap(mapElement, mapHint) {
 
   map.on("click", function (event) {
     if (!selectionMode) {
-      mapHint.textContent = "Choose Pickup or Destination above, then tap the map.";
+      mapHint.textContent = "Choose Pickup or Destination below the map, then tap the map.";
       return;
     }
     const selectedKind = selectionMode;
@@ -150,7 +150,7 @@ function initTaxiMap(mapElement, mapHint) {
     mapElement.classList.toggle("is-picking", Boolean(mode));
     mapHint.textContent = mode
       ? (mode === "pickup" ? "Step 1: tap the map to choose your pickup." : "Step 2: tap the map to choose your destination.")
-      : "Choose Pickup or Destination above, then tap the map.";
+      : "Choose Pickup or Destination below the map, then tap the map.";
   }
 
   setSelectionMode("pickup");
@@ -186,13 +186,13 @@ function initTaxiMap(mapElement, mapHint) {
           ? "Both locations are set. Continue with your trip details below."
           : kind === "pickup"
             ? "Pickup set. Now tap the map to choose your destination."
-            : "Destination set. Choose Pickup above if you still need to set it.";
+            : "Destination set. Choose Pickup below if you still need to set it.";
       } else {
         mapHint.textContent = markers.pickup && markers.destination
           ? "Both locations are set. Address lookup is unavailable, but you can edit them below."
           : kind === "pickup"
             ? "Address lookup unavailable. Pickup is set; tap the map to choose your destination."
-            : "Address lookup unavailable. Destination is set; choose Pickup above if needed.";
+            : "Address lookup unavailable. Destination is set; choose Pickup below if needed.";
       }
     }).catch(function (error) {
       if (thisLookup !== lookupIds[kind]) return;
@@ -201,7 +201,7 @@ function initTaxiMap(mapElement, mapHint) {
         ? "Both locations are set. You can edit them below."
         : kind === "pickup"
           ? "Could not look up the pickup address. Tap the map to choose your destination."
-          : "Could not look up the destination address. Choose Pickup above if needed.";
+          : "Could not look up the destination address. Choose Pickup below if needed.";
     });
   }
 

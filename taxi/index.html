@@ -59,20 +59,20 @@
                                 <span>Swap</span>
                             </button>
                         </div>
-                        <div class="route-map-actions" role="group" aria-label="Choose a location to set on the map">
-                            <button class="map-pick-button is-pickup is-active" id="pickPickup" type="button" aria-pressed="true">
-                                <span class="map-pin-dot" aria-hidden="true"></span>
-                                <span><b>1</b> Pickup</span>
-                            </button>
-                            <button class="map-pick-button is-destination" id="pickDestination" type="button" aria-pressed="false">
-                                <span class="map-pin-dot" aria-hidden="true"></span>
-                                <span><b>2</b> Destination</span>
-                            </button>
-                        </div>
                         <div class="route-map-wrap">
                             <div id="taxiMap" role="application" aria-label="Interactive map to choose pickup and destination"></div>
                             <div class="map-hint" id="mapHint" role="status" aria-live="polite">
                                 Step 1: tap the map to choose your pickup.
+                            </div>
+                            <div class="route-map-actions" role="group" aria-label="Choose which location to set on the map">
+                                <button class="map-pick-button is-pickup is-active" id="pickPickup" type="button" aria-pressed="true">
+                                    <span class="map-pin-dot" aria-hidden="true"></span>
+                                    <span>Pickup</span>
+                                </button>
+                                <button class="map-pick-button is-destination" id="pickDestination" type="button" aria-pressed="false">
+                                    <span class="map-pin-dot" aria-hidden="true"></span>
+                                    <span>Destination</span>
+                                </button>
                             </div>
                         </div>
                         <p class="map-attribution-note">Map data © OpenStreetMap contributors. The dashed line is a visual guide, not a road route.</p>

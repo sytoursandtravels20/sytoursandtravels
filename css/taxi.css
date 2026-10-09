@@ -140,26 +140,12 @@
   font-size: .88rem;
 }
 
-.map-pick-button > span:last-child { display: inline-flex; align-items: center; gap: .4rem; }
-
-.map-pick-button b {
-  display: inline-grid;
-  width: 19px;
-  height: 19px;
-  place-items: center;
-  border-radius: 50%;
-  background: #edf1f5;
-  color: var(--sy-muted);
-  font-size: .68rem;
-}
-
-.map-pick-button.is-active b { background: var(--sy-blue); color: #fff; }
 .map-pick-button.is-set { border-color: rgba(18, 163, 109, .5); }
-.map-pick-button.is-set b { background: #12a36d; color: #fff; }
 
 .route-swap {
   display: inline-flex;
   flex: 0 0 auto;
+  min-height: 48px;
   align-items: center;
   gap: .4rem;
   padding: .55rem .8rem;
@@ -177,27 +163,35 @@
 .route-swap:focus-visible { border-color: var(--sy-blue); color: var(--sy-blue); }
 
 .route-map-actions {
+  position: absolute;
+  z-index: 600;
+  right: .65rem;
+  bottom: .65rem;
+  left: .65rem;
   display: flex;
-  flex-wrap: wrap;
-  gap: .6rem;
-  margin: 1rem 0 .75rem;
+  gap: .5rem;
 }
 
 .map-pick-button {
-  display: inline-flex;
-  min-height: 42px;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 52px;
   align-items: center;
+  justify-content: center;
   gap: .55rem;
-  padding: .55rem .85rem;
-  border: 1px solid var(--sy-border);
-  border-radius: 8px;
-  background: #fff;
+  padding: .65rem .75rem;
+  border: 2px solid var(--sy-border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .97);
   color: var(--sy-navy);
   font: inherit;
-  font-size: .83rem;
-  font-weight: 600;
+  font-size: .9rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: border-color .18s, background .18s, box-shadow .18s;
+  box-shadow: 0 2px 10px rgba(10, 37, 64, .16);
+  touch-action: manipulation;
+  transition: border-color .18s, background .18s, box-shadow .18s, color .18s;
 }
 
 .map-pick-button:hover { border-color: var(--sy-blue); }
@@ -243,11 +237,11 @@
 .map-hint {
   position: absolute;
   z-index: 500;
-  right: .75rem;
-  bottom: .75rem;
-  left: .75rem;
-  width: fit-content;
-  max-width: calc(100% - 1.5rem);
+  top: .65rem;
+  right: .65rem;
+  left: .65rem;
+  width: auto;
+  max-width: none;
   padding: .5rem .7rem;
   border: 1px solid rgba(10, 37, 64, .08);
   border-radius: 8px;
@@ -256,6 +250,8 @@
   font-size: .75rem;
   box-shadow: 0 2px 10px rgba(10, 37, 64, .12);
 }
+
+.route-map-wrap .leaflet-control-attribution { margin-bottom: 4rem; }
 
 .map-attribution-note {
   margin: .55rem 0 0;
@@ -312,10 +308,13 @@
   .route-picker-heading { align-items: flex-start; }
   .route-picker-heading h2 { font-size: 1.05rem; }
   .route-swap { padding: .5rem .65rem; }
-  #taxiMap { height: 300px; }
+  #taxiMap { height: 320px; }
 }
 
 @media (max-width: 359.98px) {
   .route-picker-heading { flex-direction: column; }
   #taxiMap { height: 260px; }
+  .route-map-actions { right: .4rem; bottom: .4rem; left: .4rem; gap: .35rem; }
+  .map-pick-button { min-height: 48px; padding: .5rem .35rem; font-size: .82rem; }
+  .map-hint { top: .4rem; right: .4rem; left: .4rem; font-size: .7rem; }
 }
