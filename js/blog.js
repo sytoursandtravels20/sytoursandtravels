@@ -1,10 +1,23 @@
 // Load Blogger's public feed as JSONP and render posts in the site's own layout.
 (function () {
   const feedUrl = "https://sytoursandtravels.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=6&callback=syRenderBlogFeed";
+  const cacheKey = "sy-blog-feed-v1";
   const grid = document.getElementById("blogGrid");
   const status = document.getElementById("blogStatus");
   const reader = document.getElementById("blogReader");
   if (!grid || !status || !reader) return;
+  let hasStories = false;
+
+  // Reuse the last feed first so return visitors see stories without waiting on Blogger.
+  try {
+    const cachedFeed = JSON.parse(localStorage.getItem(cacheKey) || "null");
+    if (cachedFeed && Array.isArray(cachedFeed.entry)) {
+      renderPosts(cachedFeed);
+      hasStories = cachedFeed.entry.length > 0;
+    }
+  } catch (error) {
+    console.warn("[SY] Could not read saved blog stories.", error);
+  }
 
   // Create text elements instead of inserting feed titles and excerpts as HTML.
   function textElement(tag, className, text) {
@@ -35,13 +48,14 @@
     const posts = (Array.isArray(feed.entry) ? feed.entry : []).map(postDetails).filter(function (post) {
       return post.title || post.text || post.image;
     });
-    grid.replaceChildren();
 
     if (!posts.length) {
-      status.textContent = "New stories are on the way. Check back soon.";
+      if (!hasStories) status.textContent = "New stories are on the way. Check back soon.";
       return;
     }
 
+    grid.replaceChildren();
+    hasStories = true;
     status.textContent = "";
     posts.forEach(function (post) {
       const card = document.createElement("article");
@@ -154,17 +168,31 @@
   let feedTimer;
   window.syRenderBlogFeed = function (data) {
     window.clearTimeout(feedTimer);
-    renderPosts(data.feed || {});
+    if (!data || !data.feed || !Array.isArray(data.feed.entry)) {
+      showFeedError("Stories are temporarily unavailable. Please try again later.");
+      return;
+    }
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify(data.feed));
+    } catch (error) {
+      console.warn("[SY] Could not save blog stories for the next visit.", error);
+    }
+    renderPosts(data.feed);
   };
   const script = document.createElement("script");
   script.src = feedUrl;
   script.onerror = function () {
     window.clearTimeout(feedTimer);
-    status.textContent = "Stories are temporarily unavailable. Please try again later.";
+    showFeedError("Stories are temporarily unavailable. Please try again later.");
   };
   feedTimer = window.setTimeout(function () {
     script.remove();
-    status.textContent = "Stories are taking longer to load. Please try again later.";
-  }, 8000);
+    showFeedError("Stories are taking longer to load. Please try again later.");
+  }, 5000);
   document.head.appendChild(script);
+
+  function showFeedError(text) {
+    if (!hasStories) status.textContent = text;
+    else status.textContent = "Showing saved stories; the latest posts could not be refreshed.";
+  }
 })();
