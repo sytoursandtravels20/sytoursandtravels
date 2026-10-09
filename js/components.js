@@ -122,14 +122,18 @@ function vehicleCard(v) {
   const hint = isBooked && v.bookedUntil
     ? `<span class="sy-price-hint">${esc(until).replace(/^ · /, "")}</span>`
     : "";
-  const passengerSpec = Number.isInteger(v.passengers) && v.passengers > 0
-    ? `<li><i class="bi bi-people-fill"></i> ${v.passengers} passengers</li>`
+  const passengerSpec = (Number.isInteger(v.passengers) && v.passengers > 0) ||
+    (typeof v.passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(v.passengers))
+    ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} passengers</li>`
+    : "";
+  const vehicleImage = v.image
+    ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`
     : "";
 
   return `
     <article class="sy-card${isBooked ? " is-booked" : ""}">
       <div class="sy-card-media">
-        <img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">
+        ${vehicleImage}
         ${badge}
       </div>
       <div class="sy-card-body">
@@ -267,7 +271,12 @@ async function loadCatalogCsv(url, parse, fallback, label) {
   // Keep background refreshes bounded so a stalled sheet never blocks page interaction.
   const timeout = setTimeout(function () { controller.abort(); }, 8000);
   try {
-    const response = await fetch(url, { signal: controller.signal });
+    const requestUrl = new URL(url);
+    requestUrl.searchParams.set("_sy_refresh", Date.now().toString());
+    const response = await fetch(requestUrl.toString(), {
+      cache: "no-store",
+      signal: controller.signal
+    });
     if (!response.ok) throw new Error("HTTP " + response.status);
     const csv = await response.text();
     const data = parse(csv);
@@ -394,9 +403,12 @@ function parseRentalInventoryCsv(csv) {
   const rows = parseCsvRows(csv);
   const columnIndexes = csvColumnIndexes(
     rows,
-    ["name", "category", "manualprice", "automaticprice", "passengers", "image", "status"],
+    ["name", "category", "manualprice", "automaticprice", "passengers", "status"],
     "rental inventory"
   );
+  const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
+  columnIndexes.type = headers.indexOf("type");
+  columnIndexes.image = headers.indexOf("image");
 
   const localByName = new Map(LOCAL_DATA.vehicles.map(function (vehicle) {
     return [vehicle.name.trim().toLowerCase(), vehicle];
@@ -406,9 +418,10 @@ function parseRentalInventoryCsv(csv) {
       return (row[columnIndexes[header]] || "").trim();
     };
     const name = get("name");
-    const category = get("category");
+    const sheetCategory = get("category").toLowerCase();
     const status = get("status").toLowerCase() || "available";
-    const passengers = Number(get("passengers"));
+    const passengerValue = get("passengers");
+    const passengers = /^\d+$/.test(passengerValue) ? Number(passengerValue) : passengerValue;
     const manualPrice = get("manualprice")
       ? parseCatalogPrice(get("manualprice"), index + 2, "Manual")
       : null;
@@ -416,13 +429,17 @@ function parseRentalInventoryCsv(csv) {
       ? parseCatalogPrice(get("automaticprice"), index + 2, "Automatic")
       : null;
     const local = localByName.get(name.toLowerCase());
-    const image = get("image");
+    const listedType = get("type").toLowerCase();
+    const categoryIsVehicleType = ["car", "bike", "scooty", "scooter"].includes(sheetCategory);
+    const type = listedType || (categoryIsVehicleType ? sheetCategory : (local && local.type) || "car");
+    const category = categoryIsVehicleType
+      ? (local && local.category) || "other"
+      : sheetCategory || (local && local.category) || "other";
+    const image = get("image") || (local && local.image) || "";
 
     if (!name) throw new Error("Inventory row " + (index + 2) + " has no vehicle name.");
-    if (!["economy", "suv", "premium-suv", "7-seater", "luxury"].includes(category)) {
-      throw new Error("Inventory row " + (index + 2) + " has an invalid category.");
-    }
-    if (!Number.isInteger(passengers) || passengers < 1) {
+    if (!(Number.isInteger(passengers) && passengers > 0) &&
+      !(typeof passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(passengers))) {
       throw new Error("Inventory row " + (index + 2) + " has an invalid passenger count.");
     }
     if (!manualPrice && !automaticPrice) {
@@ -431,15 +448,12 @@ function parseRentalInventoryCsv(csv) {
     if (!["available", "booked", "hidden"].includes(status)) {
       throw new Error("Inventory row " + (index + 2) + " has an invalid status.");
     }
-    if (!image) {
-      throw new Error("Inventory row " + (index + 2) + " needs an image URL in the image column.");
-    }
 
     const rates = [];
     if (manualPrice) rates.push({ transmission: "Manual", price: manualPrice });
     if (automaticPrice) rates.push({ transmission: "Automatic", price: automaticPrice });
     return {
-      type: "car",
+      type: type,
       category: category,
       name: name,
       passengers: passengers,

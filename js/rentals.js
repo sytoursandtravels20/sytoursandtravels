@@ -7,7 +7,7 @@
 let allVehicles = [];
 const requestedCategory = new URLSearchParams(window.location.search).get("category");
 const requestedType = new URLSearchParams(window.location.search).get("type");
-const vehicleTypeLabels = { car: "Cars", bike: "Bikes", scooty: "Scooters" };
+const vehicleTypeLabels = { car: "Cars", bike: "Bikes", scooty: "Scooters", scooter: "Scooters" };
 let currentFilters = {
   type: requestedType && vehicleTypeLabels[requestedType] ? requestedType : "all",
   category: requestedCategory || "all",
