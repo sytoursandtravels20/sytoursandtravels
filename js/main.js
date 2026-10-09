@@ -52,6 +52,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       "activities"
     ));
     loadActivities().then(renderExperiences);
+  } else if (page === "yachts") {
+    renderYachtsBoatsCruises({ waterTrips: getCachedCatalog(
+      CONFIG.waterTripsCsvUrl,
+      parseWaterTripsCsv,
+      getLocalWaterTrips(),
+      "water trips"
+    ) });
+    loadWaterTrips().then(function (waterTrips) {
+      renderYachtsBoatsCruises({ waterTrips: waterTrips });
+    });
   }
   renderWhyBook(LOCAL_DATA.whyBook);
   renderHowItWorks(LOCAL_DATA.howItWorks);
