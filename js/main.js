@@ -44,6 +44,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       getLocalWaterTrips(),
       "water trips"
     ) });
+  } else if (page === "activities") {
+    renderExperiences(getCachedCatalog(
+      CONFIG.activitiesCsvUrl,
+      parseActivitiesCsv,
+      LOCAL_DATA.activities,
+      "activities"
+    ));
+    loadActivities().then(renderExperiences);
   }
   renderWhyBook(LOCAL_DATA.whyBook);
   renderHowItWorks(LOCAL_DATA.howItWorks);
