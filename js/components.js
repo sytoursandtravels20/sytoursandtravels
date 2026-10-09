@@ -24,7 +24,8 @@ async function loadComponent(targetId, path) {
 function esc(str) {
   return String(str == null ? "" : str)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function fmtPrice(n) {
@@ -60,6 +61,45 @@ function setBrandLogo(id) {
   element.innerHTML = CONFIG.logo.logoUrl
     ? `<img src="${esc(CONFIG.logo.logoUrl)}" alt="${esc(CONFIG.company.name)}">`
     : `<i class="bi ${esc(CONFIG.logo.logoIcon)}"></i>`;
+}
+
+// Put company details in the shared header and footer on every page.
+function applySharedConfig() {
+  const company = CONFIG.company;
+  setText("brandName", company.name);
+  setText("brandTag", company.tagline);
+  setBrandLogo("brandLogo");
+
+  setText("footerBrandName", company.name);
+  setText("footerBrandTag", company.tagline);
+  setText("footerDesc", company.description);
+  setText("footerAddress", company.address);
+  setBrandLogo("footerBrandLogo");
+
+  const phone = document.getElementById("footerPhone");
+  if (phone) {
+    phone.textContent = company.phone;
+    phone.href = "tel:+" + company.phoneRaw;
+  }
+
+  const email = document.getElementById("footerEmail");
+  if (email) {
+    email.textContent = company.email;
+    email.href = "mailto:" + company.email;
+  }
+
+  setText("footerYear", new Date().getFullYear());
+  setText("footerCompany", company.name);
+
+  const social = document.getElementById("footerSocial");
+  if (social) {
+    const icons = { facebook: "bi-facebook", instagram: "bi-instagram", twitter: "bi-twitter-x", youtube: "bi-youtube" };
+    social.innerHTML = Object.keys(icons)
+      .filter(function (name) { return CONFIG.social[name]; })
+      .map(function (name) {
+        return `<a href="${esc(CONFIG.social[name])}" target="_blank" rel="noopener" aria-label="${esc(name)}"><i class="bi ${icons[name]}"></i></a>`;
+      }).join("");
+  }
 }
 
 function initHeaderShadow() {
@@ -159,9 +199,7 @@ function vehicleCard(v) {
 }
 
 function vehicleCategoryLabel(category, label) {
-  return label || (category || "car").split(/[-_\s]+/).map(function (part) {
-    return part.charAt(0).toUpperCase() + part.slice(1);
-  }).join(" ");
+  return label || catalogLabel(category || "car");
 }
 
 function activityCard(a) {
@@ -313,6 +351,7 @@ function getCachedCatalog(url, parse, fallback, label) {
   }
 }
 
+// Load the editable policy when available, while keeping the page's built-in text as backup.
 function loadLegalPolicy(url, contentElement, updatedElement) {
   if (!contentElement || !updatedElement) return;
   const originalContent = contentElement.innerHTML;
@@ -409,6 +448,7 @@ function catalogCacheKey(url) {
   return "sy-catalog-csv-v1:" + url;
 }
 
+// Convert each spreadsheet row into the vehicle shape used by rental cards and filters.
 function parseRentalInventoryCsv(csv) {
   const rows = parseCsvRows(csv);
   const columnIndexes = csvColumnIndexes(
@@ -491,6 +531,7 @@ function parseRentalInventoryCsv(csv) {
   return vehicles;
 }
 
+// Convert activity rows and accept optional sheet-defined type/category labels.
 function parseActivitiesCsv(csv) {
   const rows = parseCsvRows(csv);
   const columns = csvColumnIndexes(rows, ["name", "meta", "price", "unit", "image"], "activities");
@@ -524,6 +565,7 @@ function parseActivitiesCsv(csv) {
   });
 }
 
+// Convert yacht, boat, cruise, and any future water-trip types from the sheet.
 function parseWaterTripsCsv(csv) {
   const rows = parseCsvRows(csv);
   const columns = csvColumnIndexes(rows, ["name", "type", "meta", "price", "unit", "badge", "image"], "water trips");

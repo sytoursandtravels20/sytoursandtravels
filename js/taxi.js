@@ -161,7 +161,7 @@ function initTaxiMap(mapElement, mapHint) {
   setSelectionMode("pickup");
 
   function selectMapLocation(kind, latlng) {
-    // Ignore stale reverse-geocoding responses if the visitor moves this pin again.
+    // Ignore an old address-search result if the visitor moves this pin before it finishes.
     const thisLookup = ++lookupIds[kind];
     const coordinates = latlng.lat.toFixed(5) + ", " + latlng.lng.toFixed(5);
     const input = kind === "pickup" ? pickupInput : destinationInput;
@@ -185,7 +185,7 @@ function initTaxiMap(mapElement, mapHint) {
       if (address) {
         input.value = address;
         markers[kind].bindPopup(
-          `<strong>${kind === "pickup" ? "Pickup" : "Destination"}</strong><br>${escapeMapText(address)}`
+          `<strong>${kind === "pickup" ? "Pickup" : "Destination"}</strong><br>${esc(address)}`
         );
         mapHint.textContent = markers.pickup && markers.destination
           ? "Both locations are set. Continue with your trip details below."
@@ -243,6 +243,7 @@ function initTaxiMap(mapElement, mapHint) {
   }
 
   async function lookupAddress(latlng) {
+    // Turn map coordinates into a nearby readable address using OpenStreetMap's public service.
     const url = new URL("https://nominatim.openstreetmap.org/reverse");
     url.search = new URLSearchParams({
       format: "jsonv2",
@@ -263,18 +264,6 @@ function initTaxiMap(mapElement, mapHint) {
     });
     return parts.length ? parts.join(", ") : data.display_name || "";
   }
-}
-
-function escapeMapText(value) {
-  return String(value).replace(/[&<>"']/g, function (character) {
-    return {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    }[character];
-  });
 }
 
 function localDateString(date) {

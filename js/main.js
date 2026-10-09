@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   ]);
 
   const page = document.body.dataset.page;
+  // Show saved/local content immediately, then replace it when the latest sheet loads.
   if (page === "privacy") {
     loadLegalPolicy(
       CONFIG.privacyPolicyCsvUrl,
@@ -84,6 +85,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await componentsReady;
   applyConfig();
+  applySharedConfig();
   setHeaderPhoneLink();
   markActiveNav();
   initHeaderShadow();
@@ -92,10 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 function applyConfig() {
   const C = CONFIG.company;
 
-  setText("brandName", C.name);
-  setText("brandTag",  C.tagline);
-  setBrandLogo("brandLogo");
-
+  // Homepage-specific text and images come from CONFIG; header/footer are shared separately.
   const h = CONFIG.hero;
   setText("heroEyebrow", h.eyebrow);
   setText("heroTitle1",  h.titleLine1);
@@ -125,34 +124,6 @@ function applyConfig() {
 
   const ctaWa = document.getElementById("ctaWa");
   if (ctaWa) ctaWa.href = waLink("Hi " + C.name + ", I'd like to enquire about your rentals and activities. Please share details.");
-
-  setText("footerBrandName", C.name);
-  setText("footerBrandTag",  C.tagline);
-  setText("footerDesc",      C.description);
-  setText("footerAddress",   C.address);
-  setBrandLogo("footerBrandLogo");
-
-  const phoneEl = document.getElementById("footerPhone");
-  if (phoneEl) { phoneEl.textContent = C.phone; phoneEl.href = "tel:+" + C.phoneRaw; }
-
-  const emailEl = document.getElementById("footerEmail");
-  if (emailEl) { emailEl.textContent = C.email; emailEl.href = "mailto:" + C.email; }
-
-  const yearEl = document.getElementById("footerYear");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  const compEl = document.getElementById("footerCompany");
-  if (compEl) compEl.textContent = C.name;
-
-  const socialEl = document.getElementById("footerSocial");
-  if (socialEl) {
-    const map = { facebook: "bi-facebook", instagram: "bi-instagram", twitter: "bi-twitter-x", youtube: "bi-youtube" };
-    socialEl.innerHTML = Object.keys(map)
-      .filter(function (k) { return CONFIG.social[k]; })
-      .map(function (k) {
-        return `<a href="${CONFIG.social[k]}" target="_blank" rel="noopener" aria-label="${k}"><i class="bi ${map[k]}"></i></a>`;
-      }).join("");
-  }
 
   const page = document.body.dataset.page;
   const titles = {
@@ -200,6 +171,7 @@ function renderYachtsBoatsCruises(DATA) {
   }).join("");
 }
 
+// Build type and category buttons from sheet values instead of a hard-coded list.
 function renderSheetCatalogFilters(containerId, items, filters, onChange) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -238,6 +210,7 @@ function renderSheetFilterGroup(filter, options, selected, allLabel) {
   }).join("")}</div>`;
 }
 
+// Use a readable label from the sheet, or title-case the value if no label was entered.
 function sheetCatalogOptions(items, valueKey, labelKey) {
   const options = new Map();
   items.forEach(function (item) {
@@ -253,6 +226,7 @@ function sheetCatalogOptions(items, valueKey, labelKey) {
   });
 }
 
+// Hide sheet categories that do not match the currently selected type.
 function filterSheetCatalog(items, filters) {
   return items.filter(function (item) {
     return (filters.type === "all" || item.type === filters.type) &&

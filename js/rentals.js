@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     loadComponent("site-footer", "components/footer.html")
   ]);
 
-  /* Hide "hidden" vehicles everywhere. Booked still appear (with badge). */
+  // Draw the last saved sheet data (or built-in fallback), then refresh in the background.
   allVehicles = visibleVehicles(getCachedCatalog(
     CONFIG.rentalInventoryCsvUrl,
     parseRentalInventoryCsv,
@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
   await componentsReady;
   applyConfig();
+  applySharedConfig();
   setHeaderPhoneLink();
   markActiveNav();
   initHeaderShadow();
@@ -156,6 +157,7 @@ function renderVehicleFilters() {
   }
 }
 
+// Turn sheet values into readable plural labels when no custom label is provided.
 function vehicleTypeLabel(type, label) {
   if (label) return label;
   const words = type.split(/[-_\s]+/).map(function (part) {
@@ -211,6 +213,7 @@ function applyFilters(items, filters) {
     list = list.filter(function (v) { return v.category === filters.category; });
   }
 
+  // Booked vehicles can still be shown, but are removed by the availability toggle.
   /* Available only */
   if (filters.availableOnly) {
     list = list.filter(function (v) { return v.status !== "booked"; });
@@ -271,10 +274,7 @@ function renderWhyBook(whyBook) {
 function applyConfig() {
   const C = CONFIG.company;
 
-  setText("brandName", C.name);
-  setText("brandTag",  C.tagline);
-  setBrandLogo("brandLogo");
-
+  // Rental-page calls-to-action are separate from the shared header and footer.
   const c = CONFIG.cta;
   setText("ctaTitle", c.title);
   setText("ctaSub",   c.subtitle);
@@ -287,34 +287,6 @@ function applyConfig() {
 
   const ctaWa = document.getElementById("ctaWa");
   if (ctaWa) ctaWa.href = waLink("Hi " + C.name + ", I'd like to enquire about renting a vehicle in Goa. Please share availability.");
-
-  setText("footerBrandName", C.name);
-  setText("footerBrandTag",  C.tagline);
-  setText("footerDesc",      C.description);
-  setText("footerAddress",   C.address);
-  setBrandLogo("footerBrandLogo");
-
-  const phoneEl = document.getElementById("footerPhone");
-  if (phoneEl) { phoneEl.textContent = C.phone; phoneEl.href = "tel:+" + C.phoneRaw; }
-
-  const emailEl = document.getElementById("footerEmail");
-  if (emailEl) { emailEl.textContent = C.email; emailEl.href = "mailto:" + C.email; }
-
-  const yearEl = document.getElementById("footerYear");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  const compEl = document.getElementById("footerCompany");
-  if (compEl) compEl.textContent = C.name;
-
-  const socialEl = document.getElementById("footerSocial");
-  if (socialEl) {
-    const map = { facebook: "bi-facebook", instagram: "bi-instagram", twitter: "bi-twitter-x", youtube: "bi-youtube" };
-    socialEl.innerHTML = Object.keys(map)
-      .filter(function (k) { return CONFIG.social[k]; })
-      .map(function (k) {
-        return `<a href="${CONFIG.social[k]}" target="_blank" rel="noopener" aria-label="${k}"><i class="bi ${map[k]}"></i></a>`;
-      }).join("");
-  }
 
   document.title = "Car Rentals in Goa — " + C.name;
 }

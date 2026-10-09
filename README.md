@@ -19,6 +19,18 @@ Static marketing and booking-enquiry website for SY Tours & Travels.
 
 The pages share header/footer components and CSS tokens. The site is static and can be hosted without an application server.
 
+## How the website is organized
+
+- `index.html` and each page folder's `index.html` contain the page layout.
+- `css/` contains the styles; `home.css` provides the shared colors, cards, and common page elements.
+- `js/config.js` contains company details and links to the published Google Sheets.
+- `js/data.js` contains backup content for when a sheet or network connection is unavailable.
+- `js/components.js` builds reusable cards, reads sheet rows, and fills in the shared header/footer.
+- `js/main.js` handles shared pages, activities, and water trips; `js/rentals.js` handles rental filters; `js/taxi.js` handles taxi enquiries and map selection; `js/blog.js` displays blog posts.
+- `components/header.html` and `components/footer.html` are reused across pages.
+
+When making routine content changes, update the appropriate Google Sheet or the matching business setting in `js/config.js`. The code comments explain the less-obvious loading, filtering, and booking behavior; they are not intended to repeat each line of code.
+
 ## Where to edit what
 
 | What you want to change | File |
