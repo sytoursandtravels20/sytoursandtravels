@@ -416,7 +416,7 @@ function parseRentalInventoryCsv(csv) {
       ? parseCatalogPrice(get("automaticprice"), index + 2, "Automatic")
       : null;
     const local = localByName.get(name.toLowerCase());
-    const image = get("image") || (local && local.image);
+    const image = get("image");
 
     if (!name) throw new Error("Inventory row " + (index + 2) + " has no vehicle name.");
     if (!["economy", "suv", "premium-suv", "7-seater", "luxury"].includes(category)) {
@@ -432,7 +432,7 @@ function parseRentalInventoryCsv(csv) {
       throw new Error("Inventory row " + (index + 2) + " has an invalid status.");
     }
     if (!image) {
-      throw new Error("Inventory row " + (index + 2) + " needs an image URL.");
+      throw new Error("Inventory row " + (index + 2) + " needs an image URL in the image column.");
     }
 
     const rates = [];
