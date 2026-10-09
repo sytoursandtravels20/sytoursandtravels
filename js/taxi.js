@@ -90,7 +90,7 @@ function initTaxiMap(mapElement, mapHint) {
   const pickupButton = document.getElementById("pickPickup");
   const destinationButton = document.getElementById("pickDestination");
   const swapButton = document.getElementById("swapRoute");
-  const map = L.map(mapElement, { scrollWheelZoom: false }).setView([15.4909, 73.8278], 9);
+  const map = L.map(mapElement, { scrollWheelZoom: false, zoomControl: false }).setView([15.4909, 73.8278], 9);
   const markers = { pickup: null, destination: null };
   const lookupIds = { pickup: 0, destination: 0 };
   let routeLine = null;
@@ -99,6 +99,11 @@ function initTaxiMap(mapElement, mapHint) {
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>'
+  }).addTo(map);
+  L.control.zoom({
+    position: "topright",
+    zoomInTitle: "Zoom in",
+    zoomOutTitle: "Zoom out"
   }).addTo(map);
 
   pickupInput.addEventListener("input", function () {
