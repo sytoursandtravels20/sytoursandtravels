@@ -26,7 +26,7 @@ The pages share header/footer components and CSS tokens. The site is static and 
 - `js/config.js` contains company details and links to the published Google Sheets.
 - `js/data.js` contains backup content for when a sheet or network connection is unavailable.
 - `js/components.js` builds reusable cards, reads sheet rows, and fills in the shared header/footer.
-- `js/main.js` handles shared pages, activities, and water trips; `js/rentals.js` handles rental filters; `js/taxi.js` handles taxi enquiries and map selection; `js/blog.js` displays blog posts.
+- `js/main.js` handles shared pages, activities, and water trips; `js/rentals.js` handles rental filters; `js/taxi.js` handles taxi enquiries and place suggestions; `js/blog.js` displays blog posts.
 - `components/header.html` and `components/footer.html` are reused across pages.
 
 When making routine content changes, update the appropriate Google Sheet or the matching business setting in `js/config.js`. The code comments explain the less-obvious loading, filtering, and booking behavior; they are not intended to repeat each line of code.
@@ -69,4 +69,4 @@ Privacy and Terms content loads from their published tabs. Add a row with `Last 
 
 ## Taxi requests
 
-The `/taxi/` form validates pickup, destination, date, time, and passenger count in the browser, then opens a pre-filled WhatsApp message using `CONFIG.company.phoneRaw`. Pickup and destination can be typed or selected on the interactive OpenStreetMap picker. It does not create or store bookings.
+The `/taxi/` form suggests nearby places as visitors type, while still allowing any address to be entered manually. It validates the trip details and opens a pre-filled WhatsApp message using `CONFIG.company.phoneRaw`. It does not create or store bookings.
