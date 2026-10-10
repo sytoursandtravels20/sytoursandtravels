@@ -38,7 +38,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       parseRentalInventoryCsv,
       LOCAL_DATA.vehicles,
       "rental inventory"
-    )).filter(function (vehicle) { return vehicle.featured; }));
+    )).filter(function (vehicle) {
+      return vehicle.featured && (vehicle.type || "car") === "car";
+    }));
     renderExperiences(getCachedCatalog(
       CONFIG.activitiesCsvUrl,
       parseActivitiesCsv,
@@ -84,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     initSearchTabs();
     loadRentalInventory().then(function (vehicles) {
       renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
-        return vehicle.featured;
+        return vehicle.featured && (vehicle.type || "car") === "car";
       }));
     });
     loadActivities().then(renderExperiences);

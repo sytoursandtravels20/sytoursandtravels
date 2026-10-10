@@ -5,14 +5,13 @@
     <meta charset="UTF-8" />
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Car Rentals in Goa | SY Tours &amp; Travels</title>
-    <meta name="description"
-        content="Browse car rentals across Goa, from economy cars to premium SUVs and 7-seaters. Enquire with SY Tours & Travels." />
-    <link rel="canonical" href="https://www.sytoursandtravels.com/rentals/" />
+    <title>Bike &amp; Scooter Rentals in Goa | SY Tours &amp; Travels</title>
+    <meta name="description" content="Browse bike and scooter rentals in Goa with SY Tours &amp; Travels. Contact us to confirm availability and rates." />
+    <link rel="canonical" href="https://www.sytoursandtravels.com/two-wheelers/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Car Rentals in Goa | SY Tours &amp; Travels" />
-    <meta property="og:description" content="Browse economy cars, SUVs, premium SUVs, 7-seaters and luxury cars in Goa." />
-    <meta property="og:url" content="https://www.sytoursandtravels.com/rentals/" />
+    <meta property="og:title" content="Bike &amp; Scooter Rentals in Goa | SY Tours &amp; Travels" />
+    <meta property="og:description" content="Browse bike and scooter rentals in Goa. Contact SY Tours &amp; Travels to confirm availability and rates." />
+    <meta property="og:url" content="https://www.sytoursandtravels.com/two-wheelers/" />
     <meta name="theme-color" content="#0A2540" />
     <link rel="icon" type="image/svg+xml" href="/sy-logo.svg" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -25,41 +24,32 @@
     <link rel="preconnect" href="https://doc-08-08-sheets.googleusercontent.com" crossorigin />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-
-    <!-- home.css provides shared tokens, buttons, cards, section headings, CTA, mobile-nav -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="css/home.css" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
     <link href="css/footer.css" rel="stylesheet" />
-    <!-- rentals.css adds page-specific styles: compact hero, filter bar -->
     <link href="css/rentals.css" rel="stylesheet" />
     <link href="css/theme.css" rel="stylesheet" />
 </head>
 
-<body data-page="rentals" data-rental-type="car">
-
+<body data-page="two-wheelers" data-rental-type="two-wheeler">
     <header id="site-header"></header>
 
     <main>
-
-        <!-- COMPACT HERO -->
         <section class="page-hero">
             <div class="container page-hero-inner">
-                <span class="page-hero-eyebrow">CAR RENTALS IN GOA</span>
-                <h1 class="page-hero-title">Find The Right Car For Your Goa Trip</h1>
-                <p class="page-hero-sub">Browse cars for your Goa trip. Contact us for availability and rates.</p>
+                <span class="page-hero-eyebrow">BIKE &amp; SCOOTER RENTALS IN GOA</span>
+                <h1 class="page-hero-title">Explore Goa on Two Wheels</h1>
+                <p class="page-hero-sub">Browse bikes and scooters for your Goa trip. Contact us for availability and rates.</p>
             </div>
         </section>
 
-        <!-- STICKY FILTER BAR -->
         <div class="filter-bar" id="filterBar">
             <div class="container filter-bar-inner">
-
                 <div class="filter-groups">
                     <nav class="rental-page-switch" aria-label="Rental vehicle type">
-                        <a class="filter-chip is-active" href="/rentals/" aria-current="page"><i class="bi bi-car-front-fill" aria-hidden="true"></i> Cars</a>
-                        <a class="filter-chip" href="/two-wheelers/"><i class="bi bi-scooter" aria-hidden="true"></i> Bikes &amp; Scooters</a>
+                        <a class="filter-chip" href="/rentals/"><i class="bi bi-car-front-fill" aria-hidden="true"></i> Cars</a>
+                        <a class="filter-chip is-active" href="/two-wheelers/" aria-current="page"><i class="bi bi-scooter" aria-hidden="true"></i> Bikes &amp; Scooters</a>
                     </nav>
                     <div class="filter-chips" id="vehicleTypeFilters" role="tablist" aria-label="Vehicle type filter" hidden></div>
                     <div class="filter-chips" id="vehicleCategoryFilters" role="tablist" aria-label="Vehicle category filter"></div>
@@ -67,9 +57,8 @@
 
                 <div class="filter-controls">
                     <div class="filter-search">
-                        <i class="bi bi-search"></i>
-                        <input type="text" id="filterSearch" placeholder="Search vehicles..."
-                            aria-label="Search vehicles" />
+                        <i class="bi bi-search" aria-hidden="true"></i>
+                        <input type="text" id="filterSearch" placeholder="Search bikes and scooters..." aria-label="Search bikes and scooters" />
                     </div>
                     <select class="filter-select" id="filterSort" aria-label="Sort by">
                         <option value="recommended">Recommended</option>
@@ -82,29 +71,22 @@
                         <span>Available only</span>
                     </label>
                 </div>
-
             </div>
         </div>
 
-        <!-- LISTINGS -->
         <section class="section" id="listings">
             <div class="container">
-
                 <p class="results-count" id="resultsCount"></p>
-
                 <div class="rental-grid" id="rentalGrid"></div>
-
                 <div class="empty-state" id="emptyState" hidden>
-                    <i class="bi bi-search"></i>
+                    <i class="bi bi-search" aria-hidden="true"></i>
                     <h3>No vehicles match your filters</h3>
-                    <p>Try clearing the filters or searching for a different word.</p>
+                    <p>Try clearing the filters or searching for a different vehicle.</p>
                     <button class="btn-sy" type="button" id="clearFilters">Clear Filters</button>
                 </div>
-
             </div>
         </section>
 
-        <!-- WHY RENT WITH US -->
         <section class="section section-alt" id="why">
             <div class="container">
                 <div class="section-head">
@@ -117,7 +99,6 @@
             </div>
         </section>
 
-        <!-- FINAL CTA -->
         <section class="cta" id="contact">
             <div class="container cta-inner">
                 <div>
@@ -126,26 +107,20 @@
                 </div>
                 <div class="cta-actions">
                     <a class="btn-sy btn-lg" id="ctaBtn" href="#"></a>
-                    <a class="btn-ghost btn-lg" id="ctaWa" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>
-                        WhatsApp</a>
+                    <a class="btn-ghost btn-lg" id="ctaWa" target="_blank" rel="noopener"><i class="bi bi-whatsapp" aria-hidden="true"></i> WhatsApp</a>
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer id="site-footer"></footer>
 
     <nav class="mobile-nav" aria-label="Mobile navigation">
         <a href="./" class="mobile-nav-item" data-page="home"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
-        <a href="rentals/" class="mobile-nav-item is-active" data-page="rentals"><i
-                class="bi bi-car-front-fill"></i><span>Rentals</span></a>
-        <a href="activities/" class="mobile-nav-item" data-page="activities"><i
-                class="bi bi-water"></i><span>Activities</span></a>
-        <a href="yachts/" class="mobile-nav-item" data-page="yachts"><i
-                class="bi bi-life-preserver"></i><span>Yachts</span></a>
-        <a href="contact/" class="mobile-nav-item" data-page="contact"><i
-            class="bi bi-telephone-fill"></i><span>Contact</span></a>
+        <a href="rentals/" class="mobile-nav-item" data-page="rentals"><i class="bi bi-car-front-fill"></i><span>Cars</span></a>
+        <a href="two-wheelers/" class="mobile-nav-item is-active" data-page="two-wheelers"><i class="bi bi-scooter"></i><span>2 Wheels</span></a>
+        <a href="activities/" class="mobile-nav-item" data-page="activities"><i class="bi bi-water"></i><span>Activities</span></a>
+        <a href="contact/" class="mobile-nav-item" data-page="contact"><i class="bi bi-telephone-fill"></i><span>Contact</span></a>
     </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>

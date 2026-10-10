@@ -74,6 +74,16 @@
   width: 100%;
 }
 
+.rental-page-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+.rental-page-switch .filter-chip {
+  text-decoration: none;
+}
+
 /* Category chips */
 .filter-chips {
   display: flex;

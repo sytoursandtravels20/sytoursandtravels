@@ -18,6 +18,7 @@ const LOCAL_DATA = {
      ========================================================== */
   categories: [
     { name: "Car Rentals",     desc: "Comfortable · Reliable",    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80", href: "rentals/" },
+    { name: "Bikes & Scooters",desc: "Explore at your own pace",  image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80", href: "two-wheelers/" },
     { name: "Taxi Service",    desc: "Airport · Local rides",     image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=600&q=80", href: "taxi/" },
     { name: "Water Activities",desc: "Adventure Awaits",          image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&q=80", href: "activities/" },
     { name: "Yacht Rentals",   desc: "Luxury on Water",           image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=600&q=75", href: "yachts/" },

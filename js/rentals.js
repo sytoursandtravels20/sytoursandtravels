@@ -7,6 +7,7 @@
 let allVehicles = [];
 const requestedCategory = new URLSearchParams(window.location.search).get("category");
 const requestedType = new URLSearchParams(window.location.search).get("type");
+const rentalPageType = document.body.dataset.rentalType || "car";
 let currentFilters = {
   type: requestedType || "all",
   category: requestedCategory || "all",
@@ -23,19 +24,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   ]);
 
   // Draw the last saved sheet data (or built-in fallback), then refresh in the background.
-  allVehicles = visibleVehicles(getCachedCatalog(
+  allVehicles = filterPageVehicles(visibleVehicles(getCachedCatalog(
     CONFIG.rentalInventoryCsvUrl,
     parseRentalInventoryCsv,
     LOCAL_DATA.vehicles,
     "rental inventory"
-  ));
+  )));
 
   renderWhyBook(LOCAL_DATA.whyBook);
   renderVehicleFilters();
   initFilters();
   renderListings();
   loadRentalInventory().then(function (vehicles) {
-    allVehicles = visibleVehicles(vehicles);
+    allVehicles = filterPageVehicles(visibleVehicles(vehicles));
     renderVehicleFilters();
     renderListings();
   });
@@ -162,6 +163,15 @@ function filterChip(value, label, isActive) {
 
 function vehicleType(vehicle) {
   return vehicle.type || "car";
+}
+
+function filterPageVehicles(vehicles) {
+  return vehicles.filter(function (vehicle) {
+    const type = vehicleType(vehicle);
+    return rentalPageType === "two-wheeler"
+      ? type === "bike" || type === "scooty" || type === "scooter"
+      : type === "car";
+  });
 }
 
 /* ============================================================
