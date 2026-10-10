@@ -16,7 +16,7 @@
 .about-eyebrow, .about-kicker { color: var(--sy-yellow); font-size: .78rem; font-weight: 700; }
 .about-title { max-width: 720px; margin: .8rem 0 0; font-size: 3.25rem; font-weight: 800; line-height: 1.08; }
 .about-intro { max-width: 600px; margin: 1rem 0 1.5rem; color: #e1eaf2; }
-.about-story-image { width: 100%; aspect-ratio: 4 / 3; border-radius: 8px; object-fit: cover; }
+.about-story-image { width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; object-fit: cover; }
 .about-story .about-kicker, .about-offerings .about-kicker { display: inline-block; margin-bottom: .65rem; color: var(--sy-blue); }
 .about-copy { margin: 1rem 0 0; color: #46566c; }
 .about-story .section-link { margin-top: 1.25rem; }
@@ -29,11 +29,11 @@
   max-width: 960px;
 }
 .about-founder-card {
-  padding: 2rem 1.75rem;
-  border: 1px solid rgba(10, 37, 64, .08);
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(255, 200, 87, .16), rgba(15, 118, 191, .08));
-  box-shadow: 0 18px 40px rgba(18, 41, 69, .06);
+  padding: 1.5rem;
+  border: 1px solid var(--sy-border);
+  border-radius: 12px;
+  background: var(--sy-card);
+  box-shadow: var(--sy-shadow);
 }
 .about-founder .section-title { margin-top: .5rem; }
 .about-founder-role { margin: .5rem 0 0; color: var(--sy-blue); font-weight: 700; }
@@ -53,10 +53,10 @@
   margin-top: .25rem;
 }
 .about-metric {
-  padding: 1rem .85rem;
-  background: #f7fafe;
-  border: 1px solid rgba(15, 118, 191, .08);
-  border-radius: 12px;
+  padding: .85rem .7rem;
+  background: var(--sy-bg);
+  border: 1px solid var(--sy-border);
+  border-radius: 10px;
   text-align: center;
 }
 .about-metric strong {
@@ -78,12 +78,14 @@
   height: 100%;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1.5rem 0;
+  padding: 1.2rem;
   color: inherit;
-  border-top: 2px solid var(--sy-border);
-  transition: border-color .2s ease;
+  border: 1px solid var(--sy-border);
+  border-radius: 12px;
+  background: var(--sy-card);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
-.about-offering:hover { border-color: var(--sy-blue); }
+.about-offering:hover { transform: translateY(-2px); box-shadow: var(--sy-shadow); }
 .about-offering > i { color: var(--sy-blue); font-size: 1.6rem; }
 .about-offering h3 { margin: 1rem 0 .35rem; color: var(--sy-navy); font-size: 1.1rem; font-weight: 700; }
 .about-offering p { margin: 0 0 1rem; color: var(--sy-muted); }

@@ -38,8 +38,9 @@
 
 .activity-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 310px));
+  justify-content: start;
+  gap: 1rem;
 }
 
 .activity-grid .sy-card { min-width: 0; }

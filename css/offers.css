@@ -82,38 +82,27 @@
 }
 .offers-page-back:hover { color: var(--sy-navy); }
 
-.offers-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; }
+.offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 340px)); justify-content: start; gap: 1rem; }
 .offer-card {
-  position: relative;
   display: flex;
   min-height: 100%;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1.5rem;
+  padding: 1.25rem;
   overflow: hidden;
   border: 1px solid var(--sy-border);
-  border-radius: var(--sy-radius);
+  border-radius: 12px;
   background: var(--sy-card);
-  box-shadow: var(--sy-shadow);
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
-.offer-card::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--sy-yellow), var(--sy-blue));
-  content: "";
-}
-.offer-card:hover { transform: translateY(-4px); border-color: rgba(30, 111, 217, .3); box-shadow: var(--sy-shadow-lg); }
+.offer-card:hover { transform: translateY(-2px); box-shadow: var(--sy-shadow); }
 .offer-card-icon {
   display: grid;
-  width: 46px;
-  height: 46px;
-  margin-bottom: 1.15rem;
+  width: 40px;
+  height: 40px;
+  margin-bottom: .9rem;
   place-items: center;
-  border-radius: 14px;
+  border-radius: 10px;
   background: var(--sy-sky);
   color: var(--sy-blue);
   font-size: 1.2rem;
@@ -128,7 +117,7 @@
   gap: .5rem;
   min-height: 44px;
   padding: .65rem 1rem;
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--sy-navy);
   color: #fff;
   font-size: .84rem;
@@ -157,11 +146,7 @@ html[data-theme="dark"] .offer-card-cta { background: var(--sy-blue); color: #10
 html[data-theme="dark"] .offer-card-cta:hover { background: #9bcaff; }
 html[data-theme="dark"] .offers-page-back:hover { color: var(--sy-text); }
 
-@media (max-width: 991.98px) {
-  .offers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 @media (max-width: 575.98px) {
   .offers-page-section-heading { align-items: flex-start; flex-direction: column; }
-  .offers-grid { grid-template-columns: 1fr; }
-  .offer-card { padding: 1.25rem; }
+  .offer-card { padding: 1.1rem; }
 }
