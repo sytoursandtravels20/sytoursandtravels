@@ -505,7 +505,6 @@ function parseRentalInventoryCsv(csv) {
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
   columnIndexes.type = headers.indexOf("type");
   columnIndexes.typelabel = headers.indexOf("typelabel");
-  columnIndexes.categorylabel = headers.indexOf("categorylabel");
   columnIndexes.image = headers.indexOf("image");
   columnIndexes.quantity = headers.indexOf("quantity");
   columnIndexes.pricedetails = headers.indexOf("pricedetails");
@@ -538,7 +537,6 @@ function parseRentalInventoryCsv(csv) {
       ? (local && local.category) || "other"
       : sheetCategory || (local && local.category) || "other";
     const typeLabel = get("typelabel") || (local && local.typeLabel) || "";
-    const categoryLabel = get("categorylabel") || (local && local.categoryLabel) || "";
     const image = get("image") || (local && local.image) || "";
 
     if (!name) throw new Error("Inventory row " + (index + 2) + " has no vehicle name.");
@@ -563,7 +561,7 @@ function parseRentalInventoryCsv(csv) {
       type: type,
       typeLabel: typeLabel,
       category: category,
-      categoryLabel: categoryLabel,
+      categoryLabel: "",
       name: name,
       passengers: passengers,
       quantity: quantity,
@@ -587,7 +585,6 @@ function parseActivitiesCsv(csv) {
   columns.type = headers.indexOf("type");
   columns.typelabel = headers.indexOf("typelabel");
   columns.category = headers.indexOf("category");
-  columns.categorylabel = headers.indexOf("categorylabel");
   columns.pricedetails = headers.indexOf("pricedetails");
   const localByName = new Map(LOCAL_DATA.activities.map(function (activity) {
     return [activity.name.trim().toLowerCase(), activity];
@@ -601,7 +598,7 @@ function parseActivitiesCsv(csv) {
       type: get("type") || (local && local.type) || "activity",
       typeLabel: get("typelabel") || (local && local.typeLabel) || "",
       category: get("category") || (local && local.category) || "activity",
-      categoryLabel: get("categorylabel") || (local && local.categoryLabel) || "",
+      categoryLabel: "",
       meta: get("meta"),
       price: parseCatalogPrice(get("price"), index + 2),
       unit: get("unit"),
@@ -622,7 +619,6 @@ function parseWaterTripsCsv(csv) {
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
   columns.typelabel = headers.indexOf("typelabel");
   columns.category = headers.indexOf("category");
-  columns.categorylabel = headers.indexOf("categorylabel");
   columns.pricedetails = headers.indexOf("pricedetails");
   const localByName = new Map(getLocalWaterTrips().map(function (trip) {
     return [trip.name.trim().toLowerCase(), trip];
@@ -637,7 +633,7 @@ function parseWaterTripsCsv(csv) {
       type: kind,
       typeLabel: get("typelabel") || (local && local.typeLabel) || "",
       category: get("category") || (local && local.category) || "",
-      categoryLabel: get("categorylabel") || (local && local.categoryLabel) || "",
+      categoryLabel: "",
       meta: get("meta"),
       price: parseCatalogPrice(get("price"), index + 2),
       unit: get("unit"),
