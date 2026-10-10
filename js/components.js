@@ -273,8 +273,8 @@ function activityCard(a) {
     </article>`;
 }
 
-function waterCard(item, kind) {
-  const typeLabel = item.typeLabel || catalogLabel(kind);
+function waterCard(item) {
+  const typeLabel = catalogTypeLabel(item.type);
   const category = item.categoryLabel || catalogLabel(item.category);
   const waMsg =
     "Hi " + CONFIG.company.name + ", I'm interested in the " + item.name +
@@ -308,6 +308,17 @@ function catalogLabel(value) {
   return (value || "").split(/[-_\s]+/).filter(Boolean).map(function (part) {
     return part.charAt(0).toUpperCase() + part.slice(1);
   }).join(" ");
+}
+
+function catalogTypeLabel(value) {
+  const label = catalogLabel(value);
+  const words = label.split(" ");
+  const last = words[words.length - 1] || "";
+  if (last.endsWith("s")) return label;
+  words[words.length - 1] = /[^aeiou]y$/i.test(last)
+    ? last.slice(0, -1) + "ies"
+    : /(ch|sh|x|z)$/i.test(last) ? last + "es" : last + "s";
+  return words.join(" ");
 }
 
 function whyItem(w) {
@@ -504,7 +515,6 @@ function parseRentalInventoryCsv(csv) {
   );
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
   columnIndexes.type = headers.indexOf("type");
-  columnIndexes.typelabel = headers.indexOf("typelabel");
   columnIndexes.image = headers.indexOf("image");
   columnIndexes.quantity = headers.indexOf("quantity");
   columnIndexes.pricedetails = headers.indexOf("pricedetails");
@@ -536,7 +546,6 @@ function parseRentalInventoryCsv(csv) {
     const category = categoryIsVehicleType
       ? (local && local.category) || "other"
       : sheetCategory || (local && local.category) || "other";
-    const typeLabel = get("typelabel") || (local && local.typeLabel) || "";
     const image = get("image") || (local && local.image) || "";
 
     if (!name) throw new Error("Inventory row " + (index + 2) + " has no vehicle name.");
@@ -559,7 +568,7 @@ function parseRentalInventoryCsv(csv) {
     if (automaticPrice) rates.push({ transmission: "Automatic", price: automaticPrice });
     return {
       type: type,
-      typeLabel: typeLabel,
+      typeLabel: "",
       category: category,
       categoryLabel: "",
       name: name,
@@ -577,13 +586,12 @@ function parseRentalInventoryCsv(csv) {
   return vehicles;
 }
 
-// Convert activity rows and accept optional sheet-defined type/category labels.
+// Convert activity rows and accept optional sheet-defined type/category values.
 function parseActivitiesCsv(csv) {
   const rows = parseCsvRows(csv);
   const columns = csvColumnIndexes(rows, ["name", "meta", "price", "unit", "image"], "activities");
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
   columns.type = headers.indexOf("type");
-  columns.typelabel = headers.indexOf("typelabel");
   columns.category = headers.indexOf("category");
   columns.pricedetails = headers.indexOf("pricedetails");
   const localByName = new Map(LOCAL_DATA.activities.map(function (activity) {
@@ -596,7 +604,7 @@ function parseActivitiesCsv(csv) {
     const activity = {
       name: name,
       type: get("type") || (local && local.type) || "activity",
-      typeLabel: get("typelabel") || (local && local.typeLabel) || "",
+      typeLabel: "",
       category: get("category") || (local && local.category) || "activity",
       categoryLabel: "",
       meta: get("meta"),
@@ -617,7 +625,6 @@ function parseWaterTripsCsv(csv) {
   const rows = parseCsvRows(csv);
   const columns = csvColumnIndexes(rows, ["name", "type", "meta", "price", "unit", "badge", "image"], "water trips");
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
-  columns.typelabel = headers.indexOf("typelabel");
   columns.category = headers.indexOf("category");
   columns.pricedetails = headers.indexOf("pricedetails");
   const localByName = new Map(getLocalWaterTrips().map(function (trip) {
@@ -631,7 +638,7 @@ function parseWaterTripsCsv(csv) {
     const trip = {
       name: name,
       type: kind,
-      typeLabel: get("typelabel") || (local && local.typeLabel) || "",
+      typeLabel: "",
       category: get("category") || (local && local.category) || "",
       categoryLabel: "",
       meta: get("meta"),

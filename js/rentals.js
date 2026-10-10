@@ -138,8 +138,7 @@ function renderVehicleFilters() {
     typeFilters.innerHTML = types.length < 2 ? "" : [
       filterChip("all", "All vehicle types", currentFilters.type === "all")
     ].concat(types.map(function (type) {
-      const sample = allVehicles.find(function (vehicle) { return vehicleType(vehicle) === type; });
-      return filterChip(type, vehicleTypeLabel(type, sample && sample.typeLabel), currentFilters.type === type);
+      return filterChip(type, catalogTypeLabel(type), currentFilters.type === type);
     })).join("");
   }
 
@@ -155,16 +154,6 @@ function renderVehicleFilters() {
       return filterChip(category, vehicleCategoryLabel(category, sample && sample.categoryLabel), selectedCategory === category);
     })).join("");
   }
-}
-
-// Turn sheet values into readable plural labels when no custom label is provided.
-function vehicleTypeLabel(type, label) {
-  if (label) return label;
-  const words = type.split(/[-_\s]+/).map(function (part) {
-    return part.charAt(0).toUpperCase() + part.slice(1);
-  }).join(" ");
-  if (/[^aeiou]y$/i.test(words)) return words.slice(0, -1) + "ies";
-  return words + "s";
 }
 
 function filterChip(value, label, isActive) {

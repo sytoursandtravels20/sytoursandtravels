@@ -167,7 +167,7 @@ function renderYachtsBoatsCruises(DATA) {
     renderYachtsBoatsCruises(DATA);
   });
   el.innerHTML = filterSheetCatalog(trips, waterTripCatalogFilters).map(function (trip) {
-    return waterCard(trip, trip.typeLabel || trip.type);
+    return waterCard(trip);
   }).join("");
 }
 
@@ -176,14 +176,14 @@ function renderSheetCatalogFilters(containerId, items, filters, onChange) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  const types = sheetCatalogOptions(items, "type", "typeLabel");
+  const types = sheetCatalogOptions(items, "type");
   if (filters.type !== "all" && !types.some(function (option) { return option.value === filters.type; })) {
     filters.type = "all";
   }
   const visibleItems = filters.type === "all" ? items : items.filter(function (item) {
     return item.type === filters.type;
   });
-  const categories = sheetCatalogOptions(visibleItems, "category", "categoryLabel");
+  const categories = sheetCatalogOptions(visibleItems, "category");
 
   if (filters.category !== "all" && !categories.some(function (option) { return option.value === filters.category; })) {
     filters.category = "all";
@@ -211,15 +211,13 @@ function renderSheetFilterGroup(filter, options, selected, allLabel) {
 }
 
 // Use a readable label from the sheet, or title-case the value if no label was entered.
-function sheetCatalogOptions(items, valueKey, labelKey) {
+function sheetCatalogOptions(items, valueKey) {
   const options = new Map();
   items.forEach(function (item) {
     const value = (item[valueKey] || "").trim();
     if (!value) return;
-    const label = (item[labelKey] || "").trim() || catalogLabel(value);
-    if (!options.has(value) || (!options.get(value).customLabel && item[labelKey])) {
-      options.set(value, { value: value, label: label, customLabel: Boolean(item[labelKey]) });
-    }
+    const label = valueKey === "type" ? catalogTypeLabel(value) : catalogLabel(value);
+    if (!options.has(value)) options.set(value, { value: value, label: label });
   });
   return Array.from(options.values()).sort(function (a, b) {
     return a.label.localeCompare(b.label);
