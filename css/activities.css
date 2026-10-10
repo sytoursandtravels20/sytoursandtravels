@@ -43,14 +43,14 @@
   gap: 1rem;
 }
 
-.activity-grid .sy-card { min-width: 0; }
+.activity-grid .activity-card { min-width: 0; }
 
 @media (max-width: 767.98px) {
   .activities-hero { padding: 3.5rem 0; background-position: 58% center; }
   .activities-title { font-size: 2.35rem; }
   .activities-intro { font-size: .92rem; }
   .activity-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .activity-grid .sy-card-body { padding: .9rem; }
+
   .section { padding: 2.75rem 0; }
   .cta { padding: 3rem 0; }
 }

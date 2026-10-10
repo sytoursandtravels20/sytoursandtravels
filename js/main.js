@@ -4,8 +4,10 @@
 
 const activityCatalogFilters = { type: "all", category: "all" };
 const waterTripCatalogFilters = { type: "all", category: "all" };
+let activityItemsForGallery = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
+  initActivityGallery();
 
   const componentsReady = Promise.all([
     loadComponent("site-header", "components/header.html"),
@@ -162,8 +164,110 @@ function renderExperiences(activities) {
     renderExperiences(items);
   });
   if (el) {
-    el.innerHTML = filterSheetCatalog(items, activityCatalogFilters).map(activityCard).join("");
+    activityItemsForGallery = filterSheetCatalog(items, activityCatalogFilters);
+    el.innerHTML = activityItemsForGallery.map(activityCard).join("");
   }
+}
+
+function initActivityGallery() {
+  const dialog = document.createElement("dialog");
+  dialog.className = "activity-gallery-dialog";
+  dialog.setAttribute("aria-label", "Activity details");
+  document.body.appendChild(dialog);
+
+  document.addEventListener("click", function (event) {
+    const card = event.target instanceof Element ? event.target.closest(".activity-card") : null;
+    if (!card) return;
+    const index = Number(card.dataset.activityIndex);
+    const activity = activityItemsForGallery[index];
+    if (!activity) return;
+    openActivityGallery(dialog, activity);
+  });
+
+  dialog.addEventListener("click", function (event) {
+    const button = event.target instanceof Element ? event.target.closest("[data-gallery-action]") : null;
+    if (button) {
+      const action = button.dataset.galleryAction;
+      if (action === "close") {
+        dialog.close();
+      } else if (action === "move") {
+        const track = dialog.querySelector(".activity-gallery-track");
+        const direction = Number(button.dataset.galleryMove);
+        if (track) track.scrollBy({ left: track.clientWidth * direction, behavior: "smooth" });
+      } else if (action === "select") {
+        const track = dialog.querySelector(".activity-gallery-track");
+        const index = Number(button.dataset.galleryIndex);
+        if (track) track.scrollTo({ left: track.clientWidth * index, behavior: "smooth" });
+      }
+    } else if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+}
+
+function openActivityGallery(dialog, activity) {
+  const images = activityImages(activity);
+  const details = String(activity.details || activity.priceDetails || "").trim();
+  const description = String(activity.description || "").trim();
+  const message =
+    "Hi " + CONFIG.company.name + ", I'm interested in the " + activity.name +
+    " experience (" + activity.meta + ") at \u20B9" + fmtPrice(activity.price) + " " + activity.unit +
+    ". Kindly share availability. Thank you.";
+
+  dialog.innerHTML = `
+    <div class="activity-dialog-header">
+      <h2 id="activityDialogTitle">${esc(activity.name)}</h2>
+      <button class="activity-dialog-close" type="button" data-gallery-action="close" aria-label="Close activity details">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="activity-gallery-viewer">
+      <button class="activity-gallery-arrow is-previous" type="button" data-gallery-action="move" data-gallery-move="-1" aria-label="Previous photo"${images.length < 2 ? " hidden" : ""}>
+        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+      </button>
+      <div class="activity-gallery-track" aria-label="Photos of ${esc(activity.name)}" tabindex="0">
+        ${images.map(function (image, index) {
+          return `<figure class="activity-gallery-slide"><img src="${esc(image)}" alt="${esc(activity.name)} photo ${index + 1}"${index ? ' loading="lazy"' : ""}></figure>`;
+        }).join("")}
+      </div>
+      <button class="activity-gallery-arrow is-next" type="button" data-gallery-action="move" data-gallery-move="1" aria-label="Next photo"${images.length < 2 ? " hidden" : ""}>
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+    ${images.length > 1 ? `
+      <div class="activity-gallery-controls">
+        <span class="activity-gallery-count" aria-live="polite">1 / ${images.length}</span>
+        <div class="activity-gallery-dots" aria-label="Choose a photo">
+          ${images.map(function (_image, index) {
+            return `<button class="activity-gallery-dot" type="button" data-gallery-action="select" data-gallery-index="${index}" aria-label="Show photo ${index + 1}"${index === 0 ? ' aria-current="true"' : ""}></button>`;
+          }).join("")}
+        </div>
+      </div>` : ""}
+    <div class="activity-dialog-content">
+      <p class="activity-dialog-meta"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${esc(activity.meta)}</p>
+      ${description ? `<p class="activity-dialog-description">${esc(description)}</p>` : ""}
+      ${details ? `<div class="activity-dialog-details"><h3>Details</h3><p>${esc(details)}</p></div>` : ""}
+      <div class="activity-dialog-footer">
+        <p class="activity-dialog-price"><strong>\u20B9${fmtPrice(activity.price)}</strong> <span>${esc(activity.unit)}</span></p>
+        <a class="btn-book" href="${waLink(message)}" target="_blank" rel="noopener">Enquire on WhatsApp <i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+      </div>
+    </div>`;
+
+  const track = dialog.querySelector(".activity-gallery-track");
+  if (track) {
+    track.addEventListener("scroll", function () {
+      const currentIndex = Math.round(track.scrollLeft / track.clientWidth);
+      const count = dialog.querySelector(".activity-gallery-count");
+      if (count) count.textContent = (currentIndex + 1) + " / " + images.length;
+      dialog.querySelectorAll(".activity-gallery-dot").forEach(function (dot, index) {
+        if (index === currentIndex) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+    }, { passive: true });
+  }
+
+  dialog.setAttribute("aria-labelledby", "activityDialogTitle");
+  dialog.showModal();
 }
 function renderYachtsBoatsCruises(DATA) {
   const el = document.getElementById("yachtsGrid");

@@ -255,32 +255,26 @@ function vehicleCategoryLabel(category, label) {
   return label || catalogLabel(category || "car");
 }
 
-function activityCard(a) {
-  const detailsText = (a.details || a.priceDetails || "").trim();
-  const waMsg =
-    "Hi " + CONFIG.company.name + ", I'm interested in the " + a.name +
-    " experience (" + a.meta + ") at \u20B9" + fmtPrice(a.price) + " " + a.unit +
-    ". Kindly share availability. Thank you.";
-  const category = a.categoryLabel || catalogLabel(a.category);
+function activityCard(a, index) {
+  const imageCount = activityImages(a).length;
   return `
-    <article class="sy-card">
-      <div class="sy-card-media"><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async"></div>
-      <div class="sy-card-body">
-        <h3 class="sy-card-title">${esc(a.name)}</h3>
-        ${category ? `<span class="catalog-category">${esc(category)}</span>` : ""}
-        <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
-          <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(a.meta)}
-        </p>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>${formatText("Details")}</summary><p>${esc(detailsText)}</p></details>` : ""}
-        <div class="sy-card-foot">
-          <div class="sy-price">
-            <span class="sy-price-value">\u20B9${fmtPrice(a.price)}</span>
-            <span class="sy-price-unit">${esc(a.unit)}</span>
-          </div>
-          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Book Now")}</a>
-        </div>
-      </div>
-    </article>`;
+    <button class="activity-card" type="button" data-activity-index="${index}"
+          aria-haspopup="dialog" aria-label="View ${esc(a.name)} activity details">
+      <img src="${esc(a.image)}" alt="" loading="lazy" decoding="async">
+      <span class="activity-card-caption">
+        <span class="activity-card-title">${esc(a.name)}</span>
+        ${imageCount > 1 ? `<span class="activity-card-gallery"><i class="bi bi-images" aria-hidden="true"></i> ${imageCount}</span>` : ""}
+      </span>
+    </button>`;
+}
+
+function activityImages(activity) {
+  const extraImages = Array.isArray(activity.galleryImages)
+    ? activity.galleryImages
+    : String(activity.galleryImages || "").split("|");
+  return [activity.image].concat(extraImages)
+    .map(function (image) { return String(image || "").trim(); })
+    .filter(function (image, index, images) { return image && images.indexOf(image) === index; });
 }
 
 function waterCard(item) {
@@ -616,6 +610,8 @@ function parseActivitiesCsv(csv) {
   columns.category = headers.indexOf("category");
   columns.details = headers.indexOf("details");
   columns.pricedetails = headers.indexOf("pricedetails");
+  columns.description = headers.indexOf("description");
+  columns.galleryimages = headers.indexOf("galleryimages");
   const localByName = new Map(LOCAL_DATA.activities.map(function (activity) {
     return [activity.name.trim().toLowerCase(), activity];
   }));
@@ -634,6 +630,9 @@ function parseActivitiesCsv(csv) {
       price: parseCatalogPrice(get("price"), index + 2),
       unit: get("unit"),
       image: get("image") || (local && local.image),
+      galleryImages: ((columns.galleryimages >= 0 ? row[columns.galleryimages] : "") || "")
+        .split("|").map(function (image) { return image.trim(); }).filter(Boolean),
+      description: ((columns.description >= 0 ? row[columns.description] : "") || (local && local.description) || "").trim(),
       details: detailsValue,
       priceDetails: detailsValue
     };
