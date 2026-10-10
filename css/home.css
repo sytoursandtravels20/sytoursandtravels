@@ -488,9 +488,24 @@ img { max-width: 100%; display: block; }
   min-height: 36px;
   display: flex;
   align-items: center;
+  gap: .45rem;
   color: var(--sy-blue);
   font-weight: 600;
   cursor: pointer;
+  list-style: none;
+}
+.sy-card-disclosure summary::-webkit-details-marker { display: none; }
+.sy-card-disclosure summary::after {
+  width: .45rem;
+  height: .45rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  transform: translateY(-.12rem) rotate(45deg);
+  transition: transform .2s ease;
+}
+.sy-card-disclosure[open] summary::after {
+  transform: translateY(.12rem) rotate(225deg);
 }
 .sy-card-disclosure summary:focus-visible {
   outline: 2px solid var(--sy-blue);
