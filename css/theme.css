@@ -110,12 +110,6 @@ html[data-theme="dark"] .about-founder-card {
   background: var(--sy-card);
   box-shadow: var(--sy-shadow);
 }
-html[data-theme="dark"] .offers-strip {
-  background:
-    radial-gradient(circle at 88% 20%, rgba(255, 200, 0, .12), transparent 18rem),
-    linear-gradient(110deg, #101f30, #172e45 72%, #214b76);
-  color: var(--sy-text);
-}
 html[data-theme="dark"] .about-founder-quote,
 html[data-theme="dark"] .about-metric strong {
   color: var(--sy-text);

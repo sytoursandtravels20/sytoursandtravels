@@ -4,8 +4,6 @@
 
 const activityCatalogFilters = { type: "all", category: "all" };
 const waterTripCatalogFilters = { type: "all", category: "all" };
-let currentOffers = [];
-let currentOfferIndex = 0;
 
 document.addEventListener("DOMContentLoaded", async function () {
 
@@ -32,7 +30,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   renderCategories(LOCAL_DATA.categories);
   if (page === "home") {
-    renderOffers(getCachedCatalog(CONFIG.offersCsvUrl, parseOffersCsv, [], "offers"));
     renderFeatured(visibleVehicles(getCachedCatalog(
       CONFIG.rentalInventoryCsvUrl,
       parseRentalInventoryCsv,
@@ -79,10 +76,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderHowItWorks(LOCAL_DATA.howItWorks);
 
   if (page === "home") {
-    loadOffers().then(function (offers) {
-      renderOffers(offers);
-      renderOfferListings(offers);
-    });
     initSearchTabs();
     loadRentalInventory().then(function (vehicles) {
       renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
@@ -182,45 +175,6 @@ function renderYachtsBoatsCruises(DATA) {
   el.innerHTML = filterSheetCatalog(trips, waterTripCatalogFilters).map(function (trip) {
     return waterCard(trip);
   }).join("");
-}
-
-function renderOffers(offers) {
-  currentOffers = offers || [];
-  const strip = document.getElementById("offersStrip");
-  if (!strip) return;
-  if (!currentOffers.length) {
-    strip.hidden = true;
-    return;
-  }
-  currentOfferIndex = Math.min(currentOfferIndex, currentOffers.length - 1);
-  strip.hidden = false;
-  const offer = currentOffers[currentOfferIndex];
-  const title = document.getElementById("offerTitle");
-  const description = document.getElementById("offerDescription");
-  const cta = document.getElementById("offerCta");
-  const controls = document.getElementById("offerControls");
-  const position = document.getElementById("offerPosition");
-  if (title) title.textContent = offer.title;
-  if (description) description.textContent = offer.description;
-  if (cta) {
-    cta.textContent = formatText("Ask about this offer on WhatsApp");
-    cta.href = offerWhatsAppLink(offer);
-  }
-  if (controls) controls.hidden = currentOffers.length < 2;
-  if (position) position.textContent = formatText("{current} of {total}", {
-    current: String(currentOfferIndex + 1),
-    total: String(currentOffers.length)
-  });
-  const previous = document.getElementById("offerPrevious");
-  const next = document.getElementById("offerNext");
-  if (previous) previous.onclick = function () {
-    currentOfferIndex = (currentOfferIndex - 1 + currentOffers.length) % currentOffers.length;
-    renderOffers(currentOffers);
-  };
-  if (next) next.onclick = function () {
-    currentOfferIndex = (currentOfferIndex + 1) % currentOffers.length;
-    renderOffers(currentOffers);
-  };
 }
 
 function renderOfferListings(offers) {
