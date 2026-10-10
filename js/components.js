@@ -164,6 +164,7 @@ function categoryCard(c) {
 
 function vehicleCard(v) {
   /* Availability state */
+  const detailsText = (v.details || v.priceDetails || "").trim();
   const isBooked = v.status === "booked";
   const until = v.bookedUntil ? " · Available from " + esc(v.bookedUntil) : "";
   const rates = v.rates && v.rates.length
@@ -229,7 +230,7 @@ function vehicleCard(v) {
           ${quantitySpec}
           ${passengerSpec}
         </ul>
-        ${v.priceDetails ? `<details class="sy-card-disclosure"><summary>Price details &amp; terms</summary><p>${esc(v.priceDetails)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>Details</summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             ${rateLabels}
@@ -247,6 +248,7 @@ function vehicleCategoryLabel(category, label) {
 }
 
 function activityCard(a) {
+  const detailsText = (a.details || a.priceDetails || "").trim();
   const waMsg =
     "Hi " + CONFIG.company.name + ", I'm interested in the " + a.name +
     " experience (" + a.meta + ") at \u20B9" + fmtPrice(a.price) + " " + a.unit +
@@ -261,7 +263,7 @@ function activityCard(a) {
         <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(a.meta)}
         </p>
-        ${a.priceDetails ? `<details class="sy-card-disclosure"><summary>Price details &amp; terms</summary><p>${esc(a.priceDetails)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>Details</summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(a.price)}</span>
@@ -274,6 +276,7 @@ function activityCard(a) {
 }
 
 function waterCard(item) {
+  const detailsText = (item.details || item.priceDetails || "").trim();
   const typeLabel = catalogTypeLabel(item.type);
   const category = item.categoryLabel || catalogLabel(item.category);
   const waMsg =
@@ -292,7 +295,7 @@ function waterCard(item) {
         <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(item.meta)}
         </p>
-        ${item.priceDetails ? `<details class="sy-card-disclosure"><summary>Price details &amp; terms</summary><p>${esc(item.priceDetails)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>Details</summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(item.price)}</span>
@@ -517,6 +520,7 @@ function parseRentalInventoryCsv(csv) {
   columnIndexes.type = headers.indexOf("type");
   columnIndexes.image = headers.indexOf("image");
   columnIndexes.quantity = headers.indexOf("quantity");
+  columnIndexes.details = headers.indexOf("details");
   columnIndexes.pricedetails = headers.indexOf("pricedetails");
 
   const localByName = new Map(LOCAL_DATA.vehicles.map(function (vehicle) {
@@ -526,6 +530,7 @@ function parseRentalInventoryCsv(csv) {
     const get = function (header) {
       return (row[columnIndexes[header]] || "").trim();
     };
+    const detailsValue = (columnIndexes.details >= 0 ? row[columnIndexes.details] : "") || (columnIndexes.pricedetails >= 0 ? row[columnIndexes.pricedetails] : "") || "";
     const name = get("name");
     const sheetCategory = get("category").toLowerCase();
     const status = get("status").toLowerCase() || "available";
@@ -579,7 +584,8 @@ function parseRentalInventoryCsv(csv) {
       status: status,
       bookedUntil: local ? local.bookedUntil : "",
       image: image,
-      priceDetails: get("pricedetails")
+      details: detailsValue,
+      priceDetails: detailsValue
     };
   });
 
@@ -593,12 +599,14 @@ function parseActivitiesCsv(csv) {
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
   columns.type = headers.indexOf("type");
   columns.category = headers.indexOf("category");
+  columns.details = headers.indexOf("details");
   columns.pricedetails = headers.indexOf("pricedetails");
   const localByName = new Map(LOCAL_DATA.activities.map(function (activity) {
     return [activity.name.trim().toLowerCase(), activity];
   }));
   return csvDataRows(rows, "activities").map(function (row, index) {
     const get = function (header) { return (row[columns[header]] || "").trim(); };
+    const detailsValue = (columns.details >= 0 ? row[columns.details] : "") || (columns.pricedetails >= 0 ? row[columns.pricedetails] : "") || "";
     const name = get("name");
     const local = localByName.get(name.toLowerCase());
     const activity = {
@@ -611,7 +619,8 @@ function parseActivitiesCsv(csv) {
       price: parseCatalogPrice(get("price"), index + 2),
       unit: get("unit"),
       image: get("image") || (local && local.image),
-      priceDetails: get("pricedetails")
+      details: detailsValue,
+      priceDetails: detailsValue
     };
     if (!activity.name || !activity.meta || !activity.unit || !activity.image) {
       throw new Error("Activities row " + (index + 2) + " is missing required information.");
@@ -626,12 +635,14 @@ function parseWaterTripsCsv(csv) {
   const columns = csvColumnIndexes(rows, ["name", "type", "meta", "price", "unit", "badge", "image"], "water trips");
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
   columns.category = headers.indexOf("category");
+  columns.details = headers.indexOf("details");
   columns.pricedetails = headers.indexOf("pricedetails");
   const localByName = new Map(getLocalWaterTrips().map(function (trip) {
     return [trip.name.trim().toLowerCase(), trip];
   }));
   return csvDataRows(rows, "water trips").map(function (row, index) {
     const get = function (header) { return (row[columns[header]] || "").trim(); };
+    const detailsValue = (columns.details >= 0 ? row[columns.details] : "") || (columns.pricedetails >= 0 ? row[columns.pricedetails] : "") || "";
     const name = get("name");
     const kind = get("type");
     const local = localByName.get(name.toLowerCase());
@@ -646,7 +657,8 @@ function parseWaterTripsCsv(csv) {
       unit: get("unit"),
       badge: get("badge"),
       image: get("image") || (local && local.image),
-      priceDetails: get("pricedetails")
+      details: detailsValue,
+      priceDetails: detailsValue
     };
     if (!trip.name || !trip.type || !trip.meta || !trip.unit || !trip.image) {
       throw new Error("WaterTrips row " + (index + 2) + " is missing required information.");
