@@ -90,6 +90,8 @@
   transition: all .2s;
 }
 .sy-icon-btn:hover { background: var(--sy-sky); border-color: var(--sy-sky); }
+.sy-whatsapp-btn { color: #168a50; }
+.sy-whatsapp-btn:hover { color: #117641; }
 
 /* --- Toggler --- */
 .sy-toggler {

@@ -93,10 +93,12 @@ function markActiveNav() {
   });
 }
 
-/* Sets the header call button from the editable company phone number. */
+/* Sets header contact buttons from the editable company phone number. */
 function setHeaderPhoneLink() {
-  const link = document.getElementById("headerPhone");
-  if (link) link.href = "tel:+" + CONFIG.company.phoneRaw;
+  const phoneLink = document.getElementById("headerPhone");
+  if (phoneLink) phoneLink.href = "tel:+" + CONFIG.company.phoneRaw;
+  const whatsappLink = document.getElementById("headerWhatsApp");
+  if (whatsappLink) whatsappLink.href = "https://wa.me/" + CONFIG.company.phoneRaw;
 }
 
 function setText(id, value) {
