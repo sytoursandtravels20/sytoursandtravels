@@ -282,14 +282,6 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: 1rem;
 }
-.offers-strip-badge {
-  flex: 0 0 auto;
-  padding: .35rem .7rem;
-  border-radius: 50px;
-  background: var(--sy-yellow);
-  font-size: .82rem;
-  font-weight: 800;
-}
 .offers-strip-copy {
   display: grid;
   flex: 1 1 auto;
@@ -298,7 +290,6 @@ img { max-width: 100%; display: block; }
 }
 .offers-strip-title { font-weight: 700; }
 .offers-strip-description { font-size: .86rem; }
-.offers-strip-validity { color: var(--sy-muted); font-size: .75rem; }
 .offers-strip-cta {
   flex: 0 0 auto;
   padding: .5rem .85rem;
@@ -724,7 +715,7 @@ img { max-width: 100%; display: block; }
 
 @media (max-width: 767.98px) {
   .offers-strip-inner { align-items: flex-start; flex-wrap: wrap; gap: .65rem; }
-  .offers-strip-copy { flex-basis: calc(100% - 6rem); }
+  .offers-strip-copy { flex-basis: 100%; }
   .offers-strip-cta { margin-left: auto; }
   .offers-strip-controls { margin-left: auto; }
   .hero { min-height: 560px; padding: 5rem 0 8rem; }

@@ -681,42 +681,17 @@ function parseWaterTripsCsv(csv) {
 
 function parseOffersCsv(csv) {
   const rows = parseCsvRows(csv);
-  const columns = csvColumnIndexes(rows, ["title", "description", "active"], "offers");
-  const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
-  columns.discount = headers.indexOf("discount");
-  columns.validuntil = headers.indexOf("validuntil");
-  const now = new Date();
-  const today = [
-    now.getFullYear(),
-    String(now.getMonth() + 1).padStart(2, "0"),
-    String(now.getDate()).padStart(2, "0")
-  ].join("-");
+  const columns = csvColumnIndexes(rows, ["title", "description"], "offers");
 
   return csvDataRows(rows, "offers").reduce(function (offers, row, index) {
-    const get = function (header) {
-      return columns[header] >= 0 ? (row[columns[header]] || "").trim() : "";
-    };
-    const title = get("title");
-    const description = get("description");
-    const activeValue = get("active").toLowerCase();
-    const validUntil = get("validuntil");
-    if (!title || !description || !["true", "yes", "1", "false", "no", "0"].includes(activeValue)) {
-      throw new Error("Offers row " + (index + 2) + " needs a title, description, and valid active value.");
+    const title = (row[columns.title] || "").trim();
+    const description = (row[columns.description] || "").trim();
+    if (!title || !description) {
+      throw new Error("Offers row " + (index + 2) + " needs both a title and description.");
     }
-    if (validUntil) {
-      const expiryDate = new Date(validUntil + "T00:00:00Z");
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(validUntil) || Number.isNaN(expiryDate.getTime()) ||
-        expiryDate.toISOString().slice(0, 10) !== validUntil) {
-        throw new Error("Offers row " + (index + 2) + " has an invalid validUntil date; use YYYY-MM-DD.");
-      }
-    }
-    if (activeValue === "false" || activeValue === "no" || activeValue === "0") return offers;
-    if (validUntil && validUntil < today) return offers;
     offers.push({
       title: title,
-      description: description,
-      discount: get("discount"),
-      validUntil: validUntil
+      description: description
     });
     return offers;
   }, []);

@@ -54,7 +54,7 @@ When making routine content changes, update the appropriate Google Sheet or the 
 
 ## Offers
 
-Homepage offers use a separate Google Sheets tab, so the existing catalog tabs do not need to change. Create and publish an `Offers` tab as CSV with required columns `title`, `description`, and `active`; `discount` and `validUntil` are optional. Use `TRUE`/`FALSE` for `active` and an ISO date (`YYYY-MM-DD`) for `validUntil`. Copy the published CSV URL into `CONFIG.offersCsvUrl` in `js/config.js`. Active, unexpired rows appear in the homepage offer banner with next/previous controls. The banner advertises the discount and opens a WhatsApp message for visitors to confirm eligibility and terms; it does not alter catalog prices.
+Homepage offers use a separate Google Sheets tab, so the existing catalog tabs do not need to change. Create and publish an `Offers` tab as CSV with just two columns: `title` and `description`. Each non-empty row appears as an offer; put any discount amount, conditions, or other offer details in the description. Copy the published CSV URL into `CONFIG.offersCsvUrl` in `js/config.js`. Offers appear in the homepage banner with next/previous controls, and the WhatsApp button lets visitors confirm availability and terms. The banner does not alter catalog prices.
 
 ## Editable catalogs
 

@@ -186,29 +186,17 @@ function renderOffers(offers) {
   currentOfferIndex = Math.min(currentOfferIndex, currentOffers.length - 1);
   strip.hidden = false;
   const offer = currentOffers[currentOfferIndex];
-  const discount = document.getElementById("offerDiscount");
   const title = document.getElementById("offerTitle");
   const description = document.getElementById("offerDescription");
-  const validity = document.getElementById("offerValidity");
   const cta = document.getElementById("offerCta");
   const controls = document.getElementById("offerControls");
   const position = document.getElementById("offerPosition");
-  if (discount) {
-    discount.textContent = offer.discount;
-    discount.hidden = !offer.discount;
-  }
   if (title) title.textContent = offer.title;
   if (description) description.textContent = offer.description;
-  if (validity) {
-    validity.textContent = offer.validUntil
-      ? formatText("Valid until {date}", { date: offer.validUntil })
-      : "";
-    validity.hidden = !offer.validUntil;
-  }
   if (cta) {
     const message = formatText("Hello {company}, I saw this offer: {offer}. Please confirm its availability and terms.", {
       company: CONFIG.company.name,
-      offer: [offer.title, offer.discount, offer.description].filter(Boolean).join(" — ")
+      offer: [offer.title, offer.description].filter(Boolean).join(" — ")
     });
     cta.textContent = formatText("Ask about this offer on WhatsApp");
     cta.href = waLink(message);

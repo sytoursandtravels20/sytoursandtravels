@@ -113,7 +113,6 @@ html[data-theme="dark"] .offers-strip {
   background: #26394d;
   color: var(--sy-text);
 }
-html[data-theme="dark"] .offers-strip-validity { color: var(--sy-muted); }
 html[data-theme="dark"] .offers-strip-controls { color: var(--sy-text); }
 html[data-theme="dark"] .offers-strip-controls button { border-color: var(--sy-border); }
 html[data-theme="dark"] .offers-strip-controls button:hover { background: var(--sy-sky); }
