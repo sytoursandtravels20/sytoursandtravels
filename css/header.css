@@ -103,6 +103,11 @@
 .sy-toggler:focus { box-shadow: 0 0 0 .2rem rgba(30, 111, 217, .18); }
 
 /* --- Responsive --- */
+@media (min-width: 1200px) {
+  .sy-nav .navbar-collapse { order: 2; }
+  .sy-nav-tools { order: 3; }
+}
+
 @media (max-width: 1199.98px) {
   .sy-nav-links { padding: 1rem 0 .5rem; }
   .sy-nav-actions { padding-bottom: 1rem; }
