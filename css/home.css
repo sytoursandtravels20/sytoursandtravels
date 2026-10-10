@@ -477,13 +477,29 @@ img { max-width: 100%; display: block; }
   color: var(--sy-navy);
 }
 .sy-price-unit { font-size: .72rem; color: var(--sy-muted); }
-.sy-price-details {
-  display: block;
-  max-width: 230px;
-  margin-top: .4rem;
+.sy-card-disclosure {
+  margin: 0 0 .75rem;
   color: var(--sy-muted);
-  font-size: .7rem;
-  line-height: 1.45;
+  font-size: .78rem;
+  line-height: 1.5;
+}
+.sy-card-disclosure summary {
+  width: fit-content;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  color: var(--sy-blue);
+  font-weight: 600;
+  cursor: pointer;
+}
+.sy-card-disclosure summary:focus-visible {
+  outline: 2px solid var(--sy-blue);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.sy-card-disclosure p {
+  margin: .15rem 0 0;
+  white-space: pre-line;
 }
 
 .btn-book {

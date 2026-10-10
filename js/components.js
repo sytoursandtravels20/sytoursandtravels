@@ -229,12 +229,12 @@ function vehicleCard(v) {
           ${quantitySpec}
           ${passengerSpec}
         </ul>
+        ${v.priceDetails ? `<details class="sy-card-disclosure"><summary>Price details &amp; terms</summary><p>${esc(v.priceDetails)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             ${rateLabels}
             ${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? "sample rate · " : ""}per day</span>` : ""}
             ${hint}
-            ${v.priceDetails ? `<span class="sy-price-details">${esc(v.priceDetails)}</span>` : ""}
           </div>
           ${action}
         </div>
@@ -261,11 +261,11 @@ function activityCard(a) {
         <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(a.meta)}
         </p>
+        ${a.priceDetails ? `<details class="sy-card-disclosure"><summary>Price details &amp; terms</summary><p>${esc(a.priceDetails)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(a.price)}</span>
             <span class="sy-price-unit">${esc(a.unit)}</span>
-            ${a.priceDetails ? `<span class="sy-price-details">${esc(a.priceDetails)}</span>` : ""}
           </div>
           <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>
         </div>
@@ -292,11 +292,11 @@ function waterCard(item, kind) {
         <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(item.meta)}
         </p>
+        ${item.priceDetails ? `<details class="sy-card-disclosure"><summary>Price details &amp; terms</summary><p>${esc(item.priceDetails)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(item.price)}</span>
             <span class="sy-price-unit">${esc(item.unit)}</span>
-            ${item.priceDetails ? `<span class="sy-price-details">${esc(item.priceDetails)}</span>` : ""}
           </div>
           <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>
         </div>
