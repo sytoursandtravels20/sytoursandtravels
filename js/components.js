@@ -1,5 +1,47 @@
 /* Shared layout, card rendering, catalog loading, and formatting helpers. */
 
+const SITE_THEME_KEY = "sy-site-theme";
+
+function setSiteTheme(theme, persist) {
+  document.documentElement.dataset.theme = theme;
+  const isDark = theme === "dark";
+  const label = "Switch to " + (isDark ? "light" : "dark") + " mode";
+  const button = document.getElementById("themeToggle");
+  if (button) {
+    button.setAttribute("aria-label", label);
+    button.setAttribute("title", label);
+    button.setAttribute("aria-pressed", String(isDark));
+    button.innerHTML = `<i class="bi ${isDark ? "bi-sun-fill" : "bi-moon-stars-fill"}" aria-hidden="true"></i>`;
+  }
+
+  if (persist) {
+    try {
+      window.localStorage.setItem(SITE_THEME_KEY, theme);
+    } catch (err) {
+      console.warn("Could not save the color theme preference.", err);
+    }
+  }
+}
+
+function initSiteTheme() {
+  let theme;
+  try {
+    theme = window.localStorage.getItem(SITE_THEME_KEY);
+  } catch (err) {
+    console.warn("Could not read the saved color theme preference.", err);
+  }
+  if (theme !== "dark" && theme !== "light") {
+    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  setSiteTheme(theme, false);
+  document.addEventListener("click", function (event) {
+    const button = event.target instanceof Element ? event.target.closest("#themeToggle") : null;
+    if (button) setSiteTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark", true);
+  });
+}
+
+initSiteTheme();
+
 async function loadComponent(targetId, path) {
   const el = document.getElementById(targetId);
   if (!el) return;
@@ -7,6 +49,7 @@ async function loadComponent(targetId, path) {
     const res = await fetch(path);
     if (!res.ok) throw new Error("HTTP " + res.status);
     el.innerHTML = await res.text();
+    if (targetId === "site-header") setSiteTheme(document.documentElement.dataset.theme, false);
     el.querySelectorAll("script").forEach(function (old) {
       const s = document.createElement("script");
       s.textContent = old.textContent;

@@ -1,0 +1,131 @@
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --sy-bg: #111c29;
+  --sy-card: #1a2939;
+  --sy-text: #e6edf5;
+  --sy-muted: #a8b6c7;
+  --sy-border: #34465a;
+  --sy-sky: #26394d;
+  --sy-blue: #78b7ff;
+  --sy-shadow: 0 6px 22px rgba(0, 0, 0, .2);
+  --sy-shadow-lg: 0 18px 44px rgba(0, 0, 0, .32);
+  background: var(--sy-bg);
+}
+
+html[data-theme="dark"] body { background: var(--sy-bg); color: var(--sy-text); }
+html[data-theme="dark"] .sy-nav,
+html[data-theme="dark"] .search-panel,
+html[data-theme="dark"] .category-card,
+html[data-theme="dark"] .why-item,
+html[data-theme="dark"] .how-item,
+html[data-theme="dark"] .mobile-nav,
+html[data-theme="dark"] .section-alt,
+html[data-theme="dark"] .contact-section,
+html[data-theme="dark"] .legal-section,
+html[data-theme="dark"] .blog-section,
+html[data-theme="dark"] .blog-card,
+html[data-theme="dark"] .filter-bar,
+html[data-theme="dark"] .filter-chip,
+html[data-theme="dark"] .filter-select,
+html[data-theme="dark"] .filter-toggle,
+html[data-theme="dark"] .taxi-form,
+html[data-theme="dark"] .route-swap,
+html[data-theme="dark"] .location-suggestions,
+html[data-theme="dark"] .location-suggestion {
+  background-color: var(--sy-card);
+  color: var(--sy-text);
+}
+
+html[data-theme="dark"] .sy-nav { border-color: var(--sy-border); }
+html[data-theme="dark"] .sy-brand-name,
+html[data-theme="dark"] .sy-nav-links .nav-link,
+html[data-theme="dark"] .sy-nav-links .nav-link:hover,
+html[data-theme="dark"] .sy-nav-links .nav-link.active,
+html[data-theme="dark"] .section-title,
+html[data-theme="dark"] .category-name,
+html[data-theme="dark"] .sy-card-title,
+html[data-theme="dark"] .sy-price-value,
+html[data-theme="dark"] .catalog-category,
+html[data-theme="dark"] .catalog-filter-chip:hover,
+html[data-theme="dark"] .why-title,
+html[data-theme="dark"] .how-title,
+html[data-theme="dark"] .about-offering h3,
+html[data-theme="dark"] .about-contact-inner h2,
+html[data-theme="dark"] .contact-detail a,
+html[data-theme="dark"] .contact-form-title,
+html[data-theme="dark"] .contact-form .form-label,
+html[data-theme="dark"] .legal-content h2,
+html[data-theme="dark"] .blog-card-title,
+html[data-theme="dark"] .blog-reader-title,
+html[data-theme="dark"] .route-picker-heading h2,
+html[data-theme="dark"] .taxi-field label,
+html[data-theme="dark"] .taxi-details-heading,
+html[data-theme="dark"] .taxi-map-heading h2,
+html[data-theme="dark"] .filter-chip,
+html[data-theme="dark"] .filter-select,
+html[data-theme="dark"] .filter-toggle,
+html[data-theme="dark"] .empty-state h3 {
+  color: var(--sy-text);
+}
+
+html[data-theme="dark"] .sy-icon-btn,
+html[data-theme="dark"] .sy-toggler {
+  background: var(--sy-card);
+  border-color: var(--sy-border);
+  color: var(--sy-text);
+}
+
+html[data-theme="dark"] .sy-icon-btn:hover { background: var(--sy-sky); border-color: var(--sy-sky); }
+html[data-theme="dark"] .search-tab:hover { color: var(--sy-text); background: var(--sy-sky); }
+html[data-theme="dark"] .section-link:hover,
+html[data-theme="dark"] .map-pick-button:hover { color: var(--sy-text); }
+html[data-theme="dark"] .mobile-nav-item.is-active,
+html[data-theme="dark"] .mobile-nav-item:hover { color: var(--sy-text); }
+html[data-theme="dark"] .catalog-category { background: var(--sy-sky); }
+html[data-theme="dark"] .catalog-filter-chip,
+html[data-theme="dark"] .field-control,
+html[data-theme="dark"] .filter-search,
+html[data-theme="dark"] .contact-form,
+html[data-theme="dark"] .route-picker {
+  background-color: var(--sy-bg);
+  color: var(--sy-text);
+}
+html[data-theme="dark"] .catalog-filter-chip.is-active,
+html[data-theme="dark"] .filter-chip.is-active {
+  background: var(--sy-blue);
+  border-color: var(--sy-blue);
+  color: #102235;
+}
+
+html[data-theme="dark"] .about-copy,
+html[data-theme="dark"] .legal-content p,
+html[data-theme="dark"] .blog-card-excerpt,
+html[data-theme="dark"] .blog-reader-content {
+  color: #c3cfdd;
+}
+
+html[data-theme="dark"] .about-contact-band,
+html[data-theme="dark"] .location-suggestion:hover,
+html[data-theme="dark"] .location-suggestion:focus-visible,
+html[data-theme="dark"] .taxi-map-close {
+  background-color: var(--sy-sky);
+}
+
+html[data-theme="dark"] .location-suggestion { border-color: var(--sy-border); }
+html[data-theme="dark"] .taxi-map-dialog { background: var(--sy-card); color: var(--sy-text); }
+html[data-theme="dark"] #taxiMap { background: var(--sy-sky); }
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select {
+  background-color: #152333;
+  border-color: var(--sy-border);
+  color: var(--sy-text);
+}
+html[data-theme="dark"] .form-control::placeholder { color: var(--sy-muted); }
+html[data-theme="dark"] .form-control:focus,
+html[data-theme="dark"] .form-select:focus {
+  background-color: #152333;
+  border-color: var(--sy-blue);
+  color: var(--sy-text);
+}
+html[data-theme="dark"] .btn-book.is-disabled { background: #344253; color: #a8b6c7; }
+html[data-theme="dark"] .sy-footer { border-top: 1px solid var(--sy-border); }

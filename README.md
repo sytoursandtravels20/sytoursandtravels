@@ -19,6 +19,8 @@ Static marketing and booking-enquiry website for SY Tours & Travels.
 
 The pages share header/footer components and CSS tokens. The site is static and can be hosted without an application server.
 
+Visitors can switch between light and dark themes from the shared header. Their choice is saved in the browser; if they have not chosen a theme, the site follows the device color preference.
+
 ## How the website is organized
 
 - `index.html` and each page folder's `index.html` contain the page layout.
@@ -45,7 +47,7 @@ When making routine content changes, update the appropriate Google Sheet or the 
 | Categories tiles | `js/data.js` → `LOCAL_DATA.categories` |
 | Why Book With Us | `js/data.js` → `LOCAL_DATA.whyBook` |
 | How It Works | `js/data.js` → `LOCAL_DATA.howItWorks` |
-| Colors / spacing | `css/home.css` → `:root { ... }` (both pages) |
+| Colors / spacing | `css/home.css` → `:root { ... }`; dark mode uses `css/theme.css` |
 | Navbar links | `components/header.html` |
 | Footer links | `components/footer.html` |
 
