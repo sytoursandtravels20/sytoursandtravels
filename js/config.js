@@ -12,6 +12,7 @@ const CONFIG = {
   waterTripsCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=1371955855&single=true&output=csv",
   privacyPolicyCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=1099760026&single=true&output=csv",
   termsCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiFcddFBWrgGcvabvjuCCd8yEDoTWKlEKuK-nFwpTKv7qv3ydH5z-S1K7o8OJWJOeR_9Rc16QN3kPP/pub?gid=122504111&single=true&output=csv",
+  offersCsvUrl: "",
 
   /* ---------- COMPANY: update these details for the header, footer, and booking links ---------- */
   company: {

@@ -69,7 +69,8 @@ html[data-theme="dark"] .empty-state h3 {
 }
 
 html[data-theme="dark"] .sy-icon-btn,
-html[data-theme="dark"] .sy-toggler {
+html[data-theme="dark"] .sy-toggler,
+html[data-theme="dark"] .sy-language-select {
   background: var(--sy-card);
   border-color: var(--sy-border);
   color: var(--sy-text);
