@@ -110,12 +110,11 @@ html[data-theme="dark"] .about-founder-card {
   box-shadow: 0 18px 40px rgba(0, 0, 0, .2);
 }
 html[data-theme="dark"] .offers-strip {
-  background: #26394d;
+  background:
+    radial-gradient(circle at 88% 20%, rgba(255, 200, 0, .12), transparent 18rem),
+    linear-gradient(110deg, #101f30, #172e45 72%, #214b76);
   color: var(--sy-text);
 }
-html[data-theme="dark"] .offers-strip-controls { color: var(--sy-text); }
-html[data-theme="dark"] .offers-strip-controls button { border-color: var(--sy-border); }
-html[data-theme="dark"] .offers-strip-controls button:hover { background: var(--sy-sky); }
 html[data-theme="dark"] .about-founder-quote,
 html[data-theme="dark"] .about-metric strong {
   color: var(--sy-text);

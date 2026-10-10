@@ -8,6 +8,7 @@ Static marketing and booking-enquiry website for SY Tours & Travels.
 |---|---|
 | `/` | `index.html` |
 | `/about/` | `about/index.html` |
+| `/offers/` | `offers/index.html` |
 | `/rentals/` | `rentals/index.html` |
 | `/taxi/` | `taxi/index.html` |
 | `/activities/` | `activities/index.html` |
@@ -54,7 +55,7 @@ When making routine content changes, update the appropriate Google Sheet or the 
 
 ## Offers
 
-Homepage offers use a separate Google Sheets tab, so the existing catalog tabs do not need to change. Create and publish an `Offers` tab as CSV with just two columns: `title` and `description`. Each non-empty row appears as an offer; put any discount amount, conditions, or other offer details in the description. Copy the published CSV URL into `CONFIG.offersCsvUrl` in `js/config.js`. Offers appear in the homepage banner with next/previous controls, and the WhatsApp button lets visitors confirm availability and terms. The banner does not alter catalog prices.
+Offers use a separate Google Sheets tab, so existing catalog tabs do not need to change. Publish the `Offers` tab as CSV with just two columns: `title` and `description`. Each row appears in the homepage banner and on `/offers/`; put any discount amount, conditions, or other offer details in the description. The WhatsApp buttons let visitors confirm availability and terms. The offer display does not alter catalog prices.
 
 ## Editable catalogs
 

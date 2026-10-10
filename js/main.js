@@ -51,6 +51,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       getLocalWaterTrips(),
       "water trips"
     ) });
+  } else if (page === "offers") {
+    renderOfferListings(getCachedCatalog(CONFIG.offersCsvUrl, parseOffersCsv, [], "offers"));
+    loadOffers().then(renderOfferListings);
   } else if (page === "activities") {
     renderExperiences(getCachedCatalog(
       CONFIG.activitiesCsvUrl,
@@ -74,7 +77,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderHowItWorks(LOCAL_DATA.howItWorks);
 
   if (page === "home") {
-    loadOffers().then(renderOffers);
+    loadOffers().then(function (offers) {
+      renderOffers(offers);
+      renderOfferListings(offers);
+    });
     initSearchTabs();
     loadRentalInventory().then(function (vehicles) {
       renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
@@ -133,6 +139,7 @@ function applyConfig() {
   const titles = {
     home: "Car Rentals in Goa | " + C.name,
     about: "About " + C.name + " | Goa",
+    offers: "Offers & Discounts | " + C.name,
     taxi: "Taxi Service in Goa | " + C.name,
     activities: "Water Activities in Goa | " + C.name,
     yachts: "Yacht, Boat & Cruise Trips in Goa | " + C.name,
@@ -176,9 +183,9 @@ function renderYachtsBoatsCruises(DATA) {
 }
 
 function renderOffers(offers) {
+  currentOffers = offers || [];
   const strip = document.getElementById("offersStrip");
   if (!strip) return;
-  currentOffers = offers || [];
   if (!currentOffers.length) {
     strip.hidden = true;
     return;
@@ -194,12 +201,8 @@ function renderOffers(offers) {
   if (title) title.textContent = offer.title;
   if (description) description.textContent = offer.description;
   if (cta) {
-    const message = formatText("Hello {company}, I saw this offer: {offer}. Please confirm its availability and terms.", {
-      company: CONFIG.company.name,
-      offer: [offer.title, offer.description].filter(Boolean).join(" — ")
-    });
     cta.textContent = formatText("Ask about this offer on WhatsApp");
-    cta.href = waLink(message);
+    cta.href = offerWhatsAppLink(offer);
   }
   if (controls) controls.hidden = currentOffers.length < 2;
   if (position) position.textContent = formatText("{current} of {total}", {
@@ -216,6 +219,41 @@ function renderOffers(offers) {
     currentOfferIndex = (currentOfferIndex + 1) % currentOffers.length;
     renderOffers(currentOffers);
   };
+}
+
+function renderOfferListings(offers) {
+  const grid = document.getElementById("offersGrid");
+  const status = document.getElementById("offersStatus");
+  if (!grid || !status) return;
+  const items = offers || [];
+  if (!items.length) {
+    grid.replaceChildren();
+    status.textContent = "There are no offers available right now. Please check back soon.";
+    return;
+  }
+  status.textContent = "";
+  grid.innerHTML = items.map(function (offer) {
+    return `
+      <article class="offer-card">
+        <span class="offer-card-icon" aria-hidden="true"><i class="bi bi-tag-fill"></i></span>
+        <div class="offer-card-copy">
+          <span class="offer-card-label">Special offer</span>
+          <h2>${esc(offer.title)}</h2>
+          <p>${esc(offer.description)}</p>
+        </div>
+        <a class="offer-card-cta" href="${esc(offerWhatsAppLink(offer))}" target="_blank" rel="noopener">
+          Ask about this offer <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </article>`;
+  }).join("");
+}
+
+function offerWhatsAppLink(offer) {
+  const message = formatText("Hello {company}, I saw this offer: {offer}. Please confirm its availability and terms.", {
+    company: CONFIG.company.name,
+    offer: [offer.title, offer.description].filter(Boolean).join(" — ")
+  });
+  return waLink(message);
 }
 
 // Build type and category buttons from sheet values instead of a hard-coded list.
