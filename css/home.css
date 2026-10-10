@@ -29,7 +29,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 #site-header { min-height: 64px; }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   background: var(--sy-bg);
   color: var(--sy-text);
   line-height: 1.6;

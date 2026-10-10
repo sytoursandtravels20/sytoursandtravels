@@ -21,8 +21,6 @@ The pages share header/footer components and CSS tokens. The site is static and 
 
 Visitors can switch between light and dark themes from the shared header. Their choice is saved in the browser; if they have not chosen a theme, the site follows the device color preference.
 
-The site uses system fonts to avoid waiting for an external font service. Catalogs and blog stories render saved or local content first, then refresh from their published sources when online.
-
 ## How the website is organized
 
 - `index.html` and each page folder's `index.html` contain the page layout.
