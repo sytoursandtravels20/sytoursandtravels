@@ -15,6 +15,12 @@ let currentFilters = {
   availableOnly: false
 };
 
+document.addEventListener("site-language-change", function () {
+  renderVehicleFilters();
+  renderListings();
+  translateBuiltInText();
+});
+
 document.addEventListener("DOMContentLoaded", async function () {
 
   const componentsReady = Promise.all([
@@ -45,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   setHeaderPhoneLink();
   markActiveNav();
   initHeaderShadow();
+  applySiteLanguage();
 });
 
 /* ============================================================
@@ -120,6 +127,8 @@ function initFilterGroup(id, filterName, onSelect) {
 function renderVehicleFilters() {
   const typeFilters = document.getElementById("vehicleTypeFilters");
   const categoryFilters = document.getElementById("vehicleCategoryFilters");
+  if (typeFilters) typeFilters.setAttribute("data-i18n-preserve", "");
+  if (categoryFilters) categoryFilters.setAttribute("data-i18n-preserve", "");
   const types = Array.from(new Set(allVehicles.map(vehicleType)));
   if (currentFilters.type !== "all" && !types.includes(currentFilters.type)) {
     currentFilters.type = "all";
@@ -136,7 +145,7 @@ function renderVehicleFilters() {
   if (typeFilters) {
     typeFilters.hidden = types.length < 2;
     typeFilters.innerHTML = types.length < 2 ? "" : [
-      filterChip("all", "All vehicle types", currentFilters.type === "all")
+      filterChip("all", siteText("All vehicle types"), currentFilters.type === "all")
     ].concat(types.map(function (type) {
       return filterChip(type, catalogTypeLabel(type), currentFilters.type === type);
     })).join("");
@@ -146,7 +155,7 @@ function renderVehicleFilters() {
     const selectedCategory = categories.indexOf(currentFilters.category) !== -1 ? currentFilters.category : "all";
     if (selectedCategory !== currentFilters.category) currentFilters.category = selectedCategory;
     categoryFilters.innerHTML = [
-      filterChip("all", availableTypes.length > 1 ? "All categories" : "All", selectedCategory === "all")
+      filterChip("all", siteText(availableTypes.length > 1 ? "All categories" : "All"), selectedCategory === "all")
     ].concat(categories.map(function (category) {
       const sample = allVehicles.find(function (vehicle) {
         return vehicle.category === category && (currentFilters.type === "all" || vehicleType(vehicle) === currentFilters.type);
@@ -185,7 +194,10 @@ function renderListings() {
   if (empty) empty.hidden = true;
   grid.innerHTML = list.map(vehicleCard).join("");
   if (count) {
-    count.textContent = "Showing " + list.length + " of " + allVehicles.length + " vehicles";
+    count.textContent = siteText("Showing {shown} of {total} vehicles", {
+      shown: String(list.length),
+      total: String(allVehicles.length)
+    });
   }
 }
 

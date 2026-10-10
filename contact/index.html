@@ -107,6 +107,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="js/config.js" defer></script>
     <script src="js/data.js" defer></script>
+    <script src="js/i18n.js" defer></script>
     <script src="js/components.js" defer></script>
     <script src="js/main.js" defer></script>
     <script>
@@ -125,7 +126,7 @@
 
             button.disabled = true;
             result.className = "mt-3 mb-0 text-center text-secondary";
-            result.textContent = "Sending...";
+            result.textContent = siteText("Sending...");
 
             try {
                 const response = await fetch("https://script.google.com/macros/s/AKfycbz62k91mDcSK1M-onn1jsc3qVJcGGi9agBJN9lT7y9GWtZMbwc2C0Ut5jewCgNnmzhDXw/exec", {
@@ -137,12 +138,12 @@
                 if (!response.ok || !responseData.success) throw new Error("Failed to send message.");
 
                 result.className = "mt-3 mb-0 text-center text-success";
-                result.textContent = "Message sent successfully!";
+                result.textContent = siteText("Message sent successfully!");
                 form.reset();
             } catch (error) {
                 console.error(error);
                 result.className = "mt-3 mb-0 text-center text-danger";
-                result.textContent = "Something went wrong. Please try again.";
+                result.textContent = siteText("Something went wrong. Please try again.");
             } finally {
                 button.disabled = false;
             }

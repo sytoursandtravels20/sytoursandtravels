@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
       closeDestinationSuggestions();
       mapStatus.textContent = "";
       document.getElementById("taxiMapTitle").textContent =
-        mapTarget === from ? "Choose pickup location" : "Choose destination";
+        siteText(mapTarget === from ? "Choose pickup location" : "Choose destination");
       mapDialog.showModal();
 
       if (!window.L) {
-        mapStatus.textContent = "The map could not load. You can still enter the location above.";
+        mapStatus.textContent = siteText("The map could not load. You can still enter the location above.");
         return;
       }
       if (!map) {
@@ -66,26 +66,26 @@ document.addEventListener("DOMContentLoaded", function () {
     message.textContent = "";
 
     if (!from.value.trim() || !to.value.trim() || !date.value || !time.value || !passengers.value) {
-      message.textContent = "Please enter both locations and complete all trip details.";
+      message.textContent = siteText("Please enter both locations and complete all trip details.");
       return;
     }
     if (date.value < localDateString(new Date()) || !date.validity.valid) {
-      message.textContent = "Please choose today or a future travel date.";
+      message.textContent = siteText("Please choose today or a future travel date.");
       date.focus();
       return;
     }
     if (!time.validity.valid || !Number.isInteger(Number(passengers.value)) || Number(passengers.value) < 1) {
-      message.textContent = "Please check the pickup time and passenger count.";
+      message.textContent = siteText("Please check the pickup time and passenger count.");
       return;
     }
 
     const request = [
-      "Taxi Booking Request",
-      "From: " + from.value.trim(),
-      "To: " + to.value.trim(),
-      "Date: " + formatTravelDate(date.value),
-      "Pickup time: " + formatPickupTime(time.value),
-      "Passengers: " + passengers.value
+      siteText("Taxi Booking Request"),
+      siteText("From") + ": " + from.value.trim(),
+      siteText("To") + ": " + to.value.trim(),
+      siteText("Date") + ": " + formatTravelDate(date.value),
+      siteText("Pickup time") + ": " + formatPickupTime(time.value),
+      siteText("Passengers") + ": " + passengers.value
     ].join("\n");
     window.open("https://wa.me/" + CONFIG.company.phoneRaw + "?text=" + encodeURIComponent(request), "_blank", "noopener");
   });
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const { lat, lng } = event.latlng;
     if (mapMarker) mapMarker.setLatLng(event.latlng);
     else mapMarker = window.L.marker(event.latlng).addTo(map);
-    mapStatus.textContent = "Finding this place…";
+    mapStatus.textContent = siteText("Finding this place…");
 
     const url = new URL("https://photon.komoot.io/reverse");
     url.search = new URLSearchParams({ lat: String(lat), lon: String(lng) });
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       if (error.name !== "AbortError") {
         console.warn("[SY] Could not identify the selected map location.", error);
-        mapStatus.textContent = "Could not identify that place. Try tapping nearby or enter it above.";
+        mapStatus.textContent = siteText("Could not identify that place. Try tapping nearby or enter it above.");
       }
     }
   }
@@ -155,6 +155,7 @@ function addLocationSearch(input, suggestions) {
           const option = document.createElement("button");
           option.type = "button";
           option.className = "location-suggestion";
+          option.setAttribute("data-i18n-preserve", "");
           option.setAttribute("role", "option");
           option.textContent = place;
           option.addEventListener("click", function () {
@@ -168,7 +169,7 @@ function addLocationSearch(input, suggestions) {
         if (!places.length) {
           const empty = document.createElement("p");
           empty.className = "location-suggestion-empty";
-          empty.textContent = "No places found. You can keep your address as typed.";
+          empty.textContent = siteText("No places found. You can keep your address as typed.");
           suggestions.appendChild(empty);
         }
         suggestions.hidden = false;

@@ -106,8 +106,49 @@ const SITE_TRANSLATIONS = {
     "Please check the pickup time and passenger count.": "कृपया पिकअप समय और यात्रियों की संख्या जाँचें।",
     "Finding this place…": "इस स्थान को खोज रहे हैं…", "Could not identify that place. Try tapping nearby or enter it above.": "यह स्थान नहीं मिला। पास में टैप करें या ऊपर दर्ज करें।",
     "No places found. You can keep your address as typed.": "कोई स्थान नहीं मिला। आप अपना लिखा हुआ पता रख सकते हैं।",
-    "Privacy Policy": "गोपनीयता नीति", "Terms of Use": "उपयोग की शर्तें",
-    "Last updated: October 7, 2026": "अंतिम अपडेट: 7 अक्टूबर 2026"
+    "Terms of Use": "उपयोग की शर्तें",
+    "Last updated: October 7, 2026": "अंतिम अपडेट: 7 अक्टूबर 2026",
+    "All types": "सभी प्रकार", "Valid until {date}": "{date} तक मान्य",
+    "Ask about this offer on WhatsApp": "व्हाट्सऐप पर इस ऑफ़र के बारे में पूछें", "Ask on WhatsApp": "व्हाट्सऐप पर पूछें",
+    "{current} of {total}": "{total} में से {current}",
+    "Previous offer": "पिछला ऑफ़र", "Next offer": "अगला ऑफ़र",
+    "Hello {company}, I saw this offer: {offer}. Please confirm its availability and terms.": "नमस्ते {company}, मैंने यह ऑफ़र देखा: {offer}। कृपया इसकी उपलब्धता और शर्तों की पुष्टि करें।",
+    "The map could not load. You can still enter the location above.": "मानचित्र लोड नहीं हो सका। आप ऊपर स्थान दर्ज कर सकते हैं।",
+    "Choose pickup location": "पिकअप स्थान चुनें", "Choose destination": "गंतव्य चुनें",
+    "Taxi Booking Request": "टैक्सी बुकिंग अनुरोध", "From": "कहाँ से", "To": "कहाँ तक",
+    "Date": "तारीख", "Pickup time": "पिकअप का समय", "Passengers": "यात्री",
+    "Current offers": "मौजूदा ऑफ़र", "English": "English",
+    "Explore Rentals": "किराये के वाहन देखें", "View Activities": "गतिविधियाँ देखें",
+    "Your Goa adventure starts here.": "गोवा का आपका रोमांच यहाँ शुरू होता है।",
+    "Rides. Waves. Boats. Cruises. All in one place.": "सवारियाँ। लहरें। नावें। क्रूज़। सब एक जगह।",
+    "Explore Now": "अभी देखें", "Car Rentals": "कार किराये पर",
+    "Call SY Tours and Travels": "SY Tours and Travels को कॉल करें", "Select language": "भाषा चुनें",
+    "Yacht Rentals": "यॉट किराये पर", "Boat Trips": "नाव यात्रा",
+    "Comfortable · Reliable": "आरामदायक · भरोसेमंद", "Airport · Local rides": "हवाई अड्डा · स्थानीय सवारी",
+    "Adventure Awaits": "रोमांच आपका इंतज़ार कर रहा है", "Luxury on Water": "पानी पर विलासिता",
+    "Island · Sightseeing": "द्वीप · दर्शनीय स्थल", "Sunset · Party · More": "सूर्यास्त · पार्टी · और भी",
+    "Yachts": "यॉट", "Taxi": "टैक्सी",
+    "Car Rentals in Goa | SY Tours & Travels": "गोवा में कार किराये पर | SY Tours & Travels",
+    "About SY Tours & Travels | Goa": "SY Tours & Travels के बारे में | गोवा",
+    "Water Activities in Goa | SY Tours & Travels": "गोवा में जल गतिविधियाँ | SY Tours & Travels",
+    "Yacht, Boat & Cruise Trips in Goa | SY Tours & Travels": "गोवा में यॉट, नाव और क्रूज़ यात्राएँ | SY Tours & Travels",
+    "Taxi Service in Goa | SY Tours & Travels": "गोवा में टैक्सी सेवा | SY Tours & Travels",
+    "Goa Travel Stories | SY Tours & Travels": "गोवा यात्रा कहानियाँ | SY Tours & Travels",
+    "Contact SY Tours & Travels | Goa": "SY Tours & Travels से संपर्क | गोवा",
+    "Privacy Policy | SY Tours & Travels": "गोपनीयता नीति | SY Tours & Travels",
+    "Terms of Use | SY Tours & Travels": "उपयोग की शर्तें | SY Tours & Travels",
+    "Rentals · Activities · Yachts · More": "किराये · गतिविधियाँ · यॉट · और भी",
+    "Rent cars, book water activities, yachts, boats and cruises across Goa. Simple booking, honest prices, and a team that puts your happiness first.": "गोवा भर में कारें किराये पर लें और जल गतिविधियाँ, यॉट, नावें व क्रूज़ बुक करें। आसान बुकिंग, पारदर्शी कीमतें और आपकी खुशी को प्राथमिकता देने वाली टीम।",
+    "Verified Vehicles & Operators": "सत्यापित वाहन और संचालक", "Safe & trusted partners across Goa.": "गोवा भर में सुरक्षित और भरोसेमंद साझेदार।",
+    "Transparent Pricing": "पारदर्शी कीमतें", "No hidden charges. Ever.": "कभी कोई छिपा शुल्क नहीं।",
+    "Easy Booking": "आसान बुकिंग", "In minutes, not hours.": "घंटों में नहीं, मिनटों में।",
+    "Local Support": "स्थानीय सहायता", "We're here for you, 24/7.": "हम 24/7 आपकी सहायता के लिए हैं।",
+    "Secure Payments": "सुरक्षित भुगतान", "Safe & flexible options.": "सुरक्षित और लचीले विकल्प।",
+    "Top Rated in Goa": "गोवा में शीर्ष रेटिंग", "Loved by hundreds of travellers.": "सैकड़ों यात्रियों का पसंदीदा।",
+    "Search": "खोजें", "Find what you need.": "अपनी ज़रूरत की चीज़ खोजें।",
+    "Choose": "चुनें", "Compare & select.": "तुलना करें और चुनें।",
+    "Book": "बुक करें", "Confirm your slot.": "अपना समय पक्का करें।",
+    "Enjoy": "आनंद लें", "Make memories.": "यादें बनाएं।"
   },
   kok: {
     "Home": "मुखेल पान", "About": "आमचे विशीं", "Rentals": "भाड्यान", "Taxi Service": "टॅक्सी सेवा",
@@ -217,13 +258,55 @@ const SITE_TRANSLATIONS = {
     "Please check the pickup time and passenger count.": "घेवपाची वेळ आनी प्रवाशांची संख्या तपासात.",
     "Finding this place…": "ही सुवात सोदतात…", "Could not identify that place. Try tapping nearby or enter it above.": "ती सुवात वळखूंक ना. लागीं टॅप करात वा वर बरयात.",
     "No places found. You can keep your address as typed.": "सुवात मेळ्ळी ना. तुमी बरयल्लो नामो तसोच दवरूंक शकतात.",
-    "Terms of Use": "वापराचे नियम", "Last updated: October 7, 2026": "निमाणें अपडेट: 7 ऑक्टोबर 2026"
+    "Terms of Use": "वापराचे नियम", "Last updated: October 7, 2026": "निमाणें अपडेट: 7 ऑक्टोबर 2026",
+    "All types": "सगळे प्रकार", "Valid until {date}": "{date} मेरेन वैध",
+    "Ask about this offer on WhatsApp": "व्हॉट्सअॅपाचेर ह्या ऑफरा विशीं विचारात", "Ask on WhatsApp": "व्हॉट्सअॅपाचेर विचारात",
+    "{current} of {total}": "{total} तले {current}",
+    "Previous offer": "फाटलो ऑफर", "Next offer": "फुडलो ऑफर",
+    "Hello {company}, I saw this offer: {offer}. Please confirm its availability and terms.": "नमस्कार {company}, हें ऑफर म्हाका दिसलें: {offer}. उपलब्धताय आनी अटींची खात्री करात.",
+    "The map could not load. You can still enter the location above.": "नकाशो लोड जावंक ना. तुमी वर सुवात बरयत शकतात.",
+    "Choose pickup location": "घेवपाची सुवात निवडात", "Choose destination": "गंतव्य निवडात",
+    "Taxi Booking Request": "टॅक्सी आरक्षण विनंती", "From": "खंयच्यान", "To": "खंय मेरेन",
+    "Date": "तारीक", "Pickup time": "घेवपाची वेळ", "Passengers": "प्रवासी",
+    "Current offers": "सद्याचे ऑफर", "English": "English",
+    "Explore Rentals": "भाड्याची वाहनां पळयात", "View Activities": "उपक्रम पळयात",
+    "Your Goa adventure starts here.": "गोव्यांतलें तुमचें साहस हांगा सुरू जाता.",
+    "Rides. Waves. Boats. Cruises. All in one place.": "प्रवास. ल्हारो. नावा. क्रूझ. सगळें एका सुवातेर.",
+    "Explore Now": "आतांच पळयात", "Car Rentals": "कार भाड्यान",
+    "Call SY Tours and Travels": "SY Tours and Travels क फोन करात", "Select language": "भास निवडात",
+    "Yacht Rentals": "यॉट भाड्यान", "Boat Trips": "नावेची सफर",
+    "Comfortable · Reliable": "आरामदायक · विश्वासार्ह", "Airport · Local rides": "विमानतळ · स्थानिक प्रवास",
+    "Adventure Awaits": "साहस तुमची वाट पळयता", "Luxury on Water": "उदकाचेर आलिशान अनुभव",
+    "Island · Sightseeing": "बेट · प्रेक्षणीय सुवाती", "Sunset · Party · More": "सूर्यास्त · पार्टी · आनीक",
+    "Yachts": "यॉट", "Taxi": "टॅक्सी",
+    "Car Rentals in Goa | SY Tours & Travels": "गोव्यांत कार भाड्यान | SY Tours & Travels",
+    "About SY Tours & Travels | Goa": "SY Tours & Travels विशीं | गोवा",
+    "Water Activities in Goa | SY Tours & Travels": "गोव्यांतले उदकांतले उपक्रम | SY Tours & Travels",
+    "Yacht, Boat & Cruise Trips in Goa | SY Tours & Travels": "गोव्यांत यॉट, नावा आनी क्रूझ सफरी | SY Tours & Travels",
+    "Taxi Service in Goa | SY Tours & Travels": "गोव्यांत टॅक्सी सेवा | SY Tours & Travels",
+    "Goa Travel Stories | SY Tours & Travels": "गोवा प्रवास गोष्टी | SY Tours & Travels",
+    "Contact SY Tours & Travels | Goa": "SY Tours & Travels क संपर्क | गोवा",
+    "Privacy Policy | SY Tours & Travels": "गोपनीयताय धोरण | SY Tours & Travels",
+    "Terms of Use | SY Tours & Travels": "वापराचे नियम | SY Tours & Travels",
+    "Rentals · Activities · Yachts · More": "भाड्यान · उपक्रम · यॉट · आनीक",
+    "Rent cars, book water activities, yachts, boats and cruises across Goa. Simple booking, honest prices, and a team that puts your happiness first.": "गोवा भर कारयो भाड्यान घेवात आनी उदकांतले उपक्रम, यॉट, नावा आनी क्रूझ आरक्षित करात. सोपी आरक्षण, प्रामाणिक दर आनी तुमच्या समाधानाक पयलीं दवरपी पंगड.",
+    "Verified Vehicles & Operators": "तपासिल्ले वाहन आनी चालक", "Safe & trusted partners across Goa.": "गोवा भर सुरक्षित आनी विश्वासाचे भागीदार.",
+    "Transparent Pricing": "स्पश्ट दर", "No hidden charges. Ever.": "लिपिल्ले शुल्क केन्नाच ना.",
+    "Easy Booking": "सोपी आरक्षण", "In minutes, not hours.": "घंट्यांनी न्हय, मिनिटांनी.",
+    "Local Support": "स्थानिक मदत", "We're here for you, 24/7.": "आमी तुमच्या मदतीक 24/7 हांगा आसात.",
+    "Secure Payments": "सुरक्षित पेमेंट", "Safe & flexible options.": "सुरक्षित आनी लवचीक पर्याय.",
+    "Top Rated in Goa": "गोव्यांतली उत्तम रेटिंग", "Loved by hundreds of travellers.": "शेंकड्यांनी प्रवाशांक आवडिल्लें.",
+    "Search": "सोदात", "Find what you need.": "तुमकां जाय तें सोदात.",
+    "Choose": "निवडात", "Compare & select.": "तुळना करात आनी निवडात.",
+    "Book": "आरक्षित करात", "Confirm your slot.": "तुमची वेळ पक्की करात.",
+    "Enjoy": "आनंद घेवात", "Make memories.": "याद तयार करात."
   }
 };
 
 const siteTextOriginals = new WeakMap();
 const siteAttributeOriginals = new WeakMap();
 let siteLanguageInitialized = false;
+let siteTitleOriginal;
 
 function siteLanguage() {
   return document.documentElement.dataset.language || "en";
@@ -256,13 +339,16 @@ function applySiteLanguage() {
       }
     });
   }
+  document.querySelectorAll("#languageSelect").forEach(function (select) {
+    select.value = siteLanguage();
+  });
   translateBuiltInText();
 }
 
 function setSiteLanguage(language, persist) {
   const selected = SITE_TRANSLATIONS[language] ? language : "en";
   document.documentElement.dataset.language = selected;
-  document.documentElement.lang = selected === "hi" ? "hi-IN" : selected === "kok" ? "kok-IN" : "en-IN";
+  document.documentElement.lang = selected === "hi" ? "hi-IN" : selected === "kok" ? "kok-Deva-IN" : "en-IN";
   document.querySelectorAll("#languageSelect").forEach(function (select) {
     select.value = selected;
   });
@@ -278,6 +364,8 @@ function setSiteLanguage(language, persist) {
 }
 
 function translateBuiltInText() {
+  if (siteTitleOriginal === undefined) siteTitleOriginal = document.title;
+  document.title = siteText(siteTitleOriginal);
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const textNodes = [];
   while (walker.nextNode()) textNodes.push(walker.currentNode);
@@ -310,3 +398,5 @@ function translateBuiltInText() {
     });
   });
 }
+
+document.addEventListener("DOMContentLoaded", applySiteLanguage);

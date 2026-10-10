@@ -7,11 +7,13 @@
   const reader = document.getElementById("blogReader");
   if (!grid || !status || !reader) return;
   let hasStories = false;
+  let latestFeed = null;
 
   // Reuse the last feed first so return visitors see stories without waiting on Blogger.
   try {
     const cachedFeed = JSON.parse(localStorage.getItem(cacheKey) || "null");
     if (cachedFeed && Array.isArray(cachedFeed.entry)) {
+      latestFeed = cachedFeed;
       renderPosts(cachedFeed);
       hasStories = cachedFeed.entry.length > 0;
     }
@@ -64,7 +66,7 @@
     });
 
     if (!posts.length) {
-      if (!hasStories) status.textContent = "New stories are on the way. Check back soon.";
+      if (!hasStories) status.textContent = siteText("New stories are on the way. Check back soon.");
       return;
     }
 
@@ -94,7 +96,7 @@
       body.appendChild(textElement("h3", "blog-card-title", post.title || "Goa travel story"));
       body.appendChild(textElement("p", "blog-card-excerpt", post.text.slice(0, 190) + (post.text.length > 190 ? "..." : "")));
 
-      const readButton = textElement(post.url ? "a" : "button", "blog-read-button", "Read story");
+      const readButton = textElement(post.url ? "a" : "button", "blog-read-button", siteText("Read story"));
       if (post.url) {
         readButton.href = post.url;
       } else {
@@ -148,7 +150,7 @@
   }
 
   function openPost(post) {
-    const back = textElement("button", "blog-back-button", "Back to stories");
+    const back = textElement("button", "blog-back-button", siteText("Back to stories"));
     grid.hidden = true;
     status.hidden = true;
     reader.hidden = false;
@@ -198,6 +200,7 @@
     } catch (error) {
       console.warn("[SY] Could not save blog stories for the next visit.", error);
     }
+    latestFeed = data.feed;
     renderPosts(data.feed);
   };
   const script = document.createElement("script");
@@ -212,8 +215,13 @@
   }, 5000);
   document.head.appendChild(script);
 
+  document.addEventListener("site-language-change", function () {
+    if (latestFeed && !reader.hidden) return;
+    if (latestFeed) renderPosts(latestFeed);
+  });
+
   function showFeedError(text) {
-    if (!hasStories) status.textContent = text;
-    else status.textContent = "Showing saved stories; the latest posts could not be refreshed.";
+    if (!hasStories) status.textContent = siteText(text);
+    else status.textContent = siteText("Showing saved stories; the latest posts could not be refreshed.");
   }
 })();

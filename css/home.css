@@ -271,6 +271,68 @@ img { max-width: 100%; display: block; }
 }
 .section-link:hover { gap: .6rem; color: var(--sy-navy); }
 
+/* ---------- HOMEPAGE OFFERS ---------- */
+.offers-strip {
+  padding: .8rem 0;
+  background: #fff3c4;
+  color: var(--sy-navy);
+}
+.offers-strip-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.offers-strip-badge {
+  flex: 0 0 auto;
+  padding: .35rem .7rem;
+  border-radius: 50px;
+  background: var(--sy-yellow);
+  font-size: .82rem;
+  font-weight: 800;
+}
+.offers-strip-copy {
+  display: grid;
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.4;
+}
+.offers-strip-title { font-weight: 700; }
+.offers-strip-description { font-size: .86rem; }
+.offers-strip-validity { color: var(--sy-muted); font-size: .75rem; }
+.offers-strip-cta {
+  flex: 0 0 auto;
+  padding: .5rem .85rem;
+  border-radius: 8px;
+  background: var(--sy-navy);
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 700;
+  text-align: center;
+}
+.offers-strip-cta:hover { background: var(--sy-blue); color: #fff; }
+.offers-strip-controls {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--sy-navy);
+  font-size: .8rem;
+  font-weight: 600;
+}
+.offers-strip-controls[hidden] { display: none; }
+.offers-strip-controls button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(10, 37, 64, .2);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+}
+.offers-strip-controls button:hover { background: rgba(10, 37, 64, .08); }
+.offers-strip-controls button:focus-visible,
+.offers-strip-cta:focus-visible { outline: 2px solid var(--sy-blue); outline-offset: 2px; }
+
 /* ---------- 7. CATEGORY ROW ---------- */
 .category-row {
   display: grid;
@@ -661,6 +723,10 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 767.98px) {
+  .offers-strip-inner { align-items: flex-start; flex-wrap: wrap; gap: .65rem; }
+  .offers-strip-copy { flex-basis: calc(100% - 6rem); }
+  .offers-strip-cta { margin-left: auto; }
+  .offers-strip-controls { margin-left: auto; }
   .hero { min-height: 560px; padding: 5rem 0 8rem; }
   .hero-cta .btn-sy, .hero-cta .btn-ghost { flex: 1; justify-content: center; }
 

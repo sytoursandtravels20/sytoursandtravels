@@ -26,6 +26,7 @@ Visitors can switch between light and dark themes from the shared header. Their 
 - `index.html` and each page folder's `index.html` contain the page layout.
 - `css/` contains the styles; `home.css` provides the shared colors, cards, and common page elements.
 - `js/config.js` contains company details and links to the published Google Sheets.
+- `js/i18n.js` contains the built-in English, Hindi, and Konkani interface translations.
 - `js/data.js` contains backup content for when a sheet or network connection is unavailable.
 - `js/components.js` builds reusable cards, reads sheet rows, and fills in the shared header/footer.
 - `js/main.js` handles shared pages, activities, and water trips; `js/rentals.js` handles rental filters; `js/taxi.js` handles taxi enquiries and place suggestions; `js/blog.js` displays blog posts.
@@ -40,6 +41,7 @@ When making routine content changes, update the appropriate Google Sheet or the 
 | Company name, phone, email, socials | `js/config.js` → `CONFIG.company`, `CONFIG.social` |
 | Homepage hero text + background | `js/config.js` → `CONFIG.hero` |
 | Homepage CTA block | `js/config.js` → `CONFIG.cta` |
+| Homepage offers | A separate published `Offers` sheet tab; set `offersCsvUrl` in `js/config.js` |
 | Rental inventory (name, rates, passenger capacity, image, category, availability) | Published Google Sheet configured in `js/config.js` |
 | Water activities | Published `Activities` sheet tab configured in `js/config.js` |
 | Taxi WhatsApp number | `js/config.js` → `CONFIG.company.phoneRaw` |
@@ -50,6 +52,12 @@ When making routine content changes, update the appropriate Google Sheet or the 
 | Colors / spacing | `css/home.css` → `:root { ... }`; dark mode uses `css/theme.css` |
 | Navbar links | `components/header.html` |
 | Footer links | `components/footer.html` |
+
+## Languages and offers
+
+The language selector supports English, Hindi, and Konkani, and remembers the visitor's choice in their browser. To add or revise interface translations, update the language dictionaries in `js/i18n.js`. Only built-in interface text is translated; rental, activity, water-trip, offer, blog, and published legal-policy content remains exactly as supplied by its source.
+
+Homepage offers use a separate Google Sheets tab, so the existing catalog tabs do not need to change. Create and publish an `Offers` tab as CSV with required columns `title`, `description`, and `active`; `discount` and `validUntil` are optional. Use `TRUE`/`FALSE` for `active` and an ISO date (`YYYY-MM-DD`) for `validUntil`. Copy the published CSV URL into `CONFIG.offersCsvUrl` in `js/config.js`. Active, unexpired rows appear in the homepage offer banner with next/previous controls. The banner advertises the discount and opens a WhatsApp message for visitors to confirm eligibility and terms; it does not alter catalog prices.
 
 ## Editable catalogs
 

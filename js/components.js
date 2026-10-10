@@ -5,7 +5,7 @@ const SITE_THEME_KEY = "sy-site-theme";
 function setSiteTheme(theme, persist) {
   document.documentElement.dataset.theme = theme;
   const isDark = theme === "dark";
-  const label = "Switch to " + (isDark ? "light" : "dark") + " mode";
+  const label = siteText("Switch to " + (isDark ? "light" : "dark") + " mode");
   const button = document.getElementById("themeToggle");
   if (button) {
     button.setAttribute("aria-label", label);
@@ -166,7 +166,7 @@ function vehicleCard(v) {
   /* Availability state */
   const detailsText = (v.details || v.priceDetails || "").trim();
   const isBooked = v.status === "booked";
-  const until = v.bookedUntil ? " · Available from " + esc(v.bookedUntil) : "";
+  const until = v.bookedUntil ? siteText("Available from {date}", { date: esc(v.bookedUntil) }) : "";
   const rates = v.rates && v.rates.length
     ? v.rates
     : (typeof v.price === "number" ? [{ transmission: v.transmission, price: v.price }] : []);
@@ -174,7 +174,7 @@ function vehicleCard(v) {
     ? rates.map(function (rate) {
       return `<span class="sy-price-value">\u20B9${fmtPrice(rate.price)}${rate.transmission ? " " + esc(rate.transmission) : ""}</span>`;
     }).join("")
-    : '<span class="sy-price-value">Price on request</span>';
+    : `<span class="sy-price-value">${siteText("Price on request")}</span>`;
   const hasSampleRate = rates.some(function (rate) { return rate.sample; });
   const transmissionLabel = rates.length
     ? rates.map(function (rate) { return rate.transmission; }).filter(Boolean).join(" / ")
@@ -192,26 +192,26 @@ function vehicleCard(v) {
   /* Badge: prefer existing badge when available, else show Booked */
   let badge = "";
   if (isBooked) {
-    badge = `<span class="sy-badge sy-badge--booked">Booked</span>`;
+    badge = `<span class="sy-badge sy-badge--booked">${siteText("Booked")}</span>`;
   } else if (v.badge) {
     badge = `<span class="sy-badge">${esc(v.badge)}</span>`;
   }
 
   /* Footer action: WhatsApp button if available, disabled pill if booked */
   const action = isBooked
-    ? `<span class="btn-book is-disabled" aria-disabled="true">Unavailable</span>`
-    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>`;
+    ? `<span class="btn-book is-disabled" aria-disabled="true">${siteText("Unavailable")}</span>`
+    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${siteText("Book Now")}</a>`;
 
   /* Optional "available from" hint under the price */
   const hint = isBooked && v.bookedUntil
-    ? `<span class="sy-price-hint">${esc(until).replace(/^ · /, "")}</span>`
+    ? `<span class="sy-price-hint">${until}</span>`
     : "";
   const passengerSpec = (Number.isInteger(v.passengers) && v.passengers > 0) ||
     (typeof v.passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(v.passengers))
-    ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} passengers</li>`
+    ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} ${siteText("passengers")}</li>`
     : "";
   const quantitySpec = Number.isInteger(v.quantity) && v.quantity > 1
-    ? `<li><i class="bi bi-car-front"></i> ${v.quantity} units</li>`
+    ? `<li><i class="bi bi-car-front"></i> ${v.quantity} ${siteText("units")}</li>`
     : "";
   const vehicleImage = v.image
     ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`
@@ -219,22 +219,22 @@ function vehicleCard(v) {
 
   return `
     <article class="sy-card${isBooked ? " is-booked" : ""}">
-      <div class="sy-card-media">
+      <div class="sy-card-media" data-i18n-preserve>
         ${vehicleImage}
         ${badge}
       </div>
       <div class="sy-card-body">
-        <h3 class="sy-card-title">${esc(v.name)}</h3>
+        <h3 class="sy-card-title" data-i18n-preserve>${esc(v.name)}</h3>
         <ul class="sy-specs">
-          <li><i class="bi bi-grid"></i> ${esc(vehicleCategoryLabel(v.category, v.categoryLabel))}</li>
+          <li><i class="bi bi-grid"></i> <span data-i18n-preserve>${esc(vehicleCategoryLabel(v.category, v.categoryLabel))}</span></li>
           ${quantitySpec}
           ${passengerSpec}
         </ul>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>Details</summary><p>${esc(detailsText)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>${siteText("Details")}</summary><p data-i18n-preserve>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
-            ${rateLabels}
-            ${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? "sample rate · " : ""}per day</span>` : ""}
+            <span data-i18n-preserve>${rateLabels}</span>
+            ${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? siteText("sample rate · ") : ""}${siteText("per day")}</span>` : ""}
             ${hint}
           </div>
           ${action}
@@ -256,20 +256,20 @@ function activityCard(a) {
   const category = a.categoryLabel || catalogLabel(a.category);
   return `
     <article class="sy-card">
-      <div class="sy-card-media"><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async"></div>
+      <div class="sy-card-media" data-i18n-preserve><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async"></div>
       <div class="sy-card-body">
-        <h3 class="sy-card-title">${esc(a.name)}</h3>
-        ${category ? `<span class="catalog-category">${esc(category)}</span>` : ""}
-        <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
+        <h3 class="sy-card-title" data-i18n-preserve>${esc(a.name)}</h3>
+        ${category ? `<span class="catalog-category" data-i18n-preserve>${esc(category)}</span>` : ""}
+        <p data-i18n-preserve style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(a.meta)}
         </p>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>Details</summary><p>${esc(detailsText)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>${siteText("Details")}</summary><p data-i18n-preserve>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(a.price)}</span>
-            <span class="sy-price-unit">${esc(a.unit)}</span>
+            <span class="sy-price-unit" data-i18n-preserve>${esc(a.unit)}</span>
           </div>
-          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>
+          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${siteText("Book Now")}</a>
         </div>
       </div>
     </article>`;
@@ -285,23 +285,23 @@ function waterCard(item) {
     " " + item.unit + ". Kindly share availability. Thank you.";
   return `
     <article class="sy-card">
-      <div class="sy-card-media">
+      <div class="sy-card-media" data-i18n-preserve>
         <img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" decoding="async">
         ${item.badge ? `<span class="sy-badge">${esc(item.badge)}</span>` : ""}
       </div>
       <div class="sy-card-body">
-        <h3 class="sy-card-title">${esc(item.name)}</h3>
-        <span class="catalog-category">${esc(typeLabel)}${category ? " · " + esc(category) : ""}</span>
-        <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
+        <h3 class="sy-card-title" data-i18n-preserve>${esc(item.name)}</h3>
+        <span class="catalog-category" data-i18n-preserve>${esc(typeLabel)}${category ? " · " + esc(category) : ""}</span>
+        <p data-i18n-preserve style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(item.meta)}
         </p>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>Details</summary><p>${esc(detailsText)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>${siteText("Details")}</summary><p data-i18n-preserve>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(item.price)}</span>
-            <span class="sy-price-unit">${esc(item.unit)}</span>
+            <span class="sy-price-unit" data-i18n-preserve>${esc(item.unit)}</span>
           </div>
-          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>
+          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${siteText("Book Now")}</a>
         </div>
       </div>
     </article>`;
@@ -371,6 +371,12 @@ async function loadWaterTrips() {
   const label = "water trips";
   const fallback = getCachedCatalog(CONFIG.waterTripsCsvUrl, parseWaterTripsCsv, getLocalWaterTrips(), label);
   return loadCatalogCsv(CONFIG.waterTripsCsvUrl, parseWaterTripsCsv, fallback, label);
+}
+
+async function loadOffers() {
+  const label = "offers";
+  const fallback = getCachedCatalog(CONFIG.offersCsvUrl, parseOffersCsv, [], label);
+  return loadCatalogCsv(CONFIG.offersCsvUrl, parseOffersCsv, fallback, label);
 }
 
 async function loadCatalogCsv(url, parse, fallback, label) {
@@ -665,6 +671,49 @@ function parseWaterTripsCsv(csv) {
     }
     return trip;
   });
+}
+
+function parseOffersCsv(csv) {
+  const rows = parseCsvRows(csv);
+  const columns = csvColumnIndexes(rows, ["title", "description", "active"], "offers");
+  const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
+  columns.discount = headers.indexOf("discount");
+  columns.validuntil = headers.indexOf("validuntil");
+  const now = new Date();
+  const today = [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, "0"),
+    String(now.getDate()).padStart(2, "0")
+  ].join("-");
+
+  return csvDataRows(rows, "offers").reduce(function (offers, row, index) {
+    const get = function (header) {
+      return columns[header] >= 0 ? (row[columns[header]] || "").trim() : "";
+    };
+    const title = get("title");
+    const description = get("description");
+    const activeValue = get("active").toLowerCase();
+    const validUntil = get("validuntil");
+    if (!title || !description || !["true", "yes", "1", "false", "no", "0"].includes(activeValue)) {
+      throw new Error("Offers row " + (index + 2) + " needs a title, description, and valid active value.");
+    }
+    if (validUntil) {
+      const expiryDate = new Date(validUntil + "T00:00:00Z");
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(validUntil) || Number.isNaN(expiryDate.getTime()) ||
+        expiryDate.toISOString().slice(0, 10) !== validUntil) {
+        throw new Error("Offers row " + (index + 2) + " has an invalid validUntil date; use YYYY-MM-DD.");
+      }
+    }
+    if (activeValue === "false" || activeValue === "no" || activeValue === "0") return offers;
+    if (validUntil && validUntil < today) return offers;
+    offers.push({
+      title: title,
+      description: description,
+      discount: get("discount"),
+      validUntil: validUntil
+    });
+    return offers;
+  }, []);
 }
 
 function csvColumnIndexes(rows, requiredHeaders, label) {
