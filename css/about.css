@@ -28,9 +28,50 @@
   gap: 3rem;
   max-width: 960px;
 }
+.about-founder-card {
+  padding: 2rem 1.75rem;
+  border: 1px solid rgba(10, 37, 64, .08);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255, 200, 87, .16), rgba(15, 118, 191, .08));
+  box-shadow: 0 18px 40px rgba(18, 41, 69, .06);
+}
 .about-founder .section-title { margin-top: .5rem; }
-.about-founder-role { margin: .5rem 0 0; color: var(--sy-blue); font-weight: 600; }
+.about-founder-role { margin: .5rem 0 0; color: var(--sy-blue); font-weight: 700; }
+.about-founder-quote {
+  margin: 1.2rem 0 0;
+  color: var(--sy-navy);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.7;
+}
+.about-founder-story { display: grid; gap: 1rem; }
 .about-founder .about-copy { margin: 0; font-size: 1.05rem; }
+.about-founder-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: .25rem;
+}
+.about-metric {
+  padding: 1rem .85rem;
+  background: #f7fafe;
+  border: 1px solid rgba(15, 118, 191, .08);
+  border-radius: 12px;
+  text-align: center;
+}
+.about-metric strong {
+  display: block;
+  color: var(--sy-navy);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.about-metric span {
+  display: block;
+  margin-top: .25rem;
+  color: var(--sy-muted);
+  font-size: .82rem;
+  line-height: 1.5;
+}
 
 .about-offering {
   display: flex;
