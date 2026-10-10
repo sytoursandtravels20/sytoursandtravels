@@ -10,11 +10,17 @@
       </span>
     </a>
 
-    <button class="navbar-toggler sy-toggler" type="button"
-            data-bs-toggle="collapse" data-bs-target="#syMainNav"
-            aria-controls="syMainNav" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="bi bi-list"></i>
-    </button>
+    <div class="sy-nav-tools">
+      <button class="sy-icon-btn" id="themeToggle" type="button"
+              aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+        <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+      </button>
+      <button class="navbar-toggler sy-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#syMainNav"
+              aria-controls="syMainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
 
     <div class="collapse navbar-collapse" id="syMainNav">
       <ul class="navbar-nav mx-auto sy-nav-links">
@@ -29,10 +35,6 @@
       </ul>
 
       <div class="sy-nav-actions">
-        <button class="sy-icon-btn" id="themeToggle" type="button"
-                aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
-          <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
-        </button>
         <!-- Quick-call button; its number is synced from company config. -->
         <a class="sy-icon-btn" id="headerPhone" href="tel:+919021954978"
            aria-label="Call SY Tours and Travels" title="Call us">

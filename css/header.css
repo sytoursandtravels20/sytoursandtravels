@@ -10,6 +10,12 @@
 }
 .sy-nav.is-scrolled { box-shadow: 0 4px 20px rgba(10, 37, 64, .06); }
 
+.sy-nav-tools {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
 /* --- Brand --- */
 .sy-brand {
   display: inline-flex;
