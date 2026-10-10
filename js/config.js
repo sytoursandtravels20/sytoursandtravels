@@ -45,9 +45,9 @@ const CONFIG = {
     eyebrow:      "ONE PLATFORM. EVERY WAY TO EXPLORE",
     titleLine1:   "Explore Goa",
     titleLine2:   "Your Way",
-    subtitle:     "Rent cars, discover water activities, book yachts, boats, cruises and more — all in one place.",
+    subtitle:     "Rent cars and bikes, discover water activities, book yachts, boats, cruises and more — all in one place.",
     backgroundImage:
-      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1600&q=72",
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2000&q=82",
     ctaPrimary:   { label: "Explore Rentals", href: "#featured" },
     ctaSecondary: { label: "View Activities", href: "activities/" }
   },
