@@ -41,7 +41,21 @@
     const text = parsed.body.textContent.replace(/\s+/g, " ").trim();
     const image = entry.media$thumbnail?.url || parsed.querySelector("img")?.src || "";
     const title = (entry.title?.$t || "").trim();
-    return { entry, text, image: safeImageUrl(image), title };
+    const alternateLink = Array.isArray(entry.link) && entry.link.find(function (link) {
+      return link.rel === "alternate" && link.type === "text/html";
+    });
+    let url = "";
+    if (alternateLink?.href) {
+      try {
+        const parsedUrl = new URL(alternateLink.href);
+        if (parsedUrl.protocol === "https:" && parsedUrl.hostname === "sytoursandtravels.blogspot.com") {
+          url = parsedUrl.href;
+        }
+      } catch (error) {
+        console.warn("[SY] Could not read a blog story URL.", error);
+      }
+    }
+    return { entry, text, image: safeImageUrl(image), title, url };
   }
 
   function renderPosts(feed) {
@@ -80,9 +94,16 @@
       body.appendChild(textElement("h3", "blog-card-title", post.title || "Goa travel story"));
       body.appendChild(textElement("p", "blog-card-excerpt", post.text.slice(0, 190) + (post.text.length > 190 ? "..." : "")));
 
-      const readButton = textElement("button", "blog-read-button", "Read story");
-      readButton.type = "button";
-      readButton.addEventListener("click", function () { openPost(post); });
+      const readButton = textElement(post.url ? "a" : "button", "blog-read-button", "Read story");
+      if (post.url) {
+        readButton.href = post.url;
+      } else {
+        readButton.type = "button";
+      }
+      readButton.addEventListener("click", function (event) {
+        if (post.url) event.preventDefault();
+        openPost(post);
+      });
       body.appendChild(readButton);
       card.appendChild(body);
       grid.appendChild(card);

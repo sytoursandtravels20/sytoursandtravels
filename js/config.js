@@ -19,7 +19,7 @@ const CONFIG = {
     tagline:   "Rentals · Activities · Yachts · More",
     phone:     "+91 90219 54978",
     phoneRaw:  "919021954978",   // digits only — used for tel: and wa.me links
-    email:     "info@sytoursandtravels.com",
+    email:     "sytourandtravels20@gmail.com",
     address:   "Panjim, Goa, India",
     description:
       "Rent cars, book water activities, yachts, boats and cruises across Goa. Simple booking, honest prices, and a team that puts your happiness first."
