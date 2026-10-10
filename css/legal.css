@@ -1,5 +1,5 @@
 .legal-hero {
-  padding: 3.5rem 0 2.75rem;
+  padding: 5rem 0 2.75rem;
   color: #fff;
   background: var(--sy-navy);
 }
@@ -14,6 +14,6 @@
 .legal-content a { color: var(--sy-blue); overflow-wrap: anywhere; }
 
 @media (max-width: 767.98px) {
-  .legal-hero { padding: 2.75rem 0 2.25rem; }
+  .legal-hero { padding: 5rem 0 2.25rem; }
   .legal-title { font-size: 2rem; }
 }

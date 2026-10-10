@@ -36,7 +36,6 @@ html[data-theme="dark"] .location-suggestion {
   color: var(--sy-text);
 }
 
-html[data-theme="dark"] .sy-nav { border-color: var(--sy-border); }
 html[data-theme="dark"] .sy-brand-name,
 html[data-theme="dark"] .sy-nav-links .nav-link,
 html[data-theme="dark"] .sy-nav-links .nav-link:hover,

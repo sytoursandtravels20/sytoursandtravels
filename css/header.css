@@ -2,6 +2,14 @@
    header.css — styles for components/header.html ONLY.
    ============================================================ */
 
+#site-header {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
 .sy-nav {
   background: transparent;
   border-bottom: 1px solid transparent;
@@ -41,25 +49,25 @@
 .sy-brand-name {
   font-weight: 800;
   font-size: 1rem;
-  color: var(--sy-navy);
+  color: #fff;
   letter-spacing: -.2px;
 }
 .sy-brand-tag {
   font-size: .68rem;
-  color: var(--sy-muted);
+  color: rgba(255, 255, 255, .8);
   letter-spacing: .3px;
 }
 
 /* --- Nav links --- */
 .sy-nav-links .nav-link {
-  color: #384860;
+  color: rgba(255, 255, 255, .9);
   font-weight: 500;
   font-size: .92rem;
   padding: .6rem .9rem;
   position: relative;
 }
 .sy-nav-links .nav-link:hover,
-.sy-nav-links .nav-link.active { color: var(--sy-navy); }
+.sy-nav-links .nav-link.active { color: #fff; }
 
 .sy-nav-links .nav-link.active::after,
 .sy-nav-links .nav-link:hover::after {
@@ -95,11 +103,11 @@
 
 /* --- Toggler --- */
 .sy-toggler {
-  border: 1px solid var(--sy-border);
+  border: 1px solid rgba(255, 255, 255, .45);
   border-radius: 10px;
   padding: .3rem .6rem;
   font-size: 1.3rem;
-  color: var(--sy-navy);
+  color: #fff;
   background: transparent;
 }
 .sy-toggler:focus { box-shadow: 0 0 0 .2rem rgba(30, 111, 217, .18); }
@@ -111,6 +119,13 @@
 }
 
 @media (max-width: 1199.98px) {
+  .sy-nav .navbar-collapse {
+    margin-top: .65rem;
+    padding: .7rem 1rem;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 12px;
+    background: rgba(10, 37, 64, .94);
+  }
   .sy-nav-links { padding: 1rem 0 .5rem; }
   .sy-nav-actions { padding-bottom: 1rem; }
   .sy-nav-links .nav-link.active::after,
