@@ -346,8 +346,9 @@ function whyItem(w) {
 function howItem(step, index) {
   return `
     <div class="how-item">
+      <span class="how-step-number" aria-hidden="true">${index + 1}</span>
       <span class="how-num"><i class="bi ${esc(step.icon)}"></i></span>
-      <h4 class="how-title">${index + 1}. ${esc(step.title)}</h4>
+      <h4 class="how-title"><span class="visually-hidden">Step ${index + 1}: </span>${esc(step.title)}</h4>
       <p class="how-text">${esc(step.text)}</p>
     </div>`;
 }

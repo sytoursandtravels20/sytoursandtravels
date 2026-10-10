@@ -638,6 +638,119 @@ body[data-page="home"] .sy-toggler:hover {
 .how-title { font-size: .95rem; font-weight: 700; margin: 0 0 .25rem; color: var(--sy-navy); }
 .how-text  { font-size: .82rem; color: var(--sy-muted); margin: 0; }
 
+/* ---------- HOMEPAGE: WHY BOOK / HOW IT WORKS ---------- */
+body[data-page="home"] #why {
+  background: #f0f7fc;
+}
+body[data-page="home"] #why > .container,
+body[data-page="home"] #how > .container {
+  max-width: 1800px;
+  display: grid;
+  grid-template-columns: minmax(250px, 1.2fr) minmax(0, 4fr);
+  align-items: center;
+  gap: 2rem;
+}
+body[data-page="home"] #why .section-head,
+body[data-page="home"] #how .section-head {
+  margin: 0;
+}
+body[data-page="home"] #why .why-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1rem;
+}
+body[data-page="home"] #why .why-item {
+  align-items: center;
+  gap: .65rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+body[data-page="home"] #why .why-item:hover {
+  box-shadow: none;
+  transform: none;
+}
+body[data-page="home"] #why .why-icon {
+  flex-basis: 38px;
+  height: 38px;
+  border-radius: 0;
+  background: transparent;
+  color: var(--sy-navy);
+  font-size: 1.6rem;
+}
+body[data-page="home"] #why .why-title {
+  font-size: .82rem;
+  line-height: 1.35;
+}
+body[data-page="home"] #why .why-text {
+  font-size: .72rem;
+  line-height: 1.4;
+}
+body[data-page="home"] #how.section-alt {
+  background: #fff;
+}
+body[data-page="home"] #how .how-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+body[data-page="home"] #how .how-item {
+  position: relative;
+  padding: .5rem 1rem;
+  background: transparent;
+  border: 0;
+}
+body[data-page="home"] #how .how-item:hover {
+  box-shadow: none;
+  transform: none;
+}
+body[data-page="home"] #how .how-item:not(:last-child)::after {
+  position: absolute;
+  top: 2.6rem;
+  right: -.25rem;
+  color: #a8b6c7;
+  content: "›";
+  font-size: 1.8rem;
+  line-height: 1;
+}
+body[data-page="home"] #how .how-num {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto .65rem;
+  background: var(--sy-sky);
+  color: var(--sy-navy);
+  font-size: 1.5rem;
+}
+body[data-page="home"] #how .how-step-number {
+  position: absolute;
+  z-index: 1;
+  top: 2.1rem;
+  left: calc(50% - 56px);
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--sy-blue);
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 700;
+}
+body[data-page="home"] #how .how-title {
+  font-size: .9rem;
+}
+body[data-page="home"] #how .how-text {
+  font-size: .76rem;
+}
+html[data-theme="dark"] body[data-page="home"] #why {
+  background: var(--sy-bg);
+}
+html[data-theme="dark"] body[data-page="home"] #why .why-icon,
+html[data-theme="dark"] body[data-page="home"] #how .how-num {
+  color: var(--sy-text);
+}
+html[data-theme="dark"] body[data-page="home"] #how.section-alt {
+  background: var(--sy-card);
+}
+
 /* ---------- 13. CTA BANNER ---------- */
 .cta {
   position: relative;
@@ -718,6 +831,15 @@ body[data-page="home"] .sy-toggler:hover {
   .category-row { grid-template-columns: repeat(3, 1fr); }
   .why-grid     { grid-template-columns: repeat(2, 1fr); }
   .how-grid     { grid-template-columns: repeat(2, 1fr); }
+
+  body[data-page="home"] #why > .container,
+  body[data-page="home"] #how > .container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  body[data-page="home"] #why .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  body[data-page="home"] #how .how-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body[data-page="home"] #how .how-item:nth-child(2)::after { display: none; }
 }
 
 @media (max-width: 767.98px) {
@@ -734,6 +856,10 @@ body[data-page="home"] .sy-toggler:hover {
   .search-fields { grid-template-columns: 1fr; }
 
   .why-grid, .how-grid { grid-template-columns: 1fr; }
+  body[data-page="home"] #why .why-grid,
+  body[data-page="home"] #how .how-grid { grid-template-columns: 1fr; }
+  body[data-page="home"] #how .how-item:not(:last-child)::after { display: none; }
+  body[data-page="home"] #how .how-step-number { left: calc(50% - 54px); }
 
   .mobile-nav { display: flex; }
   body { padding-bottom: 70px; }
