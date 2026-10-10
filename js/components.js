@@ -234,6 +234,7 @@ function vehicleCard(v) {
             ${rateLabels}
             ${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? "sample rate · " : ""}per day</span>` : ""}
             ${hint}
+            ${v.priceDetails ? `<span class="sy-price-details">${esc(v.priceDetails)}</span>` : ""}
           </div>
           ${action}
         </div>
@@ -264,6 +265,7 @@ function activityCard(a) {
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(a.price)}</span>
             <span class="sy-price-unit">${esc(a.unit)}</span>
+            ${a.priceDetails ? `<span class="sy-price-details">${esc(a.priceDetails)}</span>` : ""}
           </div>
           <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>
         </div>
@@ -294,6 +296,7 @@ function waterCard(item, kind) {
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(item.price)}</span>
             <span class="sy-price-unit">${esc(item.unit)}</span>
+            ${item.priceDetails ? `<span class="sy-price-details">${esc(item.priceDetails)}</span>` : ""}
           </div>
           <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">Book Now</a>
         </div>
@@ -505,6 +508,7 @@ function parseRentalInventoryCsv(csv) {
   columnIndexes.categorylabel = headers.indexOf("categorylabel");
   columnIndexes.image = headers.indexOf("image");
   columnIndexes.quantity = headers.indexOf("quantity");
+  columnIndexes.pricedetails = headers.indexOf("pricedetails");
 
   const localByName = new Map(LOCAL_DATA.vehicles.map(function (vehicle) {
     return [vehicle.name.trim().toLowerCase(), vehicle];
@@ -567,7 +571,8 @@ function parseRentalInventoryCsv(csv) {
       featured: Boolean(local && local.featured),
       status: status,
       bookedUntil: local ? local.bookedUntil : "",
-      image: image
+      image: image,
+      priceDetails: get("pricedetails")
     };
   });
 
@@ -583,6 +588,7 @@ function parseActivitiesCsv(csv) {
   columns.typelabel = headers.indexOf("typelabel");
   columns.category = headers.indexOf("category");
   columns.categorylabel = headers.indexOf("categorylabel");
+  columns.pricedetails = headers.indexOf("pricedetails");
   const localByName = new Map(LOCAL_DATA.activities.map(function (activity) {
     return [activity.name.trim().toLowerCase(), activity];
   }));
@@ -599,7 +605,8 @@ function parseActivitiesCsv(csv) {
       meta: get("meta"),
       price: parseCatalogPrice(get("price"), index + 2),
       unit: get("unit"),
-      image: get("image") || (local && local.image)
+      image: get("image") || (local && local.image),
+      priceDetails: get("pricedetails")
     };
     if (!activity.name || !activity.meta || !activity.unit || !activity.image) {
       throw new Error("Activities row " + (index + 2) + " is missing required information.");
@@ -616,6 +623,7 @@ function parseWaterTripsCsv(csv) {
   columns.typelabel = headers.indexOf("typelabel");
   columns.category = headers.indexOf("category");
   columns.categorylabel = headers.indexOf("categorylabel");
+  columns.pricedetails = headers.indexOf("pricedetails");
   const localByName = new Map(getLocalWaterTrips().map(function (trip) {
     return [trip.name.trim().toLowerCase(), trip];
   }));
@@ -634,7 +642,8 @@ function parseWaterTripsCsv(csv) {
       price: parseCatalogPrice(get("price"), index + 2),
       unit: get("unit"),
       badge: get("badge"),
-      image: get("image") || (local && local.image)
+      image: get("image") || (local && local.image),
+      priceDetails: get("pricedetails")
     };
     if (!trip.name || !trip.type || !trip.meta || !trip.unit || !trip.image) {
       throw new Error("WaterTrips row " + (index + 2) + " is missing required information.");

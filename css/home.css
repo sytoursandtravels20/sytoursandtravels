@@ -477,6 +477,14 @@ img { max-width: 100%; display: block; }
   color: var(--sy-navy);
 }
 .sy-price-unit { font-size: .72rem; color: var(--sy-muted); }
+.sy-price-details {
+  display: block;
+  max-width: 230px;
+  margin-top: .4rem;
+  color: var(--sy-muted);
+  font-size: .7rem;
+  line-height: 1.45;
+}
 
 .btn-book {
   background: var(--sy-navy);
