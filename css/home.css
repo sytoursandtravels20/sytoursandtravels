@@ -261,14 +261,6 @@ img { max-width: 100%; display: block; }
 }
 .btn-search:hover { background: var(--sy-yellow-2); transform: translateY(-1px); }
 
-body[data-page="home"] .sy-nav {
-  background: transparent;
-  border-bottom-color: transparent;
-  backdrop-filter: none;
-}
-body[data-page="home"] .sy-nav.is-scrolled {
-  box-shadow: none;
-}
 body[data-page="home"] .sy-brand-name,
 body[data-page="home"] .sy-brand-tag,
 body[data-page="home"] .sy-nav-links .nav-link,

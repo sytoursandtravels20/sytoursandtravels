@@ -3,12 +3,12 @@
    ============================================================ */
 
 .sy-nav {
-  background: #fff;
-  border-bottom: 1px solid var(--sy-border);
+  background: transparent;
+  border-bottom: 1px solid transparent;
   padding: .65rem 0;
   transition: box-shadow .25s;
 }
-.sy-nav.is-scrolled { box-shadow: 0 4px 20px rgba(10, 37, 64, .06); }
+.sy-nav.is-scrolled { box-shadow: none; }
 
 .sy-nav-tools {
   display: flex;
