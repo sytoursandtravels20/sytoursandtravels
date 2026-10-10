@@ -5,6 +5,7 @@
 const activityCatalogFilters = { type: "all", category: "all" };
 const waterTripCatalogFilters = { type: "all", category: "all" };
 let activityItemsForGallery = [];
+let waterTripItemsForGallery = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
   initActivityGallery();
@@ -176,12 +177,15 @@ function initActivityGallery() {
   document.body.appendChild(dialog);
 
   document.addEventListener("click", function (event) {
-    const card = event.target instanceof Element ? event.target.closest(".activity-card") : null;
+    const card = event.target instanceof Element
+      ? event.target.closest(".activity-card, .water-trip-card")
+      : null;
     if (!card) return;
-    const index = Number(card.dataset.activityIndex);
-    const activity = activityItemsForGallery[index];
-    if (!activity) return;
-    openActivityGallery(dialog, activity);
+    const isWaterTrip = card.classList.contains("water-trip-card");
+    const index = Number(isWaterTrip ? card.dataset.waterTripIndex : card.dataset.activityIndex);
+    const item = (isWaterTrip ? waterTripItemsForGallery : activityItemsForGallery)[index];
+    if (!item) return;
+    openCatalogGallery(dialog, item, isWaterTrip);
   });
 
   dialog.addEventListener("click", function (event) {
@@ -205,18 +209,25 @@ function initActivityGallery() {
   });
 }
 
-function openActivityGallery(dialog, activity) {
-  const images = activityImages(activity);
-  const details = String(activity.details || activity.priceDetails || "").trim();
-  const description = String(activity.description || "").trim();
+function openCatalogGallery(dialog, item, isWaterTrip) {
+  const images = activityImages(item);
+  const details = String(item.details || item.priceDetails || "").trim();
+  const description = String(item.description || "").trim();
+  const title = String(item.name || "");
+  const meta = String(item.meta || "");
+  const price = fmtPrice(item.price);
+  const unit = String(item.unit || "");
+  const tripType = isWaterTrip ? catalogTypeLabel(item.type) : "";
+  const category = isWaterTrip && item.category ? catalogLabel(item.category) : "";
   const message =
-    "Hi " + CONFIG.company.name + ", I'm interested in the " + activity.name +
-    " experience (" + activity.meta + ") at \u20B9" + fmtPrice(activity.price) + " " + activity.unit +
+    "Hi " + CONFIG.company.name + ", I'm interested in the " + title +
+    (isWaterTrip ? " (" + tripType + (category ? ", " + category : "") + ", " + meta + ")" : " experience (" + meta + ")") +
+    " at \u20B9" + price + " " + unit +
     ". Kindly share availability. Thank you.";
 
   dialog.innerHTML = `
     <div class="activity-dialog-header">
-      <h2 id="activityDialogTitle">${esc(activity.name)}</h2>
+      <h2 id="activityDialogTitle">${esc(title)}</h2>
       <button class="activity-dialog-close" type="button" data-gallery-action="close" aria-label="Close activity details">
         <i class="bi bi-x-lg" aria-hidden="true"></i>
       </button>
@@ -225,9 +236,9 @@ function openActivityGallery(dialog, activity) {
       <button class="activity-gallery-arrow is-previous" type="button" data-gallery-action="move" data-gallery-move="-1" aria-label="Previous photo"${images.length < 2 ? " hidden" : ""}>
         <i class="bi bi-chevron-left" aria-hidden="true"></i>
       </button>
-      <div class="activity-gallery-track" aria-label="Photos of ${esc(activity.name)}" tabindex="0">
+      <div class="activity-gallery-track" aria-label="Photos of ${esc(title)}" tabindex="0">
         ${images.map(function (image, index) {
-          return `<figure class="activity-gallery-slide"><img src="${esc(image)}" alt="${esc(activity.name)} photo ${index + 1}"${index ? ' loading="lazy"' : ""}></figure>`;
+          return `<figure class="activity-gallery-slide"><img src="${esc(image)}" alt="${esc(title)} photo ${index + 1}"${index ? ' loading="lazy"' : ""}></figure>`;
         }).join("")}
       </div>
       <button class="activity-gallery-arrow is-next" type="button" data-gallery-action="move" data-gallery-move="1" aria-label="Next photo"${images.length < 2 ? " hidden" : ""}>
@@ -244,11 +255,11 @@ function openActivityGallery(dialog, activity) {
         </div>
       </div>` : ""}
     <div class="activity-dialog-content">
-      <p class="activity-dialog-meta"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${esc(activity.meta)}</p>
+      <p class="activity-dialog-meta"><i class="bi ${isWaterTrip ? "bi-info-circle" : "bi-geo-alt-fill"}" aria-hidden="true"></i> ${esc(meta)}</p>
       ${description ? `<p class="activity-dialog-description">${esc(description)}</p>` : ""}
       ${details ? `<div class="activity-dialog-details"><h3>Details</h3><p>${esc(details)}</p></div>` : ""}
       <div class="activity-dialog-footer">
-        <p class="activity-dialog-price"><strong>\u20B9${fmtPrice(activity.price)}</strong> <span>${esc(activity.unit)}</span></p>
+        <p class="activity-dialog-price"><strong>\u20B9${price}</strong> <span>${esc(unit)}</span></p>
         <a class="btn-book" href="${waLink(message)}" target="_blank" rel="noopener">Enquire on WhatsApp <i class="bi bi-whatsapp" aria-hidden="true"></i></a>
       </div>
     </div>`;
@@ -276,9 +287,8 @@ function renderYachtsBoatsCruises(DATA) {
   renderSheetCatalogFilters("waterTripCatalogFilters", trips, waterTripCatalogFilters, function () {
     renderYachtsBoatsCruises(DATA);
   });
-  el.innerHTML = filterSheetCatalog(trips, waterTripCatalogFilters).map(function (trip) {
-    return waterCard(trip);
-  }).join("");
+  waterTripItemsForGallery = filterSheetCatalog(trips, waterTripCatalogFilters);
+  el.innerHTML = waterTripItemsForGallery.map(waterCard).join("");
 }
 
 function renderOfferListings(offers) {

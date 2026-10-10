@@ -277,36 +277,21 @@ function activityImages(activity) {
     .filter(function (image, index, images) { return image && images.indexOf(image) === index; });
 }
 
-function waterCard(item) {
-  const detailsText = (item.details || item.priceDetails || "").trim();
-  const typeLabel = catalogTypeLabel(item.type);
-  const category = item.categoryLabel || catalogLabel(item.category);
-  const waMsg =
-    "Hi " + CONFIG.company.name + ", I'm interested in the " + item.name +
-    " (" + typeLabel + (category ? ", " + category : "") + ", " + item.meta + ") at \u20B9" + fmtPrice(item.price) +
-    " " + item.unit + ". Kindly share availability. Thank you.";
+function waterCard(item, index) {
+  const imageCount = activityImages(item).length;
   return `
-    <article class="sy-card">
-      <div class="sy-card-media">
-        <img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" decoding="async">
+    <button class="water-trip-card" type="button" data-water-trip-index="${index}"
+            aria-haspopup="dialog" aria-label="View ${esc(item.name)} details">
+      <span class="water-trip-card-image">
+        <img src="${esc(item.image)}" alt="" loading="lazy" decoding="async">
         ${item.badge ? `<span class="sy-badge">${esc(item.badge)}</span>` : ""}
-      </div>
-      <div class="sy-card-body">
-        <h3 class="sy-card-title">${esc(item.name)}</h3>
-        <span class="catalog-category">${esc(typeLabel)}${category ? " · " + esc(category) : ""}</span>
-        <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
-          <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(item.meta)}
-        </p>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>${formatText("Details")}</summary><p>${esc(detailsText)}</p></details>` : ""}
-        <div class="sy-card-foot">
-          <div class="sy-price">
-            <span class="sy-price-value">\u20B9${fmtPrice(item.price)}</span>
-            <span class="sy-price-unit">${esc(item.unit)}</span>
-          </div>
-          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Book Now")}</a>
-        </div>
-      </div>
-    </article>`;
+        ${imageCount > 1 ? `<span class="activity-card-gallery"><i class="bi bi-images" aria-hidden="true"></i> ${imageCount}</span>` : ""}
+      </span>
+      <span class="water-trip-card-body">
+        <span class="water-trip-card-title">${esc(item.name)}</span>
+        <span class="water-trip-card-price">From \u20B9${fmtPrice(item.price)} <span>/ ${esc(item.unit)}</span></span>
+      </span>
+    </button>`;
 }
 
 function catalogLabel(value) {
@@ -651,6 +636,8 @@ function parseWaterTripsCsv(csv) {
   columns.category = headers.indexOf("category");
   columns.details = headers.indexOf("details");
   columns.pricedetails = headers.indexOf("pricedetails");
+  columns.description = headers.indexOf("description");
+  columns.galleryimages = headers.indexOf("galleryimages");
   const localByName = new Map(getLocalWaterTrips().map(function (trip) {
     return [trip.name.trim().toLowerCase(), trip];
   }));
@@ -671,6 +658,9 @@ function parseWaterTripsCsv(csv) {
       unit: get("unit"),
       badge: get("badge"),
       image: get("image") || (local && local.image),
+      galleryImages: ((columns.galleryimages >= 0 ? row[columns.galleryimages] : "") || "")
+        .split("|").map(function (image) { return image.trim(); }).filter(Boolean),
+      description: ((columns.description >= 0 ? row[columns.description] : "") || (local && local.description) || "").trim(),
       details: detailsValue,
       priceDetails: detailsValue
     };
