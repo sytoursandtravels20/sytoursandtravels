@@ -2,10 +2,16 @@
 
 const SITE_THEME_KEY = "sy-site-theme";
 
+function formatText(source, values) {
+  return String(source).replace(/\{([^}]+)\}/g, function (placeholder, key) {
+    return values && Object.prototype.hasOwnProperty.call(values, key) ? values[key] : placeholder;
+  });
+}
+
 function setSiteTheme(theme, persist) {
   document.documentElement.dataset.theme = theme;
   const isDark = theme === "dark";
-  const label = siteText("Switch to " + (isDark ? "light" : "dark") + " mode");
+  const label = formatText("Switch to " + (isDark ? "light" : "dark") + " mode");
   const button = document.getElementById("themeToggle");
   if (button) {
     button.setAttribute("aria-label", label);
@@ -166,7 +172,7 @@ function vehicleCard(v) {
   /* Availability state */
   const detailsText = (v.details || v.priceDetails || "").trim();
   const isBooked = v.status === "booked";
-  const until = v.bookedUntil ? siteText("Available from {date}", { date: esc(v.bookedUntil) }) : "";
+  const until = v.bookedUntil ? formatText("Available from {date}", { date: esc(v.bookedUntil) }) : "";
   const rates = v.rates && v.rates.length
     ? v.rates
     : (typeof v.price === "number" ? [{ transmission: v.transmission, price: v.price }] : []);
@@ -174,7 +180,7 @@ function vehicleCard(v) {
     ? rates.map(function (rate) {
       return `<span class="sy-price-value">\u20B9${fmtPrice(rate.price)}${rate.transmission ? " " + esc(rate.transmission) : ""}</span>`;
     }).join("")
-    : `<span class="sy-price-value">${siteText("Price on request")}</span>`;
+    : `<span class="sy-price-value">${formatText("Price on request")}</span>`;
   const hasSampleRate = rates.some(function (rate) { return rate.sample; });
   const transmissionLabel = rates.length
     ? rates.map(function (rate) { return rate.transmission; }).filter(Boolean).join(" / ")
@@ -192,15 +198,15 @@ function vehicleCard(v) {
   /* Badge: prefer existing badge when available, else show Booked */
   let badge = "";
   if (isBooked) {
-    badge = `<span class="sy-badge sy-badge--booked">${siteText("Booked")}</span>`;
+    badge = `<span class="sy-badge sy-badge--booked">${formatText("Booked")}</span>`;
   } else if (v.badge) {
     badge = `<span class="sy-badge">${esc(v.badge)}</span>`;
   }
 
   /* Footer action: WhatsApp button if available, disabled pill if booked */
   const action = isBooked
-    ? `<span class="btn-book is-disabled" aria-disabled="true">${siteText("Unavailable")}</span>`
-    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${siteText("Book Now")}</a>`;
+    ? `<span class="btn-book is-disabled" aria-disabled="true">${formatText("Unavailable")}</span>`
+    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Book Now")}</a>`;
 
   /* Optional "available from" hint under the price */
   const hint = isBooked && v.bookedUntil
@@ -208,10 +214,10 @@ function vehicleCard(v) {
     : "";
   const passengerSpec = (Number.isInteger(v.passengers) && v.passengers > 0) ||
     (typeof v.passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(v.passengers))
-    ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} ${siteText("passengers")}</li>`
+    ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} ${formatText("passengers")}</li>`
     : "";
   const quantitySpec = Number.isInteger(v.quantity) && v.quantity > 1
-    ? `<li><i class="bi bi-car-front"></i> ${v.quantity} ${siteText("units")}</li>`
+    ? `<li><i class="bi bi-car-front"></i> ${v.quantity} ${formatText("units")}</li>`
     : "";
   const vehicleImage = v.image
     ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`
@@ -219,22 +225,22 @@ function vehicleCard(v) {
 
   return `
     <article class="sy-card${isBooked ? " is-booked" : ""}">
-      <div class="sy-card-media" data-i18n-preserve>
+      <div class="sy-card-media">
         ${vehicleImage}
         ${badge}
       </div>
       <div class="sy-card-body">
-        <h3 class="sy-card-title" data-i18n-preserve>${esc(v.name)}</h3>
+        <h3 class="sy-card-title">${esc(v.name)}</h3>
         <ul class="sy-specs">
-          <li><i class="bi bi-grid"></i> <span data-i18n-preserve>${esc(vehicleCategoryLabel(v.category, v.categoryLabel))}</span></li>
+          <li><i class="bi bi-grid"></i> <span>${esc(vehicleCategoryLabel(v.category, v.categoryLabel))}</span></li>
           ${quantitySpec}
           ${passengerSpec}
         </ul>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>${siteText("Details")}</summary><p data-i18n-preserve>${esc(detailsText)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>${formatText("Details")}</summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
-            <span data-i18n-preserve>${rateLabels}</span>
-            ${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? siteText("sample rate · ") : ""}${siteText("per day")}</span>` : ""}
+            <span>${rateLabels}</span>
+            ${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? formatText("sample rate · ") : ""}${formatText("per day")}</span>` : ""}
             ${hint}
           </div>
           ${action}
@@ -256,20 +262,20 @@ function activityCard(a) {
   const category = a.categoryLabel || catalogLabel(a.category);
   return `
     <article class="sy-card">
-      <div class="sy-card-media" data-i18n-preserve><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async"></div>
+      <div class="sy-card-media"><img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async"></div>
       <div class="sy-card-body">
-        <h3 class="sy-card-title" data-i18n-preserve>${esc(a.name)}</h3>
-        ${category ? `<span class="catalog-category" data-i18n-preserve>${esc(category)}</span>` : ""}
-        <p data-i18n-preserve style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
+        <h3 class="sy-card-title">${esc(a.name)}</h3>
+        ${category ? `<span class="catalog-category">${esc(category)}</span>` : ""}
+        <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(a.meta)}
         </p>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>${siteText("Details")}</summary><p data-i18n-preserve>${esc(detailsText)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>${formatText("Details")}</summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(a.price)}</span>
-            <span class="sy-price-unit" data-i18n-preserve>${esc(a.unit)}</span>
+            <span class="sy-price-unit">${esc(a.unit)}</span>
           </div>
-          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${siteText("Book Now")}</a>
+          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Book Now")}</a>
         </div>
       </div>
     </article>`;
@@ -285,23 +291,23 @@ function waterCard(item) {
     " " + item.unit + ". Kindly share availability. Thank you.";
   return `
     <article class="sy-card">
-      <div class="sy-card-media" data-i18n-preserve>
+      <div class="sy-card-media">
         <img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" decoding="async">
         ${item.badge ? `<span class="sy-badge">${esc(item.badge)}</span>` : ""}
       </div>
       <div class="sy-card-body">
-        <h3 class="sy-card-title" data-i18n-preserve>${esc(item.name)}</h3>
-        <span class="catalog-category" data-i18n-preserve>${esc(typeLabel)}${category ? " · " + esc(category) : ""}</span>
-        <p data-i18n-preserve style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
+        <h3 class="sy-card-title">${esc(item.name)}</h3>
+        <span class="catalog-category">${esc(typeLabel)}${category ? " · " + esc(category) : ""}</span>
+        <p style="color:var(--sy-muted); font-size:.78rem; margin:0 0 .85rem;">
           <i class="bi bi-info-circle" style="color:var(--sy-blue)"></i> ${esc(item.meta)}
         </p>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>${siteText("Details")}</summary><p data-i18n-preserve>${esc(detailsText)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary>${formatText("Details")}</summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span class="sy-price-value">\u20B9${fmtPrice(item.price)}</span>
-            <span class="sy-price-unit" data-i18n-preserve>${esc(item.unit)}</span>
+            <span class="sy-price-unit">${esc(item.unit)}</span>
           </div>
-          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${siteText("Book Now")}</a>
+          <a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Book Now")}</a>
         </div>
       </div>
     </article>`;

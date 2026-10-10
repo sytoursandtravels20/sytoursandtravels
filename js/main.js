@@ -93,35 +93,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   setHeaderPhoneLink();
   markActiveNav();
   initHeaderShadow();
-  applySiteLanguage();
-});
-
-document.addEventListener("site-language-change", function () {
-  const page = document.body.dataset.page;
-  if (page === "home") {
-    renderCategories(LOCAL_DATA.categories);
-    renderFeatured(visibleVehicles(getCachedCatalog(
-      CONFIG.rentalInventoryCsvUrl, parseRentalInventoryCsv, LOCAL_DATA.vehicles, "rental inventory"
-    )).filter(function (vehicle) { return vehicle.featured; }));
-    renderExperiences(getCachedCatalog(
-      CONFIG.activitiesCsvUrl, parseActivitiesCsv, LOCAL_DATA.activities, "activities"
-    ));
-    renderYachtsBoatsCruises({ waterTrips: getCachedCatalog(
-      CONFIG.waterTripsCsvUrl, parseWaterTripsCsv, getLocalWaterTrips(), "water trips"
-    ) });
-    renderWhyBook(LOCAL_DATA.whyBook);
-    renderHowItWorks(LOCAL_DATA.howItWorks);
-    renderOffers(currentOffers);
-  } else if (page === "activities") {
-    renderExperiences(getCachedCatalog(
-      CONFIG.activitiesCsvUrl, parseActivitiesCsv, LOCAL_DATA.activities, "activities"
-    ));
-  } else if (page === "yachts") {
-    renderYachtsBoatsCruises({ waterTrips: getCachedCatalog(
-      CONFIG.waterTripsCsvUrl, parseWaterTripsCsv, getLocalWaterTrips(), "water trips"
-    ) });
-  }
-  translateBuiltInText();
 });
 
 function applyConfig() {
@@ -230,20 +201,20 @@ function renderOffers(offers) {
   if (description) description.textContent = offer.description;
   if (validity) {
     validity.textContent = offer.validUntil
-      ? siteText("Valid until {date}", { date: offer.validUntil })
+      ? formatText("Valid until {date}", { date: offer.validUntil })
       : "";
     validity.hidden = !offer.validUntil;
   }
   if (cta) {
-    const message = siteText("Hello {company}, I saw this offer: {offer}. Please confirm its availability and terms.", {
+    const message = formatText("Hello {company}, I saw this offer: {offer}. Please confirm its availability and terms.", {
       company: CONFIG.company.name,
       offer: [offer.title, offer.discount, offer.description].filter(Boolean).join(" — ")
     });
-    cta.textContent = siteText("Ask about this offer on WhatsApp");
+    cta.textContent = formatText("Ask about this offer on WhatsApp");
     cta.href = waLink(message);
   }
   if (controls) controls.hidden = currentOffers.length < 2;
-  if (position) position.textContent = siteText("{current} of {total}", {
+  if (position) position.textContent = formatText("{current} of {total}", {
     current: String(currentOfferIndex + 1),
     total: String(currentOffers.length)
   });
@@ -263,8 +234,6 @@ function renderOffers(offers) {
 function renderSheetCatalogFilters(containerId, items, filters, onChange) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  container.setAttribute("data-i18n-preserve", "");
-
   const types = sheetCatalogOptions(items, "type");
   if (filters.type !== "all" && !types.some(function (option) { return option.value === filters.type; })) {
     filters.type = "all";
@@ -279,8 +248,8 @@ function renderSheetCatalogFilters(containerId, items, filters, onChange) {
   }
 
   container.innerHTML = [
-    renderSheetFilterGroup("type", types, filters.type, siteText("All types")),
-    renderSheetFilterGroup("category", categories, filters.category, siteText("All categories"))
+    renderSheetFilterGroup("type", types, filters.type, formatText("All types")),
+    renderSheetFilterGroup("category", categories, filters.category, formatText("All categories"))
   ].join("");
   container.onclick = function (event) {
     const button = event.target.closest("[data-catalog-filter]");

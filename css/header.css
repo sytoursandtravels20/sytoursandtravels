@@ -15,18 +15,6 @@
   align-items: center;
   gap: .6rem;
 }
-.sy-language-select {
-  min-height: 40px;
-  max-width: 112px;
-  padding: .35rem 1.7rem .35rem .55rem;
-  border: 1px solid var(--sy-border);
-  border-radius: 10px;
-  background: #fff;
-  color: var(--sy-navy);
-  font: inherit;
-  font-size: .82rem;
-}
-.sy-language-select:focus { outline: 2px solid var(--sy-blue); outline-offset: 2px; }
 
 /* --- Brand --- */
 .sy-brand {
@@ -130,5 +118,4 @@
   .sy-brand-name { font-size: .92rem; }
   .sy-brand-tag  { font-size: .62rem; }
   .sy-brand-logo { width: 38px; height: 38px; flex-basis: 38px; font-size: 1.15rem; }
-  .sy-language-select { max-width: 98px; font-size: .76rem; }
 }
