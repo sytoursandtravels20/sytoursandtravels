@@ -13,7 +13,6 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="dark"] body { background: var(--sy-bg); color: var(--sy-text); }
-html[data-theme="dark"] .sy-nav,
 html[data-theme="dark"] .search-panel,
 html[data-theme="dark"] .category-card,
 html[data-theme="dark"] .why-item,
