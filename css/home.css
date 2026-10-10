@@ -179,10 +179,12 @@ img { max-width: 100%; display: block; }
 
 .search-fields {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: .75rem;
   align-items: end;
 }
+
+.search-form-fields { display: contents; }
 
 .search-field label {
   display: block;
@@ -231,6 +233,7 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
   transition: all .2s;
   font-family: inherit;
+  justify-content: center;
 }
 .btn-search:hover { background: var(--sy-yellow-2); transform: translateY(-1px); }
 

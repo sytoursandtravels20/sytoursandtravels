@@ -325,27 +325,144 @@ function renderHowItWorks(steps) {
 }
 function initSearchTabs() {
   const tabs = document.querySelectorAll(".search-tab");
-  const searchButton = document.getElementById("searchNowButton");
-  const dateInput = document.getElementById("searchDate");
-  const guestsInput = document.getElementById("searchGuests");
+  const form = document.getElementById("homeBookingForm");
+  const fieldsContainer = document.getElementById("homeBookingFields");
+  if (!form || !fieldsContainer) return;
 
-  // Keep Search Now aligned with the selected service and entered trip details.
-  function updateSearchDestination(tab) {
-    if (!searchButton) return;
-    const destination = new URL(tab.dataset.href || "/rentals/", window.location.origin);
-    if (dateInput && dateInput.value) destination.searchParams.set("date", dateInput.value);
-    if (guestsInput && guestsInput.value) destination.searchParams.set("guests", guestsInput.value);
-    searchButton.href = destination.pathname + destination.search + destination.hash;
+  const serviceFields = {
+    cars: {
+      label: "Car Rental",
+      fields: [
+        { name: "pickup", label: "Pickup Location", type: "text", placeholder: "Where should we deliver?", icon: "bi-geo-alt", required: true },
+        { name: "pickupDate", label: "Pickup Date", type: "date", icon: "bi-calendar-event", required: true },
+        { name: "returnDate", label: "Return Date", type: "date", icon: "bi-calendar-event", required: true },
+        { name: "vehicle", label: "Vehicle Preference", type: "text", placeholder: "Car, bike, or scooter (optional)", icon: "bi-car-front", required: false }
+      ]
+    },
+    taxi: {
+      label: "Taxi",
+      fields: [
+        { name: "pickup", label: "Pickup Location", type: "text", placeholder: "Enter pickup location", icon: "bi-geo-alt", required: true },
+        { name: "destination", label: "Destination", type: "text", placeholder: "Where are you going?", icon: "bi-flag", required: true },
+        { name: "date", label: "Travel Date", type: "date", icon: "bi-calendar-event", required: true },
+        { name: "time", label: "Pickup Time", type: "time", icon: "bi-clock", required: true },
+        { name: "passengers", label: "Passengers", type: "number", placeholder: "Number of passengers", icon: "bi-people", min: "1", step: "1", required: true }
+      ]
+    },
+    activities: {
+      label: "Activity",
+      fields: [
+        { name: "activity", label: "Activity", type: "text", placeholder: "Which activity would you like?", icon: "bi-water", required: true },
+        { name: "date", label: "Activity Date", type: "date", icon: "bi-calendar-event", required: true },
+        { name: "guests", label: "Guests", type: "number", placeholder: "Number of guests", icon: "bi-people", min: "1", step: "1", required: true }
+      ]
+    },
+    yachts: {
+      label: "Yacht",
+      fields: [
+        { name: "date", label: "Trip Date", type: "date", icon: "bi-calendar-event", required: true },
+        { name: "guests", label: "Guests", type: "number", placeholder: "Number of guests", icon: "bi-people", min: "1", step: "1", required: true }
+      ]
+    },
+    boats: {
+      label: "Boat",
+      fields: [
+        { name: "date", label: "Trip Date", type: "date", icon: "bi-calendar-event", required: true },
+        { name: "guests", label: "Guests", type: "number", placeholder: "Number of guests", icon: "bi-people", min: "1", step: "1", required: true }
+      ]
+    },
+    cruises: {
+      label: "Cruise",
+      fields: [
+        { name: "date", label: "Cruise Date", type: "date", icon: "bi-calendar-event", required: true },
+        { name: "guests", label: "Guests", type: "number", placeholder: "Number of guests", icon: "bi-people", min: "1", step: "1", required: true }
+      ]
+    }
+  };
+  const savedValues = {};
+  let currentTabKey = null;
+
+  function localDateString(date) {
+    return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+  }
+
+  function renderFields(tab) {
+    const service = serviceFields[tab.dataset.tab] || serviceFields.cars;
+    if (currentTabKey) {
+      savedValues[currentTabKey] = {};
+      fieldsContainer.querySelectorAll("input").forEach(function (input) {
+        savedValues[currentTabKey][input.name] = input.value;
+      });
+    }
+
+    fieldsContainer.innerHTML = service.fields.map(function (field) {
+      const fieldId = "homeBooking-" + field.name;
+      return `<div class="search-field">
+        <label for="${fieldId}">${field.label}</label>
+        <div class="field-control"><i class="bi ${field.icon}" aria-hidden="true"></i><input id="${fieldId}" name="${field.name}" type="${field.type}"${field.placeholder ? ` placeholder="${field.placeholder}"` : ""}${field.min ? ` min="${field.min}"` : ""}${field.step ? ` step="${field.step}"` : ""}${field.required ? " required" : ""} aria-label="${field.label}" /></div>
+      </div>`;
+    }).join("");
+
+    fieldsContainer.querySelectorAll('input[type="date"]').forEach(function (input) {
+      input.min = localDateString(new Date());
+    });
+    fieldsContainer.querySelectorAll("input").forEach(function (input) {
+      input.value = savedValues[tab.dataset.tab] && savedValues[tab.dataset.tab][input.name] || "";
+    });
+    currentTabKey = tab.dataset.tab;
+
+    const pickupDate = fieldsContainer.querySelector('[name="pickupDate"]');
+    const returnDate = fieldsContainer.querySelector('[name="returnDate"]');
+    if (pickupDate && returnDate) {
+      const updateReturnDateMin = function () {
+        returnDate.min = pickupDate.value || localDateString(new Date());
+      };
+      pickupDate.addEventListener("change", updateReturnDateMin);
+      updateReturnDateMin();
+    }
+    return service;
   }
 
   const activeTab = document.querySelector(".search-tab.is-active");
-  if (activeTab) updateSearchDestination(activeTab);
+  if (activeTab) renderFields(activeTab);
 
   tabs.forEach(function (tab) {
     tab.addEventListener("click", function () {
-      tabs.forEach(function (t) { t.classList.remove("is-active"); });
+      tabs.forEach(function (t) {
+        t.classList.remove("is-active");
+        t.setAttribute("aria-selected", "false");
+      });
       tab.classList.add("is-active");
-      updateSearchDestination(tab);
+      tab.setAttribute("aria-selected", "true");
+      renderFields(tab);
     });
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const activeServiceTab = document.querySelector(".search-tab.is-active");
+    const service = serviceFields[activeServiceTab && activeServiceTab.dataset.tab] || serviceFields.cars;
+    const entries = Array.from(fieldsContainer.querySelectorAll("input"))
+      .filter(function (input) { return input.value.trim(); })
+      .map(function (input) {
+        const label = fieldsContainer.querySelector(`label[for="${input.id}"]`);
+        let value = input.value.trim();
+        if (input.type === "date") {
+          const parts = value.split("-");
+          value = parts[2] + "/" + parts[1] + "/" + parts[0];
+        }
+        return (label ? label.textContent : input.name) + ": " + value;
+      });
+    const request = [
+      "Booking Request - " + service.label,
+      "Location: Goa",
+      ...entries,
+      "",
+      "Please confirm availability and price."
+    ].join("\n");
+    const whatsappUrl = "https://wa.me/" + CONFIG.company.phoneRaw + "?text=" + encodeURIComponent(request);
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   });
 }
