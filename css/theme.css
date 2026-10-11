@@ -144,6 +144,20 @@ html[data-theme="dark"] .btn-book.is-disabled { background: #344253; color: #a8b
 html[data-theme="dark"] .sy-footer { border-top: 1px solid var(--sy-border); }
 
 @media (max-width: 767.98px) {
+  body:not([data-page="home"]) main > :first-child:is(
+    .page-hero,
+    .activities-hero,
+    .yachts-hero,
+    .about-hero,
+    .blog-hero,
+    .contact-hero,
+    .offers-page-hero,
+    .legal-hero,
+    .taxi-hero
+  ) {
+    padding-top: 6.5rem;
+  }
+
   .mobile-nav {
     display: flex;
     padding: .3rem 0 env(safe-area-inset-bottom, 0px);
