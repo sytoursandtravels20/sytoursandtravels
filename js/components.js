@@ -259,14 +259,12 @@ function vehicleCategoryLabel(category, label) {
 }
 
 function activityCard(a, index) {
-  const imageCount = activityImages(a).length;
   return `
     <button class="activity-card" type="button" data-activity-index="${index}"
           aria-haspopup="dialog" aria-label="View ${esc(a.name)} activity details">
       <img src="${esc(a.image)}" alt="" loading="lazy" decoding="async">
       <span class="activity-card-caption">
         <span class="activity-card-title">${esc(a.name)}</span>
-        ${imageCount > 1 ? `<span class="activity-card-gallery">${imageCount}</span>` : ""}
       </span>
     </button>`;
 }
@@ -281,14 +279,12 @@ function activityImages(activity) {
 }
 
 function waterCard(item, index) {
-  const imageCount = activityImages(item).length;
   return `
     <button class="water-trip-card" type="button" data-water-trip-index="${index}"
             aria-haspopup="dialog" aria-label="View ${esc(item.name)} details">
       <span class="water-trip-card-image">
         <img src="${esc(item.image)}" alt="" loading="lazy" decoding="async">
         ${item.badge ? `<span class="sy-badge">${esc(item.badge)}</span>` : ""}
-        ${imageCount > 1 ? `<span class="activity-card-gallery">${imageCount}</span>` : ""}
       </span>
       <span class="water-trip-card-body">
         <span class="water-trip-card-title">${esc(item.name)}</span>
