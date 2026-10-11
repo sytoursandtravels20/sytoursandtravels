@@ -398,6 +398,7 @@ function initSearchTabs() {
   const form = document.getElementById("homeBookingForm");
   const fieldsContainer = document.getElementById("homeBookingFields");
   if (!form || !fieldsContainer) return;
+  initHomeMapPicker(fieldsContainer);
 
   const serviceFields = {
     cars: {
@@ -467,9 +468,12 @@ function initSearchTabs() {
 
     fieldsContainer.innerHTML = service.fields.map(function (field) {
       const fieldId = "homeBooking-" + field.name;
+      const mapButton = field.name === "pickup" || field.name === "destination"
+        ? `<button class="home-map-pick-button" type="button" data-home-map-target="${fieldId}" aria-label="Choose ${field.label.toLowerCase()} on map" title="Choose on map"><i class="bi bi-map" aria-hidden="true"></i><span>Map</span></button>`
+        : "";
       return `<div class="search-field">
         <label for="${fieldId}">${field.label}</label>
-        <div class="field-control"><i class="bi ${field.icon}" aria-hidden="true"></i><input id="${fieldId}" name="${field.name}" type="${field.type}"${field.placeholder ? ` placeholder="${field.placeholder}"` : ""}${field.min ? ` min="${field.min}"` : ""}${field.step ? ` step="${field.step}"` : ""}${field.required ? " required" : ""} aria-label="${field.label}" /></div>
+        <div class="field-control"><i class="bi ${field.icon}" aria-hidden="true"></i><input id="${fieldId}" name="${field.name}" type="${field.type}"${field.placeholder ? ` placeholder="${field.placeholder}"` : ""}${field.min ? ` min="${field.min}"` : ""}${field.step ? ` step="${field.step}"` : ""}${field.required ? " required" : ""} aria-label="${field.label}" />${mapButton}</div>
       </div>`;
     }).join("");
 
@@ -535,4 +539,89 @@ function initSearchTabs() {
     const whatsappUrl = "https://wa.me/" + CONFIG.company.phoneRaw + "?text=" + encodeURIComponent(request);
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   });
+}
+
+function initHomeMapPicker(fieldsContainer) {
+  const dialog = document.getElementById("homeMapDialog");
+  const status = document.getElementById("homeMapStatus");
+  const closeButton = document.getElementById("closeHomeMap");
+  if (!dialog || !status || !closeButton) return;
+
+  let map;
+  let marker;
+  let target;
+  let lookupController;
+
+  fieldsContainer.addEventListener("click", function (event) {
+    const button = event.target instanceof Element
+      ? event.target.closest("[data-home-map-target]")
+      : null;
+    if (!button || !fieldsContainer.contains(button)) return;
+
+    target = document.getElementById(button.dataset.homeMapTarget);
+    if (!target) return;
+    status.textContent = "";
+    dialog.showModal();
+
+    if (!window.L) {
+      status.textContent = "The map could not load. You can still enter the address above.";
+      return;
+    }
+
+    if (!map) {
+      map = window.L.map("homeLocationMap").setView([15.49, 73.83], 11);
+      window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
+        maxZoom: 19
+      }).addTo(map);
+      map.on("click", selectHomeMapLocation);
+    }
+    requestAnimationFrame(function () { map.invalidateSize(); });
+  });
+
+  closeButton.addEventListener("click", function () { dialog.close(); });
+  dialog.addEventListener("close", function () {
+    if (lookupController) lookupController.abort();
+  });
+
+  async function selectHomeMapLocation(event) {
+    if (lookupController) lookupController.abort();
+    lookupController = new AbortController();
+    const { lat, lng } = event.latlng;
+    if (marker) marker.setLatLng(event.latlng);
+    else marker = window.L.marker(event.latlng).addTo(map);
+    status.textContent = "Finding this place…";
+
+    const url = new URL("https://photon.komoot.io/reverse");
+    url.search = new URLSearchParams({ lat: String(lat), lon: String(lng) });
+
+    try {
+      const response = await fetch(url, { signal: lookupController.signal });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const result = await response.json();
+      const place = result.features && result.features[0] && formatHomeMapPlace(result.features[0].properties);
+      if (!place) throw new Error("No place name was found for the selected point.");
+
+      target.value = place;
+      target.dispatchEvent(new Event("input", { bubbles: true }));
+      dialog.close();
+      target.focus();
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.warn("[SY] Could not identify the selected homepage map location.", error);
+        status.textContent = "Could not identify that place. Try tapping nearby or enter the address above.";
+      }
+    }
+  }
+}
+
+function formatHomeMapPlace(place) {
+  return [
+    place.name,
+    [place.housenumber, place.street].filter(Boolean).join(" "),
+    place.city || place.town || place.village,
+    place.state
+  ].filter(function (part, index, all) {
+    return part && all.indexOf(part) === index;
+  }).join(", ");
 }
