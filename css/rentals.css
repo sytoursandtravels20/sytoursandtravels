@@ -195,7 +195,8 @@
 }
 
 .rental-grid .sy-card-media img {
-  object-fit: cover;
+  object-fit: contain;
+  padding: .5rem;
 }
 
 .rental-grid .sy-card:hover .sy-card-media img {
@@ -214,6 +215,7 @@
 
 .rental-grid .sy-price-value {
   font-size: .95rem;
+  font-weight: 500;
   line-height: 1.25;
 }
 
