@@ -672,7 +672,7 @@ body[data-page="home"] .sy-toggler:hover {
   flex: 0 0 auto;
   font-size: .75rem;
 }
-#experiencesGrid .activity-card { aspect-ratio: 1.35; }
+#experiencesGrid .activity-card { aspect-ratio: 1.6; }
 
 .water-trip-card {
   display: flex;
@@ -1159,7 +1159,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     scrollbar-width: none;
   }
   body[data-page="home"] #experiencesGrid > .activity-card {
-    flex: 0 0 78%;
+    flex: 0 0 72%;
     scroll-snap-align: start;
   }
   body[data-page="home"] #yachtsGrid {

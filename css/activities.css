@@ -39,18 +39,25 @@
 
 .activity-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 310px));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 270px));
   justify-content: start;
   gap: 1rem;
 }
 
-.activity-grid .activity-card { min-width: 0; }
+.activity-grid .activity-card {
+  min-width: 0;
+  aspect-ratio: 1.6;
+}
 
 @media (max-width: 767.98px) {
   .activities-hero { padding: 3.5rem 0; background-position: 58% center; }
   .activities-title { font-size: 2.35rem; }
   .activities-intro { font-size: .92rem; }
-  .activity-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .activity-grid {
+    grid-template-columns: minmax(0, 380px);
+    justify-content: center;
+    gap: .85rem;
+  }
 
   .section { padding: 2.75rem 0; }
   .cta { padding: 3rem 0; }

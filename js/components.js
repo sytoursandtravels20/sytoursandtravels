@@ -266,7 +266,7 @@ function activityCard(a, index) {
       <img src="${esc(a.image)}" alt="" loading="lazy" decoding="async">
       <span class="activity-card-caption">
         <span class="activity-card-title">${esc(a.name)}</span>
-        ${imageCount > 1 ? `<span class="activity-card-gallery"><i class="bi bi-images" aria-hidden="true"></i> ${imageCount}</span>` : ""}
+        ${imageCount > 1 ? `<span class="activity-card-gallery">${imageCount}</span>` : ""}
       </span>
     </button>`;
 }
@@ -288,7 +288,7 @@ function waterCard(item, index) {
       <span class="water-trip-card-image">
         <img src="${esc(item.image)}" alt="" loading="lazy" decoding="async">
         ${item.badge ? `<span class="sy-badge">${esc(item.badge)}</span>` : ""}
-        ${imageCount > 1 ? `<span class="activity-card-gallery"><i class="bi bi-images" aria-hidden="true"></i> ${imageCount}</span>` : ""}
+        ${imageCount > 1 ? `<span class="activity-card-gallery">${imageCount}</span>` : ""}
       </span>
       <span class="water-trip-card-body">
         <span class="water-trip-card-title">${esc(item.name)}</span>
