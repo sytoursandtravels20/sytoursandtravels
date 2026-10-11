@@ -566,6 +566,44 @@ body[data-page="home"] .sy-toggler:hover {
   white-space: pre-line;
 }
 
+/* Featured rental cards share the uncropped photo and clear price layout. */
+#featuredGrid .sy-card-media {
+  aspect-ratio: 16 / 9;
+  background: #fff;
+}
+#featuredGrid .sy-card-media img {
+  object-fit: contain;
+  padding: .5rem;
+}
+#featuredGrid .sy-price > span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+#featuredGrid .sy-price-value {
+  font-size: .95rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+#featuredGrid .sy-card-foot {
+  align-items: stretch;
+  flex-direction: column;
+  gap: .65rem;
+}
+#featuredGrid .btn-book {
+  width: 100%;
+  border-radius: 7px;
+  text-align: center;
+}
+#featuredGrid a.btn-book {
+  background: var(--sy-yellow);
+  color: var(--sy-navy);
+}
+#featuredGrid a.btn-book:hover {
+  background: #f0c900;
+  color: var(--sy-navy);
+}
+
 .btn-book {
   background: var(--sy-navy);
   color: #fff;
