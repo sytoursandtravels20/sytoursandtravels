@@ -142,3 +142,54 @@ html[data-theme="dark"] .form-select:focus {
 }
 html[data-theme="dark"] .btn-book.is-disabled { background: #344253; color: #a8b6c7; }
 html[data-theme="dark"] .sy-footer { border-top: 1px solid var(--sy-border); }
+
+@media (max-width: 767.98px) {
+  .mobile-nav {
+    display: flex;
+    padding: .3rem 0 env(safe-area-inset-bottom, 0px);
+    background: rgba(255, 255, 255, .97);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+
+  .mobile-nav-item {
+    min-height: 48px;
+    justify-content: center;
+    padding: .3rem .15rem;
+  }
+
+  .mobile-nav-item i { font-size: 1.2rem; }
+
+  .btn-sy,
+  .btn-ghost,
+  .btn-book,
+  .filter-chip,
+  .sy-icon-btn,
+  .sy-toggler,
+  .route-swap,
+  .section-link,
+  .offers-page-back,
+  .blog-read-button,
+  .blog-back-button,
+  .map-pick-button {
+    min-height: 44px;
+  }
+
+  .btn-book {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .field-control input,
+  .field-control select,
+  .filter-search input,
+  .filter-select,
+  .form-control,
+  .form-select,
+  textarea {
+    font-size: 16px;
+  }
+
+  body { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px)); }
+}

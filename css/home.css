@@ -1179,8 +1179,6 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   body[data-page="home"] #how .how-item:not(:last-child)::after { display: none; }
   body[data-page="home"] #how .how-step-number { left: calc(50% - 54px); }
 
-  .mobile-nav { display: flex; }
-  body { padding-bottom: 70px; }
   .cta { padding: 3rem 0; }
   .cta-actions { width: 100%; }
   .cta-actions .btn-sy, .cta-actions .btn-ghost { flex: 1; justify-content: center; }
