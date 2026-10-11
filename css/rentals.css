@@ -190,13 +190,12 @@
 }
 
 .rental-grid .sy-card-media {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   background: #fff;
 }
 
 .rental-grid .sy-card-media img {
-  object-fit: contain;
-  padding: .5rem;
+  object-fit: cover;
 }
 
 .rental-grid .sy-card:hover .sy-card-media img {
@@ -219,11 +218,26 @@
 }
 
 .rental-grid .sy-card-foot {
-  gap: .5rem;
+  align-items: stretch;
+  flex-direction: column;
+  gap: .65rem;
 }
 
 .rental-grid .btn-book {
   flex: 0 0 auto;
+  width: 100%;
+  border-radius: 7px;
+  text-align: center;
+}
+
+.rental-grid a.btn-book {
+  background: var(--sy-yellow);
+  color: var(--sy-navy);
+}
+
+.rental-grid a.btn-book:hover {
+  background: #f0c900;
+  color: var(--sy-navy);
 }
 
 /* ---------- EMPTY STATE ---------- */

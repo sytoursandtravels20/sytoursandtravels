@@ -216,10 +216,13 @@ function vehicleCard(v) {
     : "";
   const passengerSpec = (Number.isInteger(v.passengers) && v.passengers > 0) ||
     (typeof v.passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(v.passengers))
-    ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} ${formatText("passengers")}</li>`
+    ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} ${formatText("seats")}</li>`
     : "";
   const quantitySpec = Number.isInteger(v.quantity) && v.quantity > 1
     ? `<li><i class="bi bi-car-front"></i> ${v.quantity} ${formatText("units")}</li>`
+    : "";
+  const transmissionSpec = transmissionLabel
+    ? `<li><i class="bi bi-gear-fill"></i> <span>${esc(transmissionLabel)}</span></li>`
     : "";
   const vehicleImage = v.image
     ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`
@@ -234,9 +237,9 @@ function vehicleCard(v) {
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(v.name)}</h3>
         <ul class="sy-specs">
-          <li><i class="bi bi-grid"></i> <span>${esc(vehicleCategoryLabel(v.category, v.categoryLabel))}</span></li>
-          ${quantitySpec}
           ${passengerSpec}
+          ${transmissionSpec}
+          ${quantitySpec}
         </ul>
         ${detailsText ? `<details class="sy-card-disclosure"><summary>${formatText("Details")}</summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
