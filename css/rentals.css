@@ -276,7 +276,7 @@
   .page-hero-title { font-size: 1.75rem; }
   .page-hero-sub { font-size: .9rem; margin-top: .75rem; }
 
-  .filter-bar { position: relative; padding: .65rem 0; }
+  .filter-bar { position: relative; z-index: 1; padding: .65rem 0; }
   .filter-bar-inner { gap: .65rem; }
   .filter-chip { padding: .45rem .85rem; }
   .filter-controls {
