@@ -120,6 +120,7 @@
 
 @media (max-width: 1199.98px) {
   .sy-nav .navbar-collapse {
+    max-height: calc(100vh - 6rem);
     max-height: calc(100dvh - 6rem);
     overflow-y: auto;
     overscroll-behavior: contain;
