@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderHowItWorks(LOCAL_DATA.howItWorks);
 
   if (page === "home") {
-    initSearchTabs();
     loadRentalInventory().then(function (vehicles) {
       renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
         return vehicle.featured && (vehicle.type || "car") === "car";
