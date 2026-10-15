@@ -117,7 +117,7 @@ function setBrandLogo(id) {
 // Put company details in the shared header and footer on every page.
 function applySharedConfig() {
   const company = CONFIG.company;
-  setText("brandName", company.name);
+  setText("brandName", company.name.replace(/^SY\s+/, ""));
   setText("brandTag", company.tagline);
   setBrandLogo("brandLogo");
 
