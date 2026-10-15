@@ -17,7 +17,7 @@ const CONFIG = {
   /* ---------- COMPANY: update these details for the header, footer, and booking links ---------- */
   company: {
     name:      "SY Tours & Travels",
-    tagline:   "Rentals · Activities · Yachts · More",
+    tagline:   "Cars · Scooties · Taxi · More",
     phone:     "+91 90219 54978",
     phoneRaw:  "919021954978",   // digits only — used for tel: and wa.me links
     email:     "sytourandtravels20@gmail.com",

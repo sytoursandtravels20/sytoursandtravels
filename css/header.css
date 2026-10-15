@@ -46,16 +46,31 @@
 .sy-brand-logo img { width: 100%; height: 100%; object-fit: cover; }
 
 .sy-brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+.sy-nav .sy-brand-text {
+  position: relative;
+  display: block;
+  height: 42px;
+}
 .sy-brand-name {
   font-weight: 800;
   font-size: 1rem;
   color: #fff;
   letter-spacing: -.2px;
 }
+.sy-nav .sy-brand-name {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .sy-brand-tag {
   font-size: .68rem;
   color: rgba(255, 255, 255, .8);
   letter-spacing: .3px;
+}
+.sy-nav .sy-brand-tag {
+  position: absolute;
+  bottom: 0;
+  white-space: nowrap;
 }
 
 /* --- Nav links --- */
@@ -136,6 +151,7 @@
   .sy-nav-links .nav-link:hover::after { display: none; }
 }
 @media (max-width: 400px) {
+  .sy-nav .sy-brand-text { height: 38px; }
   .sy-brand-name { font-size: .92rem; }
   .sy-brand-tag  { font-size: .62rem; }
   .sy-brand-logo { width: 38px; height: 38px; flex-basis: 38px; font-size: 1.15rem; }
