@@ -124,7 +124,7 @@
 @media (min-width: 1200px) {
   .sy-nav .navbar-collapse { order: 2; }
   .sy-nav-tools { order: 3; }
-  .sy-nav-links { transform: translateX(24px); }
+  .sy-nav-links { margin: 0 .75rem 0 auto !important; }
 }
 
 @media (max-width: 1199.98px) {
