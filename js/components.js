@@ -52,12 +52,14 @@ function markActiveNav() {
   });
 }
 
-/* Sets header contact buttons from the editable company phone number. */
-function setHeaderPhoneLink() {
+/* Sets header contact links from the editable company phone number. */
+function setHeaderContactLinks() {
   const phoneLink = document.getElementById("headerPhone");
   if (phoneLink) phoneLink.href = "tel:+" + CONFIG.company.phoneRaw;
-  const whatsappLink = document.getElementById("headerWhatsApp");
-  if (whatsappLink) whatsappLink.href = "https://wa.me/" + CONFIG.company.phoneRaw;
+  const bookNowLink = document.getElementById("headerBookNow");
+  if (bookNowLink) {
+    bookNowLink.href = waLink("Hi, I'm interested in booking with SY Tours & Travels.");
+  }
 }
 
 function setText(id, value) {

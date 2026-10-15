@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   await componentsReady;
   applyConfig();
   applySharedConfig();
-  setHeaderPhoneLink();
+  setHeaderContactLinks();
   markActiveNav();
   initHeaderShadow();
 });
