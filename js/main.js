@@ -108,9 +108,6 @@ function applyConfig() {
   setText("heroTitle2",  h.titleLine2);
   setText("heroSub",     h.subtitle);
 
-  const heroEl = document.querySelector(".hero");
-  if (heroEl && h.backgroundImage) heroEl.style.setProperty("--hero-img", `url("${h.backgroundImage}")`);
-
   const cta1 = document.getElementById("heroCta1");
   const cta2 = document.getElementById("heroCta2");
   if (cta1) { cta1.textContent = h.ctaPrimary.label;   cta1.href = h.ctaPrimary.href; }

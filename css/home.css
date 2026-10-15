@@ -101,15 +101,8 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: flex-start;
   padding: 9.2rem 0 5rem;
-  color: #fff;
-  background-color: var(--sy-navy);
-  background-image:
-    linear-gradient(90deg, rgba(10,37,64,.82) 0%, rgba(10,37,64,.58) 45%, rgba(10,37,64,.2) 100%),
-    linear-gradient(180deg, rgba(10,37,64,.36) 0%, rgba(10,37,64,.08) 52%, rgba(10,37,64,.44) 100%),
-    var(--hero-img, none);
-  background-size: cover;
-  background-position: center, center, center 56%;
-  background-repeat: no-repeat;
+  color: #111;
+  background: #fff;
 }
 
 .hero-inner { position: relative; z-index: 2; max-width: 1120px; }
@@ -120,7 +113,7 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, .9);
+  color: #111;
   margin-bottom: 1rem;
 }
 
@@ -133,7 +126,7 @@ img { max-width: 100%; display: block; }
 }
 .hero-title br { display: none; }
 .hero-title-accent {
-  color: var(--sy-yellow);
+  color: #111;
   font-family: "Caveat", cursive;
   font-size: 1.08em;
   font-weight: 700;
@@ -144,7 +137,7 @@ img { max-width: 100%; display: block; }
 
 .hero-sub {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
-  color: #dfe9f3;
+  color: #111;
   max-width: 620px;
   margin-top: .8rem;
 }
@@ -158,20 +151,28 @@ body[data-page="home"] .sy-brand-tag,
 body[data-page="home"] .sy-nav-links .nav-link,
 body[data-page="home"] .sy-nav-links .nav-link:hover,
 body[data-page="home"] .sy-nav-links .nav-link.active {
-  color: #fff;
+  color: #111;
 }
 body[data-page="home"] .sy-brand-logo {
-  border: 1px solid rgba(255, 255, 255, .4);
+  border: 1px solid rgba(10, 37, 64, .25);
 }
 body[data-page="home"] .sy-icon-btn,
 body[data-page="home"] .sy-toggler {
-  border-color: rgba(255, 255, 255, .45);
-  background: rgba(255, 255, 255, .12);
-  color: #fff;
+  border-color: rgba(10, 37, 64, .3);
+  background: transparent;
+  color: var(--sy-navy);
 }
 body[data-page="home"] .sy-icon-btn:hover,
 body[data-page="home"] .sy-toggler:hover {
-  background: rgba(255, 255, 255, .22);
+  background: rgba(10, 37, 64, .08);
+}
+body[data-page="home"] .hero-cta .btn-ghost {
+  border-color: var(--sy-navy);
+  color: var(--sy-navy);
+}
+body[data-page="home"] .hero-cta .btn-ghost:hover {
+  background: var(--sy-navy);
+  color: #fff;
 }
 
 /* ---------- 6. SECTIONS & HEADINGS ---------- */
@@ -1006,7 +1007,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
 }
 
 @media (max-width: 767.98px) {
-  .hero { min-height: 560px; padding: 8rem 0 4rem; background-position: center, center, 62% center; }
+  .hero { min-height: 560px; padding: 8rem 0 4rem; }
   .hero-title { font-size: clamp(2.1rem, 9vw, 3.4rem); }
   .hero-sub { max-width: 34rem; font-size: .96rem; }
   .hero-cta .btn-sy, .hero-cta .btn-ghost { flex: 1; justify-content: center; }
