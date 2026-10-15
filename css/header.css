@@ -64,6 +64,7 @@
   letter-spacing: .3px;
   white-space: nowrap;
 }
+.sy-nav .sy-brand-tag { display: none; }
 
 /* --- Nav links --- */
 .sy-nav-links .nav-link {
