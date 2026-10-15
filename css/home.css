@@ -102,7 +102,7 @@ img { max-width: 100%; display: block; }
   align-items: flex-start;
   padding: 9.2rem 0 5rem;
   color: #111;
-  background: #fff;
+  background: #fff url("/assets/images/tropical-beach-hero.webp") center / cover no-repeat;
 }
 
 .hero-inner { position: relative; z-index: 2; max-width: 1120px; }
@@ -971,7 +971,12 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
 }
 
 @media (max-width: 767.98px) {
-  .hero { min-height: 560px; padding: 8rem 0 4rem; }
+  .hero {
+    min-height: 560px;
+    padding: 8rem 0 4rem;
+    background-position: 12% center;
+    background-size: auto 100%;
+  }
   .hero-title { font-size: clamp(2.1rem, 9vw, 3.4rem); }
   .hero-sub { max-width: 34rem; font-size: .96rem; }
   .hero-cta .btn-sy, .hero-cta .btn-ghost { flex: 1; justify-content: center; }
