@@ -31,16 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     );
   }
 
-  renderCategories(LOCAL_DATA.categories);
   if (page === "home") {
-    renderFeatured(visibleVehicles(getCachedCatalog(
-      CONFIG.rentalInventoryCsvUrl,
-      parseRentalInventoryCsv,
-      LOCAL_DATA.vehicles,
-      "rental inventory"
-    )).filter(function (vehicle) {
-      return vehicle.featured && (vehicle.type || "car") === "car";
-    }));
     renderExperiences(getCachedCatalog(
       CONFIG.activitiesCsvUrl,
       parseActivitiesCsv,
@@ -79,11 +70,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderHowItWorks(LOCAL_DATA.howItWorks);
 
   if (page === "home") {
-    loadRentalInventory().then(function (vehicles) {
-      renderFeatured(visibleVehicles(vehicles).filter(function (vehicle) {
-        return vehicle.featured && (vehicle.type || "car") === "car";
-      }));
-    });
     loadActivities().then(renderExperiences);
     loadWaterTrips().then(function (waterTrips) {
       renderYachtsBoatsCruises({ waterTrips: waterTrips });
@@ -146,14 +132,6 @@ function applyConfig() {
 }
 
 /* ---------- Homepage card rendering ---------- */
-function renderCategories(categories) {
-  const el = document.getElementById("categoryGrid");
-  if (el) el.innerHTML = (categories || []).map(categoryCard).join("");
-}
-function renderFeatured(vehicles) {
-  const el = document.getElementById("featuredGrid");
-  if (el) el.innerHTML = (vehicles || []).map(vehicleCard).join("");
-}
 function renderExperiences(activities) {
   const el = document.getElementById("experiencesGrid");
   const items = activities || [];

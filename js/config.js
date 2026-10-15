@@ -46,7 +46,7 @@ const CONFIG = {
     titleLine1:   "Explore Goa",
     titleLine2:   "Your Way",
     subtitle:     "Rent cars and bikes, discover water activities, book yachts, boats, cruises and more — all in one place.",
-    ctaPrimary:   { label: "Explore Rentals", href: "#featured" },
+    ctaPrimary:   { label: "Explore Rentals", href: "/rentals/" },
     ctaSecondary: { label: "View Activities", href: "activities/" }
   },
 
@@ -54,7 +54,7 @@ const CONFIG = {
   cta: {
     title:    "Your Goa adventure starts here.",
     subtitle: "Rides. Waves. Boats. Cruises. All in one place.",
-    button:   { label: "Explore Now", href: "#featured" },
+    button:   { label: "Explore Now", href: "/rentals/" },
     backgroundImage:
       "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1400&q=68"
   }

@@ -122,15 +122,6 @@ function initHeaderShadow() {
   update();
 }
 
-function categoryCard(c) {
-  return `
-    <a class="category-card" href="${esc(c.href || "#")}">
-      <span class="category-img"><img src="${esc(c.image)}" alt="${esc(c.name)}" loading="lazy" decoding="async"></span>
-      <p class="category-name">${esc(c.name)}</p>
-      <p class="category-desc">${esc(c.desc)}</p>
-    </a>`;
-}
-
 function vehicleCard(v) {
   /* Availability state */
   const detailsText = (v.details || v.priceDetails || "").trim();

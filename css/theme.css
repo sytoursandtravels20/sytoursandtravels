@@ -15,7 +15,6 @@ html[data-theme="dark"] {
 
 html[data-theme="dark"] body { background: var(--sy-bg); color: var(--sy-text); }
 html[data-theme="dark"] .search-panel,
-html[data-theme="dark"] .category-card,
 html[data-theme="dark"] .why-item,
 html[data-theme="dark"] .how-item,
 html[data-theme="dark"] .mobile-nav,
@@ -42,7 +41,6 @@ html[data-theme="dark"] .sy-nav-links .nav-link,
 html[data-theme="dark"] .sy-nav-links .nav-link:hover,
 html[data-theme="dark"] .sy-nav-links .nav-link.active,
 html[data-theme="dark"] .section-title,
-html[data-theme="dark"] .category-name,
 html[data-theme="dark"] .sy-card-title,
 html[data-theme="dark"] .sy-price-value,
 html[data-theme="dark"] .catalog-category,

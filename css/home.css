@@ -219,54 +219,65 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   gap: .5rem 1.5rem;
 }
 
-/* ---------- 7. CATEGORY ROW ---------- */
-.category-row {
+/* ---------- 7. HOME SERVICE SHORTCUTS ---------- */
+.home-shortcut-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
-
-.category-card {
-  background: #fff;
-  border: 1px solid var(--sy-border);
-  border-radius: 12px;
-  padding: .65rem;
-  text-align: center;
-  transition: all .25s ease;
+.home-shortcut-card {
+  position: relative;
   display: flex;
+  min-width: 0;
+  min-height: 170px;
   flex-direction: column;
-  align-items: center;
-  gap: .6rem;
-}
-.category-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--sy-shadow);
-  border-color: var(--sy-border);
-}
-.category-card .category-img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--sy-radius-sm);
   overflow: hidden;
-  background: var(--sy-sky);
-  display: block;
+  padding: 1.25rem;
+  border-radius: 20px;
+  color: #111;
+  isolation: isolate;
 }
-.category-card .category-img img {
-  width: 100%; height: 100%; object-fit: cover;
+.home-shortcut-card:nth-child(6n + 1) { background: #e8f3fc; }
+.home-shortcut-card:nth-child(6n + 2) { background: #e9f5ec; }
+.home-shortcut-card:nth-child(6n + 3) { background: #fff8df; }
+.home-shortcut-card:nth-child(6n + 4) { background: #fff0e5; }
+.home-shortcut-card:nth-child(6n + 5) { background: #f0ecfa; }
+.home-shortcut-card:nth-child(6n) { background: #e7f5f5; }
+.home-shortcut-card:hover { color: #111; }
+.home-shortcut-title {
+  position: relative;
+  z-index: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
 }
-.category-card .category-name {
-  font-size: .9rem;
+.home-shortcut-subtitle {
+  position: relative;
+  z-index: 1;
+  max-width: 90%;
+  margin-top: .25rem;
+  color: #59616b;
+  font-size: .78rem;
+  line-height: 1.3;
+}
+.home-shortcut-art {
+  position: absolute;
+  z-index: -1;
+  right: 1rem;
+  bottom: .6rem;
+  font-size: 5rem;
+  line-height: 1;
+  filter: drop-shadow(0 5px 4px rgba(10, 37, 64, .16));
+  transform: rotate(-7deg);
+}
+.home-shortcut-arrow {
+  position: absolute;
+  bottom: .85rem;
+  left: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  color: var(--sy-navy);
-  margin: 0;
+  line-height: 1;
 }
-.category-card .category-desc {
-  font-size: .72rem;
-  color: var(--sy-muted);
-  margin: 0;
-}
-
-.home-shortcut-grid { display: none; }
 
 /* ---------- 8. CARD GRID + HORIZONTAL SCROLL (mobile) ---------- */
 .scroll-row {
@@ -291,17 +302,6 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   .scroll-row::-webkit-scrollbar { display: none; }
   .scroll-row > * { flex: 0 0 78%; scroll-snap-align: start; }
 
-  .category-row {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: .75rem;
-    margin: 0 -1rem;
-    padding: .25rem 1rem .9rem;
-    scrollbar-width: none;
-  }
-  .category-row::-webkit-scrollbar { display: none; }
-  .category-row > * { flex: 0 0 40%; }
 }
 
 /* ---------- 9. GENERIC CARD ---------- */
@@ -466,44 +466,6 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 .sy-card-disclosure p {
   margin: .15rem 0 0;
   white-space: pre-line;
-}
-
-/* Featured rental cards share the uncropped photo and clear price layout. */
-#featuredGrid .sy-card-media {
-  aspect-ratio: 16 / 9;
-  background: #fff;
-}
-#featuredGrid .sy-card-media img {
-  object-fit: contain;
-  padding: .5rem;
-}
-#featuredGrid .sy-price > span:first-child {
-  display: flex;
-  flex-direction: column;
-  gap: .1rem;
-}
-#featuredGrid .sy-price-value {
-  font-size: .95rem;
-  font-weight: 500;
-  line-height: 1.25;
-}
-#featuredGrid .sy-card-foot {
-  align-items: stretch;
-  flex-direction: column;
-  gap: .65rem;
-}
-#featuredGrid .btn-book {
-  width: 100%;
-  border-radius: 7px;
-  text-align: center;
-}
-#featuredGrid a.btn-book {
-  background: var(--sy-yellow);
-  color: var(--sy-navy);
-}
-#featuredGrid a.btn-book:hover {
-  background: #f0c900;
-  color: var(--sy-navy);
 }
 
 .btn-book {
@@ -992,7 +954,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     color: #fff;
   }
 
-  .category-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .home-shortcut-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .why-grid     { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .how-grid     { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
@@ -1015,68 +977,6 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   .hero-cta .btn-sy, .hero-cta .btn-ghost { flex: 1; justify-content: center; }
 
   .section { padding: 3rem 0; }
-
-  body[data-page="home"] #categories { padding: 1.5rem 0 2.5rem; }
-  body[data-page="home"] #categories .section-head,
-  body[data-page="home"] #categories .category-row { display: none; }
-  body[data-page="home"] .home-shortcut-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: .8rem;
-  }
-  .home-shortcut-card {
-    position: relative;
-    display: flex;
-    min-width: 0;
-    min-height: 132px;
-    flex-direction: column;
-    overflow: hidden;
-    padding: 1rem;
-    border-radius: 20px;
-    color: #111;
-    isolation: isolate;
-  }
-  .home-shortcut-card:nth-child(6n + 1) { background: #e8f3fc; }
-  .home-shortcut-card:nth-child(6n + 2) { background: #e9f5ec; }
-  .home-shortcut-card:nth-child(6n + 3) { background: #fff8df; }
-  .home-shortcut-card:nth-child(6n + 4) { background: #fff0e5; }
-  .home-shortcut-card:nth-child(6n + 5) { background: #f0ecfa; }
-  .home-shortcut-card:nth-child(6n) { background: #e7f5f5; }
-  .home-shortcut-card:hover { color: #111; }
-  .home-shortcut-title {
-    position: relative;
-    z-index: 1;
-    font-size: .95rem;
-    font-weight: 700;
-    line-height: 1.25;
-  }
-  .home-shortcut-subtitle {
-    position: relative;
-    z-index: 1;
-    max-width: 90%;
-    margin-top: .25rem;
-    color: #59616b;
-    font-size: .73rem;
-    line-height: 1.3;
-  }
-  .home-shortcut-art {
-    position: absolute;
-    z-index: -1;
-    right: .65rem;
-    bottom: .4rem;
-    font-size: 4rem;
-    line-height: 1;
-    filter: drop-shadow(0 5px 4px rgba(10, 37, 64, .16));
-    transform: rotate(-7deg);
-  }
-  .home-shortcut-arrow {
-    position: absolute;
-    bottom: .7rem;
-    left: 1rem;
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1;
-  }
 
   .why-grid, .how-grid { grid-template-columns: minmax(0, 1fr); }
   body[data-page="home"] #why .why-grid,
