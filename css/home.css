@@ -161,11 +161,11 @@ img { max-width: 100%; display: block; }
 }
 
 .search-panel {
-  background: #fff;
-  border: 1px solid rgba(10, 37, 64, .06);
-  border-radius: 18px;
-  box-shadow: 0 16px 38px rgba(10, 37, 64, .18);
-  padding: 1rem 1.15rem 1.15rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
   min-width: 0;
 }
 
@@ -1168,7 +1168,6 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   .search-wrapper { margin-top: -90px; }
 
   .section { padding: 3rem 0; }
-  .search-panel { padding: .8rem; border-radius: 14px; }
   .search-tabs { margin-bottom: .8rem; }
   .search-tab { padding: .5rem .7rem; font-size: .82rem; }
   .search-fields { grid-template-columns: minmax(0, 1fr); }
