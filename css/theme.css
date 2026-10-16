@@ -69,11 +69,17 @@ html[data-theme="dark"] .empty-state h3 {
 html[data-theme="dark"] .sy-icon-btn,
 html[data-theme="dark"] .sy-toggler {
   background: transparent;
-  border-color: rgba(255, 255, 255, .55);
-  color: #fff;
+  border-color: rgba(10, 37, 64, .3);
+  color: #0a2540;
 }
 
-html[data-theme="dark"] .sy-icon-btn:hover { background: rgba(255, 255, 255, .12); border-color: #fff; }
+html[data-theme="dark"] #syNav .sy-brand-name,
+html[data-theme="dark"] #syNav .sy-nav-links .nav-link,
+html[data-theme="dark"] #syNav .sy-nav-links .nav-link:hover,
+html[data-theme="dark"] #syNav .sy-nav-links .nav-link.active {
+  color: #0a2540;
+}
+html[data-theme="dark"] .sy-icon-btn:hover { background: rgba(10, 37, 64, .08); border-color: #0a2540; }
 html[data-theme="dark"] .search-tab:hover { color: var(--sy-text); background: var(--sy-sky); }
 html[data-theme="dark"] .section-link:hover,
 html[data-theme="dark"] .map-pick-button:hover { color: var(--sy-text); }
