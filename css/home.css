@@ -987,9 +987,11 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   .hero {
     min-height: 560px;
     padding: 8rem 0 4rem;
-    background-image: url("/assets/images/minimalist-tropical-beach-mobile.webp");
-    background-position: 65% center;
-    background-size: cover;
+    background-image:
+      linear-gradient(90deg, rgba(255, 255, 255, .96) 0%, rgba(255, 255, 255, .84) 42%, rgba(255, 255, 255, .26) 74%, rgba(255, 255, 255, 0) 100%),
+      url("/assets/images/minimalist-tropical-beach-mobile.webp");
+    background-position: left center, 65% center;
+    background-size: 100% 100%, cover;
   }
   .hero-title { font-size: clamp(2.1rem, 9vw, 3.4rem); }
   .hero-sub { max-width: 34rem; font-size: .96rem; }
