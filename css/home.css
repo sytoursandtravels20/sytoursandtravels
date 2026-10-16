@@ -959,9 +959,9 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     min-height: 0;
     margin-top: 64px;
     padding: 0;
-    height: calc(100vh - 64px);
-    height: calc(100dvh - 64px);
-    background: #fff url("/assets/images/explore-goa-desktop-hero.webp") center / 100% 100% no-repeat;
+    height: min(62.95vw, calc(100vh - 64px));
+    height: min(62.95vw, calc(100dvh - 64px));
+    background: #fff url("/assets/images/explore-goa-desktop-hero.webp") center / contain no-repeat;
   }
   .hero-inner { display: none; }
 }
