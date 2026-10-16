@@ -195,6 +195,15 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   color: var(--sy-navy);
   margin: 0;
 }
+#categories .section-title::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3px;
+  margin-top: .35rem;
+  border-radius: 2px;
+  background: var(--sy-yellow);
+}
 .section-sub {
   color: var(--sy-muted);
   font-size: .95rem;
