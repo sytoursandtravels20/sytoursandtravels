@@ -954,10 +954,6 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
 .mobile-nav-item:hover { color: var(--sy-navy); }
 
 /* ---------- 15. RESPONSIVE ---------- */
-@media (min-width: 992px) {
-  .hero-inner { margin-left: -7.5rem; }
-}
-
 @media (max-width: 991.98px) {
   .hero { min-height: 630px; padding-top: 8.5rem; }
   body[data-page="home"] .navbar-collapse {
