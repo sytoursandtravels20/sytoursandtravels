@@ -105,7 +105,7 @@ img { max-width: 100%; display: block; }
   background: #fff url("/assets/images/tropical-beach-hero.webp") center / cover no-repeat;
 }
 
-.hero-inner { position: relative; z-index: 2; max-width: 1120px; }
+.hero-inner { position: relative; z-index: 2; }
 
 .hero-eyebrow {
   display: inline-block;
