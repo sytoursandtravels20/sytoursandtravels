@@ -1000,8 +1000,8 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     min-height: 0;
     margin-top: 64px;
     padding: 0;
-    aspect-ratio: 1254 / 1086;
-    background: #fff url("/assets/images/explore-goa-mobile-hero.webp") center / 100% 100% no-repeat;
+    aspect-ratio: 1347 / 1012;
+    background: #fff url("/assets/images/explore-goa-mobile-hero-v2.webp") center / 100% 100% no-repeat;
   }
   .hero-inner { display: none; }
   .hero-cta .btn-sy, .hero-cta .btn-ghost { flex: 1; justify-content: center; }
