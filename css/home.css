@@ -1007,6 +1007,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   .hero-cta .btn-sy, .hero-cta .btn-ghost { flex: 1; justify-content: center; }
 
   .section { padding: 3rem 0; }
+  #categories { padding-top: 1rem; }
 
   .why-grid, .how-grid { grid-template-columns: minmax(0, 1fr); }
   body[data-page="home"] #why .why-grid,
