@@ -306,8 +306,8 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: .9rem;
-    margin: 0 -1rem;
-    padding: .25rem 1rem .9rem;
+    margin: 0 -.75rem;
+    padding: .25rem .75rem .9rem;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -954,6 +954,10 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
 .mobile-nav-item:hover { color: var(--sy-navy); }
 
 /* ---------- 15. RESPONSIVE ---------- */
+@media (min-width: 992px) {
+  .hero-inner { margin-left: -7.5rem; }
+}
+
 @media (max-width: 991.98px) {
   .hero { min-height: 630px; padding-top: 8.5rem; }
   body[data-page="home"] .navbar-collapse {
@@ -993,6 +997,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     background-position: left center, 65% center;
     background-size: 100% 100%, cover;
   }
+  .hero-inner { text-align: center; }
   .hero-title { font-size: clamp(2.1rem, 9vw, 3.4rem); }
   .hero-sub { max-width: 34rem; font-size: .96rem; }
   .hero-cta .btn-sy, .hero-cta .btn-ghost { flex: 1; justify-content: center; }
@@ -1006,8 +1011,8 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    margin: 0 -1rem;
-    padding: .25rem 1rem .9rem;
+    margin: 0 -.75rem;
+    padding: .25rem .75rem .9rem;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -1020,8 +1025,8 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    margin: 0 -1rem;
-    padding: .25rem 1rem .9rem;
+    margin: 0 -.75rem;
+    padding: .25rem .75rem .9rem;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
