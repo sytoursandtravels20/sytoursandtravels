@@ -954,6 +954,17 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
 .mobile-nav-item:hover { color: var(--sy-navy); }
 
 /* ---------- 15. RESPONSIVE ---------- */
+@media (min-width: 992px) {
+  .hero {
+    min-height: 0;
+    margin-top: 64px;
+    padding: 0;
+    aspect-ratio: 1568 / 1003;
+    background: #fff url("/assets/images/explore-goa-desktop-hero.webp") center top / 100% 100% no-repeat;
+  }
+  .hero-inner { display: none; }
+}
+
 @media (max-width: 991.98px) {
   .hero { min-height: 630px; padding-top: 8.5rem; }
   body[data-page="home"] .navbar-collapse {
