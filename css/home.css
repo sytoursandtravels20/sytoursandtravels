@@ -249,6 +249,7 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 /* ---------- 6. SECTIONS & HEADINGS ---------- */
 .section { padding: 4.5rem 0; }
 .section-alt { background: #fff; }
+#categories { padding-top: 1.5rem; }
 
 .section-head {
   display: flex;
@@ -278,6 +279,7 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 #categories .section-title {
   display: inline-block;
   max-width: 100%;
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
 }
 .section-sub {
   color: var(--sy-muted);
