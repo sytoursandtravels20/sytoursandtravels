@@ -1050,14 +1050,14 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   }
   .hero-actions {
     position: absolute;
-    top: 27.1vw;
+    top: 29.2vw;
     left: 50%;
     width: min(100% - 3rem, 1440px);
     transform: translateX(-50%);
   }
   .hero-benefits {
     width: min(100% - 3rem, 1440px);
-    margin: 0 auto;
+    margin: 1.5rem auto 0;
   }
 }
 
@@ -1074,13 +1074,13 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     margin-left: auto;
   }
   .hero-actions {
-    margin: 1rem auto 0;
+    margin: 2rem auto 0;
   }
   .hero-benefits {
     position: static;
     display: flex;
     width: min(100% - 3rem, 720px);
-    margin: 1.5rem auto -1.5rem;
+    margin: 2.5rem auto -1.5rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
@@ -1137,14 +1137,14 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   }
   .hero-actions {
     width: calc(100% - 1.5rem);
-    margin: 75.13vw auto 0;
+    margin: 78.5vw auto 0;
   }
   .hero-actions > a { flex: 1; justify-content: center; }
   .hero-benefits {
     position: static;
     display: flex;
     width: calc(100% - 1.5rem);
-    margin: 1rem auto 0;
+    margin: 2rem auto 0;
     padding: .45rem .25rem;
     transform: none;
     overflow-x: auto;
