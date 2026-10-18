@@ -96,8 +96,14 @@ function applyConfig() {
 
   const cta1 = document.getElementById("heroCta1");
   const cta2 = document.getElementById("heroCta2");
-  if (cta1) { cta1.textContent = h.ctaPrimary.label;   cta1.href = h.ctaPrimary.href; }
-  if (cta2) { cta2.textContent = h.ctaSecondary.label; cta2.href = h.ctaSecondary.href; }
+  if (cta1) {
+    cta1.querySelector("span").textContent = h.ctaPrimary.label;
+    cta1.href = h.ctaPrimary.href;
+  }
+  if (cta2) {
+    cta2.querySelector("span").textContent = h.ctaSecondary.label;
+    cta2.href = waLink("Hi " + C.name + ", I'd like to enquire about your rentals and activities. Please share details.");
+  }
 
   const c = CONFIG.cta;
   setText("ctaTitle", c.title);
