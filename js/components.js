@@ -477,13 +477,16 @@ function catalogCacheKey(url) {
 function parseRentalInventoryCsv(csv) {
   const rows = parseCsvRows(csv);
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
-  const hasTransmissionRows = headers.includes("transmission") && headers.includes("price");
+  const transmissionPriceColumn = headers.includes("price")
+    ? headers.indexOf("price")
+    : headers.indexOf("automaticprice");
+  const hasTransmissionRows = headers.includes("transmission") && transmissionPriceColumn >= 0;
   const requiredHeaders = hasTransmissionRows
-    ? ["name", "category", "transmission", "price", "passengers", "status"]
+    ? ["name", "category", "transmission", "passengers", "status"]
     : ["name", "category", "manualprice", "automaticprice", "passengers", "status"];
   const columnIndexes = csvColumnIndexes(rows, requiredHeaders, "rental inventory");
   if (hasTransmissionRows) {
-    columnIndexes.price = headers.indexOf("price");
+    columnIndexes.price = transmissionPriceColumn;
     columnIndexes.transmission = headers.indexOf("transmission");
   }
   columnIndexes.type = headers.indexOf("type");
