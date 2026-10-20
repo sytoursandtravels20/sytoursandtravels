@@ -1073,7 +1073,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     margin-top: 64px;
     height: auto;
     padding: 33.41vw 0 0;
-    background: #fff url("/assets/images/explore-goa-desktop-banner.webp") top center / 100% auto no-repeat;
+    background: var(--sy-bg) url("/assets/images/explore-goa-desktop-banner.webp") top center / 100% auto no-repeat;
   }
   .hero-inner {
     position: absolute;
