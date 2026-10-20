@@ -36,11 +36,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   initFilters();
   initRentalBooking();
   renderListings();
-  loadRentalInventory().then(function (vehicles) {
-    allVehicles = prepareRentalCards(visibleVehicles(vehicles));
-    renderVehicleFilters();
-    renderListings();
-  });
+  function refreshRentalInventory() {
+    return loadRentalInventory().then(function (vehicles) {
+      allVehicles = prepareRentalCards(visibleVehicles(vehicles));
+      renderVehicleFilters();
+      renderListings();
+    });
+  }
+  refreshRentalInventory();
+  watchCatalogUpdates(refreshRentalInventory, 60000);
   await componentsReady;
   applyConfig();
   applySharedConfig();

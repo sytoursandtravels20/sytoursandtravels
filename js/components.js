@@ -346,6 +346,24 @@ async function loadCatalogCsv(url, parse, fallback, label) {
   }
 }
 
+function watchCatalogUpdates(refresh, intervalMs) {
+  const minimumRefreshGap = 15000;
+  const interval = intervalMs || 60000;
+  let lastRefresh = Date.now();
+
+  function refreshIfDue() {
+    if (document.visibilityState === "hidden" || Date.now() - lastRefresh < minimumRefreshGap) return;
+    lastRefresh = Date.now();
+    Promise.resolve(refresh()).catch(function (error) {
+      console.error("[SY] Could not refresh Google Sheets data.", error);
+    });
+  }
+
+  window.addEventListener("focus", refreshIfDue);
+  document.addEventListener("visibilitychange", refreshIfDue);
+  window.setInterval(refreshIfDue, interval);
+}
+
 // Render cached CSV data immediately; the network request refreshes it separately.
 function getCachedCatalog(url, parse, fallback, label) {
   if (!url) return fallback;

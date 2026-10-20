@@ -75,6 +75,33 @@ document.addEventListener("DOMContentLoaded", async function () {
       renderYachtsBoatsCruises({ waterTrips: waterTrips });
     });
   }
+  watchCatalogUpdates(function () {
+    if (page === "home" || page === "activities") {
+      loadActivities().then(renderExperiences);
+    }
+    if (page === "home" || page === "yachts") {
+      loadWaterTrips().then(function (waterTrips) {
+        renderYachtsBoatsCruises({ waterTrips: waterTrips });
+      });
+    }
+    if (page === "offers") {
+      loadOffers().then(renderOfferListings);
+    }
+    if (page === "privacy") {
+      loadLegalPolicy(
+        CONFIG.privacyPolicyCsvUrl,
+        document.getElementById("privacyPolicyContent"),
+        document.getElementById("privacyPolicyUpdated")
+      );
+    }
+    if (page === "terms") {
+      loadLegalPolicy(
+        CONFIG.termsCsvUrl,
+        document.getElementById("termsContent"),
+        document.getElementById("termsUpdated")
+      );
+    }
+  }, 60000);
 
   await componentsReady;
   applyConfig();
