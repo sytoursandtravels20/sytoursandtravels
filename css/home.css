@@ -1072,7 +1072,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     min-height: 0;
     margin-top: 64px;
     height: auto;
-    padding: 33.41vw 0 1rem;
+    padding: 33.41vw 0 0;
     background: #fff url("/assets/images/explore-goa-desktop-banner.webp") top center / 100% auto no-repeat;
   }
   .hero-inner {
@@ -1103,6 +1103,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   .hero-benefit + .hero-benefit { border-left: 0; }
   .hero-benefit { background: transparent; }
   .hero-benefits {
+    margin-top: 0;
     padding: .55rem;
     border: 1px solid rgba(10, 37, 64, .1);
     border-bottom: 4px solid #d5e0ec;
