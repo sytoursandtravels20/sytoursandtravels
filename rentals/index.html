@@ -105,6 +105,44 @@
             </div>
         </section>
 
+        <dialog class="rental-booking-dialog" id="rentalBookingDialog" aria-labelledby="rentalBookingTitle">
+            <form class="rental-booking-form" id="rentalBookingForm">
+                <div class="rental-booking-heading">
+                    <div>
+                        <p class="rental-booking-eyebrow">RENTAL ENQUIRY</p>
+                        <h2 id="rentalBookingTitle">Book your car</h2>
+                        <p class="rental-booking-vehicle" id="rentalBookingVehicle"></p>
+                    </div>
+                    <button class="rental-booking-close" type="button" data-close-rental-dialog aria-label="Close booking form">
+                        <i class="bi bi-x-lg" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <label class="rental-booking-field" for="rentalBookingTransmission">
+                    <span>Transmission</span>
+                    <select id="rentalBookingTransmission" name="transmission" required></select>
+                </label>
+                <label class="rental-booking-field" for="rentalPickupLocation">
+                    <span>Pickup location</span>
+                    <input id="rentalPickupLocation" name="location" type="text" placeholder="e.g. Goa Airport, Panjim" autocomplete="street-address" required />
+                </label>
+                <div class="rental-booking-row">
+                    <label class="rental-booking-field" for="rentalPickupDate">
+                        <span>Pickup date</span>
+                        <input id="rentalPickupDate" name="date" type="date" required />
+                    </label>
+                    <label class="rental-booking-field" for="rentalPickupTime">
+                        <span>Pickup time</span>
+                        <input id="rentalPickupTime" name="time" type="time" required />
+                    </label>
+                </div>
+                <button class="btn-sy rental-booking-submit" type="submit">
+                    Continue to WhatsApp <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                </button>
+                <p class="rental-booking-note">We’ll confirm availability and your booking details on WhatsApp.</p>
+            </form>
+        </dialog>
+
         <!-- WHY RENT WITH US -->
         <section class="section section-alt" id="why">
             <div class="container">

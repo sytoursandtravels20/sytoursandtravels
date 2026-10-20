@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderWhyBook(LOCAL_DATA.whyBook);
   renderVehicleFilters();
   initFilters();
+  initRentalBooking();
   renderListings();
   loadRentalInventory().then(function (vehicles) {
     allVehicles = filterPageVehicles(visibleVehicles(vehicles));
@@ -193,13 +194,99 @@ function renderListings() {
   }
 
   if (empty) empty.hidden = true;
-  grid.innerHTML = list.map(vehicleCard).join("");
+  grid.innerHTML = list.map(function (vehicle) {
+    return vehicleCard(vehicle, allVehicles.indexOf(vehicle));
+  }).join("");
   if (count) {
     count.textContent = formatText("Showing {shown} of {total} vehicles", {
       shown: String(list.length),
       total: String(allVehicles.length)
     });
   }
+}
+
+function initRentalBooking() {
+  const grid = document.getElementById("rentalGrid");
+  const dialog = document.getElementById("rentalBookingDialog");
+  const form = document.getElementById("rentalBookingForm");
+  const transmissionSelect = document.getElementById("rentalBookingTransmission");
+  const dateInput = document.getElementById("rentalPickupDate");
+  if (!grid || !dialog || !form || !transmissionSelect || !dateInput) return;
+
+  const today = new Date();
+  const localToday = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0")
+  ].join("-");
+  dateInput.min = localToday;
+
+  grid.addEventListener("click", function (event) {
+    const button = event.target instanceof Element
+      ? event.target.closest("[data-rental-book]")
+      : null;
+    if (!button || !grid.contains(button)) return;
+
+    const vehicle = allVehicles[Number(button.dataset.rentalBook)];
+    if (!vehicle || vehicle.status === "booked") return;
+
+    const rates = vehicle.rates && vehicle.rates.length
+      ? vehicle.rates
+      : (typeof vehicle.price === "number" ? [{ transmission: vehicle.transmission || "Standard", price: vehicle.price }] : []);
+    if (!rates.length) {
+      console.error("[SY] Cannot start rental booking: no price is available for " + vehicle.name + ".");
+      return;
+    }
+
+    document.getElementById("rentalBookingVehicle").textContent = vehicle.name;
+    form.reset();
+    transmissionSelect.innerHTML = rates.map(function (rate, index) {
+      return `<option value="${index}">${esc(rate.transmission || "Standard")} — ₹${fmtPrice(rate.price)} / day</option>`;
+    }).join("");
+    form.dataset.vehicleIndex = String(allVehicles.indexOf(vehicle));
+    dateInput.min = localToday;
+    dialog.showModal();
+  });
+
+  dialog.addEventListener("click", function (event) {
+    if (event.target instanceof Element && event.target.closest("[data-close-rental-dialog]")) {
+      dialog.close();
+    }
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const vehicle = allVehicles[Number(form.dataset.vehicleIndex)];
+    const rates = vehicle && vehicle.rates && vehicle.rates.length
+      ? vehicle.rates
+      : (vehicle && typeof vehicle.price === "number" ? [{ transmission: vehicle.transmission || "Standard", price: vehicle.price }] : []);
+    const rate = rates[Number(transmissionSelect.value)];
+    if (!vehicle || !rate) {
+      console.error("[SY] Cannot submit rental enquiry: vehicle or selected rate is no longer available.");
+      return;
+    }
+
+    const formData = new FormData(form);
+    const message = [
+      "Hi " + CONFIG.company.name + ", I'd like to book " + vehicle.name + ".",
+      "Transmission: " + (rate.transmission || "Standard"),
+      "Price: ₹" + fmtPrice(rate.price) + " per day",
+      "Pickup location: " + String(formData.get("location")).trim(),
+      "Pickup date: " + String(formData.get("date")),
+      "Pickup time: " + String(formData.get("time")),
+      "Please confirm availability and booking details. Thank you."
+    ].join("\n");
+
+    const bookingWindow = window.open(waLink(message), "_blank");
+    if (bookingWindow) {
+      bookingWindow.opener = null;
+    } else {
+      window.location.assign(waLink(message));
+    }
+    dialog.close();
+  });
 }
 
 function applyFilters(items, filters) {

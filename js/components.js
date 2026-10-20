@@ -122,7 +122,7 @@ function initHeaderShadow() {
   update();
 }
 
-function vehicleCard(v) {
+function vehicleCard(v, rentalIndex) {
   /* Availability state */
   const detailsText = (v.details || v.priceDetails || "").trim();
   const isBooked = v.status === "booked";
@@ -132,9 +132,9 @@ function vehicleCard(v) {
     : (typeof v.price === "number" ? [{ transmission: v.transmission, price: v.price }] : []);
   const rateLabels = rates.length
     ? rates.map(function (rate) {
-      return `<span class="sy-price-value">\u20B9${fmtPrice(rate.price)}${rate.transmission ? " " + esc(rate.transmission) : ""}</span>`;
+      return `<span class="sy-price-rate"><span>${esc(rate.transmission || "Rate")}</span><strong class="sy-price-value">\u20B9${fmtPrice(rate.price)}</strong></span>`;
     }).join("")
-    : `<span class="sy-price-value">${formatText("Price on request")}</span>`;
+    : `<span class="sy-price-rate"><strong class="sy-price-value">${formatText("Price on request")}</strong></span>`;
   const hasSampleRate = rates.some(function (rate) { return rate.sample; });
   const transmissionLabel = rates.length
     ? rates.map(function (rate) { return rate.transmission; }).filter(Boolean).join(" / ")
@@ -160,7 +160,9 @@ function vehicleCard(v) {
   /* Footer action: WhatsApp button if available, disabled pill if booked */
   const action = isBooked
     ? `<span class="btn-book is-disabled" aria-disabled="true">${formatText("Unavailable")}</span>`
-    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Book Now")}</a>`;
+    : Number.isInteger(rentalIndex)
+      ? `<button class="btn-book" type="button" data-rental-book="${rentalIndex}">${formatText("Book Now")}</button>`
+      : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Book Now")}</a>`;
 
   /* Optional "available from" hint under the price */
   const hint = isBooked && v.bookedUntil
