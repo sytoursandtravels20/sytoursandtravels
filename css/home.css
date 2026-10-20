@@ -1100,17 +1100,22 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     padding: .5rem 1rem;
     font-size: .82rem;
   }
-  .hero-benefit {
-    border-radius: 12px;
-    background: transparent;
-    transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  .hero-benefit + .hero-benefit { border-left: 0; }
+  .hero-benefit { background: transparent; }
+  .hero-benefits {
+    padding: .55rem;
+    border: 1px solid rgba(10, 37, 64, .1);
+    border-bottom: 4px solid #d5e0ec;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #fff, #f2f6fb);
+    box-shadow: 0 8px 18px rgba(10, 37, 64, .1), 0 2px 4px rgba(10, 37, 64, .05);
+    transition: box-shadow .2s ease, transform .2s ease;
   }
 }
 
 @media (min-width: 992px) and (hover: hover) and (pointer: fine) {
-  .hero-benefit:hover {
-    background: #fff;
-    box-shadow: 0 6px 18px rgba(10, 37, 64, .08);
+  .hero-benefits:hover {
+    box-shadow: 0 14px 26px rgba(10, 37, 64, .14), 0 3px 6px rgba(10, 37, 64, .06);
     transform: translateY(-2px);
   }
 }
