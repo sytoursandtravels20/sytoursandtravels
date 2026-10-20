@@ -328,10 +328,43 @@
   border-color: var(--sy-blue);
   outline: 3px solid rgba(30, 111, 217, .14);
 }
+.rental-map-toggle {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: .4rem;
+  padding: .25rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--sy-blue);
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.rental-map-toggle:hover { color: var(--sy-navy); }
+.rental-pickup-map {
+  height: 250px;
+  overflow: hidden;
+  border: 1px solid var(--sy-border);
+  border-radius: 10px;
+  background: var(--sy-sky);
+}
+.rental-pickup-map-status {
+  min-height: 1.1em;
+  margin: .3rem 0 0;
+  color: var(--sy-muted);
+  font-size: .75rem;
+}
 .rental-booking-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
 .rental-booking-submit { width: 100%; justify-content: center; }
 .rental-booking-note { margin: -.5rem 0 0; color: var(--sy-muted); font-size: .72rem; text-align: center; }
 html[data-theme="dark"] .rental-booking-heading h2 { color: var(--sy-text); }
+
+@media (max-width: 420px) {
+  .rental-booking-form { gap: .8rem; padding: 1rem; }
+  .rental-booking-row { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ---------- EMPTY STATE ---------- */
 .empty-state {
