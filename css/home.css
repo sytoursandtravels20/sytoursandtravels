@@ -421,7 +421,7 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   background: var(--sy-card);
   border: 1px solid var(--sy-border);
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
@@ -436,6 +436,7 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
+  border-radius: 11px 11px 0 0;
   background: var(--sy-sky);
 }
 .sy-card-media img {
@@ -541,44 +542,54 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 }
 .sy-price-unit { font-size: .72rem; color: var(--sy-muted); }
 .sy-card-disclosure {
-  margin: 0 0 .75rem;
+  position: relative;
+  z-index: 2;
+  align-self: flex-end;
+  margin: -.5rem 0 .25rem;
   color: var(--sy-muted);
   font-size: .78rem;
   line-height: 1.5;
 }
 .sy-card-disclosure summary {
-  width: fit-content;
-  min-height: 36px;
-  display: flex;
-  align-items: center;
-  gap: .45rem;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
   color: var(--sy-blue);
-  font-weight: 600;
+  font-size: 1.15rem;
   cursor: pointer;
   list-style: none;
 }
+.sy-card-disclosure summary:hover,
+.sy-card-disclosure[open] summary {
+  background: var(--sy-sky);
+  color: var(--sy-blue);
+}
 .sy-card-disclosure summary::-webkit-details-marker { display: none; }
-.sy-card-disclosure summary::after {
-  width: .45rem;
-  height: .45rem;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  content: "";
-  transform: translateY(-.12rem) rotate(45deg);
-  transition: transform .2s ease;
-}
-.sy-card-disclosure[open] summary::after {
-  transform: translateY(.12rem) rotate(225deg);
-}
 .sy-card-disclosure summary:focus-visible {
   outline: 2px solid var(--sy-blue);
   outline-offset: 3px;
   border-radius: 3px;
 }
 .sy-card-disclosure p {
-  margin: .15rem 0 0;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + .4rem);
+  z-index: 5;
+  width: min(280px, calc(100vw - 3rem));
+  max-height: min(240px, 45vh);
+  overflow: auto;
+  margin: 0;
+  padding: .8rem .9rem;
+  border: 1px solid var(--sy-border);
+  border-radius: 10px;
+  background: var(--sy-card);
+  color: var(--sy-text);
+  box-shadow: var(--sy-shadow-lg);
   white-space: pre-line;
 }
+.sy-card:has(.sy-card-disclosure[open]) { position: relative; z-index: 4; }
 
 .btn-book {
   background: var(--sy-navy);

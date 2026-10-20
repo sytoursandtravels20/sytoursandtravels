@@ -265,6 +265,8 @@ function initRentalBooking() {
     document.getElementById("rentalBookingVehicle").textContent =
       vehicle.name + " · " + (rate.transmission || vehicle.transmission || "Standard") +
       " · ₹" + fmtPrice(rate.price) + " / day";
+    document.getElementById("rentalBookingTitle").textContent =
+      rentalPageType === "two-wheeler" ? "Book your bike or scooter" : "Book your car";
     form.reset();
     form.dataset.vehicleIndex = String(allVehicles.indexOf(vehicle));
     dateInput.min = localToday;

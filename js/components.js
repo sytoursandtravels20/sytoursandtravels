@@ -195,7 +195,7 @@ function vehicleCard(v, rentalIndex) {
           ${transmissionSpec}
           ${quantitySpec}
         </ul>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary>${formatText("Details")}</summary><p>${esc(detailsText)}</p></details>` : ""}
+        ${detailsText ? `<details class="sy-card-disclosure"><summary aria-label="${esc(formatText("Vehicle information"))}"><i class="bi bi-info-circle" aria-hidden="true"></i><span class="visually-hidden">${esc(formatText("Vehicle information"))}</span></summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             <span>${rateLabels}</span>
