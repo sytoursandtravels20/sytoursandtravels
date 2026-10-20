@@ -135,16 +135,10 @@ img { max-width: 100%; display: block; }
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: center;
-  z-index: 3;
-  margin-bottom: 0;
-  padding: .55rem .75rem;
+  width: min(100% - 3rem, 1440px);
+  margin: .75rem auto 0;
+  padding: .35rem 0;
   list-style: none;
-  border: 1px solid rgba(10, 37, 64, .08);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, .88);
-  box-shadow: 0 8px 24px rgba(10, 37, 64, .1);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
 }
 .hero-benefit {
   display: flex;
@@ -1052,14 +1046,16 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   }
   .hero-actions {
     position: absolute;
-    top: 29.2vw;
+    top: 30.2vw;
     left: 50%;
     width: min(100% - 3rem, 1440px);
     transform: translateX(-50%);
   }
-  .hero-benefits {
-    width: min(100% - 3rem, 1440px);
-    margin: 1.5rem auto 0;
+  .hero-actions .btn-sy,
+  .hero-actions .btn-ghost {
+    min-height: 40px;
+    padding: .5rem 1rem;
+    font-size: .82rem;
   }
 }
 
@@ -1079,18 +1075,15 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     margin: 2rem auto 0;
   }
   .hero-benefits {
-    position: static;
-    display: flex;
     width: min(100% - 3rem, 720px);
-    margin: 2.5rem auto -1.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1rem;
   }
   .hero-benefit {
-    flex: 0 0 220px;
     justify-content: flex-start;
   }
+  .hero-benefit:nth-child(odd) { border-left: 0; }
+  .hero-benefit:nth-child(n + 3) { border-top: 1px solid rgba(10, 37, 64, .14); }
   body[data-page="home"] .navbar-collapse {
     margin-top: .65rem;
     padding: .7rem 1rem;
@@ -1143,22 +1136,14 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   }
   .hero-actions > a { flex: 1; justify-content: center; }
   .hero-benefits {
-    position: static;
-    display: flex;
     width: calc(100% - 1.5rem);
-    margin: 2rem auto 0;
-    padding: .45rem .25rem;
-    transform: none;
-    overflow-x: auto;
+    margin-top: .75rem;
   }
   .hero-benefit {
     justify-content: flex-start;
     gap: .4rem;
-    flex: 0 0 240px;
-    padding: .35rem;
-    scroll-snap-align: start;
+    padding: .45rem .35rem;
   }
-  .hero-benefit + .hero-benefit { border-left: 1px solid rgba(10, 37, 64, .14); }
   .hero-benefit-icon { flex-basis: 28px; width: 28px; height: 28px; }
   .hero-benefit strong { font-size: .67rem; }
   .hero-benefit small { font-size: .58rem; }
