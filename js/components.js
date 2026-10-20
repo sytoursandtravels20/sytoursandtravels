@@ -458,12 +458,16 @@ function catalogCacheKey(url) {
 // Convert each spreadsheet row into the vehicle shape used by rental cards and filters.
 function parseRentalInventoryCsv(csv) {
   const rows = parseCsvRows(csv);
-  const columnIndexes = csvColumnIndexes(
-    rows,
-    ["name", "category", "manualprice", "automaticprice", "passengers", "status"],
-    "rental inventory"
-  );
   const headers = rows[0].map(function (header) { return header.trim().toLowerCase(); });
+  const hasTransmissionRows = headers.includes("transmission") && headers.includes("price");
+  const requiredHeaders = hasTransmissionRows
+    ? ["name", "category", "transmission", "price", "passengers", "status"]
+    : ["name", "category", "manualprice", "automaticprice", "passengers", "status"];
+  const columnIndexes = csvColumnIndexes(rows, requiredHeaders, "rental inventory");
+  if (hasTransmissionRows) {
+    columnIndexes.price = headers.indexOf("price");
+    columnIndexes.transmission = headers.indexOf("transmission");
+  }
   columnIndexes.type = headers.indexOf("type");
   columnIndexes.image = headers.indexOf("image");
   columnIndexes.quantity = headers.indexOf("quantity");
@@ -485,11 +489,15 @@ function parseRentalInventoryCsv(csv) {
     const passengers = /^\d+$/.test(passengerValue) ? Number(passengerValue) : passengerValue;
     const quantityValue = get("quantity");
     const quantity = quantityValue ? Number(quantityValue) : 1;
-    const manualPrice = get("manualprice")
+    const manualPrice = !hasTransmissionRows && get("manualprice")
       ? parseCatalogPrice(get("manualprice"), index + 2, "Manual")
       : null;
-    const automaticPrice = get("automaticprice")
+    const automaticPrice = !hasTransmissionRows && get("automaticprice")
       ? parseCatalogPrice(get("automaticprice"), index + 2, "Automatic")
+      : null;
+    const rowTransmission = hasTransmissionRows ? get("transmission") : "";
+    const rowPrice = hasTransmissionRows && get("price")
+      ? parseCatalogPrice(get("price"), index + 2, rowTransmission || "rental")
       : null;
     const local = localByName.get(name.toLowerCase());
     const listedType = get("type").toLowerCase();
@@ -508,7 +516,10 @@ function parseRentalInventoryCsv(csv) {
     if (!Number.isInteger(quantity) || quantity < 1) {
       throw new Error("Inventory row " + (index + 2) + " has an invalid quantity.");
     }
-    if (!manualPrice && !automaticPrice) {
+    if (hasTransmissionRows && !rowTransmission) {
+      throw new Error("Inventory row " + (index + 2) + " has no transmission.");
+    }
+    if (hasTransmissionRows ? !rowPrice : (!manualPrice && !automaticPrice)) {
       throw new Error("Inventory row " + (index + 2) + " has no valid price.");
     }
     if (!["available", "booked", "hidden"].includes(status)) {
@@ -516,8 +527,12 @@ function parseRentalInventoryCsv(csv) {
     }
 
     const rates = [];
-    if (manualPrice) rates.push({ transmission: "Manual", price: manualPrice });
-    if (automaticPrice) rates.push({ transmission: "Automatic", price: automaticPrice });
+    if (hasTransmissionRows) {
+      rates.push({ transmission: rowTransmission, price: rowPrice });
+    } else {
+      if (manualPrice) rates.push({ transmission: "Manual", price: manualPrice });
+      if (automaticPrice) rates.push({ transmission: "Automatic", price: automaticPrice });
+    }
     return {
       type: type,
       typeLabel: "",
