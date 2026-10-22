@@ -129,7 +129,18 @@
 .taxi-details-heading { margin: 1.35rem 0 .8rem; color: var(--sy-navy); font-size: .88rem; font-weight: 700; }
 .taxi-message { min-height: 1.5rem; margin: 1rem 0 .65rem; color: #a12622; font-size: .9rem; }
 .taxi-message:empty { min-height: 0; margin: .45rem 0; }
-.taxi-submit { display: flex; width: 100%; min-height: 54px; align-items: center; justify-content: center; gap: .65rem; font-size: 1rem; font-weight: 700; }
+.taxi-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.taxi-call,
+.taxi-submit { display: flex; width: 100%; min-height: 54px; align-items: center; justify-content: center; gap: .55rem; font-size: .95rem; font-weight: 700; }
+.taxi-call {
+  border: 1px solid var(--sy-navy);
+  border-radius: 50px;
+  background: #fff;
+  color: var(--sy-navy);
+  transition: background-color .2s, color .2s, transform .2s;
+}
+.taxi-call:hover { background: var(--sy-navy); color: #fff; transform: translateY(-1px); }
+.taxi-call:focus-visible { outline: 3px solid var(--sy-blue); outline-offset: 3px; }
 .taxi-submit:focus-visible { outline: 3px solid var(--sy-yellow); outline-offset: 3px; }
 
 @media (max-width: 767.98px) {
@@ -141,4 +152,5 @@
 @media (max-width: 359.98px) {
   .route-picker-heading { align-items: flex-start; }
   .route-swap { padding: .5rem .6rem; }
+  .taxi-actions { grid-template-columns: 1fr; }
 }

@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const time = document.getElementById("taxiTime");
   const passengers = document.getElementById("taxiPassengers");
   const message = document.getElementById("taxiMessage");
+  const callNow = document.getElementById("taxiCallNow");
   const mapDialog = document.getElementById("taxiMapDialog");
   const mapStatus = document.getElementById("taxiMapStatus");
   let map;
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let mapTarget;
   let lookupController;
 
+  if (callNow) callNow.href = "tel:+" + CONFIG.company.phoneRaw;
   date.min = localDateString(new Date());
   const closePickupSuggestions = addLocationSearch(from, document.getElementById("pickupSuggestions"));
   const closeDestinationSuggestions = addLocationSearch(to, document.getElementById("destinationSuggestions"));
