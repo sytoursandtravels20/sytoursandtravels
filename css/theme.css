@@ -143,6 +143,14 @@ html[data-theme="dark"] .home-shortcut-card {
     0 12px 24px rgba(0, 0, 0, .2);
 }
 html[data-theme="dark"] .home-shortcut-subtitle { color: var(--sy-muted); }
+html[data-theme="dark"] .mobile-why-benefits .hero-benefit { color: var(--sy-text); }
+html[data-theme="dark"] .mobile-why-benefits .hero-benefit small { color: var(--sy-muted); }
+html[data-theme="dark"] .mobile-why-benefits .hero-benefit:nth-child(n + 2) .hero-benefit-icon {
+  color: var(--sy-blue);
+}
+html[data-theme="dark"] .mobile-why-benefits .hero-benefit:nth-child(n + 3) {
+  border-top-color: var(--sy-border);
+}
 html[data-theme="dark"] .form-control,
 html[data-theme="dark"] .form-select {
   background-color: #152333;

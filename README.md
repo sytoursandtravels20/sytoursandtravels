@@ -34,6 +34,12 @@ Visitors can switch between light and dark themes from the shared header. Their 
 
 When making routine content changes, update the appropriate Google Sheet or the matching business setting in `js/config.js`. The code comments explain the less-obvious loading, filtering, and booking behavior; they are not intended to repeat each line of code.
 
+## Search visibility and accessibility
+
+Each public page should keep its own descriptive title, meta description, canonical URL, Open Graph title/description/image, and one clear page heading. Use meaningful `alt` text for informative images and empty alt text only for decorative images. The shared Goa banner image is used for social previews. Search engines do not use the `meta keywords` tag for ranking, so write relevant search phrases naturally into page titles, headings, and descriptions instead.
+
+The homepage has desktop and mobile copies of its hero actions and booking benefits so the mobile layout can place them near the “Why Book With Us?” section. Keep the two copies’ wording and destinations in sync when changing the homepage CTA or benefits.
+
 ## Where to edit what
 
 | What you want to change | File |

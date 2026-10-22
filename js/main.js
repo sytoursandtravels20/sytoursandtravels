@@ -160,11 +160,13 @@ function applyConfig() {
 
   const page = document.body.dataset.page;
   const titles = {
-    home: "Car Rentals in Goa | " + C.name,
+    home: "Explore Goa | Rentals & Experiences | " + C.name,
     about: "About " + C.name + " | Goa",
+    rentals: "Car Rentals in Goa | " + C.name,
     offers: "Offers & Discounts | " + C.name,
     taxi: "Taxi Service in Goa | " + C.name,
     activities: "Water Activities in Goa | " + C.name,
+    "two-wheelers": "Bike & Scooter Rentals in Goa | " + C.name,
     yachts: "Yacht, Boat & Cruise Trips in Goa | " + C.name,
     blog: "Goa Travel Stories | " + C.name,
     contact: "Contact " + C.name + " | Goa",
