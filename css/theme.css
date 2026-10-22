@@ -150,7 +150,7 @@ html[data-theme="dark"] body[data-page="home"] #why > .container {
 }
 html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit {
   border-color: var(--sy-border);
-  background: var(--sy-card);
+  background: transparent;
   box-shadow: none;
 }
 html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
