@@ -3,10 +3,10 @@
    ============================================================ */
 
 .sy-footer {
-  padding: .75rem 0;
+  padding: 1.15rem 0;
   background: var(--sy-navy);
   color: #cfdbe8;
-  font-size: .78rem;
+  font-size: .88rem;
 }
 
 .sy-footer-main {
@@ -14,27 +14,27 @@
   grid-template-columns: max-content minmax(0, 1fr) max-content;
   align-items: center;
   gap: 1rem;
-  min-height: 42px;
+  min-height: 50px;
 }
 
 .sy-brand--footer {
   gap: .45rem;
 }
 .sy-brand--footer .sy-brand-logo {
-  width: 34px;
-  height: 34px;
-  flex-basis: 34px;
+  width: 40px;
+  height: 40px;
+  flex-basis: 40px;
   border-radius: 9px;
   background: rgba(255, 200, 0, .12);
-  font-size: 1.05rem;
+  font-size: 1.2rem;
 }
 .sy-footer .sy-brand--footer .sy-brand-name {
   color: #fff;
-  font-size: .78rem;
+  font-size: .9rem;
 }
 .sy-footer .sy-brand--footer .sy-brand-tag {
   color: #aebfd0;
-  font-size: .58rem;
+  font-size: .68rem;
 }
 
 .sy-footer-nav {
@@ -42,11 +42,11 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: .25rem .7rem;
+  gap: .35rem .85rem;
 }
 .sy-footer-nav a {
   color: #c1cedb;
-  font-size: .7rem;
+  font-size: .8rem;
   white-space: nowrap;
   transition: color .2s;
 }
@@ -54,17 +54,17 @@
 
 .sy-social {
   display: flex;
-  gap: .35rem;
+  gap: .45rem;
 }
 .sy-social a {
   display: grid;
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   place-items: center;
   border-radius: 50%;
   background: rgba(255, 255, 255, .08);
   color: #cfdbe8;
-  font-size: .82rem;
+  font-size: .95rem;
   transition: background-color .2s, color .2s;
 }
 .sy-social a:hover {
@@ -73,7 +73,7 @@
 }
 
 .sy-footer-hr {
-  margin: .55rem 0;
+  margin: .8rem 0;
   border-color: rgba(255, 255, 255, .12);
   opacity: 1;
 }
@@ -84,12 +84,12 @@
   flex-wrap: wrap;
   gap: .4rem 1rem;
   color: #91a7bd;
-  font-size: .68rem;
+  font-size: .76rem;
 }
 .sy-footer-legal {
   display: flex;
   flex-wrap: wrap;
-  gap: .35rem 1rem;
+  gap: .4rem 1rem;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -97,6 +97,7 @@
 .sy-footer-legal a {
   color: #aebfd0;
   white-space: nowrap;
+  font-size: .76rem;
 }
 .sy-footer-legal a:hover { color: var(--sy-yellow); }
 
@@ -115,13 +116,15 @@
 }
 
 @media (max-width: 575.98px) {
-  .sy-footer { padding: .7rem 0 calc(.7rem + env(safe-area-inset-bottom, 0px)); }
+  .sy-footer { padding: 1rem 0 calc(1rem + env(safe-area-inset-bottom, 0px)); }
   .sy-footer-main { gap: .65rem; }
   .sy-footer-nav {
     gap: .35rem .8rem;
     padding-left: 0;
   }
-  .sy-footer-nav a { font-size: .72rem; }
+  .sy-footer-nav a { font-size: .78rem; }
+  .sy-footer .sy-brand--footer .sy-brand-name { font-size: .86rem; }
+  .sy-footer .sy-brand--footer .sy-brand-tag { font-size: .66rem; }
   .sy-footer-bottom {
     align-items: flex-start;
     flex-direction: column;
