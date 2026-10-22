@@ -140,6 +140,7 @@ img { max-width: 100%; display: block; }
   padding: .35rem 0;
   list-style: none;
 }
+.mobile-why-benefits { display: none; }
 .hero-benefit {
   display: flex;
   align-items: center;
@@ -1208,6 +1209,17 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   .hero-benefits {
     width: calc(100% - 1.5rem);
     margin-top: .75rem;
+  }
+  body[data-page="home"] > main > .hero-benefits:not(.mobile-why-benefits) {
+    display: none;
+  }
+  body[data-page="home"] #why .mobile-why-benefits {
+    display: grid;
+    width: 100%;
+    margin: 0;
+  }
+  body[data-page="home"] #why #whyGrid {
+    display: none;
   }
   .hero-benefit {
     justify-content: flex-start;
