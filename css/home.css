@@ -114,6 +114,7 @@ img { max-width: 100%; display: block; }
   gap: .65rem;
   z-index: 3;
 }
+.mobile-why-actions { display: none; }
 .hero-actions .btn-sy,
 .hero-actions .btn-ghost {
   min-height: 44px;
@@ -1206,6 +1207,17 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     margin: 78.5vw auto 0;
   }
   .hero-actions > a { flex: 1; justify-content: center; }
+  body[data-page="home"] .hero > .hero-actions { display: none; }
+  body[data-page="home"] #why .mobile-why-actions {
+    display: flex;
+    width: 100%;
+    margin: 0 auto 1.25rem;
+    padding: 0;
+  }
+  body[data-page="home"] #why .mobile-why-actions > a {
+    flex: 1;
+    justify-content: center;
+  }
   .hero-benefits {
     width: calc(100% - 1.5rem);
     margin-top: .75rem;
