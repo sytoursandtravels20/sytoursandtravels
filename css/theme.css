@@ -145,11 +145,35 @@ html[data-theme="dark"] .home-shortcut-card {
 html[data-theme="dark"] .home-shortcut-subtitle { color: var(--sy-muted); }
 html[data-theme="dark"] .mobile-why-benefits .hero-benefit { color: var(--sy-text); }
 html[data-theme="dark"] .mobile-why-benefits .hero-benefit small { color: var(--sy-muted); }
-html[data-theme="dark"] .mobile-why-benefits .hero-benefit:nth-child(n + 2) .hero-benefit-icon {
-  color: var(--sy-blue);
+html[data-theme="dark"] body[data-page="home"] #why > .container {
+  background: var(--sy-card);
 }
-html[data-theme="dark"] .mobile-why-benefits .hero-benefit:nth-child(n + 3) {
-  border-top-color: var(--sy-border);
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit {
+  border-color: var(--sy-border);
+  background: var(--sy-card);
+  box-shadow: none;
+}
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
+  background: #493c23;
+  color: #ffcf70;
+}
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(2) .hero-benefit-icon,
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .hero-benefit-icon,
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
+  background: #233b59;
+  color: #8fc5ff;
+}
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon {
+  background: #1f4432;
+  color: #79dfa2;
+}
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
+  background: #342d56;
+  color: #c0afff;
+}
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child .hero-benefit-icon {
+  background: #4a3028;
+  color: #ffad8d;
 }
 html[data-theme="dark"] .form-control,
 html[data-theme="dark"] .form-select {

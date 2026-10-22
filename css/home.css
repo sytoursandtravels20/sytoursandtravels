@@ -1209,6 +1209,11 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   .hero-actions > a { flex: 1; justify-content: center; }
   body[data-page="home"] .hero > .hero-actions { display: none; }
   body[data-page="home"] #why { padding-top: 0; }
+  body[data-page="home"] #why > .container {
+    padding: 1rem;
+    border-radius: 20px;
+    background: #f0f7fc;
+  }
   body[data-page="home"] #why .mobile-why-actions {
     display: flex;
     width: 100%;
@@ -1234,14 +1239,62 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   body[data-page="home"] #why #whyGrid {
     display: none;
   }
-  .hero-benefit {
-    justify-content: flex-start;
-    gap: .4rem;
-    padding: .45rem .35rem;
+  body[data-page="home"] #why .mobile-why-benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .55rem;
+    padding: .25rem 0 0;
   }
-  .hero-benefit-icon { flex-basis: 28px; width: 28px; height: 28px; }
-  .hero-benefit strong { font-size: .67rem; }
-  .hero-benefit small { font-size: .58rem; }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit {
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: .65rem;
+    min-height: 108px;
+    padding: .8rem;
+    border: 1px solid rgba(10, 37, 64, .06);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .88);
+    box-shadow: 0 2px 8px rgba(10, 37, 64, .04);
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
+    grid-column: 1 / -1;
+    min-height: 88px;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff4d4;
+    color: #8d5b00;
+    font-size: 1.25rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(2) .hero-benefit-icon,
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .hero-benefit-icon,
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
+    background: #e7f1ff;
+    color: #145ca7;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon {
+    background: #e1f7e9;
+    color: #159447;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
+    background: #eee9ff;
+    color: #4e39b2;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child .hero-benefit-icon {
+    background: #ffebe1;
+    color: #a33d20;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
+    margin: 0 0 .22rem;
+    font-size: .76rem;
+    line-height: 1.25;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
+    font-size: .67rem;
+    line-height: 1.35;
+  }
 
   .section { padding: 3rem 0; }
   #categories { padding-top: 1rem; }
