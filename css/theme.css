@@ -132,16 +132,22 @@ html[data-theme="dark"] .taxi-map-close {
 html[data-theme="dark"] .location-suggestion { border-color: var(--sy-border); }
 html[data-theme="dark"] .taxi-map-dialog { background: var(--sy-card); color: var(--sy-text); }
 html[data-theme="dark"] #taxiMap { background: var(--sy-sky); }
-html[data-theme="dark"] .home-shortcut-card,
-html[data-theme="dark"] .home-shortcut-card:hover {
+html[data-theme="dark"] .home-shortcut-card {
   background: var(--sy-card);
   border-color: var(--sy-border);
-  border-top-color: var(--shortcut-accent);
+  border-bottom-color: #40556c;
   color: var(--sy-text);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .06),
-    0 4px 0 rgba(0, 0, 0, .24),
-    0 12px 24px rgba(0, 0, 0, .2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .2);
+}
+html[data-theme="dark"] .home-shortcut-card:hover {
+  border-bottom-color: var(--sy-blue);
+  color: var(--sy-text);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .3);
+}
+html[data-theme="dark"] .home-shortcut-art {
+  background: var(--sy-sky);
+  border-color: var(--sy-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
 }
 html[data-theme="dark"] .home-shortcut-subtitle { color: var(--sy-muted); }
 html[data-theme="dark"] .form-control,
