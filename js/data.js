@@ -323,10 +323,10 @@ const LOCAL_DATA = {
      8. HOW IT WORKS
      ========================================================== */
   howItWorks: [
-    { icon: "bi-search",         title: "Search",  text: "Find what you need." },
-    { icon: "bi-check2-square",  title: "Choose",  text: "Compare & select." },
-    { icon: "bi-calendar-check", title: "Book",    text: "Confirm your slot." },
-    { icon: "bi-emoji-smile",    title: "Enjoy",   text: "Make memories." }
+    { icon: "bi-search",           title: "Explore Services",                  text: "Choose cars, scooters, taxis, water activities, yachts or boat cruises." },
+    { icon: "bi-calendar3",        title: "Choose Your Trip",                   text: "Select your dates, location and preferred service." },
+    { icon: "bi-check-circle",     title: "Book Online or WhatsApp Us",         text: "Confirm your booking online or contact us on WhatsApp for availability, pricing and assistance." },
+    { icon: "bi-emoji-smile",      title: "Get Confirmation & Enjoy Goa",       text: "Receive your booking details and contact us by phone if you need assistance." }
   ],
 
 };
