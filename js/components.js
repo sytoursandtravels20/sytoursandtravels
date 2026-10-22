@@ -130,11 +130,15 @@ function vehicleCard(v, rentalIndex) {
   const rates = v.rates && v.rates.length
     ? v.rates
     : (typeof v.price === "number" ? [{ transmission: v.transmission, price: v.price }] : []);
+  const isRentalListing = Number.isInteger(rentalIndex);
   const rateLabels = rates.length
     ? rates.map(function (rate) {
-      return `<span class="sy-price-rate"><span>${esc(rate.transmission || "Rate")}</span><strong class="sy-price-value">\u20B9${fmtPrice(rate.price)}</strong></span>`;
+      return `<span class="sy-price-rate">${isRentalListing ? "" : `<span>${esc(rate.transmission || "Rate")}</span>`}<strong class="sy-price-value">\u20B9${fmtPrice(rate.price)}</strong></span>`;
     }).join("")
     : `<span class="sy-price-rate"><strong class="sy-price-value">${formatText("Price on request")}</strong></span>`;
+  const rentalPrice = rates.length
+    ? `<span class="rental-price-line"><strong class="sy-price-value">\u20B9${fmtPrice(Math.min.apply(null, rates.map(function (rate) { return rate.price; })))}</strong><span class="sy-price-unit">/ ${formatText("per day")}</span></span>`
+    : `<span class="rental-price-line"><strong class="sy-price-value">${formatText("Price on request")}</strong></span>`;
   const hasSampleRate = rates.some(function (rate) { return rate.sample; });
   const transmissionLabel = rates.length
     ? rates.map(function (rate) { return rate.transmission; }).filter(Boolean).join(" / ")
@@ -157,12 +161,14 @@ function vehicleCard(v, rentalIndex) {
     badge = `<span class="sy-badge">${esc(v.badge)}</span>`;
   }
 
-  /* Footer action: WhatsApp button if available, disabled pill if booked */
+  const categoryBadge = isRentalListing
+    ? `<span class="sy-badge sy-badge--category">${esc(vehicleCategoryLabel(v.category, v.categoryLabel))}</span>`
+    : "";
+
+  /* Footer action: direct WhatsApp enquiry when available, disabled pill if booked */
   const action = isBooked
     ? `<span class="btn-book is-disabled" aria-disabled="true">${formatText("Unavailable")}</span>`
-    : Number.isInteger(rentalIndex)
-      ? `<button class="btn-book" type="button" data-rental-book="${rentalIndex}">${formatText("Book Now")}</button>`
-      : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Book Now")}</a>`;
+    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Hire Now")}</a>`;
 
   /* Optional "available from" hint under the price */
   const hint = isBooked && v.bookedUntil
@@ -178,28 +184,30 @@ function vehicleCard(v, rentalIndex) {
   const transmissionSpec = transmissionLabel
     ? `<li><i class="bi bi-gear-fill"></i> <span>${esc(transmissionLabel)}</span></li>`
     : "";
+  const rentalSpecs = isRentalListing
+    ? transmissionSpec + passengerSpec + quantitySpec
+    : passengerSpec + transmissionSpec + quantitySpec;
   const vehicleImage = v.image
     ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`
     : "";
 
   return `
-    <article class="sy-card${isBooked ? " is-booked" : ""}">
+    <article class="sy-card${isRentalListing ? " rental-card" : ""}${isBooked ? " is-booked" : ""}">
       <div class="sy-card-media">
         ${vehicleImage}
+        ${categoryBadge}
         ${badge}
       </div>
       <div class="sy-card-body">
         <h3 class="sy-card-title">${esc(v.name)}</h3>
         <ul class="sy-specs">
-          ${passengerSpec}
-          ${transmissionSpec}
-          ${quantitySpec}
+          ${rentalSpecs}
         </ul>
         ${detailsText ? `<details class="sy-card-disclosure"><summary aria-label="${esc(formatText("Vehicle information"))}"><i class="bi bi-info-circle" aria-hidden="true"></i><span class="visually-hidden">${esc(formatText("Vehicle information"))}</span></summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
-            <span>${rateLabels}</span>
-            ${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? formatText("sample rate · ") : ""}${formatText("per day")}</span>` : ""}
+            ${isRentalListing ? `<span class="sy-price-intro">${formatText("Starting from")}</span>` : ""}
+            ${isRentalListing ? rentalPrice : `<span>${rateLabels}</span>${rates.length ? `<span class="sy-price-unit">${hasSampleRate ? formatText("sample rate · ") : ""}${formatText("per day")}</span>` : ""}`}
             ${hint}
           </div>
           ${action}

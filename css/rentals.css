@@ -183,28 +183,64 @@
 
 .rental-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 310px));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   justify-content: center;
   align-items: stretch;
   gap: 1.1rem;
 }
 
+.rental-grid .rental-card {
+  overflow: hidden;
+  border-radius: 18px;
+  border-color: var(--sy-border);
+}
+
 .rental-grid .sy-card-media {
   aspect-ratio: 16 / 9;
-  background: #fff;
+  background: var(--sy-bg);
 }
 
 .rental-grid .sy-card-media img {
   object-fit: contain;
-  padding: .5rem;
+  padding: .75rem;
 }
 
 .rental-grid .sy-card:hover .sy-card-media img {
   transform: none;
 }
 
+.rental-grid .sy-badge--category {
+  right: .7rem;
+  left: auto;
+  border-radius: 0 0 0 14px;
+  background: rgba(10, 37, 64, .72);
+  color: #fff;
+  font-size: .76rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
 .rental-grid .sy-card-body {
-  padding: .9rem;
+  padding: 1rem 1.15rem 1.1rem;
+}
+
+.rental-grid .sy-card-title {
+  margin-bottom: .45rem;
+}
+
+.rental-grid .sy-specs {
+  gap: 0;
+  margin-bottom: 1.1rem;
+}
+
+.rental-grid .sy-specs i {
+  display: none;
+}
+
+.rental-grid .sy-specs li + li::before {
+  margin: 0 .4rem;
+  color: var(--sy-muted);
+  content: "|";
 }
 
 .rental-grid .sy-price > span:first-child {
@@ -214,156 +250,55 @@
 }
 
 .rental-grid .sy-price-value {
-  font-size: .95rem;
+  font-size: 1.12rem;
   font-weight: 800;
   line-height: 1.25;
 }
 
-.rental-grid .sy-price-rate {
+.rental-grid .sy-price-intro {
+  margin-bottom: .2rem;
+  color: var(--sy-muted);
+  font-size: .75rem;
+}
+
+.rental-grid .rental-price-line {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: .75rem;
-  color: var(--sy-muted);
+  gap: .3rem;
+}
+
+.rental-grid .rental-price-line .sy-price-unit {
   font-size: .78rem;
-  line-height: 1.35;
+  color: var(--sy-muted);
 }
 
 .rental-grid .sy-card-foot {
-  align-items: stretch;
-  flex-direction: column;
-  gap: .65rem;
+  align-items: end;
+  flex-direction: row;
+  gap: .75rem;
+  padding-top: 1rem;
 }
 
 .rental-grid .btn-book {
   flex: 0 0 auto;
-  width: 100%;
-  border-radius: 7px;
+  min-width: 128px;
+  min-height: 52px;
+  padding: .75rem 1.2rem;
+  border-radius: 12px;
   text-align: center;
 }
 
-.rental-grid a.btn-book,
-.rental-grid button.btn-book {
-  background: var(--sy-yellow);
-  color: var(--sy-navy);
-  border: 0;
-  font: inherit;
-  font-size: .8rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.rental-grid a.btn-book:hover,
-.rental-grid button.btn-book:hover {
-  background: #f0c900;
-  color: var(--sy-navy);
-}
-
-.rental-booking-dialog {
-  width: min(460px, calc(100% - 1.5rem));
-  max-width: none;
-  max-height: min(92dvh, 720px);
-  overflow: auto;
-  padding: 0;
-  border: 1px solid var(--sy-border);
-  border-radius: 18px;
-  background: var(--sy-card);
-  color: var(--sy-text);
-  box-shadow: var(--sy-shadow-lg);
-}
-.rental-booking-dialog::backdrop { background: rgba(5, 18, 31, .68); }
-.rental-booking-form { display: grid; gap: 1rem; padding: 1.25rem; }
-.rental-booking-heading {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: .75rem;
-}
-.rental-booking-eyebrow {
-  margin: 0 0 .2rem;
-  color: var(--sy-blue);
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .09em;
-}
-.rental-booking-heading h2 {
-  margin: 0;
-  color: var(--sy-navy);
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-.rental-booking-vehicle { margin: .2rem 0 0; color: var(--sy-muted); font-size: .88rem; }
-.rental-booking-close {
-  display: grid;
-  width: 36px;
-  height: 36px;
-  flex: 0 0 auto;
-  place-items: center;
-  border: 1px solid var(--sy-border);
-  border-radius: 50%;
-  background: var(--sy-bg);
-  color: var(--sy-text);
-  cursor: pointer;
-}
-.rental-booking-field { display: grid; gap: .35rem; }
-.rental-booking-field > span {
-  color: var(--sy-text);
-  font-size: .8rem;
-  font-weight: 600;
-}
-.rental-booking-field input,
-.rental-booking-field select {
-  width: 100%;
-  min-height: 44px;
-  padding: .55rem .75rem;
-  border: 1px solid var(--sy-border);
-  border-radius: 9px;
-  background: var(--sy-bg);
-  color: var(--sy-text);
+.rental-grid a.btn-book {
+  background: #111;
+  color: #fff;
   font: inherit;
   font-size: .9rem;
-}
-.rental-booking-field input:focus,
-.rental-booking-field select:focus {
-  border-color: var(--sy-blue);
-  outline: 3px solid rgba(30, 111, 217, .14);
-}
-.rental-map-toggle {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  gap: .4rem;
-  padding: .25rem 0;
-  border: 0;
-  background: transparent;
-  color: var(--sy-blue);
-  font: inherit;
-  font-size: .82rem;
   font-weight: 600;
-  cursor: pointer;
 }
-.rental-map-toggle:hover { color: var(--sy-navy); }
-.rental-pickup-map {
-  height: 250px;
-  overflow: hidden;
-  border: 1px solid var(--sy-border);
-  border-radius: 10px;
-  background: var(--sy-sky);
-}
-.rental-pickup-map-status {
-  min-height: 1.1em;
-  margin: .3rem 0 0;
-  color: var(--sy-muted);
-  font-size: .75rem;
-}
-.rental-booking-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-.rental-booking-submit { width: 100%; justify-content: center; }
-.rental-booking-note { margin: -.5rem 0 0; color: var(--sy-muted); font-size: .72rem; text-align: center; }
-html[data-theme="dark"] .rental-booking-heading h2 { color: var(--sy-text); }
 
-@media (max-width: 420px) {
-  .rental-booking-form { gap: .8rem; padding: 1rem; }
-  .rental-booking-row { grid-template-columns: minmax(0, 1fr); }
+.rental-grid a.btn-book:hover {
+  background: #26394d;
+  color: #fff;
 }
 
 /* ---------- EMPTY STATE ---------- */
@@ -414,7 +349,7 @@ html[data-theme="dark"] .rental-booking-heading h2 { color: var(--sy-text); }
   .filter-select { min-width: 0; width: 100%; font-size: .8rem; }
   .filter-toggle { width: auto; justify-content: center; padding: .5rem .65rem; font-size: .78rem; }
 
-  .rental-grid { grid-template-columns: minmax(0, 420px); gap: 1rem; }
+  .rental-grid { grid-template-columns: minmax(0, 520px); gap: 1rem; }
   .section { padding: 2.5rem 0; }
   .sy-card-body { padding: .9rem; }
   .sy-specs { gap: .5rem .7rem; }
