@@ -190,7 +190,6 @@
 }
 
 .rental-grid .rental-card {
-  overflow: hidden;
   border-radius: 18px;
   border-color: var(--sy-border);
 }

@@ -6,7 +6,7 @@
      • status       → "available" | "booked" | "hidden"
      • bookedUntil  → optional text shown to visitors when booked
 
-   • status "available" → normal card, Book Now works
+   • status "available" → normal card, Hire Now opens a WhatsApp enquiry
    • status "booked"    → "Booked" badge, button disabled, image dimmed
    • status "hidden"    → card never appears on the site
    ============================================================ */
