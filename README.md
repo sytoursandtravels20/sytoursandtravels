@@ -38,7 +38,7 @@ When making routine content changes, update the appropriate Google Sheet or the 
 
 Each public page should keep its own descriptive title, meta description, canonical URL, Open Graph title/description/image, and one clear page heading. Use meaningful `alt` text for informative images and empty alt text only for decorative images. The shared Goa banner image is used for social previews. Search engines do not use the `meta keywords` tag for ranking, so write relevant search phrases naturally into page titles, headings, and descriptions instead.
 
-The homepage has desktop and mobile copies of its hero actions and booking benefits so the mobile layout can place them near the “Why Book With Us?” section. The hero action wording comes from `js/config.js`, and both call buttons use the configured company phone number.
+The homepage has desktop and mobile copies of its hero actions so the mobile layout can place them near the “Why Book With Us?” section. The “Why Book With Us?” feature cards use the same content on all screen sizes. The hero action wording comes from `js/config.js`, and both call buttons use the configured company phone number.
 
 ## Where to edit what
 

@@ -938,6 +938,77 @@ body[data-page="home"] #why .why-text {
   font-size: .72rem;
   line-height: 1.4;
 }
+body[data-page="home"] #why > .container {
+  display: block;
+  padding: 2rem;
+  border-radius: 20px;
+  background: #f0f7fc;
+}
+body[data-page="home"] #why .section-head {
+  margin-bottom: 1.25rem;
+}
+body[data-page="home"] #why .mobile-why-benefits {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  margin: 0;
+  padding: 0;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit {
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: .8rem;
+  min-height: 112px;
+  padding: 1rem;
+  border: 1px solid rgba(10, 37, 64, .06);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .88);
+  box-shadow: 0 2px 8px rgba(10, 37, 64, .04);
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
+  grid-column: 1 / -1;
+  min-height: 90px;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff4d4;
+  color: #8d5b00;
+  font-size: 1.35rem;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(2) .hero-benefit-icon,
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .hero-benefit-icon,
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
+  background: #e7f1ff;
+  color: #145ca7;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon {
+  background: #e1f7e9;
+  color: #159447;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
+  background: #eee9ff;
+  color: #4e39b2;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child .hero-benefit-icon {
+  background: #ffebe1;
+  color: #a33d20;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
+  margin: 0 0 .25rem;
+  font-size: .9rem;
+  line-height: 1.3;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
+  font-size: .8rem;
+  line-height: 1.4;
+}
+body[data-page="home"] #why #whyGrid {
+  display: none;
+}
 body[data-page="home"] #experiencesGrid {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 1rem;
@@ -1337,6 +1408,46 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   .cta-actions { width: 100%; }
   .cta-actions .btn-sy, .cta-actions .btn-ghost { flex: 1; justify-content: center; }
 }
+
+@media (max-width: 479.98px) {
+  body[data-page="home"] #why > .container {
+    padding: .85rem;
+    border-radius: 16px;
+  }
+  body[data-page="home"] #why .section-head {
+    margin-bottom: 1rem;
+  }
+  body[data-page="home"] #why .section-title {
+    font-size: clamp(1.2rem, 5.5vw, 1.45rem);
+    letter-spacing: -.3px;
+  }
+  body[data-page="home"] #why .section-sub {
+    font-size: .86rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .5rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit,
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
+    grid-column: auto;
+    align-items: center;
+    min-height: 0;
+    padding: .7rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
+    font-size: .78rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
+    font-size: .7rem;
+  }
+}
+
 /* ============================================================
    AVAILABILITY STYLES
    Booked vehicles still render but are visually marked.
