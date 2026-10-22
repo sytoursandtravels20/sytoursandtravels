@@ -314,11 +314,15 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   overflow: hidden;
   padding: 1.25rem;
   border-radius: 20px;
-  border: 1px solid rgba(10, 37, 64, .06);
-  color: #111;
+  border: 1px solid rgba(10, 37, 64, .14);
+  border-top: 3px solid var(--shortcut-accent, var(--sy-blue));
+  color: var(--sy-navy);
   isolation: isolate;
-  box-shadow: 0 3px 0 rgba(10, 37, 64, .04), 0 8px 18px rgba(10, 37, 64, .06);
-  transition: transform .22s ease, box-shadow .22s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .78),
+    0 4px 0 rgba(10, 37, 64, .09),
+    0 10px 20px rgba(10, 37, 64, .08);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
 }
 .home-shortcut-card::before {
   position: absolute;
@@ -329,16 +333,20 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   content: "";
   pointer-events: none;
 }
-.home-shortcut-card:nth-child(6n + 1) { background: #e8f3fc; }
-.home-shortcut-card:nth-child(6n + 2) { background: #e9f5ec; }
-.home-shortcut-card:nth-child(6n + 3) { background: #fff8df; }
-.home-shortcut-card:nth-child(6n + 4) { background: #fff0e5; }
-.home-shortcut-card:nth-child(6n + 5) { background: #f0ecfa; }
-.home-shortcut-card:nth-child(6n) { background: #e7f5f5; }
+.home-shortcut-card:nth-child(6n + 1) { --shortcut-accent: #1e6fd9; background: #e8f3fc; }
+.home-shortcut-card:nth-child(6n + 2) { --shortcut-accent: #238363; background: #e9f5ec; }
+.home-shortcut-card:nth-child(6n + 3) { --shortcut-accent: #d6a900; background: #fff8df; }
+.home-shortcut-card:nth-child(6n + 4) { --shortcut-accent: #d77935; background: #fff0e5; }
+.home-shortcut-card:nth-child(6n + 5) { --shortcut-accent: #7862b2; background: #f0ecfa; }
+.home-shortcut-card:nth-child(6n) { --shortcut-accent: #218a91; background: #e7f5f5; }
 .home-shortcut-card:hover {
-  color: #111;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 0 rgba(10, 37, 64, .04), 0 12px 22px rgba(10, 37, 64, .09);
+  color: var(--sy-navy);
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    0 6px 0 rgba(10, 37, 64, .08),
+    0 18px 28px rgba(10, 37, 64, .14);
+  border-color: rgba(10, 37, 64, .22);
 }
 .home-shortcut-card:focus-visible {
   outline: 3px solid var(--sy-blue);

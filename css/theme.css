@@ -132,6 +132,18 @@ html[data-theme="dark"] .taxi-map-close {
 html[data-theme="dark"] .location-suggestion { border-color: var(--sy-border); }
 html[data-theme="dark"] .taxi-map-dialog { background: var(--sy-card); color: var(--sy-text); }
 html[data-theme="dark"] #taxiMap { background: var(--sy-sky); }
+html[data-theme="dark"] .home-shortcut-card,
+html[data-theme="dark"] .home-shortcut-card:hover {
+  background: var(--sy-card);
+  border-color: var(--sy-border);
+  border-top-color: var(--shortcut-accent);
+  color: var(--sy-text);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .06),
+    0 4px 0 rgba(0, 0, 0, .24),
+    0 12px 24px rgba(0, 0, 0, .2);
+}
+html[data-theme="dark"] .home-shortcut-subtitle { color: var(--sy-muted); }
 html[data-theme="dark"] .form-control,
 html[data-theme="dark"] .form-select {
   background-color: #152333;
