@@ -1185,9 +1185,9 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
 
 @media (max-width: 767.98px) {
   .hero {
-    min-height: 0;
+    min-height: 75vw;
     margin-top: 64px;
-    padding: 0 0 1rem;
+    padding: 0;
     background: #fff url("/assets/images/explore-goa-mobile-hero-v2.webp") top center / 100% auto no-repeat;
   }
   .hero-inner {
