@@ -45,7 +45,7 @@ const CONFIG = {
     eyebrow:      "ONE PLATFORM. EVERY WAY TO EXPLORE",
     titleLine1:   "Explore Goa",
     titleLine2:   "Your Way",
-    subtitle:     "Rent cars and bikes, discover water activities, book yachts, boats, cruises and more — all in one place.",
+    subtitle:     "Rent cars and bikes, explore water activities, book yachts, boats, cruises and more — all in one place.",
     ctaPrimary:   { label: "Explore Services", href: "#categories" },
     ctaSecondary: { label: "WhatsApp Us" }
   },

@@ -129,7 +129,7 @@ function applyConfig() {
   }
   if (cta2) {
     cta2.querySelector("span").textContent = h.ctaSecondary.label;
-    cta2.href = waLink("Hi " + C.name + ", I'd like to enquire about your rentals and activities. Please share details.");
+    cta2.href = waLink("Hi " + C.name + ", I'd like to enquire about your rentals and water activities. Please share details.");
   }
 
   const c = CONFIG.cta;
@@ -146,7 +146,7 @@ function applyConfig() {
   }
 
   const ctaWa = document.getElementById("ctaWa");
-  if (ctaWa) ctaWa.href = waLink("Hi " + C.name + ", I'd like to enquire about your rentals and activities. Please share details.");
+  if (ctaWa) ctaWa.href = waLink("Hi " + C.name + ", I'd like to enquire about your rentals and water activities. Please share details.");
 
   const page = document.body.dataset.page;
   const titles = {
