@@ -158,16 +158,17 @@ html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-b
   color: #ffcf70;
 }
 html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(2) .hero-benefit-icon,
-html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .hero-benefit-icon,
-html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon,
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(7) .hero-benefit-icon {
   background: #233b59;
   color: #8fc5ff;
 }
-html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon {
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .hero-benefit-icon,
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
   background: #1f4432;
   color: #79dfa2;
 }
-html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
   background: #342d56;
   color: #c0afff;
 }

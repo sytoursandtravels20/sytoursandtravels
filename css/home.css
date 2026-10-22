@@ -956,6 +956,7 @@ body[data-page="home"] #why .mobile-why-benefits {
   padding: 0;
 }
 body[data-page="home"] #why .mobile-why-benefits .hero-benefit {
+  min-width: 0;
   justify-content: flex-start;
   align-items: flex-start;
   gap: .8rem;
@@ -966,10 +967,7 @@ body[data-page="home"] #why .mobile-why-benefits .hero-benefit {
   background: rgba(255, 255, 255, .88);
   box-shadow: 0 2px 8px rgba(10, 37, 64, .04);
 }
-body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
-  grid-column: 1 / -1;
-  min-height: 90px;
-}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit > span:last-child { min-width: 0; }
 body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
   flex: 0 0 48px;
   width: 48px;
@@ -980,16 +978,17 @@ body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
   font-size: 1.35rem;
 }
 body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(2) .hero-benefit-icon,
-body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .hero-benefit-icon,
-body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon,
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(7) .hero-benefit-icon {
   background: #e7f1ff;
   color: #145ca7;
 }
-body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon {
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .hero-benefit-icon,
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
   background: #e1f7e9;
   color: #159447;
 }
-body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
   background: #eee9ff;
   color: #4e39b2;
 }
@@ -1001,10 +1000,12 @@ body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
   margin: 0 0 .25rem;
   font-size: .9rem;
   line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
   font-size: .8rem;
   line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 body[data-page="home"] #why #whyGrid {
   display: none;
@@ -1312,28 +1313,24 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   }
   body[data-page="home"] #why .mobile-why-benefits {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: .55rem;
+    gap: clamp(.45rem, 1.2vw, .75rem);
     padding: .25rem 0 0;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit {
     justify-content: flex-start;
     align-items: flex-start;
-    gap: .65rem;
-    min-height: 108px;
-    padding: .8rem;
+    gap: clamp(.45rem, 1.2vw, .8rem);
+    min-height: 0;
+    padding: clamp(.65rem, 1.5vw, 1rem);
     border: 1px solid rgba(10, 37, 64, .06);
     border-radius: 14px;
     background: rgba(255, 255, 255, .88);
     box-shadow: 0 2px 8px rgba(10, 37, 64, .04);
   }
-  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
-    grid-column: 1 / -1;
-    min-height: 88px;
-  }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
-    flex: 0 0 44px;
-    width: 44px;
-    height: 44px;
+    flex: 0 0 clamp(36px, 5vw, 48px);
+    width: clamp(36px, 5vw, 48px);
+    height: clamp(36px, 5vw, 48px);
     border-radius: 50%;
     background: #fff4d4;
     color: #8d5b00;
@@ -1363,7 +1360,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
     line-height: 1.25;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
-    font-size: .67rem;
+    font-size: clamp(.67rem, 1vw, .8rem);
     line-height: 1.35;
   }
 
