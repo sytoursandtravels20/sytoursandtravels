@@ -1513,7 +1513,7 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     margin-bottom: 1rem;
   }
   body[data-page="home"] #why .section-title {
-    font-size: clamp(.95rem, 4.8vw, 1.28rem);
+    font-size: clamp(.65rem, 4vw, 1.28rem);
     letter-spacing: -.2px;
     white-space: nowrap;
   }
@@ -1521,7 +1521,7 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     font-size: .86rem;
   }
   body[data-page="home"] #why .mobile-why-benefits {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 0;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit,
