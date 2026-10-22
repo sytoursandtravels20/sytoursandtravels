@@ -1349,8 +1349,9 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
   body[data-page="home"] #why .mobile-why-actions {
     display: flex;
     width: 100%;
-    margin: 0 auto .9rem;
+    margin: 0 auto .65rem;
     padding: 0;
+    transform: translateY(-.75rem);
   }
   body[data-page="home"] #why .mobile-why-actions > a {
     flex: 1;
@@ -1512,7 +1513,7 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     margin-bottom: 1rem;
   }
   body[data-page="home"] #why .section-title {
-    font-size: clamp(.82rem, 4.3vw, 1.15rem);
+    font-size: clamp(.88rem, 4.5vw, 1.2rem);
     letter-spacing: -.3px;
     white-space: nowrap;
   }
