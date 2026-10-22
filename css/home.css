@@ -1208,6 +1208,7 @@ html[data-theme="dark"] body[data-page="home"] #how.section-alt {
   }
   .hero-actions > a { flex: 1; justify-content: center; }
   body[data-page="home"] .hero > .hero-actions { display: none; }
+  body[data-page="home"] #why { padding-top: 0; }
   body[data-page="home"] #why .mobile-why-actions {
     display: flex;
     width: 100%;
