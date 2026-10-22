@@ -131,6 +131,7 @@ function vehicleCard(v, rentalIndex) {
     ? v.rates
     : (typeof v.price === "number" ? [{ transmission: v.transmission, price: v.price }] : []);
   const isRentalListing = Number.isInteger(rentalIndex);
+  const isTwoWheelerListing = isRentalListing && document.body.dataset.rentalType === "two-wheeler";
   const rateLabels = rates.length
     ? rates.map(function (rate) {
       return `<span class="sy-price-rate">${isRentalListing ? "" : `<span>${esc(rate.transmission || "Rate")}</span>`}<strong class="sy-price-value">\u20B9${fmtPrice(rate.price)}</strong></span>`;
@@ -178,7 +179,7 @@ function vehicleCard(v, rentalIndex) {
     (typeof v.passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(v.passengers))
     ? `<li><i class="bi bi-people-fill"></i> ${esc(v.passengers)} ${formatText("seats")}</li>`
     : "";
-  const quantitySpec = Number.isInteger(v.quantity) && v.quantity > 1
+  const quantitySpec = !isTwoWheelerListing && Number.isInteger(v.quantity) && v.quantity > 1
     ? `<li><i class="bi bi-car-front"></i> ${v.quantity} ${formatText("units")}</li>`
     : "";
   const transmissionSpec = transmissionLabel
