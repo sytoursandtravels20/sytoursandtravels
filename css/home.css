@@ -1498,7 +1498,7 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     display: flex;
     align-items: flex-start;
     gap: .4rem;
-    min-height: 132px;
+    min-height: 0;
     padding: .55rem;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
