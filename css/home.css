@@ -957,12 +957,12 @@ body[data-page="home"] #why .mobile-why-benefits {
   padding: 0;
 }
 body[data-page="home"] #why .mobile-why-benefits .hero-benefit {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
-  align-content: start;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
   min-width: 0;
   gap: .8rem;
-  min-height: 124px;
+  min-height: 112px;
   padding: 1rem;
   border: 1px solid rgba(10, 37, 64, .06);
   border-radius: 14px;
@@ -1495,28 +1495,23 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit,
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
-    grid-template-columns: minmax(0, 1fr);
-    align-content: start;
-    justify-items: start;
-    gap: .5rem;
-    min-height: 0;
-    padding: .65rem;
+    display: flex;
+    align-items: flex-start;
+    gap: .4rem;
+    min-height: 132px;
+    padding: .55rem;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
-    flex: 0 0 34px;
-    width: 34px;
-    height: 34px;
-    font-size: 1.05rem;
-  }
-  body[data-page="home"] #why .mobile-why-benefits .hero-benefit > span:last-child {
-    width: 100%;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
-    margin-bottom: .2rem;
-    font-size: .72rem;
+    font-size: .7rem;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
-    font-size: .64rem;
+    font-size: .62rem;
   }
 }
 
