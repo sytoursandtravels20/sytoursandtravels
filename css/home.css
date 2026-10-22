@@ -1512,10 +1512,17 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
   body[data-page="home"] #why .section-head {
     margin-bottom: 1rem;
   }
+  body[data-page="home"] #why .section-head > div {
+    width: 100%;
+    min-width: 0;
+  }
   body[data-page="home"] #why .section-title {
-    font-size: clamp(.65rem, 4vw, 1.28rem);
+    display: block;
+    max-width: 100%;
+    font-size: clamp(.9rem, 5vw, 1.2rem);
     letter-spacing: -.2px;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: normal;
   }
   body[data-page="home"] #why .section-sub {
     font-size: .86rem;
