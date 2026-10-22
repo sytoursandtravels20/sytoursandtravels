@@ -125,13 +125,14 @@ function applyConfig() {
   const cta2 = document.getElementById("heroCta2");
   const mobileCta1 = document.getElementById("heroCtaMobile1");
   const mobileCta2 = document.getElementById("heroCtaMobile2");
+  const primaryCtaHref = "tel:+" + C.phoneRaw;
   if (cta1) {
     cta1.querySelector("span").textContent = h.ctaPrimary.label;
-    cta1.href = h.ctaPrimary.href;
+    cta1.href = primaryCtaHref;
   }
   if (mobileCta1) {
     mobileCta1.querySelector("span").textContent = h.ctaPrimary.label;
-    mobileCta1.href = h.ctaPrimary.href;
+    mobileCta1.href = primaryCtaHref;
   }
   if (cta2) {
     cta2.querySelector("span").textContent = h.ctaSecondary.label;

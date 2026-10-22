@@ -46,7 +46,7 @@ const CONFIG = {
     titleLine1:   "Explore Goa",
     titleLine2:   "Your Way",
     subtitle:     "Rent cars and bikes, explore water activities, book yachts, boats, cruises and more — all in one place.",
-    ctaPrimary:   { label: "Explore Services", href: "#categories" },
+    ctaPrimary:   { label: "Call Now" },
     ctaSecondary: { label: "WhatsApp Us" }
   },
 
