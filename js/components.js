@@ -185,7 +185,10 @@ function vehicleCard(v, rentalIndex) {
     ? `<li><i class="bi bi-gear-fill"></i> <span>${esc(transmissionLabel)}</span></li>`
     : "";
   const rentalSpecs = isRentalListing
-    ? transmissionSpec + passengerSpec + quantitySpec
+    ? transmissionSpec + passengerSpec + quantitySpec +
+      (detailsText
+        ? `<li class="rental-info-spec"><details class="sy-card-disclosure"><summary aria-label="${esc(formatText("Vehicle information"))}"><i class="bi bi-info-circle" aria-hidden="true"></i><span class="visually-hidden">${esc(formatText("Vehicle information"))}</span></summary><p>${esc(detailsText)}</p></details></li>`
+        : "")
     : passengerSpec + transmissionSpec + quantitySpec;
   const vehicleImage = v.image
     ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`
@@ -203,7 +206,7 @@ function vehicleCard(v, rentalIndex) {
         <ul class="sy-specs">
           ${rentalSpecs}
         </ul>
-        ${detailsText ? `<details class="sy-card-disclosure"><summary aria-label="${esc(formatText("Vehicle information"))}"><i class="bi bi-info-circle" aria-hidden="true"></i><span class="visually-hidden">${esc(formatText("Vehicle information"))}</span></summary><p>${esc(detailsText)}</p></details>` : ""}
+        ${!isRentalListing && detailsText ? `<details class="sy-card-disclosure"><summary aria-label="${esc(formatText("Vehicle information"))}"><i class="bi bi-info-circle" aria-hidden="true"></i><span class="visually-hidden">${esc(formatText("Vehicle information"))}</span></summary><p>${esc(detailsText)}</p></details>` : ""}
         <div class="sy-card-foot">
           <div class="sy-price">
             ${isRentalListing ? `<span class="sy-price-intro">${formatText("Starting from")}</span>` : ""}

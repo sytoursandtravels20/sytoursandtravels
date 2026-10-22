@@ -190,18 +190,19 @@
 }
 
 .rental-grid .rental-card {
+  background: var(--sy-card);
   border-radius: 18px;
   border-color: var(--sy-border);
 }
 
 .rental-grid .sy-card-media {
-  aspect-ratio: 16 / 9;
-  background: var(--sy-bg);
+  aspect-ratio: 1.9;
+  background: var(--sy-sky);
 }
 
 .rental-grid .sy-card-media img {
   object-fit: contain;
-  padding: .75rem;
+  padding: .45rem;
 }
 
 .rental-grid .sy-card:hover .sy-card-media img {
@@ -212,7 +213,7 @@
   right: .7rem;
   left: auto;
   border-radius: 0 0 0 14px;
-  background: rgba(10, 37, 64, .72);
+  background: var(--sy-navy);
   color: #fff;
   font-size: .76rem;
   font-weight: 500;
@@ -220,26 +221,45 @@
 }
 
 .rental-grid .sy-card-body {
-  padding: 1rem 1.15rem 1.1rem;
+  padding: .75rem .9rem .85rem;
 }
 
 .rental-grid .sy-card-title {
-  margin-bottom: .45rem;
+  margin-bottom: .3rem;
 }
 
 .rental-grid .sy-specs {
   gap: 0;
-  margin-bottom: 1.1rem;
+  margin-bottom: .55rem;
 }
 
 .rental-grid .sy-specs i {
   display: none;
 }
 
+.rental-grid .sy-specs .rental-info-spec i {
+  display: inline-block;
+}
+
 .rental-grid .sy-specs li + li::before {
-  margin: 0 .4rem;
+  margin: 0 .3rem;
   color: var(--sy-muted);
   content: "|";
+}
+
+.rental-grid .rental-info-spec::before {
+  display: none;
+}
+
+.rental-grid .rental-info-spec .sy-card-disclosure {
+  margin: 0;
+  line-height: 1;
+}
+
+.rental-grid .rental-info-spec .sy-card-disclosure summary {
+  width: 22px;
+  height: 22px;
+  font-size: 1rem;
 }
 
 .rental-grid .sy-price > span:first-child {
@@ -255,7 +275,7 @@
 }
 
 .rental-grid .sy-price-intro {
-  margin-bottom: .2rem;
+  margin-bottom: .1rem;
   color: var(--sy-muted);
   font-size: .75rem;
 }
@@ -274,30 +294,36 @@
 .rental-grid .sy-card-foot {
   align-items: end;
   flex-direction: row;
-  gap: .75rem;
-  padding-top: 1rem;
+  gap: .6rem;
+  padding-top: .65rem;
 }
 
 .rental-grid .btn-book {
   flex: 0 0 auto;
-  min-width: 128px;
-  min-height: 52px;
-  padding: .75rem 1.2rem;
-  border-radius: 12px;
+  min-width: 104px;
+  min-height: 40px;
+  padding: .5rem .85rem;
+  border-radius: 9px;
   text-align: center;
 }
 
 .rental-grid a.btn-book {
-  background: #111;
+  background: var(--sy-navy);
   color: #fff;
   font: inherit;
-  font-size: .9rem;
+  font-size: .82rem;
   font-weight: 600;
 }
 
 .rental-grid a.btn-book:hover {
-  background: #26394d;
+  background: var(--sy-blue);
   color: #fff;
+}
+
+html[data-theme="dark"] .rental-grid .sy-badge--category,
+html[data-theme="dark"] .rental-grid a.btn-book:hover {
+  background: var(--sy-blue);
+  color: #102235;
 }
 
 /* ---------- EMPTY STATE ---------- */
