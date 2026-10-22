@@ -1484,26 +1484,28 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     font-size: .86rem;
   }
   body[data-page="home"] #why .mobile-why-benefits {
-    grid-template-columns: minmax(0, 1fr);
-    gap: .5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .45rem;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit,
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
     grid-column: auto;
-    align-items: center;
+    align-items: flex-start;
+    gap: .4rem;
     min-height: 0;
-    padding: .7rem;
+    padding: .55rem;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
-    flex-basis: 40px;
-    width: 40px;
-    height: 40px;
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
-    font-size: .78rem;
+    font-size: .7rem;
   }
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
-    font-size: .7rem;
+    font-size: .62rem;
   }
 }
 
