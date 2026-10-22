@@ -951,7 +951,9 @@ body[data-page="home"] #why .mobile-why-benefits {
   display: grid;
   width: 100%;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: 1fr;
+  grid-auto-rows: auto;
+  align-items: stretch;
+  align-content: start;
   gap: .75rem;
   margin: 0;
   padding: 0;
@@ -1346,6 +1348,8 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
   }
   body[data-page="home"] #why .mobile-why-benefits {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    align-content: start;
     gap: clamp(.45rem, 1.2vw, .75rem);
     padding: .25rem 0 0;
   }
