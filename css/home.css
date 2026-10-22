@@ -313,20 +313,40 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   flex-direction: column;
   overflow: hidden;
   padding: 1.25rem;
-  border: 1px solid var(--sy-border);
-  border-bottom: 4px solid #cfdae8;
-  border-radius: 16px;
-  background: var(--sy-card);
+  border-radius: 20px;
+  border: 1px solid rgba(10, 37, 64, .14);
+  border-top: 3px solid var(--shortcut-accent, var(--sy-blue));
   color: var(--sy-navy);
-  box-shadow: 0 3px 8px rgba(10, 37, 64, .06);
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  isolation: isolate;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .78),
+    0 4px 0 rgba(10, 37, 64, .09),
+    0 10px 20px rgba(10, 37, 64, .08);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
 }
+.home-shortcut-card::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(145deg, rgba(255, 255, 255, .46), transparent 58%);
+  content: "";
+  pointer-events: none;
+}
+.home-shortcut-card:nth-child(6n + 1) { --shortcut-accent: #1e6fd9; background: #e8f3fc; }
+.home-shortcut-card:nth-child(6n + 2) { --shortcut-accent: #238363; background: #e9f5ec; }
+.home-shortcut-card:nth-child(6n + 3) { --shortcut-accent: #d6a900; background: #fff8df; }
+.home-shortcut-card:nth-child(6n + 4) { --shortcut-accent: #d77935; background: #fff0e5; }
+.home-shortcut-card:nth-child(6n + 5) { --shortcut-accent: #7862b2; background: #f0ecfa; }
+.home-shortcut-card:nth-child(6n) { --shortcut-accent: #218a91; background: #e7f5f5; }
 .home-shortcut-card:hover {
   color: var(--sy-navy);
-  transform: translateY(-3px);
-  border-color: #c6d5e7;
-  border-bottom-color: var(--sy-blue);
-  box-shadow: 0 10px 22px rgba(10, 37, 64, .12);
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    0 6px 0 rgba(10, 37, 64, .08),
+    0 18px 28px rgba(10, 37, 64, .14);
+  border-color: rgba(10, 37, 64, .22);
 }
 .home-shortcut-card:focus-visible {
   outline: 3px solid var(--sy-blue);
@@ -335,7 +355,6 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 .home-shortcut-title {
   position: relative;
   z-index: 1;
-  max-width: calc(100% - 62px);
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.25;
@@ -343,7 +362,7 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 .home-shortcut-subtitle {
   position: relative;
   z-index: 1;
-  max-width: calc(100% - 62px);
+  max-width: 90%;
   margin-top: .25rem;
   color: var(--sy-muted);
   font-size: .78rem;
@@ -351,24 +370,18 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 }
 .home-shortcut-art {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   right: 1rem;
-  top: 1rem;
-  display: grid;
-  width: 52px;
-  height: 52px;
-  place-items: center;
-  border: 1px solid var(--sy-border);
-  border-radius: 16px;
-  background: var(--sy-sky);
-  font-size: 1.9rem;
+  bottom: .6rem;
+  font-size: 5rem;
   line-height: 1;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .75);
+  filter: drop-shadow(0 5px 4px rgba(10, 37, 64, .16));
+  transform: rotate(-7deg);
   transition: transform .22s ease;
   pointer-events: none;
 }
 .home-shortcut-card:hover .home-shortcut-art {
-  transform: translateY(-2px);
+  transform: translateY(-2px) rotate(-7deg);
 }
 .home-shortcut-arrow {
   position: absolute;
