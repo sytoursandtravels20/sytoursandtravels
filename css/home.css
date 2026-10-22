@@ -1513,8 +1513,8 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     margin-bottom: 1rem;
   }
   body[data-page="home"] #why .section-title {
-    font-size: clamp(.88rem, 4.5vw, 1.2rem);
-    letter-spacing: -.3px;
+    font-size: clamp(.95rem, 4.8vw, 1.28rem);
+    letter-spacing: -.2px;
     white-space: nowrap;
   }
   body[data-page="home"] #why .section-sub {
