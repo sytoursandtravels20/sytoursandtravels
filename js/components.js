@@ -20,6 +20,7 @@ async function loadComponent(targetId, path) {
       s.textContent = old.textContent;
       old.replaceWith(s);
     });
+    if (targetId === "site-footer") initVisitorEnquiry();
   } catch (err) {
     console.error("Failed to load", path, err);
     el.innerHTML =
@@ -27,6 +28,70 @@ async function loadComponent(targetId, path) {
       "Could not load " + path +
       ". Please open the site with a local web server.</p>";
   }
+}
+
+function initVisitorEnquiry() {
+  const dialog = document.getElementById("visitorEnquiryDialog");
+  const form = document.getElementById("visitorEnquiryForm");
+  if (!dialog || !form) return;
+
+  const storageKey = "sy-visitor-enquiry-seen";
+  const categoryInputs = Array.from(form.querySelectorAll('input[name="categories"]'));
+  const updateCategoryValidity = function () {
+    const hasSelection = categoryInputs.some(function (input) { return input.checked; });
+    if (categoryInputs[0]) {
+      categoryInputs[0].setCustomValidity(hasSelection ? "" : "Please choose at least one category.");
+    }
+  };
+  categoryInputs.forEach(function (input) {
+    input.addEventListener("change", updateCategoryValidity);
+  });
+  updateCategoryValidity();
+
+  try {
+    if (window.localStorage.getItem(storageKey)) return;
+  } catch (error) {
+    console.warn("[SY] Could not check whether the visitor enquiry was previously shown.", error);
+  }
+
+  window.setTimeout(function () {
+    try {
+      window.localStorage.setItem(storageKey, "true");
+    } catch (error) {
+      console.warn("[SY] Could not save the visitor enquiry display preference.", error);
+    }
+    dialog.showModal();
+  }, 10000);
+
+  dialog.addEventListener("click", function (event) {
+    if (event.target instanceof Element && event.target.closest("[data-close-visitor-enquiry]")) {
+      dialog.close();
+    }
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const formData = new FormData(form);
+    const categories = formData.getAll("categories");
+    const message = [
+      "Hi " + CONFIG.company.name + ", I'd like help planning my Goa trip.",
+      "Name: " + String(formData.get("name")).trim(),
+      "Phone: " + String(formData.get("phone")).trim(),
+      "Email: " + String(formData.get("email")).trim(),
+      "Interested in: " + (categories.length ? categories.join(", ") : "Not specified"),
+      "Message: " + (String(formData.get("message") || "").trim() || "No additional message.")
+    ].join("\n");
+
+    const whatsappWindow = window.open(waLink(message), "_blank");
+    if (whatsappWindow) {
+      whatsappWindow.opener = null;
+    } else {
+      window.location.assign(waLink(message));
+    }
+    dialog.close();
+  });
 }
 
 function esc(str) {

@@ -37,4 +37,51 @@
       </ul>
     </div>
   </div>
+
+  <dialog class="visitor-enquiry-dialog" id="visitorEnquiryDialog" aria-labelledby="visitorEnquiryTitle">
+    <form class="visitor-enquiry-form" id="visitorEnquiryForm">
+      <div class="visitor-enquiry-heading">
+        <div>
+          <p class="visitor-enquiry-eyebrow">PLAN YOUR GOA TRIP</p>
+          <h2 id="visitorEnquiryTitle">How can we help?</h2>
+          <p>Share your details and our team will help you plan.</p>
+        </div>
+        <button class="visitor-enquiry-close" type="button" data-close-visitor-enquiry aria-label="Close enquiry form">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="visitor-enquiry-fields">
+        <label class="visitor-enquiry-field">
+          <span>Name</span>
+          <input name="name" type="text" autocomplete="name" required />
+        </label>
+        <label class="visitor-enquiry-field">
+          <span>Phone number</span>
+          <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+        </label>
+        <label class="visitor-enquiry-field">
+          <span>Email address</span>
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+      </div>
+
+      <fieldset class="visitor-enquiry-categories">
+        <legend>What are you interested in?</legend>
+        <label><input type="checkbox" name="categories" value="Car rental" /> Cars</label>
+        <label><input type="checkbox" name="categories" value="Bike or scooty rental" /> Bikes &amp; Scooties</label>
+        <label><input type="checkbox" name="categories" value="Taxi service" /> Taxi</label>
+        <label><input type="checkbox" name="categories" value="Water activities" /> Water Activities</label>
+        <label><input type="checkbox" name="categories" value="Yacht, boat, or cruise" /> Yachts, Boats &amp; Cruises</label>
+      </fieldset>
+
+      <label class="visitor-enquiry-field">
+        <span>Message</span>
+        <textarea name="message" rows="3" placeholder="Tell us a little about your trip"></textarea>
+      </label>
+      <button class="btn-sy visitor-enquiry-submit" type="submit">
+        Continue to WhatsApp <i class="bi bi-whatsapp" aria-hidden="true"></i>
+      </button>
+    </form>
+  </dialog>
 </div>
