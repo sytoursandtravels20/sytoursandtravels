@@ -311,12 +311,12 @@ const LOCAL_DATA = {
      7. WHY BOOK WITH US
      ========================================================== */
   whyBook: [
-    { icon: "bi-patch-check-fill",      title: "Verified Vehicles & Operators", text: "Safe & trusted partners across Goa." },
-    { icon: "bi-cash-coin",             title: "Transparent Pricing",           text: "No hidden charges. Ever." },
-    { icon: "bi-lightning-charge-fill", title: "Easy Booking",                  text: "In minutes, not hours." },
-    { icon: "bi-headset",               title: "Local Support",                 text: "We're here for you, 24/7." },
-    { icon: "bi-shield-lock-fill",      title: "Secure Payments",               text: "Safe & flexible options." },
-    { icon: "bi-star-fill",             title: "Top Rated in Goa",              text: "Loved by hundreds of travellers." }
+    { icon: "bi-cash-coin",        title: "Transparent Pricing",                    text: "Know the price and applicable charges before you book. No hidden fees." },
+    { icon: "bi-patch-check-fill", title: "Verified Vehicles & Operators",           text: "Clear vehicle details and trusted local service partners." },
+    { icon: "bi-shield-lock-fill", title: "Secure Payments",                         text: "A clear and secure payment process." },
+    { icon: "bi-whatsapp",         title: "Quick WhatsApp Support",                  text: "Get help with enquiries, availability, and booking details." },
+    { icon: "bi-headset",          title: "Local Support",                           text: "We're here for you in Goa with reliable local support." },
+    { icon: "bi-file-earmark-text",title: "Clear Booking & Cancellation Policies",   text: "Understand payment terms, security deposits, and cancellation conditions before confirming." }
   ],
 
   /* ==========================================================

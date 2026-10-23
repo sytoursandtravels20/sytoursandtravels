@@ -147,7 +147,7 @@ body[data-page="home"] .hero-actions .btn-ghost:hover {
 
 .hero-benefits {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: center;
   width: min(100% - 3rem, 1440px);
   margin: .75rem auto 0;
@@ -259,6 +259,7 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 .section { padding: 4.5rem 0; }
 .section-alt { background: #fff; }
 #categories { padding-top: 1.5rem; }
+#categories > .container > .section-head { margin-bottom: .75rem; }
 
 .section-head {
   display: flex;
@@ -1061,8 +1062,7 @@ body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
   font-size: 1.35rem;
 }
 body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(2) .hero-benefit-icon,
-body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon,
-body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(7) .hero-benefit-icon {
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon {
   background: #e7f1ff;
   color: #145ca7;
 }
@@ -1070,10 +1070,6 @@ body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .her
 body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
   background: #e1f7e9;
   color: #159447;
-}
-body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
-  background: #eee9ff;
-  color: #4e39b2;
 }
 body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child .hero-benefit-icon {
   background: #ffebe1;
@@ -1390,6 +1386,7 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     margin: 78.5vw auto 0;
   }
   .hero-actions > a { flex: 1; justify-content: center; }
+  #categories > .container > .section-head { margin-bottom: .5rem; }
   body[data-page="home"] .hero > .hero-actions { display: none; }
   body[data-page="home"] #why {
     padding-top: 0;
@@ -1406,7 +1403,7 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     width: 100%;
     margin: 0 auto .65rem;
     padding: 0;
-    transform: translateY(-.75rem);
+    transform: translateY(-1.25rem);
   }
   body[data-page="home"] #why .mobile-why-actions > a {
     flex: 1;
