@@ -399,6 +399,11 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   transition: transform .22s ease;
   pointer-events: none;
 }
+.home-shortcut-card:nth-child(-n + 3) .home-shortcut-art {
+  filter:
+    drop-shadow(0 5px 4px rgba(10, 37, 64, .22))
+    drop-shadow(0 1px 1px rgba(10, 37, 64, .14));
+}
 .home-shortcut-card:hover .home-shortcut-art {
   transform: scale(1.03);
 }
@@ -419,7 +424,7 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 }
 @media (min-width: 1200px) {
   .home-shortcut-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: .75rem;
   }
   .home-shortcut-card {
@@ -435,15 +440,26 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
     font-size: clamp(.72rem, .7vw, .85rem);
   }
   .home-shortcut-art {
-    right: 0;
-    width: 100%;
-    height: 54%;
+    right: .5rem;
+    bottom: .5rem;
+    width: 78%;
+    height: 66%;
+    object-position: right bottom;
   }
   .home-shortcut-arrow {
     bottom: .75rem;
     left: .75rem;
     width: 40px;
     font-size: 1.25rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .home-shortcut-art {
+    right: .5rem;
+    bottom: .5rem;
+    width: 78%;
+    height: 62%;
+    object-position: right bottom;
   }
 }
 @media (prefers-reduced-motion: reduce) {
