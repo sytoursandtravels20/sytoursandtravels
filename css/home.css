@@ -317,20 +317,23 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 /* ---------- 7. HOME SERVICE SHORTCUTS ---------- */
 .home-shortcut-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1440px;
+  margin-inline: auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 .home-shortcut-card {
   position: relative;
   display: flex;
+  box-sizing: border-box;
   min-width: 0;
-  min-height: 170px;
+  height: clamp(190px, 20vw, 260px);
   flex-direction: column;
   overflow: hidden;
-  padding: 1.25rem;
-  border-radius: 20px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  border-radius: 26px;
   border: 1px solid rgba(10, 37, 64, .14);
-  border-top: 3px solid var(--shortcut-accent, var(--sy-blue));
+  border-top: 7px solid var(--shortcut-accent, var(--sy-blue));
   color: var(--sy-navy);
   isolation: isolate;
   box-shadow:
@@ -369,43 +372,79 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 }
 .home-shortcut-title {
   position: relative;
-  z-index: 1;
-  font-size: 1rem;
+  z-index: 2;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-weight: 700;
   line-height: 1.25;
 }
 .home-shortcut-subtitle {
   position: relative;
-  z-index: 1;
-  max-width: 90%;
+  z-index: 2;
+  max-width: 85%;
   margin-top: .25rem;
   color: var(--sy-muted);
-  font-size: .78rem;
+  font-size: clamp(.78rem, 1.2vw, 1rem);
   line-height: 1.3;
 }
 .home-shortcut-art {
   position: absolute;
   z-index: 0;
-  right: 1rem;
-  bottom: .6rem;
-  font-size: 5rem;
-  line-height: 1;
-  filter: drop-shadow(0 5px 4px rgba(10, 37, 64, .16));
-  transform: rotate(-7deg);
+  right: .25rem;
+  bottom: .5rem;
+  width: 88%;
+  height: 52%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 8px rgba(10, 37, 64, .28));
+  transform-origin: bottom right;
   transition: transform .22s ease;
   pointer-events: none;
 }
 .home-shortcut-card:hover .home-shortcut-art {
-  transform: translateY(-2px) rotate(-7deg);
+  transform: scale(1.03);
 }
 .home-shortcut-arrow {
   position: absolute;
   z-index: 1;
-  bottom: .85rem;
-  left: 1.25rem;
-  font-size: 1.35rem;
+  bottom: 1rem;
+  left: 1rem;
+  display: grid;
+  width: clamp(40px, 3.5vw, 52px);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--shortcut-accent), white 84%);
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
   font-weight: 600;
   line-height: 1;
+}
+@media (min-width: 1200px) {
+  .home-shortcut-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: .75rem;
+  }
+  .home-shortcut-card {
+    height: clamp(180px, 14vw, 220px);
+    padding: .9rem;
+    border-radius: 20px;
+  }
+  .home-shortcut-title {
+    font-size: clamp(.85rem, .9vw, 1.1rem);
+  }
+  .home-shortcut-subtitle {
+    max-width: 100%;
+    font-size: clamp(.72rem, .7vw, .85rem);
+  }
+  .home-shortcut-art {
+    right: 0;
+    width: 100%;
+    height: 54%;
+  }
+  .home-shortcut-arrow {
+    bottom: .75rem;
+    left: .75rem;
+    width: 40px;
+    font-size: 1.25rem;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-shortcut-card,
