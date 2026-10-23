@@ -1369,19 +1369,13 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
     height: 50%;
     object-position: right bottom;
   }
-  .home-shortcut-card:nth-child(1) .home-shortcut-art,
-  .home-shortcut-card:nth-child(3) .home-shortcut-art {
-    right: .25rem;
-    width: 62%;
-    height: 44%;
-  }
   .home-shortcut-arrow {
-    bottom: .65rem;
-    left: .65rem;
-    width: clamp(36px, 10vw, 44px);
-    font-size: 1.35rem;
-    font-weight: 800;
-    -webkit-text-stroke: .6px currentColor;
+    bottom: .55rem;
+    left: .55rem;
+    width: clamp(30px, 8vw, 36px);
+    font-size: 1.1rem;
+    font-weight: 700;
+    -webkit-text-stroke: .3px currentColor;
   }
   .hero {
     min-height: 75vw;
