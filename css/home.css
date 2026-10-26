@@ -258,7 +258,10 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 /* ---------- 6. SECTIONS & HEADINGS ---------- */
 .section { padding: 4.5rem 0; }
 .section-alt { background: #fff; }
-#categories { padding-top: 1.5rem; }
+#categories {
+  padding-top: 1.5rem;
+  padding-bottom: 0;
+}
 #categories > .container > .section-head { margin-bottom: .75rem; }
 #categories .section-head > div {
   display: flex;
@@ -1218,6 +1221,248 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
   background: var(--sy-bg);
 }
 
+/* ---------- REFERENCE-STYLE WHY BOOK / HOW IT WORKS SECTIONS ---------- */
+body[data-page="home"] #why {
+  position: relative;
+  overflow: hidden;
+  padding: 2.5rem 0;
+  background: linear-gradient(to bottom, var(--sy-bg) 0, #fff 12rem);
+}
+body[data-page="home"] #why::before {
+  position: absolute;
+  inset: 0 0 auto auto;
+  width: 100%;
+  height: 100%;
+  background: url("/assets/images/goa-section-why-art.png") right top / auto 100% no-repeat;
+  content: "";
+  opacity: .72;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 65%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 65%, #000 100%);
+}
+body[data-page="home"] #why > .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  padding: 0 1rem;
+  border-radius: 0;
+  background: transparent;
+}
+body[data-page="home"] #why .section-head,
+body[data-page="home"] #how .section-head {
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+body[data-page="home"] #why .section-head > div,
+body[data-page="home"] #how .section-head > div {
+  width: 100%;
+}
+body[data-page="home"] .section-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+  margin: 0 0 .55rem;
+  color: var(--sy-navy);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+body[data-page="home"] .section-kicker::before,
+body[data-page="home"] .section-kicker::after {
+  width: clamp(1.5rem, 5vw, 2.5rem);
+  height: 3px;
+  border-radius: 3px;
+  background: var(--sy-yellow);
+  content: "";
+}
+body[data-page="home"] .section-kicker span {
+  padding: .25rem .8rem;
+  border-radius: 999px;
+  background: #ffdf57;
+}
+body[data-page="home"] #why .section-title,
+body[data-page="home"] #how .section-title {
+  display: block;
+  max-width: none;
+  color: var(--sy-navy);
+  font-size: clamp(1.6rem, 3.3vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.08;
+  text-align: center;
+  white-space: normal;
+}
+body[data-page="home"] #why .section-title::after,
+body[data-page="home"] #how .section-title::after {
+  display: none;
+}
+body[data-page="home"] .section-title-accent {
+  color: #f2a900;
+}
+body[data-page="home"] #why .section-sub,
+body[data-page="home"] #how .section-sub {
+  margin: .35rem 0 0;
+  color: #7b879a;
+  font-size: clamp(.92rem, 1.8vw, 1.15rem);
+  font-weight: 600;
+  text-align: center;
+}
+body[data-page="home"] #why .mobile-why-benefits {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .7rem;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit,
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
+  align-items: center;
+  gap: .65rem;
+  min-width: 0;
+  min-height: 112px;
+  padding: .8rem;
+  border: 1px solid #e7edf4;
+  border-radius: 18px;
+  background: #fffaf0;
+  box-shadow: 0 5px 14px rgba(10, 37, 64, .05);
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(2),
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) {
+  background: #f0f8ff;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) {
+  background: #effbf5;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) {
+  background: #f7f1ff;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) {
+  background: #fff3e9;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #ffedb5;
+  color: #c38300;
+  font-size: 1.55rem;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(2) .hero-benefit-icon,
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(5) .hero-benefit-icon {
+  background: #dceeff;
+  color: #1673c9;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(3) .hero-benefit-icon {
+  background: #d6f7e4;
+  color: #14864c;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(4) .hero-benefit-icon {
+  background: #eadbff;
+  color: #7624c8;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(6) .hero-benefit-icon {
+  background: #ffe1ca;
+  color: #cf6500;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
+  margin: 0 0 .2rem;
+  color: var(--sy-navy);
+  font-size: clamp(.82rem, 1.35vw, .98rem);
+  line-height: 1.3;
+}
+body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
+  color: #596a82;
+  font-size: clamp(.72rem, 1.1vw, .84rem);
+  line-height: 1.4;
+}
+body[data-page="home"] #how.section-alt {
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 0 3rem;
+  background: #fff;
+}
+body[data-page="home"] #how.section-alt::after {
+  position: absolute;
+  inset: auto 0 0 auto;
+  width: 100%;
+  height: 100%;
+  background: url("/assets/images/goa-section-how-art.png") right bottom / auto 100% no-repeat;
+  content: "";
+  opacity: .72;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 65%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 65%, #000 100%);
+}
+body[data-page="home"] #how > .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+}
+body[data-page="home"] #how .how-grid {
+  gap: 1rem;
+}
+body[data-page="home"] #how .how-item {
+  padding: .5rem .75rem;
+  text-align: center;
+}
+body[data-page="home"] #how .how-item:not(:last-child)::after {
+  top: 1.7rem;
+  right: -.4rem;
+}
+body[data-page="home"] #how .how-num {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto .8rem;
+  background: #e3f2ff;
+  color: #1673c9;
+  font-size: 2rem;
+}
+body[data-page="home"] #how .how-item:nth-child(2) .how-num {
+  background: #dcf8e8;
+  color: #14864c;
+}
+body[data-page="home"] #how .how-item:nth-child(3) .how-num {
+  background: #fff1c8;
+  color: #c38300;
+}
+body[data-page="home"] #how .how-item:nth-child(4) .how-num {
+  background: #eee2ff;
+  color: #7624c8;
+}
+body[data-page="home"] #how .how-step-number {
+  top: .1rem;
+  left: calc(50% + 1.1rem);
+  width: 28px;
+  height: 28px;
+  font-size: .85rem;
+}
+body[data-page="home"] #how .how-title {
+  font-size: 1rem;
+}
+body[data-page="home"] #how .how-text {
+  max-width: 17rem;
+  margin: 0 auto;
+  font-size: .87rem;
+}
+
+@media (max-width: 767.98px) {
+  body[data-page="home"] #why::before {
+    width: 100%;
+    height: 220px;
+    background-size: auto 100%;
+  }
+  body[data-page="home"] #why .section-title,
+  body[data-page="home"] #how .section-title {
+    font-size: clamp(1.55rem, 5.5vw, 2.15rem);
+  }
+  body[data-page="home"] #how.section-alt::after {
+    width: 100%;
+    height: 240px;
+    background-size: auto 100%;
+  }
+}
+
 @media (max-width: 1199.98px) {
   body[data-page="home"] #how .how-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1675,6 +1920,157 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
   body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
     font-size: .6rem;
   }
+}
+
+@media (max-width: 767.98px) {
+  body[data-page="home"] #why {
+    padding: 1.5rem 0;
+  }
+  body[data-page="home"] #why > .container {
+    padding: 0 .85rem;
+    border-radius: 0;
+    background: transparent;
+  }
+  body[data-page="home"] #why .section-head,
+  body[data-page="home"] #how .section-head {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  body[data-page="home"] #why .section-head > div,
+  body[data-page="home"] #how .section-head > div {
+    width: 100%;
+  }
+  body[data-page="home"] #why .section-title,
+  body[data-page="home"] #how .section-title {
+    display: block;
+    width: 100%;
+    font-size: clamp(1.45rem, 4.2vw, 2.15rem);
+    line-height: 1.1;
+    text-align: center;
+    overflow-wrap: normal;
+  }
+  body[data-page="home"] #why .section-sub,
+  body[data-page="home"] #how .section-sub {
+    font-size: .95rem;
+    text-align: center;
+  }
+  body[data-page="home"] #why .mobile-why-benefits {
+    gap: .65rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit,
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
+    align-items: flex-start;
+    gap: .55rem;
+    min-height: 0;
+    padding: .75rem;
+    border: 1px solid #e7edf4;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(10, 37, 64, .05);
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
+      flex-basis: 36px;
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
+      font-size: .72rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
+      font-size: .64rem;
+  }
+  body[data-page="home"] #how.section-alt {
+    padding: 1.5rem 0 2rem;
+  }
+  body[data-page="home"] #how .how-item {
+    display: block;
+    min-height: 0;
+    padding: .75rem .4rem;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    text-align: center;
+  }
+  body[data-page="home"] #how .how-num {
+    display: grid;
+    margin: 0 auto .65rem;
+  }
+  body[data-page="home"] #how .how-step-number {
+    top: .2rem;
+    left: calc(50% + 1rem);
+  }
+}
+
+@media (max-width: 479.98px) {
+  body[data-page="home"] .section-kicker {
+    gap: .5rem;
+    font-size: .68rem;
+  }
+  body[data-page="home"] #why .section-title,
+  body[data-page="home"] #how .section-title {
+    font-size: clamp(1.2rem, 4.8vw, 1.45rem);
+  }
+  body[data-page="home"] .section-kicker span {
+    padding: .25rem .7rem;
+  }
+  body[data-page="home"] #why .section-title,
+  body[data-page="home"] #how .section-title {
+    font-size: clamp(1.2rem, 4.8vw, 1.45rem);
+  }
+  body[data-page="home"] #why .mobile-why-benefits {
+    gap: .45rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit,
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit:last-child {
+    flex-direction: column;
+    gap: .4rem;
+    padding: .65rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit-icon {
+    flex-basis: 32px;
+    width: 32px;
+    height: 32px;
+    font-size: .95rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong {
+    font-size: .68rem;
+  }
+  body[data-page="home"] #why .mobile-why-benefits .hero-benefit small {
+    font-size: .62rem;
+  }
+}
+
+html[data-theme="dark"] body[data-page="home"] #why {
+  background: var(--sy-bg);
+}
+html[data-theme="dark"] body[data-page="home"] #how.section-alt {
+  background: var(--sy-card);
+}
+html[data-theme="dark"] body[data-page="home"] #why::before,
+html[data-theme="dark"] body[data-page="home"] #how.section-alt::after {
+  display: none;
+}
+html[data-theme="dark"] body[data-page="home"] #why .section-title,
+html[data-theme="dark"] body[data-page="home"] #how .section-title,
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit strong,
+html[data-theme="dark"] body[data-page="home"] #how .how-title {
+  color: var(--sy-text);
+}
+html[data-theme="dark"] body[data-page="home"] .section-kicker {
+  color: var(--sy-navy);
+}
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit,
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit:nth-child(n) {
+  border-color: var(--sy-border);
+  background: var(--sy-card);
+}
+html[data-theme="dark"] body[data-page="home"] #why .mobile-why-benefits .hero-benefit small,
+html[data-theme="dark"] body[data-page="home"] #how .how-text {
+  color: var(--sy-muted);
+}
+html[data-theme="dark"] body[data-page="home"] #how .how-num {
+  background: var(--sy-sky);
+  color: var(--sy-text);
 }
 
 /* ============================================================
