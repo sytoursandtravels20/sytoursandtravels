@@ -328,6 +328,7 @@ function renderHomepagePopularWaterTrips(trips) {
     .slice(0, 4);
 
   grid.innerHTML = popularTrips.map(function (entry) {
+    // Keep original catalog indices so the shared gallery opens the matching trip.
     return homeWaterTripCard(entry.trip, entry.index);
   }).join("");
   emptyState.hidden = popularTrips.length > 0;

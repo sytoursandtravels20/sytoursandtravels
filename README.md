@@ -15,6 +15,7 @@ Static marketing and booking-enquiry website for SY Tours & Travels.
 | `/yachts/` | `yachts/index.html` |
 | `/blog/` | `blog/index.html` |
 | `/contact/` | `contact/index.html` |
+| `/faq/` | `faq/index.html` |
 | `/privacy/` | `privacy/index.html` |
 | `/terms/` | `terms/index.html` |
 
@@ -31,8 +32,18 @@ Visitors can switch between light and dark themes from the shared header. Their 
 - `js/components.js` builds reusable cards, reads sheet rows, and fills in the shared header/footer.
 - `js/main.js` handles shared pages, activities, and water trips; `js/rentals.js` handles rental filters; `js/taxi.js` handles taxi enquiries and place suggestions; `js/blog.js` displays blog posts.
 - `components/header.html` and `components/footer.html` are reused across pages.
+- `faq/index.html` contains the FAQ answers and matching `FAQPage` structured data; update both together when an answer changes.
 
 When making routine content changes, update the appropriate Google Sheet or the matching business setting in `js/config.js`. The code comments explain the less-obvious loading, filtering, and booking behavior; they are not intended to repeat each line of code.
+
+### Local development and maintenance
+
+- Serve the repository root with any static web server; opening pages as `file://` will prevent shared components and catalogs from loading.
+- Keep shared header/footer markup in `components/` and their presentation in `css/header.css` and `css/footer.css`.
+- `css/home.css` contains homepage layout and shared design tokens used by the other pages. Keep responsive overrides beside the breakpoint they serve.
+- When changing a shared CSS file, update its `?v=` query on every page that links it so deployed browsers do not keep an older cached stylesheet.
+- The homepage uses a desktop banner from tablet width upward and a dedicated mobile hero below 768px. Update its preload links and matching media rules together if those assets change.
+- Prefer comments that explain intent or non-obvious behavior; avoid comments that merely repeat what the next line already says.
 
 ## Search visibility and accessibility
 
