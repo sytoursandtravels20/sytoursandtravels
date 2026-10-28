@@ -2080,6 +2080,282 @@ html[data-theme="dark"] body[data-page="home"] #how .how-num {
   color: var(--sy-text);
 }
 
+/* Homepage sections styled to match the mobile reference layout. */
+body[data-page="home"] #how.section-alt {
+  padding: 1.5rem 0 2rem;
+  background: #f7faff;
+}
+body[data-page="home"] #how.section-alt::after {
+  opacity: .18;
+}
+body[data-page="home"] #how .section-head {
+  margin-bottom: 1rem;
+}
+body[data-page="home"] #how .how-grid {
+  position: relative;
+  display: grid;
+  width: min(100%, 760px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: .65rem;
+  margin: 0 auto;
+}
+body[data-page="home"] #how .how-grid::before {
+  position: absolute;
+  top: 2.2rem;
+  bottom: 2.2rem;
+  left: 1.55rem;
+  border-left: 1px dashed #9baabc;
+  content: "";
+}
+body[data-page="home"] #how .how-item {
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 2.6rem 3rem minmax(0, 1fr);
+  grid-template-areas:
+    "number icon title"
+    "number icon text";
+  align-items: center;
+  column-gap: .55rem;
+  min-height: 76px;
+  padding: .65rem .8rem;
+  border: 1px solid #e8edf5;
+  border-radius: 12px;
+  background: #fff;
+  text-align: left;
+}
+body[data-page="home"] #how .how-step-number {
+  position: static;
+  grid-area: number;
+  width: 2rem;
+  height: 2rem;
+  background: #1680cf;
+  font-size: .9rem;
+}
+body[data-page="home"] #how .how-item:nth-child(even) .how-step-number {
+  background: #f4ba00;
+}
+body[data-page="home"] #how .how-num {
+  grid-area: icon;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  background: #e6f4ff;
+  color: #1673c9;
+  font-size: 1.25rem;
+}
+body[data-page="home"] #how .how-item:nth-child(even) .how-num {
+  background: #fff5d5;
+  color: #aa7a00;
+}
+body[data-page="home"] #how .how-item:nth-child(3) .how-num {
+  background: #e8f4ff;
+  color: #1673c9;
+}
+body[data-page="home"] #how .how-item:nth-child(4) .how-num {
+  background: #e3f7eb;
+  color: #14864c;
+}
+body[data-page="home"] #how .how-title {
+  grid-area: title;
+  align-self: end;
+  margin: 0 0 .1rem;
+  font-size: .92rem;
+}
+body[data-page="home"] #how .how-text {
+  grid-area: text;
+  align-self: start;
+  max-width: none;
+  margin: 0;
+  font-size: .78rem;
+}
+
+body[data-page="home"] .home-popular-section,
+body[data-page="home"] .home-reviews-section {
+  padding: 2rem 0;
+  background: #fff;
+}
+body[data-page="home"] .home-popular-section .container,
+body[data-page="home"] .home-reviews-section .container {
+  max-width: 1200px;
+}
+body[data-page="home"] .home-popular-section .section-head,
+body[data-page="home"] .home-reviews-section .section-head {
+  justify-content: center;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+body[data-page="home"] .home-popular-section .section-head > div,
+body[data-page="home"] .home-reviews-section .section-head > div {
+  width: 100%;
+}
+body[data-page="home"] .home-popular-section .section-title,
+body[data-page="home"] .home-reviews-section .section-title {
+  margin: 0;
+  color: var(--sy-navy);
+  font-size: clamp(1.45rem, 3.3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.1;
+  text-align: center;
+}
+body[data-page="home"] .home-popular-section .section-sub,
+body[data-page="home"] .home-reviews-section .section-sub {
+  margin: .35rem 0 0;
+  color: #66758a;
+  font-size: .9rem;
+  text-align: center;
+}
+.home-popular-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+.home-popular-grid[hidden],
+.home-popular-empty[hidden] {
+  display: none;
+}
+.home-water-trip-card {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) 2.5rem;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid #e7edf4;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--sy-navy);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(10, 37, 64, .06);
+}
+.home-water-trip-image {
+  display: block;
+  grid-column: 1 / -1;
+  width: 100%;
+  aspect-ratio: 2.35;
+  overflow: hidden;
+  background: #eaf3fb;
+}
+.home-water-trip-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .2s ease;
+}
+.home-water-trip-card:hover .home-water-trip-image img {
+  transform: scale(1.03);
+}
+.home-water-trip-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: .18rem;
+  padding: .55rem .65rem .65rem;
+}
+.home-water-trip-title {
+  overflow: hidden;
+  font-size: .88rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.home-water-trip-description {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #66758a;
+  font-size: .72rem;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.home-water-trip-price {
+  margin-top: .15rem;
+  color: #526274;
+  font-size: .68rem;
+  font-weight: 600;
+}
+.home-water-trip-arrow {
+  display: grid;
+  align-self: center;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  margin: .4rem;
+  border-radius: 50%;
+  background: #f4bd00;
+  color: var(--sy-navy);
+  font-size: 1rem;
+}
+.home-popular-empty {
+  margin: 0;
+  color: var(--sy-muted);
+  text-align: center;
+}
+.home-popular-empty a,
+.home-reviews-link {
+  color: #145ca7;
+  font-weight: 700;
+  text-decoration: none;
+}
+.home-review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+}
+.home-review-card {
+  display: flex;
+  min-height: 140px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: .9rem;
+  border: 1px solid #e7edf4;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(10, 37, 64, .06);
+}
+.home-review-google {
+  color: #4285f4;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.home-review-card p {
+  flex: 1;
+  margin: .55rem 0;
+  color: #526274;
+  font-size: .8rem;
+  line-height: 1.45;
+}
+.home-review-attribution {
+  color: #7b879a;
+  font-size: .7rem;
+  font-weight: 600;
+}
+.home-reviews-link {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  margin: 1rem auto 0;
+}
+html[data-theme="dark"] body[data-page="home"] .home-popular-section,
+html[data-theme="dark"] body[data-page="home"] .home-reviews-section {
+  background: var(--sy-bg);
+}
+html[data-theme="dark"] body[data-page="home"] .home-popular-section .section-title,
+html[data-theme="dark"] body[data-page="home"] .home-reviews-section .section-title,
+html[data-theme="dark"] body[data-page="home"] .home-water-trip-card,
+html[data-theme="dark"] body[data-page="home"] .home-review-card {
+  color: var(--sy-text);
+}
+html[data-theme="dark"] body[data-page="home"] .home-water-trip-card,
+html[data-theme="dark"] body[data-page="home"] .home-review-card {
+  border-color: var(--sy-border);
+  background: var(--sy-card);
+}
+
 /* ============================================================
    AVAILABILITY STYLES
    Booked vehicles still render but are visually marked.

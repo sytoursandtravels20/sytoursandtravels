@@ -201,6 +201,7 @@ html[data-theme="dark"] .sy-footer { border-top: 1px solid var(--sy-border); }
     .blog-hero,
     .contact-hero,
     .offers-page-hero,
+    .faq-hero,
     .legal-hero,
     .taxi-hero
   ) {

@@ -324,6 +324,22 @@ function waterCard(item, index) {
     </button>`;
 }
 
+function homeWaterTripCard(item, index) {
+  return `
+    <button class="home-water-trip-card" type="button" data-water-trip-index="${index}"
+            aria-haspopup="dialog" aria-label="View ${esc(item.name)} details">
+      <span class="home-water-trip-image">
+        <img src="${esc(item.image)}" alt="" loading="lazy" decoding="async">
+      </span>
+      <span class="home-water-trip-copy">
+        <span class="home-water-trip-title">${esc(item.name)}</span>
+        <span class="home-water-trip-description">${esc(item.description || item.meta || "")}</span>
+        <span class="home-water-trip-price">From \u20B9${fmtPrice(item.price)} / ${esc(item.unit)}</span>
+      </span>
+      <span class="home-water-trip-arrow" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+    </button>`;
+}
+
 function catalogLabel(value) {
   return (value || "").split(/[-_\s]+/).filter(Boolean).map(function (part) {
     return part.charAt(0).toUpperCase() + part.slice(1);

@@ -163,6 +163,7 @@ function applyConfig() {
   const titles = {
     home: "Explore Goa | Rentals & Experiences | " + C.name,
     about: "About " + C.name + " | Goa",
+    faq: "Frequently Asked Questions | " + C.name,
     rentals: "Car Rentals in Goa | " + C.name,
     offers: "Offers & Discounts | " + C.name,
     taxi: "Taxi Service in Goa | " + C.name,
@@ -198,10 +199,11 @@ function initActivityGallery() {
 
   document.addEventListener("click", function (event) {
     const card = event.target instanceof Element
-      ? event.target.closest(".activity-card, .water-trip-card")
+      ? event.target.closest(".activity-card, .water-trip-card, .home-water-trip-card")
       : null;
     if (!card) return;
-    const isWaterTrip = card.classList.contains("water-trip-card");
+    const isWaterTrip = card.classList.contains("water-trip-card") ||
+      card.classList.contains("home-water-trip-card");
     const index = Number(isWaterTrip ? card.dataset.waterTripIndex : card.dataset.activityIndex);
     const item = (isWaterTrip ? waterTripItemsForGallery : activityItemsForGallery)[index];
     if (!item) return;
@@ -301,6 +303,7 @@ function openCatalogGallery(dialog, item, isWaterTrip) {
   dialog.showModal();
 }
 function renderYachtsBoatsCruises(DATA) {
+  renderHomepagePopularWaterTrips(DATA.waterTrips || []);
   const el = document.getElementById("yachtsGrid");
   if (!el) return;
   const trips = DATA.waterTrips || [];
@@ -309,6 +312,26 @@ function renderYachtsBoatsCruises(DATA) {
   });
   waterTripItemsForGallery = filterSheetCatalog(trips, waterTripCatalogFilters);
   el.innerHTML = waterTripItemsForGallery.map(waterCard).join("");
+}
+
+function renderHomepagePopularWaterTrips(trips) {
+  const grid = document.getElementById("homeWaterTripsGrid");
+  const emptyState = document.getElementById("homeWaterTripsEmpty");
+  if (!grid || !emptyState) return;
+
+  waterTripItemsForGallery = trips;
+  const popularTrips = trips
+    .map(function (trip, index) { return { trip: trip, index: index }; })
+    .filter(function (entry) {
+      return /cruise|yacht/i.test((entry.trip.type || "") + " " + entry.trip.name);
+    })
+    .slice(0, 4);
+
+  grid.innerHTML = popularTrips.map(function (entry) {
+    return homeWaterTripCard(entry.trip, entry.index);
+  }).join("");
+  emptyState.hidden = popularTrips.length > 0;
+  grid.hidden = popularTrips.length === 0;
 }
 
 function renderOfferListings(offers) {
