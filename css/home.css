@@ -115,6 +115,7 @@ img { max-width: 100%; display: block; }
   z-index: 3;
 }
 .mobile-why-actions { display: none; }
+.mobile-why-banner { display: none; }
 .hero-actions .btn-sy,
 .hero-actions .btn-ghost {
   min-height: 44px;
@@ -1703,6 +1704,12 @@ body[data-page="home"] #how .how-text {
   body[data-page="home"] #why .mobile-why-actions > a {
     flex: 1;
     justify-content: center;
+  }
+  body[data-page="home"] #why .mobile-why-banner {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: -1.25rem auto 1rem;
   }
   .hero-benefits {
     width: calc(100% - 1.5rem);
