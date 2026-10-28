@@ -1,7 +1,7 @@
 <!-- FOOTER COMPONENT -->
 <div class="sy-footer">
   <div class="container">
-    <div class="sy-footer-main">
+    <div class="sy-footer-brand">
       <a class="sy-brand sy-brand--footer" href="./" aria-label="SY Tours and Travels — Home">
         <span class="sy-brand-logo" id="footerBrandLogo"></span>
         <span class="sy-brand-text">
@@ -9,33 +9,62 @@
           <span class="sy-brand-tag" id="footerBrandTag"></span>
         </span>
       </a>
+      <p class="sy-footer-description" id="footerDesc"></p>
+      <div class="sy-social" id="footerSocial" aria-label="Social media"></div>
+    </div>
 
-      <nav class="sy-footer-nav" aria-label="Footer navigation">
+    <hr class="sy-footer-hr sy-footer-hr--brand" />
+
+    <div class="sy-footer-links">
+      <nav class="sy-footer-link-group" aria-label="Quick links">
+        <h2>Quick Links</h2>
         <a href="./">Home</a>
         <a href="rentals/">Cars</a>
-        <a href="two-wheelers/">Scooties</a>
+        <a href="two-wheelers/">Scooters</a>
         <a href="taxi/">Taxi Service</a>
-        <a href="activities/">Water Activities</a>
+        <a href="activities/">Activities</a>
         <a href="yachts/">Yachts &amp; Boats</a>
-        <a href="about/">About</a>
-        <a href="faq/">FAQs</a>
-        <a href="contact/">Contact</a>
+      </nav>
+
+      <nav class="sy-footer-link-group" aria-label="Company">
+        <h2>Company</h2>
+        <a href="about/">About Us</a>
+        <a href="contact/">Contact Us</a>
         <a href="blog/">Blog</a>
         <a href="offers/">Offers</a>
       </nav>
 
-      <div class="sy-social" id="footerSocial" aria-label="Social media"></div>
+      <nav class="sy-footer-link-group" aria-label="Help">
+        <h2>Help</h2>
+        <a href="faq/">FAQs</a>
+        <a href="/terms/">Terms &amp; Conditions</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+
+      <section class="sy-footer-contact" aria-labelledby="footerContactTitle">
+        <h2 id="footerContactTitle">Contact Us</h2>
+        <a id="footerPhone" href="tel:+919021954978"><i class="bi bi-telephone-fill" aria-hidden="true"></i><span></span></a>
+        <a id="footerWhatsApp" href="https://wa.me/919021954978" target="_blank" rel="noopener"><i class="bi bi-whatsapp" aria-hidden="true"></i><span>Chat on WhatsApp</span></a>
+        <a id="footerEmail" href="mailto:sytourandtravels20@gmail.com"><i class="bi bi-envelope-fill" aria-hidden="true"></i><span></span></a>
+        <span class="sy-footer-address"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i><span id="footerAddress"></span></span>
+      </section>
     </div>
 
-    <hr class="sy-footer-hr" />
+    <hr class="sy-footer-hr sy-footer-hr--features" />
+
+    <ul class="sy-footer-features" aria-label="Our service benefits">
+      <li><i class="bi bi-shield-check" aria-hidden="true"></i><span>Secure<br />Bookings</span></li>
+      <li><i class="bi bi-calendar-check" aria-hidden="true"></i><span>Easy<br />Booking</span></li>
+      <li><i class="bi bi-headset" aria-hidden="true"></i><span>Local<br />Support</span></li>
+      <li><i class="bi bi-people-fill" aria-hidden="true"></i><span>Verified<br />Operators</span></li>
+    </ul>
+
+    <hr class="sy-footer-hr sy-footer-hr--bottom" />
 
     <div class="sy-footer-bottom">
       <p class="mb-0">&copy; <span id="footerYear"></span> <span id="footerCompany"></span>. All rights reserved.</p>
-      <ul class="sy-footer-legal">
-        <li><a href="/privacy/">Privacy Policy</a></li>
-        <li><a href="/terms/">Terms and Conditions</a></li>
-        <li><a href="/sitemap.xml">Sitemap</a></li>
-      </ul>
+      <img class="sy-footer-art" src="/assets/images/explore-goa-your-way.png" alt="Explore Goa Your Way" width="2172" height="724" loading="lazy" decoding="async" />
     </div>
   </div>
 

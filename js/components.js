@@ -155,15 +155,20 @@ function applySharedConfig() {
 
   const phone = document.getElementById("footerPhone");
   if (phone) {
-    phone.textContent = company.phone;
+    const phoneLabel = phone.querySelector("span");
+    if (phoneLabel) phoneLabel.textContent = company.phone;
     phone.href = "tel:+" + company.phoneRaw;
   }
 
   const email = document.getElementById("footerEmail");
   if (email) {
-    email.textContent = company.email;
+    const emailLabel = email.querySelector("span");
+    if (emailLabel) emailLabel.textContent = company.email;
     email.href = "mailto:" + company.email;
   }
+
+  const footerWhatsApp = document.getElementById("footerWhatsApp");
+  if (footerWhatsApp) footerWhatsApp.href = waLink("Hi " + company.name + ", I'd like to enquire about your services.");
 
   setText("footerYear", new Date().getFullYear());
   setText("footerCompany", company.name);
