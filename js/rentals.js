@@ -1,7 +1,7 @@
 /* ============================================================
    rentals.js — logic for rentals/index.html.
    Loads header/footer, applies CONFIG, loads data, manages
-   filters (category / search / sort / available-only).
+   filters (seats / type / sort on cars; legacy filters on two-wheelers).
    ============================================================ */
 
 let allVehicles = [];
@@ -11,8 +11,9 @@ const rentalPageType = document.body.dataset.rentalType || "car";
 let currentFilters = {
   type: requestedType || "all",
   category: requestedCategory || "all",
+  seats: "all",
   search: "",
-  sort: "recommended",
+  sort: rentalPageType === "two-wheeler" ? "recommended" : "",
   availableOnly: false
 };
 
@@ -56,6 +57,22 @@ document.addEventListener("DOMContentLoaded", async function () {
    FILTER WIRING
    ============================================================ */
 function initFilters() {
+  const seatsSelect = document.getElementById("vehicleSeatsFilter");
+  if (seatsSelect) {
+    seatsSelect.addEventListener("change", function (event) {
+      currentFilters.seats = event.target.value;
+      renderListings();
+    });
+  }
+
+  const categorySelect = document.getElementById("vehicleCategoryFilter");
+  if (categorySelect) {
+    categorySelect.addEventListener("change", function (event) {
+      currentFilters.category = event.target.value;
+      renderListings();
+    });
+  }
+
   initFilterGroup("vehicleTypeFilters", "type", function (type) {
     currentFilters.type = type;
     currentFilters.category = "all";
@@ -100,11 +117,19 @@ function initFilters() {
   const clearBtn = document.getElementById("clearFilters");
   if (clearBtn) {
     clearBtn.addEventListener("click", function () {
-      currentFilters = { category: "all", search: "", sort: "recommended", availableOnly: false };
+      currentFilters = {
+        category: "all",
+        seats: "all",
+        search: "",
+        sort: rentalPageType === "two-wheeler" ? "recommended" : "",
+        availableOnly: false
+      };
       currentFilters.type = "all";
       renderVehicleFilters();
       if (searchInput) searchInput.value = "";
-      if (sortSel) sortSel.value = "recommended";
+      if (sortSel) sortSel.value = currentFilters.sort;
+      if (seatsSelect) seatsSelect.value = "all";
+      if (categorySelect) categorySelect.value = "all";
       if (availOnly) availOnly.checked = false;
       renderListings();
     });
@@ -123,6 +148,13 @@ function initFilterGroup(id, filterName, onSelect) {
 }
 
 function renderVehicleFilters() {
+  const seatsSelect = document.getElementById("vehicleSeatsFilter");
+  const categorySelect = document.getElementById("vehicleCategoryFilter");
+  if (seatsSelect && categorySelect) {
+    renderSeatAndTypeFilters(seatsSelect, categorySelect);
+    return;
+  }
+
   const typeFilters = document.getElementById("vehicleTypeFilters");
   const categoryFilters = document.getElementById("vehicleCategoryFilters");
   const types = Array.from(new Set(allVehicles.map(vehicleType)));
@@ -159,6 +191,57 @@ function renderVehicleFilters() {
       return filterChip(category, vehicleCategoryLabel(category, sample && sample.categoryLabel), selectedCategory === category);
     })).join("");
   }
+}
+
+function renderSeatAndTypeFilters(seatsSelect, categorySelect) {
+  const seats = Array.from(new Set(allVehicles.flatMap(function (vehicle) {
+    return passengerSeats(vehicle);
+  }))).sort(function (a, b) { return a - b; });
+  const categories = Array.from(new Set(allVehicles
+    .map(function (vehicle) { return vehicle.category || "other"; })));
+
+  const hasEightPlusSeats = seats.some(function (seat) { return seat >= 8; });
+  if ((!seats.some(function (seat) { return seat.toString() === currentFilters.seats; }) &&
+    currentFilters.seats !== "8+") || (currentFilters.seats === "8+" && !hasEightPlusSeats)) {
+    currentFilters.seats = "all";
+  }
+  if (!categories.includes(currentFilters.category)) currentFilters.category = "all";
+
+  const seatOptions = seats.reduce(function (options, seat) {
+    if (seat >= 8) {
+      if (!options.some(function (option) { return option.value === "8+"; })) {
+        options.push({ value: "8+", label: "8+ Seater" });
+      }
+    } else {
+      options.push({ value: seat.toString(), label: seat + " Seater" });
+    }
+    return options;
+  }, []);
+
+  seatsSelect.innerHTML = [
+    '<option value="all">Seats</option>',
+    ...seatOptions.map(function (option) {
+      return `<option value="${esc(option.value)}">${esc(option.label)}</option>`;
+    })
+  ].join("");
+  seatsSelect.value = currentFilters.seats;
+
+  categorySelect.innerHTML = [
+    '<option value="all">Type</option>',
+    ...categories.map(function (category) {
+      return `<option value="${esc(category)}">${esc(vehicleCategoryLabel(category))}</option>`;
+    })
+  ].join("");
+  categorySelect.value = currentFilters.category;
+}
+
+function passengerSeats(vehicle) {
+  const passengers = vehicle.passengers;
+  if (Number.isInteger(passengers) && passengers > 0) return [passengers];
+  if (typeof passengers === "string" && /^\d+(?:\s*\/\s*\d+)+$/.test(passengers)) {
+    return passengers.split("/").map(function (seat) { return Number(seat.trim()); });
+  }
+  return [];
 }
 
 function filterChip(value, label, isActive) {
@@ -232,6 +315,15 @@ function applyFilters(items, filters) {
   /* Vehicle type */
   if (filters.type && filters.type !== "all") {
     list = list.filter(function (v) { return vehicleType(v) === filters.type; });
+  }
+
+  /* Passenger capacity */
+  if (filters.seats && filters.seats !== "all") {
+    list = list.filter(function (vehicle) {
+      return passengerSeats(vehicle).some(function (seat) {
+        return filters.seats === "8+" ? seat >= 8 : seat.toString() === filters.seats;
+      });
+    });
   }
 
   /* Category */

@@ -239,7 +239,7 @@ function vehicleCard(v, rentalIndex) {
   /* Footer action: direct WhatsApp enquiry when available, disabled pill if booked */
   const action = isBooked
     ? `<span class="btn-book is-disabled" aria-disabled="true">${formatText("Unavailable")}</span>`
-    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Hire Now")}</a>`;
+    : `<a class="btn-book" href="${waLink(waMsg)}" target="_blank" rel="noopener">${formatText("Hire Now")}${isRentalListing ? '<i class="bi bi-arrow-right" aria-hidden="true"></i>' : ""}</a>`;
 
   /* Optional "available from" hint under the price */
   const hint = isBooked && v.bookedUntil

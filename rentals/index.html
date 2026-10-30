@@ -60,30 +60,25 @@
         <div class="filter-bar" id="filterBar">
             <div class="container filter-bar-inner">
 
-                <div class="filter-groups">
-                    <div class="rental-page-switch" aria-label="Cars">
-                        <span class="filter-chip is-active"><i class="bi bi-car-front-fill" aria-hidden="true"></i> Cars</span>
+                <div class="filter-controls rental-type-controls">
+                    <div class="rental-filter-options">
+                        <select class="filter-select" id="vehicleSeatsFilter" aria-label="Filter by seats">
+                            <option value="all">Seats</option>
+                        </select>
+                        <select class="filter-select" id="vehicleCategoryFilter" aria-label="Filter by vehicle type">
+                            <option value="all">Type</option>
+                        </select>
+                        <select class="filter-select" id="filterSort" aria-label="Sort by">
+                            <option value="">Sort By</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="name">Name (A–Z)</option>
+                        </select>
                     </div>
-                    <div class="filter-chips" id="vehicleTypeFilters" role="tablist" aria-label="Vehicle type filter" hidden></div>
-                    <div class="filter-chips" id="vehicleCategoryFilters" role="tablist" aria-label="Vehicle category filter"></div>
-                </div>
-
-                <div class="filter-controls">
                     <div class="filter-search">
-                        <i class="bi bi-search"></i>
-                        <input type="text" id="filterSearch" placeholder="Search vehicles..."
-                            aria-label="Search vehicles" />
+                        <i class="bi bi-search" aria-hidden="true"></i>
+                        <input type="text" id="filterSearch" placeholder="Search vehicles..." aria-label="Search vehicles" />
                     </div>
-                    <select class="filter-select" id="filterSort" aria-label="Sort by">
-                        <option value="recommended">Recommended</option>
-                        <option value="price-asc">Price: Low to High</option>
-                        <option value="price-desc">Price: High to Low</option>
-                        <option value="name">Name (A–Z)</option>
-                    </select>
-                    <label class="filter-toggle" for="availableOnly">
-                        <input type="checkbox" id="availableOnly" />
-                        <span>Available only</span>
-                    </label>
                 </div>
 
             </div>
@@ -100,7 +95,7 @@
                 <div class="empty-state" id="emptyState" hidden>
                     <i class="bi bi-search"></i>
                     <h3>No vehicles match your filters</h3>
-                    <p>Try clearing the filters or searching for a different word.</p>
+                    <p>Try choosing different seats or a different vehicle type.</p>
                     <button class="btn-sy" type="button" id="clearFilters">Clear Filters</button>
                 </div>
 
