@@ -4,48 +4,32 @@
    come from home.css (loaded first).
    ============================================================ */
 
-/* ---------- COMPACT PAGE HERO ---------- */
-.page-hero {
+/* ---------- RENTAL BANNER ---------- */
+.rental-banner {
   position: relative;
-  padding: 5rem 0 4rem;
-  color: #fff;
-  background-color: var(--sy-navy);
-  background-image:
-    linear-gradient(180deg, rgba(10,37,64,.86) 0%, rgba(10,37,64,.6) 50%, rgba(10,37,64,.92) 100%),
-    var(--page-hero-img, none);
-  background-image:
-    linear-gradient(180deg, rgba(10,37,64,.86) 0%, rgba(10,37,64,.6) 50%, rgba(10,37,64,.92) 100%),
-    url("https://images.unsplash.com/photo-1520443240718-fce21901db79?auto=format&fit=crop&w=1400&q=72");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  isolation: isolate;
+  height: clamp(280px, 25vw, 346px);
+  overflow: hidden;
+  background: #193b54;
+  line-height: 0;
 }
-
-.page-hero-inner { position: relative; z-index: 2; max-width: 720px; }
-
-.page-hero-eyebrow {
-  display: inline-block;
-  font-size: .78rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--sy-yellow);
-  margin-bottom: .8rem;
+.rental-banner::before {
+  position: absolute;
+  z-index: -1;
+  inset: -18px;
+  background: url("/assets/images/53c1c8e3-65cd-4097-95dd-f408e013ca73.png") center / cover no-repeat;
+  content: "";
+  filter: blur(14px);
+  opacity: .7;
 }
-
-.page-hero-title {
-  font-size: clamp(1.9rem, 4.5vw, 3rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -.8px;
-  margin: 0;
-}
-
-.page-hero-sub {
-  color: #dfe9f3;
-  font-size: 1rem;
-  margin-top: 1rem;
-  max-width: 560px;
+.rental-banner-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: .72;
 }
 
 /* ---------- STICKY FILTER BAR ---------- */
@@ -372,15 +356,8 @@
 }
 
 /* ---------- RESPONSIVE ---------- */
-@media (max-width: 991.98px) {
-  .page-hero { padding: 4rem 0 3rem; }
-}
-
 @media (max-width: 767.98px) {
-  .page-hero { padding: 2.5rem 0 2rem; }
-  .page-hero-eyebrow { font-size: .7rem; letter-spacing: 2px; }
-  .page-hero-title { font-size: 1.75rem; }
-  .page-hero-sub { font-size: .9rem; margin-top: .75rem; }
+  .rental-banner { height: clamp(200px, 56vw, 260px); }
 
   .filter-bar { position: relative; z-index: 1; padding: .65rem 0; }
   .filter-bar-inner { gap: .65rem; }
