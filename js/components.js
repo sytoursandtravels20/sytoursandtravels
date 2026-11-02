@@ -208,7 +208,7 @@ function vehicleCard(v, rentalIndex) {
     }).join("")
     : `<span class="sy-price-rate"><strong class="sy-price-value">${formatText("Price on request")}</strong></span>`;
   const rentalPrice = rates.length
-    ? `<span class="rental-price-line"><strong class="sy-price-value">\u20B9${fmtPrice(Math.min.apply(null, rates.map(function (rate) { return rate.price; })))}</strong><span class="sy-price-unit">/ ${formatText("per day")}</span></span>`
+    ? `<span class="rental-price-line"><strong class="sy-price-value">\u20B9${fmtPrice(Math.min.apply(null, rates.map(function (rate) { return rate.price; })))}</strong><span class="sy-price-unit">/ ${formatText("day")}</span>${detailsText ? `<details class="sy-card-disclosure rental-price-info"><summary aria-label="${esc(formatText("Vehicle information"))}"><i class="bi bi-info-circle" aria-hidden="true"></i><span class="visually-hidden">${esc(formatText("Vehicle information"))}</span></summary><p>${esc(detailsText)}</p></details>` : ""}</span>`
     : `<span class="rental-price-line"><strong class="sy-price-value">${formatText("Price on request")}</strong></span>`;
   const hasSampleRate = rates.some(function (rate) { return rate.sample; });
   const transmissionLabel = rates.length
@@ -256,10 +256,7 @@ function vehicleCard(v, rentalIndex) {
     ? `<li><i class="bi bi-gear-fill"></i> <span>${esc(transmissionLabel)}</span></li>`
     : "";
   const rentalSpecs = isRentalListing
-    ? transmissionSpec + passengerSpec + quantitySpec +
-      (detailsText
-        ? `<li class="rental-info-spec"><details class="sy-card-disclosure"><summary aria-label="${esc(formatText("Vehicle information"))}"><i class="bi bi-info-circle" aria-hidden="true"></i><span class="visually-hidden">${esc(formatText("Vehicle information"))}</span></summary><p>${esc(detailsText)}</p></details></li>`
-        : "")
+    ? transmissionSpec + passengerSpec + quantitySpec
     : passengerSpec + transmissionSpec + quantitySpec;
   const vehicleImage = v.image
     ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`

@@ -12,6 +12,7 @@ let currentFilters = {
   type: requestedType || "all",
   category: requestedCategory || "all",
   seats: "all",
+  transmission: "all",
   search: "",
   sort: rentalPageType === "two-wheeler" ? "recommended" : "",
   availableOnly: false
@@ -73,6 +74,14 @@ function initFilters() {
     });
   }
 
+  const transmissionSelect = document.getElementById("vehicleTransmissionFilter");
+  if (transmissionSelect) {
+    transmissionSelect.addEventListener("change", function (event) {
+      currentFilters.transmission = event.target.value;
+      renderListings();
+    });
+  }
+
   initFilterGroup("vehicleTypeFilters", "type", function (type) {
     currentFilters.type = type;
     currentFilters.category = "all";
@@ -120,6 +129,7 @@ function initFilters() {
       currentFilters = {
         category: "all",
         seats: "all",
+        transmission: "all",
         search: "",
         sort: rentalPageType === "two-wheeler" ? "recommended" : "",
         availableOnly: false
@@ -130,6 +140,7 @@ function initFilters() {
       if (sortSel) sortSel.value = currentFilters.sort;
       if (seatsSelect) seatsSelect.value = "all";
       if (categorySelect) categorySelect.value = "all";
+      if (transmissionSelect) transmissionSelect.value = "all";
       if (availOnly) availOnly.checked = false;
       renderListings();
     });
@@ -199,27 +210,23 @@ function renderSeatAndTypeFilters(seatsSelect, categorySelect) {
   }))).sort(function (a, b) { return a - b; });
   const categories = Array.from(new Set(allVehicles
     .map(function (vehicle) { return vehicle.category || "other"; })));
+  const transmissionSelect = document.getElementById("vehicleTransmissionFilter");
+  const transmissions = Array.from(new Set(allVehicles
+    .map(function (vehicle) { return vehicle.transmission || "Standard"; })))
+    .sort(function (a, b) { return a.localeCompare(b); });
 
-  const hasEightPlusSeats = seats.some(function (seat) { return seat >= 8; });
-  if ((!seats.some(function (seat) { return seat.toString() === currentFilters.seats; }) &&
-    currentFilters.seats !== "8+") || (currentFilters.seats === "8+" && !hasEightPlusSeats)) {
+  if (currentFilters.seats !== "all" &&
+    !seats.some(function (seat) { return seat.toString() === currentFilters.seats; })) {
     currentFilters.seats = "all";
   }
   if (!categories.includes(currentFilters.category)) currentFilters.category = "all";
 
-  const seatOptions = seats.reduce(function (options, seat) {
-    if (seat >= 8) {
-      if (!options.some(function (option) { return option.value === "8+"; })) {
-        options.push({ value: "8+", label: "8+ Seater" });
-      }
-    } else {
-      options.push({ value: seat.toString(), label: seat + " Seater" });
-    }
-    return options;
-  }, []);
+  const seatOptions = seats.map(function (seat) {
+    return { value: seat.toString(), label: seat + " Seater" };
+  });
 
   seatsSelect.innerHTML = [
-    '<option value="all">Seats</option>',
+    '<option value="all">All Seats</option>',
     ...seatOptions.map(function (option) {
       return `<option value="${esc(option.value)}">${esc(option.label)}</option>`;
     })
@@ -227,12 +234,23 @@ function renderSeatAndTypeFilters(seatsSelect, categorySelect) {
   seatsSelect.value = currentFilters.seats;
 
   categorySelect.innerHTML = [
-    '<option value="all">Type</option>',
+    '<option value="all">All Types</option>',
     ...categories.map(function (category) {
       return `<option value="${esc(category)}">${esc(vehicleCategoryLabel(category))}</option>`;
     })
   ].join("");
   categorySelect.value = currentFilters.category;
+
+  if (transmissionSelect) {
+    if (!transmissions.includes(currentFilters.transmission)) currentFilters.transmission = "all";
+    transmissionSelect.innerHTML = [
+      '<option value="all">All Transmissions</option>',
+      ...transmissions.map(function (transmission) {
+        return `<option value="${esc(transmission)}">${esc(transmission)}</option>`;
+      })
+    ].join("");
+    transmissionSelect.value = currentFilters.transmission;
+  }
 }
 
 function passengerSeats(vehicle) {
@@ -321,7 +339,7 @@ function applyFilters(items, filters) {
   if (filters.seats && filters.seats !== "all") {
     list = list.filter(function (vehicle) {
       return passengerSeats(vehicle).some(function (seat) {
-        return filters.seats === "8+" ? seat >= 8 : seat.toString() === filters.seats;
+        return seat.toString() === filters.seats;
       });
     });
   }
@@ -329,6 +347,13 @@ function applyFilters(items, filters) {
   /* Category */
   if (filters.category && filters.category !== "all") {
     list = list.filter(function (v) { return v.category === filters.category; });
+  }
+
+  /* Transmission */
+  if (filters.transmission && filters.transmission !== "all") {
+    list = list.filter(function (vehicle) {
+      return (vehicle.transmission || "Standard") === filters.transmission;
+    });
   }
 
   // Booked vehicles can still be shown, but are removed by the availability toggle.

@@ -38,6 +38,7 @@
     <link href="css/footer.css?v=20261028-1639" rel="stylesheet" />
     <!-- rentals.css adds page-specific styles: compact hero, filter bar -->
     <link href="css/rentals.css" rel="stylesheet" />
+    <link href="css/faq.css" rel="stylesheet" />
     <link href="css/theme.css" rel="stylesheet" />
 </head>
 
@@ -49,8 +50,12 @@
 
         <!-- COMPACT HERO -->
         <section class="rental-banner">
-            <img class="rental-banner-image" src="/assets/images/53c1c8e3-65cd-4097-95dd-f408e013ca73.png"
-                alt="Car rentals in Goa: find the right car for your Goa trip" />
+            <picture>
+                <source media="(max-width: 767.98px)"
+                    srcset="/assets/images/Goa Car Rentals by the Beach.png" />
+                <img class="rental-banner-image" src="/assets/images/Find Your Perfect Goa Rental.png"
+                    alt="Car rentals in Goa: find the right car for your Goa trip" />
+            </picture>
         </section>
 
         <!-- STICKY FILTER BAR -->
@@ -58,18 +63,24 @@
             <div class="container filter-bar-inner">
 
                 <div class="filter-controls rental-type-controls">
+                    <h2 class="rental-filter-heading">
+                        <i class="bi bi-funnel-fill" aria-hidden="true"></i>
+                        <span>Filter Options</span>
+                    </h2>
                     <div class="rental-filter-options">
                         <select class="filter-select" id="vehicleSeatsFilter" aria-label="Filter by seats">
-                            <option value="all">Seats</option>
+                            <option value="all">All Seats</option>
                         </select>
                         <select class="filter-select" id="vehicleCategoryFilter" aria-label="Filter by vehicle type">
-                            <option value="all">Type</option>
+                            <option value="all">All Types</option>
                         </select>
                         <select class="filter-select" id="filterSort" aria-label="Sort by">
-                            <option value="">Sort By</option>
+                            <option value="">Default</option>
                             <option value="price-asc">Price: Low to High</option>
                             <option value="price-desc">Price: High to Low</option>
-                            <option value="name">Name (A–Z)</option>
+                        </select>
+                        <select class="filter-select" id="vehicleTransmissionFilter" aria-label="Filter by transmission">
+                            <option value="all">All Transmissions</option>
                         </select>
                     </div>
                     <div class="filter-search">
@@ -99,30 +110,35 @@
             </div>
         </section>
 
-        <!-- WHY RENT WITH US -->
-        <section class="section section-alt" id="why">
+        <section class="section faq-section" aria-labelledby="rentalFaqTitle">
             <div class="container">
                 <div class="section-head">
                     <div>
-                        <h2 class="section-title">Why Rent With Us?</h2>
-                        <p class="section-sub">Because your trip should start smoothly.</p>
+                        <h2 class="section-title" id="rentalFaqTitle">Car Rental FAQs</h2>
+                        <p class="section-sub">Answers to common questions about renting a car in Goa.</p>
                     </div>
                 </div>
-                <div class="why-grid" id="whyGrid"></div>
-            </div>
-        </section>
-
-        <!-- FINAL CTA -->
-        <section class="cta" id="contact">
-            <div class="container cta-inner">
-                <div>
-                    <h2 class="cta-title" id="ctaTitle"></h2>
-                    <p class="cta-sub" id="ctaSub"></p>
-                </div>
-                <div class="cta-actions">
-                    <a class="btn-sy btn-lg" id="ctaBtn" href="#"></a>
-                    <a class="btn-ghost btn-lg" id="ctaWa" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>
-                        WhatsApp</a>
+                <div class="faq-list">
+                    <details class="faq-item" name="rental-faq">
+                        <summary>Do I need a valid driving licence to rent a car?</summary>
+                        <p>Yes, a valid driving licence is required for self-drive vehicle rentals. Please ensure your licence meets the applicable requirements and remains valid throughout the rental period.</p>
+                    </details>
+                    <details class="faq-item" name="rental-faq">
+                        <summary>Are there extra charges for night pickups or drops?</summary>
+                        <p>Extra charges may apply for pickups or drops between 10 PM and 7 AM, depending on the location.</p>
+                    </details>
+                    <details class="faq-item" name="rental-faq">
+                        <summary>Is there a security deposit for car rentals?</summary>
+                        <p>Yes, a refundable security deposit is required. The amount varies by car category: Economy (₹3,000), Premium (₹5,000), and Luxury (starting from ₹10,000).</p>
+                    </details>
+                    <details class="faq-item" name="rental-faq">
+                        <summary>Can I use the rented car outside Goa?</summary>
+                        <p>No, our rental services are currently limited to within Goa state boundaries only.</p>
+                    </details>
+                    <details class="faq-item" name="rental-faq">
+                        <summary>What is the rental timing system?</summary>
+                        <p>We follow a 9:00 AM to 9:00 AM rental system. Late returns after 9:00 AM may attract an additional day charge.</p>
+                    </details>
                 </div>
             </div>
         </section>

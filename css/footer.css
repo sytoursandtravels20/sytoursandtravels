@@ -254,14 +254,10 @@ html[data-theme="dark"] .visitor-enquiry-heading h2 { color: var(--sy-text); }
 
 @media (max-width: 767.98px) {
   .sy-footer-links {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: .9rem 1rem;
   }
-  .sy-footer-company-help {
-    display: flex;
-    flex-direction: column;
-    gap: .9rem;
-  }
+  .sy-footer-company-help { display: contents; }
   .sy-footer-contact { grid-column: 1 / -1; }
 }
 
@@ -272,8 +268,10 @@ html[data-theme="dark"] .visitor-enquiry-heading h2 { color: var(--sy-text); }
   }
   .sy-footer::before { height: 13px; }
   .sy-footer-links {
-    gap: .75rem .7rem;
+    gap: .75rem .45rem;
   }
+  .sy-footer-link-group h2 { font-size: .88rem; }
+  .sy-footer-link-group a { font-size: .74rem; }
   .sy-footer-contact { grid-column: 1 / -1; }
   .sy-footer .sy-brand--footer .sy-brand-name { font-size: 1rem; }
   .sy-footer .sy-brand--footer .sy-brand-tag { font-size: .65rem; }
