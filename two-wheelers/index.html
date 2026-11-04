@@ -32,7 +32,8 @@
     <link href="css/home.css?v=20261028-1639" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
     <link href="css/footer.css?v=20261028-1639" rel="stylesheet" />
-    <link href="css/rentals.css" rel="stylesheet" />
+    <link href="css/rentals.css?v=20261104-1754" rel="stylesheet" />
+    <link href="css/faq.css" rel="stylesheet" />
     <link href="css/theme.css" rel="stylesheet" />
 </head>
 
@@ -50,25 +51,32 @@
 
         <div class="filter-bar" id="filterBar">
             <div class="container filter-bar-inner">
-                <div class="filter-groups">
-                    <div class="rental-page-switch" aria-label="Bikes and scooters">
-                        <span class="filter-chip is-active"><i class="bi bi-scooter" aria-hidden="true"></i> Bikes &amp; Scooters</span>
+                <div class="filter-controls rental-type-controls">
+                    <h2 class="rental-filter-heading">
+                        <i class="bi bi-funnel-fill" aria-hidden="true"></i>
+                        <span>Filter Options</span>
+                    </h2>
+                    <div class="rental-filter-options">
+                        <select class="filter-select" id="vehicleTypeFilter" aria-label="Filter by vehicle type">
+                            <option value="all">All vehicle types</option>
+                        </select>
+                        <select class="filter-select" id="vehicleCategoryFilter" aria-label="Filter by vehicle category">
+                            <option value="all">All categories</option>
+                        </select>
+                        <select class="filter-select" id="filterSort" aria-label="Sort by">
+                            <option value="recommended">Recommended</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="name">Name (A–Z)</option>
+                        </select>
+                        <select class="filter-select" id="vehicleTransmissionFilter" aria-label="Filter by transmission">
+                            <option value="all">All Transmissions</option>
+                        </select>
                     </div>
-                    <div class="filter-chips" id="vehicleTypeFilters" role="tablist" aria-label="Vehicle type filter" hidden></div>
-                    <div class="filter-chips" id="vehicleCategoryFilters" role="tablist" aria-label="Vehicle category filter"></div>
-                </div>
-
-                <div class="filter-controls">
                     <div class="filter-search">
                         <i class="bi bi-search" aria-hidden="true"></i>
                         <input type="text" id="filterSearch" placeholder="Search bikes and scooters..." aria-label="Search bikes and scooters" />
                     </div>
-                    <select class="filter-select" id="filterSort" aria-label="Sort by">
-                        <option value="recommended">Recommended</option>
-                        <option value="price-asc">Price: Low to High</option>
-                        <option value="price-desc">Price: High to Low</option>
-                        <option value="name">Name (A–Z)</option>
-                    </select>
                     <label class="filter-toggle" for="availableOnly">
                         <input type="checkbox" id="availableOnly" />
                         <span>Available only</span>
@@ -90,15 +98,36 @@
             </div>
         </section>
 
-        <section class="section section-alt" id="why">
+        <section class="section faq-section" aria-labelledby="rentalFaqTitle">
             <div class="container">
                 <div class="section-head">
                     <div>
-                        <h2 class="section-title">Why Rent With Us?</h2>
-                        <p class="section-sub">Because your trip should start smoothly.</p>
+                        <h2 class="section-title" id="rentalFaqTitle">Bike &amp; Scooter Rental FAQs</h2>
+                        <p class="section-sub">Answers to common questions about renting a bike or scooter in Goa.</p>
                     </div>
                 </div>
-                <div class="why-grid" id="whyGrid"></div>
+                <div class="faq-list">
+                    <details class="faq-item" name="rental-faq">
+                        <summary>Do I need a valid driving licence to rent a bike or scooter?</summary>
+                        <p>Yes, a valid driving licence is required for rental vehicles. Please ensure your licence meets the applicable requirements and remains valid throughout the rental period.</p>
+                    </details>
+                    <details class="faq-item" name="rental-faq">
+                        <summary>Are there extra charges for night pickups or drops?</summary>
+                        <p>Extra charges may apply for pickups or drops between 10 PM and 7 AM, depending on the location.</p>
+                    </details>
+                    <details class="faq-item" name="rental-faq">
+                        <summary>Is there a security deposit for bike or scooter rentals?</summary>
+                        <p>A refundable security deposit may be required. The amount depends on the vehicle; please confirm it when enquiring.</p>
+                    </details>
+                    <details class="faq-item" name="rental-faq">
+                        <summary>Can I use the rented bike or scooter outside Goa?</summary>
+                        <p>No, our rental services are currently limited to within Goa state boundaries only.</p>
+                    </details>
+                    <details class="faq-item" name="rental-faq">
+                        <summary>What is the rental timing system?</summary>
+                        <p>We follow a 9:00 AM to 9:00 AM rental system. Late returns after 9:00 AM may attract an additional day charge.</p>
+                    </details>
+                </div>
             </div>
         </section>
 
@@ -118,7 +147,7 @@
     <script src="js/config.js" defer></script>
     <script src="js/data.js" defer></script>
     <script src="js/components.js" defer></script>
-    <script src="js/rentals.js" defer></script>
+    <script src="js/rentals.js?v=20261104-1745" defer></script>
 </body>
 
 </html>

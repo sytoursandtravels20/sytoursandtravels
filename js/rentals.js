@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderWhyBook(LOCAL_DATA.whyBook);
   renderVehicleFilters();
   initFilters();
+  initRentalPriceInfo();
   renderListings();
   function refreshRentalInventory() {
     return loadRentalInventory().then(function (vehicles) {
@@ -54,6 +55,69 @@ document.addEventListener("DOMContentLoaded", async function () {
   initHeaderShadow();
 });
 
+function initRentalPriceInfo() {
+  const rentalGrid = document.getElementById("rentalGrid");
+  if (!rentalGrid) return;
+
+  function positionPopover(details) {
+    const summary = details.querySelector("summary");
+    const popover = details.querySelector("p");
+    if (!summary || !popover) return;
+
+    details.classList.add("is-positioned");
+    popover.style.left = "0px";
+    popover.style.top = "0px";
+
+    const anchor = summary.getBoundingClientRect();
+    const bounds = popover.getBoundingClientRect();
+    const margin = 8;
+    const left = Math.max(margin, Math.min(
+      anchor.left + (anchor.width - bounds.width) / 2,
+      document.documentElement.clientWidth - bounds.width - margin
+    ));
+    const top = anchor.top - bounds.height - margin >= margin
+      ? anchor.top - bounds.height - margin
+      : Math.min(anchor.bottom + margin, window.innerHeight - bounds.height - margin);
+
+    popover.style.left = left + "px";
+    popover.style.top = Math.max(margin, top) + "px";
+  }
+
+  rentalGrid.addEventListener("toggle", function (event) {
+    const details = event.target;
+    if (!(details instanceof HTMLDetailsElement) || !details.matches(".rental-price-info")) return;
+
+    if (details.open) {
+      rentalGrid.querySelectorAll(".rental-price-info[open]").forEach(function (otherDetails) {
+        if (otherDetails !== details) otherDetails.open = false;
+      });
+      requestAnimationFrame(function () { positionPopover(details); });
+    } else {
+      details.classList.remove("is-positioned");
+    }
+  }, true);
+
+  document.addEventListener("pointerdown", function (event) {
+    const openDetails = rentalGrid.querySelector(".rental-price-info[open]");
+    if (openDetails && !openDetails.contains(event.target)) openDetails.open = false;
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      const openDetails = rentalGrid.querySelector(".rental-price-info[open]");
+      if (openDetails) openDetails.open = false;
+    }
+  });
+
+  function repositionOpenPopover() {
+    const openDetails = rentalGrid.querySelector(".rental-price-info[open]");
+    if (openDetails) positionPopover(openDetails);
+  }
+
+  window.addEventListener("resize", repositionOpenPopover);
+  window.addEventListener("scroll", repositionOpenPopover, true);
+}
+
 /* ============================================================
    FILTER WIRING
    ============================================================ */
@@ -70,6 +134,18 @@ function initFilters() {
   if (categorySelect) {
     categorySelect.addEventListener("change", function (event) {
       currentFilters.category = event.target.value;
+      if (rentalPageType === "two-wheeler") renderVehicleFilters();
+      renderListings();
+    });
+  }
+
+  const typeSelect = document.getElementById("vehicleTypeFilter");
+  if (typeSelect) {
+    typeSelect.addEventListener("change", function (event) {
+      currentFilters.type = event.target.value;
+      currentFilters.category = "all";
+      currentFilters.transmission = "all";
+      renderVehicleFilters();
       renderListings();
     });
   }
@@ -139,6 +215,7 @@ function initFilters() {
       if (searchInput) searchInput.value = "";
       if (sortSel) sortSel.value = currentFilters.sort;
       if (seatsSelect) seatsSelect.value = "all";
+      if (typeSelect) typeSelect.value = "all";
       if (categorySelect) categorySelect.value = "all";
       if (transmissionSelect) transmissionSelect.value = "all";
       if (availOnly) availOnly.checked = false;
@@ -159,6 +236,11 @@ function initFilterGroup(id, filterName, onSelect) {
 }
 
 function renderVehicleFilters() {
+  if (rentalPageType === "two-wheeler") {
+    renderTwoWheelerFilters();
+    return;
+  }
+
   const seatsSelect = document.getElementById("vehicleSeatsFilter");
   const categorySelect = document.getElementById("vehicleCategoryFilter");
   if (seatsSelect && categorySelect) {
@@ -202,6 +284,66 @@ function renderVehicleFilters() {
       return filterChip(category, vehicleCategoryLabel(category, sample && sample.categoryLabel), selectedCategory === category);
     })).join("");
   }
+}
+
+function renderTwoWheelerFilters() {
+  const typeSelect = document.getElementById("vehicleTypeFilter");
+  const categorySelect = document.getElementById("vehicleCategoryFilter");
+  const transmissionSelect = document.getElementById("vehicleTransmissionFilter");
+  if (!typeSelect || !categorySelect || !transmissionSelect) return;
+
+  const types = Array.from(new Set(allVehicles.map(vehicleType)));
+  if (currentFilters.type !== "all" && !types.includes(currentFilters.type)) {
+    currentFilters.type = "all";
+  }
+  const typeVehicles = currentFilters.type === "all"
+    ? allVehicles
+    : allVehicles.filter(function (vehicle) { return vehicleType(vehicle) === currentFilters.type; });
+  const categories = Array.from(new Set(typeVehicles.map(function (vehicle) {
+    return vehicle.category || "other";
+  })));
+  if (currentFilters.category !== "all" && !categories.includes(currentFilters.category)) {
+    currentFilters.category = "all";
+  }
+
+  const categoryVehicles = currentFilters.category === "all"
+    ? typeVehicles
+    : typeVehicles.filter(function (vehicle) {
+      return (vehicle.category || "other") === currentFilters.category;
+    });
+  const transmissions = Array.from(new Set(categoryVehicles.map(function (vehicle) {
+    return vehicle.transmission || "Standard";
+  }))).sort(function (a, b) { return a.localeCompare(b); });
+  if (currentFilters.transmission !== "all" && !transmissions.includes(currentFilters.transmission)) {
+    currentFilters.transmission = "all";
+  }
+
+  typeSelect.innerHTML = [
+    `<option value="all">${esc(formatText("All vehicle types"))}</option>`,
+    ...types.map(function (type) {
+      return `<option value="${esc(type)}">${esc(catalogTypeLabel(type))}</option>`;
+    })
+  ].join("");
+  typeSelect.value = currentFilters.type;
+
+  categorySelect.innerHTML = [
+    `<option value="all">${esc(formatText(categories.length > 1 ? "All categories" : "All"))}</option>`,
+    ...categories.map(function (category) {
+      const sample = typeVehicles.find(function (vehicle) {
+        return (vehicle.category || "other") === category;
+      });
+      return `<option value="${esc(category)}">${esc(vehicleCategoryLabel(category, sample && sample.categoryLabel))}</option>`;
+    })
+  ].join("");
+  categorySelect.value = currentFilters.category;
+
+  transmissionSelect.innerHTML = [
+    `<option value="all">${esc(formatText("All Transmissions"))}</option>`,
+    ...transmissions.map(function (transmission) {
+      return `<option value="${esc(transmission)}">${esc(transmission)}</option>`;
+    })
+  ].join("");
+  transmissionSelect.value = currentFilters.transmission;
 }
 
 function renderSeatAndTypeFilters(seatsSelect, categorySelect) {
@@ -346,7 +488,7 @@ function applyFilters(items, filters) {
 
   /* Category */
   if (filters.category && filters.category !== "all") {
-    list = list.filter(function (v) { return v.category === filters.category; });
+    list = list.filter(function (v) { return (v.category || "other") === filters.category; });
   }
 
   /* Transmission */

@@ -5,6 +5,43 @@
    ============================================================ */
 
 /* ---------- RENTAL BANNER ---------- */
+body[data-page="two-wheelers"] .page-hero {
+  padding: 6.5rem 0 2rem;
+  background:
+    radial-gradient(ellipse at 82% 55%, rgba(255, 200, 0, .13), transparent 30%),
+    linear-gradient(110deg, #f5f8fc 0%, #eef5fc 100%);
+}
+
+body[data-page="two-wheelers"] .page-hero-inner {
+  max-width: 900px;
+}
+
+body[data-page="two-wheelers"] .page-hero-eyebrow {
+  display: block;
+  margin-bottom: .5rem;
+  color: var(--sy-blue);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+body[data-page="two-wheelers"] .page-hero-title {
+  margin: 0;
+  color: var(--sy-navy);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1.1;
+}
+
+body[data-page="two-wheelers"] .page-hero-sub {
+  max-width: 700px;
+  margin: .75rem 0 0;
+  color: var(--sy-text);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
 body[data-page="rentals"] #site-header {
   position: relative;
 }
@@ -299,6 +336,22 @@ body[data-page="rentals"] #site-header {
   font-size: 1rem;
 }
 
+.rental-grid .rental-price-info.is-positioned p {
+  position: fixed;
+  right: auto;
+  bottom: auto;
+  z-index: 1101;
+  width: min(280px, calc(100vw - 1rem));
+  max-height: min(240px, calc(100vh - 2rem));
+  max-height: min(240px, calc(100dvh - 2rem));
+}
+
+.rental-grid .rental-card:has(.rental-price-info.is-positioned[open]) {
+  z-index: 1100;
+  transform: none;
+  transition: none;
+}
+
 .rental-grid .sy-price > span:first-child {
   display: flex;
   flex-direction: column;
@@ -386,6 +439,8 @@ body[data-page="rentals"] #site-header {
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 767.98px) {
+  body[data-page="two-wheelers"] .page-hero { padding: 6.5rem 0 1.5rem; }
+
   .rental-banner { height: clamp(200px, 56vw, 260px); }
   .rental-banner::before {
     background-image: url("/assets/images/Goa Car Rentals by the Beach.png");
@@ -416,16 +471,6 @@ body[data-page="rentals"] #site-header {
     width: 40px;
     height: 40px;
     font-size: 1.15rem;
-  }
-  .rental-grid .rental-price-info[open] {
-    flex: 1 0 100%;
-  }
-  .rental-grid .rental-price-info p {
-    position: static;
-    width: 100%;
-    max-height: 35vh;
-    margin-top: .35rem;
-    overflow-y: auto;
   }
   .cta-inner { gap: 1.25rem; }
   .cta-actions { gap: .5rem; }
