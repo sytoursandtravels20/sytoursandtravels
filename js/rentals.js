@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
   refreshRentalInventory();
-  watchCatalogUpdates(refreshRentalInventory, 60000);
+  watchCatalogUpdates(refreshRentalInventory, 30000);
   await componentsReady;
   applyConfig();
   applySharedConfig();

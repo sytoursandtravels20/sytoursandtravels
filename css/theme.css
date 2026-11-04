@@ -142,6 +142,10 @@ html[data-theme="dark"] .home-shortcut-card {
     0 4px 0 rgba(0, 0, 0, .24),
     0 12px 24px rgba(0, 0, 0, .2);
 }
+html[data-theme="dark"] .home-shortcut-card:nth-child(-n + 2),
+html[data-theme="dark"] .home-shortcut-card:nth-child(-n + 2):hover {
+  border-color: #000;
+}
 html[data-theme="dark"] .home-shortcut-subtitle { color: var(--sy-muted); }
 html[data-theme="dark"] .mobile-why-benefits .hero-benefit { color: var(--sy-text); }
 html[data-theme="dark"] .mobile-why-benefits .hero-benefit small { color: var(--sy-muted); }

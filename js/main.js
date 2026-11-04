@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("termsUpdated")
       );
     }
-  }, 60000);
+  }, 30000);
 
   await componentsReady;
   applyConfig();

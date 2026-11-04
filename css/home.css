@@ -407,6 +407,10 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
     0 18px 28px rgba(10, 37, 64, .14);
   border-color: rgba(10, 37, 64, .22);
 }
+.home-shortcut-card:nth-child(-n + 2),
+.home-shortcut-card:nth-child(-n + 2):hover {
+  border-color: #000;
+}
 .home-shortcut-card:focus-visible {
   outline: 3px solid var(--sy-blue);
   outline-offset: 3px;

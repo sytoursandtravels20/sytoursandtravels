@@ -415,35 +415,44 @@ async function loadOffers() {
   return loadCatalogCsv(CONFIG.offersCsvUrl, parseOffersCsv, fallback, label);
 }
 
-async function loadCatalogCsv(url, parse, fallback, label) {
-  if (!url) return fallback;
+const catalogRequests = new Map();
+
+function loadCatalogCsv(url, parse, fallback, label) {
+  if (!url) return Promise.resolve(fallback);
+  if (catalogRequests.has(url)) return catalogRequests.get(url);
+
   const controller = new AbortController();
   // Keep background refreshes bounded so a stalled sheet never blocks page interaction.
   const timeout = setTimeout(function () { controller.abort(); }, 8000);
-  try {
-    const requestUrl = new URL(url);
-    requestUrl.searchParams.set("_sy_refresh", Date.now().toString());
-    const response = await fetch(requestUrl.toString(), {
-      cache: "no-store",
-      signal: controller.signal
-    });
-    if (!response.ok) throw new Error("HTTP " + response.status);
-    const csv = await response.text();
-    const data = parse(csv);
-    cacheCatalogCsv(url, csv, label);
-    console.info("[SY] Loaded " + label + " from Google Sheets.");
-    return data;
-  } catch (error) {
-    console.warn("[SY] Google Sheets " + label + " unavailable; keeping local data.", error);
-    return fallback;
-  } finally {
-    clearTimeout(timeout);
-  }
+  const request = Promise.resolve().then(async function () {
+    try {
+      const requestUrl = new URL(url);
+      requestUrl.searchParams.set("_sy_refresh", Date.now().toString());
+      const response = await fetch(requestUrl.toString(), {
+        cache: "no-store",
+        signal: controller.signal
+      });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const csv = await response.text();
+      const data = parse(csv);
+      cacheCatalogCsv(url, csv, label);
+      console.info("[SY] Loaded " + label + " from Google Sheets.");
+      return data;
+    } catch (error) {
+      console.warn("[SY] Google Sheets " + label + " unavailable; keeping local data.", error);
+      return fallback;
+    } finally {
+      clearTimeout(timeout);
+      catalogRequests.delete(url);
+    }
+  });
+  catalogRequests.set(url, request);
+  return request;
 }
 
 function watchCatalogUpdates(refresh, intervalMs) {
   const minimumRefreshGap = 15000;
-  const interval = intervalMs || 60000;
+  const interval = intervalMs || 30000;
   let lastRefresh = Date.now();
 
   function refreshIfDue() {
