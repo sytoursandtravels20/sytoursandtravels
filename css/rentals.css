@@ -276,7 +276,7 @@ body[data-page="rentals"] #site-header {
 
 .rental-grid .sy-card-media {
   aspect-ratio: 1.9;
-  background: linear-gradient(145deg, var(--sy-sky), var(--sy-card) 70%);
+  background: #fff;
 }
 
 .rental-grid .sy-card-media img {
