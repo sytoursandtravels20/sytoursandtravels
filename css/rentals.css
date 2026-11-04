@@ -460,7 +460,12 @@ body[data-page="rentals"] #site-header {
   }
   .filter-toggle { width: auto; justify-content: center; padding: .5rem .65rem; font-size: .78rem; }
 
-  .rental-grid { grid-template-columns: minmax(0, 520px); gap: 1rem; }
+  .rental-grid {
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch;
+    gap: 1rem;
+  }
+  .rental-grid .rental-card { width: 100%; min-width: 0; }
   .section { padding: 2.5rem 0; }
   .sy-card-body { padding: .9rem; }
   .sy-specs { gap: .5rem .7rem; }
