@@ -5,6 +5,8 @@
    ============================================================ */
 
 let allVehicles = [];
+const RENTALS_PER_PAGE = 19;
+let currentRentalPage = 1;
 const requestedCategory = new URLSearchParams(window.location.search).get("category");
 const requestedType = new URLSearchParams(window.location.search).get("type");
 const rentalPageType = document.body.dataset.rentalType || "car";
@@ -122,6 +124,16 @@ function initRentalPriceInfo() {
    FILTER WIRING
    ============================================================ */
 function initFilters() {
+  const pagination = document.getElementById("rentalPagination");
+  if (pagination) {
+    pagination.addEventListener("click", function (event) {
+      const button = event.target.closest("button[data-page]");
+      if (!button || !pagination.contains(button) || button.disabled) return;
+      currentRentalPage = Number(button.dataset.page);
+      renderListings(false);
+    });
+  }
+
   const seatsSelect = document.getElementById("vehicleSeatsFilter");
   if (seatsSelect) {
     seatsSelect.addEventListener("change", function (event) {
@@ -442,30 +454,54 @@ function prepareRentalCards(vehicles) {
 /* ============================================================
    APPLY FILTERS + RENDER
    ============================================================ */
-function renderListings() {
+function renderListings(resetPage) {
   const list = applyFilters(allVehicles, currentFilters);
   const grid = document.getElementById("rentalGrid");
   const count = document.getElementById("resultsCount");
   const empty = document.getElementById("emptyState");
+  const pagination = document.getElementById("rentalPagination");
 
   if (!grid) return;
+
+  if (resetPage !== false) currentRentalPage = 1;
 
   if (list.length === 0) {
     grid.innerHTML = "";
     if (empty) empty.hidden = false;
     if (count) count.textContent = "";
+    if (pagination) {
+      pagination.hidden = true;
+      pagination.innerHTML = "";
+    }
     return;
   }
 
+  const pageCount = Math.ceil(list.length / RENTALS_PER_PAGE);
+  currentRentalPage = Math.min(currentRentalPage, pageCount);
+  const start = (currentRentalPage - 1) * RENTALS_PER_PAGE;
+  const pageVehicles = list.slice(start, start + RENTALS_PER_PAGE);
+
   if (empty) empty.hidden = true;
-  grid.innerHTML = list.map(function (vehicle) {
+  grid.innerHTML = pageVehicles.map(function (vehicle) {
     return vehicleCard(vehicle, allVehicles.indexOf(vehicle));
   }).join("");
   if (count) {
-    count.textContent = formatText("Showing {shown} of {total} vehicles", {
-      shown: String(list.length),
-      total: String(allVehicles.length)
+    count.textContent = formatText("Showing {start}-{end} of {total} vehicles", {
+      start: String(start + 1),
+      end: String(start + pageVehicles.length),
+      total: String(list.length)
     });
+  }
+  if (pagination) {
+    pagination.hidden = pageCount < 2;
+    pagination.innerHTML = pageCount < 2 ? "" : [
+      `<button class="rental-page-button" type="button" data-page="${currentRentalPage - 1}" aria-label="${esc(formatText("Previous page"))}"${currentRentalPage === 1 ? " disabled" : ""}>${esc(formatText("Previous"))}</button>`,
+      ...Array.from({ length: pageCount }, function (_, index) {
+        const page = index + 1;
+        return `<button class="rental-page-button${page === currentRentalPage ? " is-active" : ""}" type="button" data-page="${page}" aria-label="${esc(formatText("Page {page}", { page: String(page) }))}"${page === currentRentalPage ? ' aria-current="page"' : ""}>${page}</button>`;
+      }),
+      `<button class="rental-page-button" type="button" data-page="${currentRentalPage + 1}" aria-label="${esc(formatText("Next page"))}"${currentRentalPage === pageCount ? " disabled" : ""}>${esc(formatText("Next"))}</button>`
+    ].join("");
   }
 }
 

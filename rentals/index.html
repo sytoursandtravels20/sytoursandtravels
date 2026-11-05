@@ -37,7 +37,7 @@
     <link href="css/header.css" rel="stylesheet" />
     <link href="css/footer.css?v=20261028-1639" rel="stylesheet" />
     <!-- rentals.css adds page-specific styles: compact hero, filter bar -->
-    <link href="css/rentals.css?v=20261104-1825" rel="stylesheet" />
+    <link href="css/rentals.css?v=20261105-1727" rel="stylesheet" />
     <link href="css/faq.css" rel="stylesheet" />
     <link href="css/theme.css" rel="stylesheet" />
 </head>
@@ -96,9 +96,11 @@
         <section class="section" id="listings">
             <div class="container">
 
-                <p class="results-count" id="resultsCount"></p>
+                <p class="results-count" id="resultsCount" aria-live="polite"></p>
 
                 <div class="rental-grid" id="rentalGrid"></div>
+
+                <nav class="rental-pagination" id="rentalPagination" aria-label="Rental listings pages" hidden></nav>
 
                 <div class="empty-state" id="emptyState" hidden>
                     <i class="bi bi-search"></i>
@@ -163,7 +165,7 @@
     <script src="js/config.js" defer></script>
     <script src="js/data.js" defer></script>
     <script src="js/components.js" defer></script>
-    <script src="js/rentals.js?v=20261104-1742" defer></script>
+    <script src="js/rentals.js?v=20261105-1721" defer></script>
 </body>
 
 </html>
