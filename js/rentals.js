@@ -16,7 +16,7 @@ let currentFilters = {
   seats: "all",
   transmission: "all",
   search: "",
-  sort: rentalPageType === "two-wheeler" ? "recommended" : "",
+  sort: "",
   availableOnly: false
 };
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     return loadRentalInventory().then(function (vehicles) {
       allVehicles = prepareRentalCards(visibleVehicles(vehicles));
       renderVehicleFilters();
-      renderListings();
+      renderListings(false);
     });
   }
   refreshRentalInventory();
@@ -131,6 +131,16 @@ function initFilters() {
       if (!button || !pagination.contains(button) || button.disabled) return;
       currentRentalPage = Number(button.dataset.page);
       renderListings(false);
+
+      const resultsCount = document.getElementById("resultsCount");
+      if (resultsCount) {
+        const filterBar = document.getElementById("filterBar");
+        const stickyOffset = filterBar ? filterBar.getBoundingClientRect().bottom : 0;
+        window.scrollBy({
+          top: resultsCount.getBoundingClientRect().top - stickyOffset - 12,
+          behavior: "smooth"
+        });
+      }
     });
   }
 
@@ -219,7 +229,7 @@ function initFilters() {
         seats: "all",
         transmission: "all",
         search: "",
-        sort: rentalPageType === "two-wheeler" ? "recommended" : "",
+        sort: "",
         availableOnly: false
       };
       currentFilters.type = "all";
