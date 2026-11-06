@@ -134,9 +134,11 @@ function initFilters() {
       const resultsCount = document.getElementById("resultsCount");
       if (resultsCount) {
         const filterBar = document.getElementById("filterBar");
-        const stickyOffset = filterBar ? filterBar.getBoundingClientRect().bottom : 0;
-        window.scrollBy({
-          top: resultsCount.getBoundingClientRect().top - stickyOffset - 12,
+        const stickyOffset = filterBar && window.getComputedStyle(filterBar).position === "sticky"
+          ? filterBar.getBoundingClientRect().bottom
+          : 0;
+        window.scrollTo({
+          top: window.scrollY + resultsCount.getBoundingClientRect().top - stickyOffset - 12,
           behavior: "smooth"
         });
       }
