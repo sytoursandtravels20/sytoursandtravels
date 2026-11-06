@@ -392,8 +392,8 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
   content: "";
   pointer-events: none;
 }
-.home-shortcut-card:nth-child(6n + 1) { --shortcut-accent: #1e6fd9; background: #e8f3fc; }
-.home-shortcut-card:nth-child(6n + 2) { --shortcut-accent: #238363; background: #e9f5ec; }
+.home-shortcut-card:nth-child(6n + 1) { --shortcut-accent: #2f80ee; background: #e8f4ff; }
+.home-shortcut-card:nth-child(6n + 2) { --shortcut-accent: #2ca778; background: #e9f9ee; }
 .home-shortcut-card:nth-child(6n + 3) { --shortcut-accent: #d6a900; background: #fff8df; }
 .home-shortcut-card:nth-child(6n + 4) { --shortcut-accent: #d77935; background: #fff0e5; }
 .home-shortcut-card:nth-child(6n + 5) { --shortcut-accent: #7862b2; background: #f0ecfa; }
@@ -409,7 +409,7 @@ body[data-page="home"] .hero-cta .btn-ghost:hover {
 }
 .home-shortcut-card:nth-child(-n + 2),
 .home-shortcut-card:nth-child(-n + 2):hover {
-  border-color: #000;
+  border-color: var(--shortcut-accent);
 }
 .home-shortcut-card:focus-visible {
   outline: 3px solid var(--sy-blue);
