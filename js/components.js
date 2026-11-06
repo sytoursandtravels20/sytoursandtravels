@@ -2,6 +2,8 @@
 
 document.documentElement.dataset.theme = "light";
 
+document.addEventListener("DOMContentLoaded", initMobileRentalMenus);
+
 function formatText(source, values) {
   return String(source).replace(/\{([^}]+)\}/g, function (placeholder, key) {
     return values && Object.prototype.hasOwnProperty.call(values, key) ? values[key] : placeholder;
@@ -107,6 +109,59 @@ function fmtPrice(n) {
 
 function waLink(message) {
   return "https://wa.me/" + CONFIG.company.phoneRaw + "?text=" + encodeURIComponent(message);
+}
+
+function initMobileRentalMenus() {
+  const nav = document.querySelector(".mobile-nav");
+  if (!nav) return;
+
+  const rentalLink = nav.querySelector('.mobile-nav-item[data-page="rentals"]');
+  if (!rentalLink) return;
+
+  const rentalMenu = document.createElement("div");
+  rentalMenu.className = "mobile-nav-rental";
+
+  const trigger = document.createElement("button");
+  trigger.className = rentalLink.className;
+  trigger.type = "button";
+  trigger.dataset.page = "rentals";
+  trigger.setAttribute("aria-label", "Rental options");
+  trigger.setAttribute("aria-expanded", "false");
+  trigger.innerHTML = rentalLink.innerHTML;
+  const label = trigger.querySelector("span");
+  if (label) label.textContent = "Rentals";
+
+  const menu = document.createElement("div");
+  menu.className = "mobile-rental-menu";
+  menu.id = "mobileRentalMenu";
+  menu.setAttribute("aria-label", "Rental options");
+  menu.setAttribute("role", "group");
+  menu.hidden = true;
+  menu.innerHTML =
+    '<a href="/rentals/"><i class="bi bi-car-front-fill" aria-hidden="true"></i><span>Car Rentals</span></a>' +
+    '<a href="/two-wheelers/"><i class="bi bi-scooter" aria-hidden="true"></i><span>Scooty &amp; Bike Rentals</span></a>';
+  trigger.setAttribute("aria-controls", menu.id);
+
+  function setMenuOpen(isOpen) {
+    menu.hidden = !isOpen;
+    trigger.setAttribute("aria-expanded", String(isOpen));
+  }
+
+  trigger.addEventListener("click", function () {
+    setMenuOpen(menu.hidden);
+  });
+  document.addEventListener("click", function (event) {
+    if (!rentalMenu.contains(event.target)) setMenuOpen(false);
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !menu.hidden) {
+      setMenuOpen(false);
+      trigger.focus();
+    }
+  });
+
+  rentalMenu.append(trigger, menu);
+  rentalLink.replaceWith(rentalMenu);
 }
 
 /* Keep desktop and mobile navigation states in sync with the current page. */

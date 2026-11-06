@@ -85,6 +85,13 @@ html[data-theme="dark"] .section-link:hover,
 html[data-theme="dark"] .map-pick-button:hover { color: var(--sy-text); }
 html[data-theme="dark"] .mobile-nav-item.is-active,
 html[data-theme="dark"] .mobile-nav-item:hover { color: var(--sy-text); }
+html[data-theme="dark"] .mobile-rental-menu {
+  border-color: var(--sy-border);
+  background: var(--sy-card);
+}
+html[data-theme="dark"] .mobile-rental-menu a { color: var(--sy-text); }
+html[data-theme="dark"] .mobile-rental-menu a:hover,
+html[data-theme="dark"] .mobile-rental-menu a:focus-visible { background: var(--sy-sky); }
 html[data-theme="dark"] .catalog-category { background: var(--sy-sky); }
 html[data-theme="dark"] .catalog-filter-chip,
 html[data-theme="dark"] .field-control,
