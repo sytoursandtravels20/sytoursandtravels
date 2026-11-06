@@ -16,8 +16,7 @@ let currentFilters = {
   seats: "all",
   transmission: "all",
   search: "",
-  sort: "",
-  availableOnly: false
+  sort: ""
 };
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -212,14 +211,6 @@ function initFilters() {
     });
   }
 
-  const availOnly = document.getElementById("availableOnly");
-  if (availOnly) {
-    availOnly.addEventListener("change", function (e) {
-      currentFilters.availableOnly = e.target.checked;
-      renderListings();
-    });
-  }
-
   /* Clear filters button */
   const clearBtn = document.getElementById("clearFilters");
   if (clearBtn) {
@@ -229,8 +220,7 @@ function initFilters() {
         seats: "all",
         transmission: "all",
         search: "",
-        sort: "",
-        availableOnly: false
+        sort: ""
       };
       currentFilters.type = "all";
       renderVehicleFilters();
@@ -240,7 +230,6 @@ function initFilters() {
       if (typeSelect) typeSelect.value = "all";
       if (categorySelect) categorySelect.value = "all";
       if (transmissionSelect) transmissionSelect.value = "all";
-      if (availOnly) availOnly.checked = false;
       renderListings();
     });
   }
@@ -542,12 +531,6 @@ function applyFilters(items, filters) {
     list = list.filter(function (vehicle) {
       return (vehicle.transmission || "Standard") === filters.transmission;
     });
-  }
-
-  // Booked vehicles can still be shown, but are removed by the availability toggle.
-  /* Available only */
-  if (filters.availableOnly) {
-    list = list.filter(function (v) { return v.status !== "booked"; });
   }
 
   /* Search — matches vehicle name or listed transmission */
