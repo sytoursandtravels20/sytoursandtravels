@@ -58,7 +58,7 @@ body[data-page="rentals"] #site-header {
   position: absolute;
   z-index: -1;
   inset: -18px;
-  background: url("/assets/images/Find Your Perfect Goa Rental.png") center / cover no-repeat;
+  background: url("/assets/images/Find Your Perfect Goa Rental.webp") center / cover no-repeat;
   content: "";
   filter: blur(14px);
   opacity: .7;
@@ -491,7 +491,7 @@ html[data-theme="dark"] .rental-grid .rental-card:hover {
 
   .rental-banner { height: clamp(200px, 56vw, 260px); }
   .rental-banner::before {
-    background-image: url("/assets/images/Goa Car Rentals by the Beach.png");
+    background-image: url("/assets/images/Goa Car Rentals by the Beach.webp");
   }
 
   .filter-bar { position: relative; z-index: 1; padding: .3rem 0; }

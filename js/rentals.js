@@ -481,8 +481,9 @@ function renderListings(resetPage) {
   const pageVehicles = list.slice(start, start + RENTALS_PER_PAGE);
 
   if (empty) empty.hidden = true;
-  grid.innerHTML = pageVehicles.map(function (vehicle) {
-    return vehicleCard(vehicle, allVehicles.indexOf(vehicle));
+  const priorityImageIndex = pageVehicles.findIndex(function (vehicle) { return Boolean(vehicle.image); });
+  grid.innerHTML = pageVehicles.map(function (vehicle, index) {
+    return vehicleCard(vehicle, allVehicles.indexOf(vehicle), index === priorityImageIndex);
   }).join("");
   if (count) {
     count.textContent = formatText("Showing {start}-{end} of {total} vehicles", {

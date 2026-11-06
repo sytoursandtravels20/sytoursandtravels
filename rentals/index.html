@@ -20,6 +20,8 @@
     <meta name="theme-color" content="#0A2540" />
     <link rel="icon" type="image/svg+xml" href="/sy-logo.svg" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" as="image" href="/assets/images/Find%20Your%20Perfect%20Goa%20Rental.webp" media="(min-width: 768px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/assets/images/Goa%20Car%20Rentals%20by%20the%20Beach.webp" media="(max-width: 767.98px)" fetchpriority="high" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,11 +35,11 @@
     <!-- home.css provides shared tokens, buttons, cards, section headings, CTA, mobile-nav -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
-    <link href="css/home.css?v=20261028-1639" rel="stylesheet" />
+    <link href="css/home.css?v=20261106-1713" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
     <link href="css/footer.css?v=20261028-1639" rel="stylesheet" />
     <!-- rentals.css adds page-specific styles: compact hero, filter bar -->
-    <link href="css/rentals.css?v=20261105-1727" rel="stylesheet" />
+    <link href="css/rentals.css?v=20261106-1713" rel="stylesheet" />
     <link href="css/faq.css" rel="stylesheet" />
     <link href="css/theme.css" rel="stylesheet" />
 </head>
@@ -51,9 +53,12 @@
         <!-- COMPACT HERO -->
         <section class="rental-banner">
             <picture>
+                <source media="(min-width: 768px)"
+                    srcset="/assets/images/Find%20Your%20Perfect%20Goa%20Rental.webp" />
                 <source media="(max-width: 767.98px)"
-                    srcset="/assets/images/Goa Car Rentals by the Beach.png" />
+                    srcset="/assets/images/Goa%20Car%20Rentals%20by%20the%20Beach.webp" />
                 <img class="rental-banner-image" src="/assets/images/Find Your Perfect Goa Rental.png"
+                    fetchpriority="high" decoding="async" width="2060" height="763"
                     alt="Car rentals in Goa: find the right car for your Goa trip" />
             </picture>
         </section>
@@ -164,8 +169,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="js/config.js" defer></script>
     <script src="js/data.js" defer></script>
-    <script src="js/components.js" defer></script>
-    <script src="js/rentals.js?v=20261106-1642" defer></script>
+    <script src="js/components.js?v=20261106-1713" defer></script>
+    <script src="js/rentals.js?v=20261106-1713" defer></script>
 </body>
 
 </html>

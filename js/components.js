@@ -192,7 +192,7 @@ function initHeaderShadow() {
   update();
 }
 
-function vehicleCard(v, rentalIndex) {
+function vehicleCard(v, rentalIndex, prioritizeImage) {
   /* Availability state */
   const detailsText = (v.details || v.priceDetails || "").trim();
   const isBooked = v.status === "booked";
@@ -259,7 +259,7 @@ function vehicleCard(v, rentalIndex) {
     ? transmissionSpec + passengerSpec + quantitySpec
     : passengerSpec + transmissionSpec + quantitySpec;
   const vehicleImage = v.image
-    ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy" decoding="async">`
+    ? `<img src="${esc(v.image)}" alt="${esc(v.name)}" loading="${prioritizeImage ? "eager" : "lazy"}" decoding="async"${prioritizeImage ? ' fetchpriority="high"' : ""}>`
     : "";
 
   return `
